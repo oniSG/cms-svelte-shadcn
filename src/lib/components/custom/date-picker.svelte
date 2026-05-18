@@ -11,8 +11,8 @@
 		type CalendarDate
 	} from '@internationalized/date';
 
-	type Props = Partial<ControlAttrs> & { value?: Date };
-	let { value = $bindable(), id, ...restProps }: Props = $props();
+	type Props = Partial<ControlAttrs> & { value?: Date; placeholder?: string };
+	let { value = $bindable(), id, placeholder = 'Select date', ...restProps }: Props = $props();
 
 	const fallbackId = $props.id();
 	const triggerId = $derived(id ?? `${fallbackId}-date`);
@@ -34,7 +34,7 @@
 			>
 				{calendarValue
 					? calendarValue.toDate(getLocalTimeZone()).toLocaleDateString()
-					: 'Select date'}
+					: placeholder}
 				<ChevronDownIcon />
 			</Button>
 		{/snippet}

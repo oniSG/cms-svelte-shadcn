@@ -3,8 +3,29 @@
 	import { Button } from '$lib/components/ui/button';
 	import ExternalLinkIcon from '@lucide/svelte/icons/external-link';
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
+	import { resolve } from '$app/paths';
+	import type { Pathname } from '$app/types';
 
-	const pages = [
+	const pages: Array<{
+		title: string;
+		description: string;
+		features: string[];
+		original: string;
+		href: Pathname;
+	}> = [
+		{
+			title: 'Login',
+			description:
+				'Minimal sign-in form with email and password fields and client-side validation.',
+			features: [
+				'Superforms + Zod v4 schema validation',
+				'Password show/hide toggle',
+				'Forgot password link',
+				'SPA submission with toast feedback'
+			],
+			original: '#',
+			href: '/login'
+		},
 		{
 			title: 'Newsletter Subscription',
 			description:
@@ -17,37 +38,38 @@
 				'SPA submission with toast feedback'
 			],
 			original: '#',
-			href: '/template/newsletter'
+			href: '/newsletter'
 		},
 		{
 			title: 'Unsubscribe Email',
-			description: 'Granular email preference management letting users toggle per-category subscriptions.',
+			description:
+				'Granular email preference management letting users toggle per-category subscriptions.',
 			features: [
 				'Per-category email preference toggles',
 				'Marketing, organizer and event categories',
 				'Language switcher'
 			],
 			original: '#',
-			href: '/template/unsubscribe-email'
+			href: '/unsubscribe-email'
 		},
 		{
 			title: 'Unsubscribe SMS',
 			description: 'Minimal SMS opt-out page with a single preference toggle.',
 			features: ['SMS opt-in / opt-out toggle', 'Single-preference layout', 'Language switcher'],
 			original: '#',
-			href: '/template/unsubscribe-sms'
+			href: '/unsubscribe-sms'
 		},
 		{
 			title: 'Unsubscribed Confirmation',
 			description: 'Post-unsubscribe confirmation screen acknowledging the user action.',
 			features: ['Confirmation state card', 'Czech localisation', 'Close action button'],
 			original: '#',
-			href: '/template/unsubscribed'
+			href: '/unsubscribed'
 		}
 	];
 </script>
 
-<div class="min-h-svh bg-muted/30 px-6 py-12">
+<div class="pt-24">
 	<div class="mx-auto max-w-5xl">
 		<header class="mb-10">
 			<p class="mb-1 text-sm font-medium text-primary">CMS Svelte / shadcn</p>
@@ -58,13 +80,13 @@
 		</header>
 
 		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-			{#each pages as page}
+			{#each pages as page, i (i)}
 				<Card.Root class="group relative flex flex-col transition-shadow hover:shadow-md">
 					<Card.Header>
 						<Card.Title>
 							<a
-								href={page.href}
-								class="after:absolute after:inset-0 after:rounded-[inherit] group-hover:text-primary"
+								href={resolve(page.href)}
+								class="group-hover:text-primary after:absolute after:inset-0 after:rounded-[inherit]"
 							>
 								{page.title}
 							</a>
@@ -74,7 +96,7 @@
 
 					<Card.Content class="flex-1">
 						<ul class="space-y-1.5">
-							{#each page.features as feature}
+							{#each page.features as feature, j (j)}
 								<li class="flex items-start gap-2 text-sm text-foreground/80">
 									<span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary"></span>
 									{feature}
@@ -88,7 +110,7 @@
 							Original
 							<ExternalLinkIcon />
 						</Button>
-						<Button size="sm" href={page.href}>
+						<Button size="sm" href={resolve(page.href)}>
 							New version
 							<ArrowRightIcon />
 						</Button>
