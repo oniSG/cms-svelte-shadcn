@@ -1,111 +1,121 @@
 <script lang="ts">
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
+	import { Switch } from '$lib/components/ui/switch';
+	import * as Field from '$lib/components/ui/field';
+	import Separator from '$lib/components/ui/separator/separator.svelte';
+
+	let openEmail = $state(false);
+	let openPush = $state(false);
+	let openMobile = $state(false);
 </script>
 
 <PageHeader
 	breadcrumbs={[{ title: 'Home', url: '/' }, { title: 'Settings' }, { title: 'Frequency cap' }]}
 />
 
-<div class="mb-10 border-border">
-	<div class="flex items-center justify-between px-6 py-4">
-		<h3 class="text-lg font-medium">Frekvence odesílání</h3>
-		<Button>Uložit</Button>
-	</div>
-
-	<div class="grid grid-cols-1 md:grid-cols-2">
-		<Card.Root class="mb-4 ml-6">
+<div class="my-5">
+	<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+		<Card.Root class="h-min">
 			<Card.Header>
 				<Card.Title>E-mail</Card.Title>
+				<Card.Description
+					>Nastavení frekvence odesílání e-mailů se projeví u všech uživatelů</Card.Description
+				>
 			</Card.Header>
 
 			<Card.Content>
-				<div class="mb-10 flex items-center gap-3">
-					<Checkbox
-						id="email-checkbox-frequency-cap"
-						class="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
-					/>
-					<Label for="email-checkbox-frequency-cap">
-						Zapnout frekvence odesílání
-					</Label>
-				</div>
+				<Field.Group>
+					<Field.Field orientation="horizontal">
+						<Field.Label>Zapnout frekvence odesílání</Field.Label>
+						<Switch bind:checked={openEmail} />
+					</Field.Field>
 
-				<form>
-					<div class="flex flex-col gap-6">
-						<div class="grid gap-2">
-							<Label for="email-frequency-cap">Povolený počet odesílání</Label>
-							<Input id="email-frequency-cap" type="number" placeholder="10" required />
-						</div>
+					{#if openEmail}
+						<Separator />
 
-						<div class="grid gap-2">
-							<Label for="email-days-count">Počet dní</Label>
-							<Input id="email-days-count" type="number" placeholder="1" required />
+						<div class="flex gap-6">
+							<Field.Field>
+								<Field.Label>Povolený počet odesílání</Field.Label>
+								<Input type="number" placeholder="10" required class="max-w-xs" />
+							</Field.Field>
+
+							<Field.Field>
+								<Field.Label>Počet dní</Field.Label>
+								<Input type="number" placeholder="1" required class="max-w-xs" />
+							</Field.Field>
 						</div>
-					</div>
-				</form>
+					{/if}
+				</Field.Group>
 			</Card.Content>
 		</Card.Root>
 
-		<Card.Root class="mb-4 ml-6">
+		<Card.Root>
 			<Card.Header>
 				<Card.Title>Push</Card.Title>
+				<Card.Description
+					>Nastavení frekvence odesílání push notifikací se projeví u všech uživatelů</Card.Description
+				>
 			</Card.Header>
 
 			<Card.Content>
-				<div class="mb-10 flex items-center gap-3">
-					<Checkbox
-						id="push-checkbox-frequency-cap"
-						class="data-[state=checked]:border-primary data-[state=checked]:bg-primary"
-					/>
-					<Label for="push-checkbox-frequency-cap">
-						Zapnout frekvence odesílání
-					</Label>
-				</div>
+				<Field.Group>
+					<Field.Field orientation="horizontal">
+						<Field.Label>Zapnout frekvence odesílání</Field.Label>
+						<Switch bind:checked={openPush} />
+					</Field.Field>
 
-				<form>
-					<div class="flex flex-col gap-6">
-						<div class="grid gap-2">
-							<Label for="push-frequency-cap">Povolený počet odesílání</Label>
-							<Input id="push-frequency-cap" type="number" placeholder="10" required />
-						</div>
+					{#if openPush}
+						<Separator />
 
-						<div class="grid gap-2">
-							<Label for="push-days-count">Počet dní</Label>
-							<Input id="push-days-count" type="number" placeholder="1" required />
+						<div class="flex gap-6">
+							<Field.Field>
+								<Field.Label>Povolený počet odesílání</Field.Label>
+								<Input type="number" placeholder="10" required class="max-w-xs" />
+							</Field.Field>
+
+							<Field.Field>
+								<Field.Label>Počet dní</Field.Label>
+								<Input type="number" placeholder="1" required class="max-w-xs" />
+							</Field.Field>
 						</div>
-					</div>
-				</form>
+					{/if}
+				</Field.Group>
 			</Card.Content>
 		</Card.Root>
 
-		<Card.Root class="mb-4 ml-6">
+		<Card.Root>
 			<Card.Header>
 				<Card.Title>Mobilní zpráva</Card.Title>
+				<Card.Description
+					>Nastavení frekvence odesílání mobilních zpráv se projeví u všech uživatelů</Card.Description
+				>
 			</Card.Header>
 
 			<Card.Content>
-				<div class="mb-10 flex items-center gap-3">
-					<Checkbox id="mobile-checkbox-frequency-cap" class="data-[state=checked]:border-primary data-[state=checked]:bg-primary" />
-					<Label for="mobile-checkbox-frequency-cap">Zapnout frekvence odesílání</Label>
-				</div>
+				<Field.Group>
+					<Field.Field orientation="horizontal">
+						<Field.Label>Zapnout frekvence odesílání</Field.Label>
+						<Switch bind:checked={openMobile} />
+					</Field.Field>
 
-				<form>
-					<div class="flex flex-col gap-6">
-						<div class="grid gap-2">
-							<Label for="mobile-frequency-cap">Povolený počet odesílání</Label>
-							<Input id="mobile-frequency-cap" type="number" placeholder="10" required />
-						</div>
+					{#if openMobile}
+						<Separator />
 
-						<div class="grid gap-2">
-							<Label for="mobile-days-count">Počet dní</Label>
-							<Input id="mobile-days-count" type="number" placeholder="1" required />
+						<div class="flex gap-6">
+							<Field.Field>
+								<Field.Label>Povolený počet odesílání</Field.Label>
+								<Input type="number" placeholder="10" required class="max-w-xs" />
+							</Field.Field>
+
+							<Field.Field>
+								<Field.Label>Počet dní</Field.Label>
+								<Input type="number" placeholder="1" required class="max-w-xs" />
+							</Field.Field>
 						</div>
-					</div>
-				</form>
+					{/if}
+				</Field.Group>
 			</Card.Content>
 		</Card.Root>
 	</div>
