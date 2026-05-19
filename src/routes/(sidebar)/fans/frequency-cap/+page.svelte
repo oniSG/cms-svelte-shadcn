@@ -11,7 +11,7 @@
 	breadcrumbs={[{ title: 'Home', url: '/' }, { title: 'Settings' }, { title: 'Frequency cap' }]}
 />
 
-<div class="mb-10 border-gray-200">
+<div class="mb-10 border-border">
 	<div class="flex items-center justify-between px-6 py-4">
 		<h3 class="text-lg font-medium">Frekvence odesílání</h3>
 		<Button>Uložit</Button>
@@ -27,11 +27,11 @@
 				<div class="mb-10 flex items-center gap-3">
 					<Checkbox
 						id="email-checkbox-frequency-cap"
-						class="text-white data-[state=checked]:border-lime-500 data-[state=checked]:bg-lime-500"
+						class="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
 					/>
-					<Label for="email-checkbox-frequency-cap" class="cursor-pointer"
-						>Zapnout frekvence odesílání</Label
-					>
+					<Label for="email-checkbox-frequency-cap">
+						Zapnout frekvence odesílání
+					</Label>
 				</div>
 
 				<form>
@@ -59,11 +59,11 @@
 				<div class="mb-10 flex items-center gap-3">
 					<Checkbox
 						id="push-checkbox-frequency-cap"
-						class="text-white data-[state=checked]:border-lime-500 data-[state=checked]:bg-lime-500"
+						class="data-[state=checked]:border-primary data-[state=checked]:bg-primary"
 					/>
-					<Label for="push-checkbox-frequency-cap" class="cursor-pointer"
-						>Zapnout frekvence odesílání</Label
-					>
+					<Label for="push-checkbox-frequency-cap">
+						Zapnout frekvence odesílání
+					</Label>
 				</div>
 
 				<form>
@@ -89,13 +89,8 @@
 
 			<Card.Content>
 				<div class="mb-10 flex items-center gap-3">
-					<Checkbox
-						id="mobile-checkbox-frequency-cap"
-						class="text-white data-[state=checked]:border-lime-500 data-[state=checked]:bg-lime-500"
-					/>
-					<Label for="mobile-checkbox-frequency-cap" class="cursor-pointer"
-						>Zapnout frekvence odesílání</Label
-					>
+					<Checkbox id="mobile-checkbox-frequency-cap" class="data-[state=checked]:border-primary data-[state=checked]:bg-primary" />
+					<Label for="mobile-checkbox-frequency-cap">Zapnout frekvence odesílání</Label>
 				</div>
 
 				<form>
