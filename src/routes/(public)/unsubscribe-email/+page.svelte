@@ -26,7 +26,7 @@
 <div class="flex min-h-svh items-center justify-center bg-background">
 	<Card.Root class="w-full max-w-xl">
 		<Card.Header>
-			<Card.Title class="text-lg">{m.email_prefs_title()}</Card.Title>
+			<Card.Title>{m.email_prefs_title()}</Card.Title>
 			<Card.Description>{m.email_prefs_description()}</Card.Description>
 		</Card.Header>
 
