@@ -53,7 +53,7 @@
 						{ title: m.nav_set_fans_newsletter_form(), url: '/' },
 						{ title: m.nav_set_fans_sending_domains(), url: '/fans/sending-domain' },
 						{ title: m.nav_set_fans_domain_prefix(), url: '/' },
-						{ title: m.nav_set_fans_reply_email(), url: '/' },
+						{ title: m.nav_set_fans_reply_email(), url: '/fans/email-for-reply' },
 						{ title: m.nav_set_fans_send_frequency(), url: '/fans/frequency-cap' }
 					]
 				},
