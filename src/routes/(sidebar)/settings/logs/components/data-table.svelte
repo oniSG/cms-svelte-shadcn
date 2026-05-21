@@ -147,7 +147,7 @@
 			</Table.Header>
 			<Table.Body>
 				{#each table.getRowModel().rows as row (row.id)}
-					<DataTableDialog row={row.original as Log}>
+					<DataTableDialog log={row.original as Log}>
 						{#snippet children(props)}
 							<Table.Row
 								{...props}

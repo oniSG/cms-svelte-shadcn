@@ -5,7 +5,7 @@
 	import type { Log } from '../columns';
 	import CodeBlock from './code-block.svelte';
 
-	const { children, row }: { children: Snippet<[Record<string, unknown>]>; row: Log } = $props();
+	const { children, log }: { children: Snippet<[Record<string, unknown>]>; log: Log } = $props();
 </script>
 
 <Dialog.Root>
@@ -18,7 +18,7 @@
 		<Dialog.Header>
 			<Dialog.Title>Log Details</Dialog.Title>
 		</Dialog.Header>
-		<CodeBlock code={JSON.stringify(row, null, 2)} />
+		<CodeBlock code={JSON.stringify(log, null, 2)} />
 		<Dialog.Footer>
 			<Dialog.Close type="button" class={buttonVariants({ variant: 'outline' })}>
 				Cancel
