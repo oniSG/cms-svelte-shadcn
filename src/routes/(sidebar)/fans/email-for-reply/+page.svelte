@@ -135,6 +135,32 @@
 	breadcrumbs={[{ title: 'Home', url: '/' }, { title: 'Settings' }, { title: 'Email for reply' }]}
 />
 
+<div class="flex flex-row justify-between mb-2">
+	<DropdownMenu.Root>
+		<DropdownMenu.Trigger>
+			{#snippet child({ props })}
+				<Button {...props} variant="outline" size="sm">
+					<Settings2Icon />
+					View
+				</Button>
+			{/snippet}
+		</DropdownMenu.Trigger>
+		<DropdownMenu.Content>
+			<DropdownMenu.CheckboxItem bind:checked={showEmail}>
+				Email
+			</DropdownMenu.CheckboxItem>
+			<DropdownMenu.CheckboxItem bind:checked={showStatus}>
+				Status
+			</DropdownMenu.CheckboxItem>
+		</DropdownMenu.Content>
+	</DropdownMenu.Root>
+
+	<Button variant="default" size="sm" onclick={() => showAddDialog = true}>
+		<Plus class="mr-2 size-4" />
+		Přidat e-mail
+	</Button>
+</div>
+
 <div class="overflow-hidden rounded-md border">
 	<Table.Root>
 		<Table.Header>
@@ -178,31 +204,7 @@
 		</Table.Footer>
 	</Table.Root>
 </div>
-<div class="flex flex-row justify-between mb-2">
-	<DropdownMenu.Root>
-		<DropdownMenu.Trigger>
-			{#snippet child({ props })}
-				<Button {...props} variant="outline" size="sm">
-					<Settings2Icon />
-					View
-				</Button>
-			{/snippet}
-		</DropdownMenu.Trigger>
-		<DropdownMenu.Content>
-			<DropdownMenu.CheckboxItem bind:checked={showEmail}>
-				Email
-			</DropdownMenu.CheckboxItem>
-			<DropdownMenu.CheckboxItem bind:checked={showStatus}>
-				Status
-			</DropdownMenu.CheckboxItem>
-		</DropdownMenu.Content>
-	</DropdownMenu.Root>
 
-	<Button variant="default" size="sm" onclick={() => showAddDialog = true}>
-		<Plus class="mr-2 size-4" />
-		Přidat e-mail
-	</Button>
-</div>
 
 <div class="flex items-center justify-between mt-2 mb-6">
 	<DropdownMenu.Root>
