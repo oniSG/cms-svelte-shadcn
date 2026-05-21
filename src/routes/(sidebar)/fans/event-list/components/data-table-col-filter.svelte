@@ -25,14 +25,13 @@
 
 <div class="flex flex-row gap-2">
 	<ButtonGroup.Root orientation="horizontal" aria-label="Filtry" class="h-fit">
-
 		<Popover.Root>
 			<Popover.Trigger>
 				{#snippet child({ props })}
 					<Button variant="outline" size="sm" {...props}>Název</Button>
 				{/snippet}
 			</Popover.Trigger>
-			<Popover.Content class="p-0 w-56">
+			<Popover.Content class="w-56 p-0">
 				<Command.Root>
 					<Command.Input placeholder="Hledat..." />
 					<Command.List>
@@ -53,7 +52,7 @@
 					<Button variant="outline" size="sm" {...props}>Štítky</Button>
 				{/snippet}
 			</Popover.Trigger>
-			<Popover.Content class="p-0 w-56">
+			<Popover.Content class="w-56 p-0">
 				<Command.Root>
 					<Command.Input placeholder="Hledat..." />
 					<Command.List>
@@ -74,7 +73,7 @@
 					<Button variant="outline" size="sm" {...props}>Vytvořil/a</Button>
 				{/snippet}
 			</Popover.Trigger>
-			<Popover.Content class="p-0 w-56">
+			<Popover.Content class="w-56 p-0">
 				<Command.Root>
 					<Command.Input placeholder="Hledat..." />
 					<Command.List>
@@ -106,7 +105,7 @@
 					<Button variant="outline" size="sm" {...props}>Aktivní</Button>
 				{/snippet}
 			</Popover.Trigger>
-			<Popover.Content class="p-0 w-56">
+			<Popover.Content class="w-56 p-0">
 				<Command.Root>
 					<Command.List>
 						<Command.Group heading="Stav">
@@ -118,7 +117,6 @@
 				</Command.Root>
 			</Popover.Content>
 		</Popover.Root>
-
 	</ButtonGroup.Root>
 
 	<DropdownMenu.Root>
