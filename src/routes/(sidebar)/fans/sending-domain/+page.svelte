@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
+	import 	PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
 	import { Button } from "$lib/components/ui/button/index.js";
 	import * as Card from "$lib/components/ui/card/index.js";
 	import { Badge } from "$lib/components/ui/badge/index.js";
