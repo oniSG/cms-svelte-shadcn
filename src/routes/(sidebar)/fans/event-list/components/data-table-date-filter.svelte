@@ -30,7 +30,7 @@
 	}
 
 	const label = $derived(
-		!range?.start ? 'Date' : range.end ? `${fmt(range.start)} – ${fmt(range.end)}` : fmt(range.start)
+		!range?.start ? 'Datum' : range.end ? `${fmt(range.start)} – ${fmt(range.end)}` : fmt(range.start)
 	);
 
 	function applyFilter(v: DateRange | undefined) {

@@ -1,58 +1,63 @@
-<script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
+<script generics="TData" lang="ts">
+	import type { Table } from '@tanstack/table-core';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { Button } from '$lib/components/ui/button';
 	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
 	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
 
-	type Props = {
-		currentPage: number;
-		totalPages: number;
-		maxItemsPerPage: number;
-	};
+	const PAGE_SIZE_OPTIONS = [10, 20, 30, 50];
 
-	let {
-		currentPage = $bindable(),
-		totalPages,
-		maxItemsPerPage = $bindable(),
-	}: Props = $props();
+	let { table }: { table: Table<TData> } = $props();
+
+	const pageSize = $derived(table.getState().pagination.pageSize);
+	const pageIndex = $derived(table.getState().pagination.pageIndex);
+	const totalRows = $derived(table.getFilteredRowModel().rows.length);
+	const currentPage = $derived(pageIndex + 1);
 </script>
 
-<div class="flex items-center justify-between mt-2 mb-6">
-	<DropdownMenu.Root>
-		<DropdownMenu.Trigger>
-			{#snippet child({ props })}
-				<Button {...props} variant="outline" size="sm">
-					{maxItemsPerPage} items per page
-				</Button>
-			{/snippet}
-		</DropdownMenu.Trigger>
-		<DropdownMenu.Content align="start">
-			{#each [10, 20, 30, 50] as size (size)}
-				<DropdownMenu.Item onclick={() => { maxItemsPerPage = size; currentPage = 1; }}>
-					{size}
-				</DropdownMenu.Item>
-			{/each}
-		</DropdownMenu.Content>
-	</DropdownMenu.Root>
+<div class="flex w-full items-center justify-between py-2">
+	<div class="flex w-full items-center gap-2">
+		<DropdownMenu.Root>
+			<DropdownMenu.Trigger>
+				{#snippet child({ props })}
+					<Button {...props} variant="outline" size="sm">
+						{pageSize} items per page
+					</Button>
+				{/snippet}
+			</DropdownMenu.Trigger>
+			<DropdownMenu.Content align="end">
+				{#each PAGE_SIZE_OPTIONS as size (size)}
+					<DropdownMenu.CheckboxItem
+						onSelect={() => table.setPageSize(size)}
+						checked={pageSize === size}
+					>
+						{size}
+					</DropdownMenu.CheckboxItem>
+				{/each}
+			</DropdownMenu.Content>
+		</DropdownMenu.Root>
+	</div>
 
 	<ButtonGroup.Root>
 		<Button
-			variant="outline" size="icon" class="size-8"
-			disabled={currentPage <= 1}
-			onclick={() => currentPage -= 1}
+			disabled={!table.getCanPreviousPage()}
+			onclick={() => table.previousPage()}
+			size="sm"
+			variant="outline"
 		>
-			<ChevronLeftIcon class="size-4" />
+			<ChevronLeftIcon />
 		</Button>
-		<Button variant="outline" class="size-8 px-8 pointer-events-none">
-			<span class="text-sm">{currentPage} / {totalPages}</span>
+		<Button size="sm" variant="outline">
+			{currentPage} / {Math.ceil(totalRows / pageSize)}
 		</Button>
 		<Button
-			variant="outline" size="icon" class="size-8"
-			disabled={currentPage >= totalPages}
-			onclick={() => currentPage += 1}
+			disabled={!table.getCanNextPage()}
+			onclick={() => table.nextPage()}
+			size="sm"
+			variant="outline"
 		>
-			<ChevronRightIcon class="size-4" />
+			<ChevronRightIcon />
 		</Button>
 	</ButtonGroup.Root>
 </div>

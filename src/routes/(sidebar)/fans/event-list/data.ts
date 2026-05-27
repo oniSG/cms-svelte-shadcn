@@ -5,7 +5,7 @@ export const data: Event[] = [
 		id: 1,
 		name: 'Budina Tomáš',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-01-15'),
 		active: true
 	},
@@ -13,7 +13,7 @@ export const data: Event[] = [
 		id: 2,
 		name: 'Novák Petr',
 		event: 'Firemní večírek 2024',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-01-22'),
 		active: true
 	},
@@ -21,7 +21,7 @@ export const data: Event[] = [
 		id: 3,
 		name: 'Svoboda Jan',
 		event: 'Gala večer Nadace Světlo',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-02-03'),
 		active: false
 	},
@@ -29,7 +29,7 @@ export const data: Event[] = [
 		id: 4,
 		name: 'Dvořák Martin',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-02-11'),
 		active: true
 	},
@@ -37,7 +37,7 @@ export const data: Event[] = [
 		id: 5,
 		name: 'Černý Jakub',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-02-19'),
 		active: true
 	},
@@ -45,7 +45,7 @@ export const data: Event[] = [
 		id: 6,
 		name: 'Procházka Ondřej',
 		event: 'Konference TechSummit',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-03-01'),
 		active: false
 	},
@@ -53,7 +53,7 @@ export const data: Event[] = [
 		id: 7,
 		name: 'Kučera Lukáš',
 		event: 'Firemní večírek 2024',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-03-08'),
 		active: true
 	},
@@ -61,7 +61,7 @@ export const data: Event[] = [
 		id: 8,
 		name: 'Veselý Michal',
 		event: 'Gala večer Nadace Světlo',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-03-15'),
 		active: true
 	},
@@ -69,7 +69,7 @@ export const data: Event[] = [
 		id: 9,
 		name: 'Horáček Filip',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-03-22'),
 		active: false
 	},
@@ -77,7 +77,7 @@ export const data: Event[] = [
 		id: 10,
 		name: 'Pospíšil Radek',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-03-29'),
 		active: true
 	},
@@ -85,7 +85,7 @@ export const data: Event[] = [
 		id: 11,
 		name: 'Blažek Vojtěch',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-04-05'),
 		active: true
 	},
@@ -93,7 +93,7 @@ export const data: Event[] = [
 		id: 12,
 		name: 'Kratochvíl Marek',
 		event: 'Konference TechSummit',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-04-12'),
 		active: true
 	},
@@ -101,7 +101,7 @@ export const data: Event[] = [
 		id: 13,
 		name: 'Fiala Zdeněk',
 		event: 'Gala večer Nadace Světlo',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-04-19'),
 		active: false
 	},
@@ -109,7 +109,7 @@ export const data: Event[] = [
 		id: 14,
 		name: 'Sedláček Pavel',
 		event: 'Firemní večírek 2024',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-04-26'),
 		active: true
 	},
@@ -117,7 +117,7 @@ export const data: Event[] = [
 		id: 15,
 		name: 'Musil Daniel',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-05-03'),
 		active: true
 	},
@@ -125,7 +125,7 @@ export const data: Event[] = [
 		id: 16,
 		name: 'Hájek Roman',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-05-10'),
 		active: false
 	},
@@ -133,7 +133,7 @@ export const data: Event[] = [
 		id: 17,
 		name: 'Kopecký Stanislav',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-05-17'),
 		active: true
 	},
@@ -141,7 +141,7 @@ export const data: Event[] = [
 		id: 18,
 		name: 'Kolář Miroslav',
 		event: 'Konference TechSummit',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-05-24'),
 		active: true
 	},
@@ -149,7 +149,7 @@ export const data: Event[] = [
 		id: 19,
 		name: 'Růžička Tomáš',
 		event: 'Gala večer Nadace Světlo',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-05-31'),
 		active: false
 	},
@@ -157,7 +157,7 @@ export const data: Event[] = [
 		id: 20,
 		name: 'Novotný Karel',
 		event: 'Firemní večírek 2024',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-06-07'),
 		active: true
 	},
@@ -165,7 +165,7 @@ export const data: Event[] = [
 		id: 21,
 		name: 'Marková Eva',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-06-14'),
 		active: true
 	},
@@ -173,7 +173,7 @@ export const data: Event[] = [
 		id: 22,
 		name: 'Horáková Jana',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-06-21'),
 		active: true
 	},
@@ -181,7 +181,7 @@ export const data: Event[] = [
 		id: 23,
 		name: 'Nováková Lucie',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-06-28'),
 		active: false
 	},
@@ -189,7 +189,7 @@ export const data: Event[] = [
 		id: 24,
 		name: 'Dvořáková Petra',
 		event: 'Konference TechSummit',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-07-05'),
 		active: true
 	},
@@ -197,7 +197,7 @@ export const data: Event[] = [
 		id: 25,
 		name: 'Svobodová Kateřina',
 		event: 'Gala večer Nadace Světlo',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-07-12'),
 		active: true
 	},
@@ -205,7 +205,7 @@ export const data: Event[] = [
 		id: 26,
 		name: 'Procházková Martina',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold', 'premium'],
 		time: new Date('2024-07-19'),
 		active: false
 	},
@@ -213,7 +213,7 @@ export const data: Event[] = [
 		id: 27,
 		name: 'Krejčí Radoslav',
 		event: 'Firemní večírek 2024',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-07-26'),
 		active: true
 	},
@@ -221,7 +221,7 @@ export const data: Event[] = [
 		id: 28,
 		name: 'Šimánek Vladimír',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-08-02'),
 		active: true
 	},
@@ -229,7 +229,7 @@ export const data: Event[] = [
 		id: 29,
 		name: 'Beneš Jiří',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'premium',
+		label: ['premium', 'VIP-gold'],
 		time: new Date('2024-08-09'),
 		active: true
 	},
@@ -237,7 +237,7 @@ export const data: Event[] = [
 		id: 30,
 		name: 'Pokorný František',
 		event: 'Konference TechSummit',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-08-16'),
 		active: false
 	},
@@ -245,7 +245,7 @@ export const data: Event[] = [
 		id: 31,
 		name: 'Urban Aleš',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-08-23'),
 		active: true
 	},
@@ -253,7 +253,7 @@ export const data: Event[] = [
 		id: 32,
 		name: 'Šťastný Václav',
 		event: 'Gala večer Nadace Světlo',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-08-30'),
 		active: true
 	},
@@ -261,7 +261,7 @@ export const data: Event[] = [
 		id: 33,
 		name: 'Holub Patrik',
 		event: 'Firemní večírek 2024',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-09-06'),
 		active: false
 	},
@@ -269,7 +269,7 @@ export const data: Event[] = [
 		id: 34,
 		name: 'Král David',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-09-13'),
 		active: true
 	},
@@ -277,7 +277,7 @@ export const data: Event[] = [
 		id: 35,
 		name: 'Vlček Igor',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-09-20'),
 		active: true
 	},
@@ -285,7 +285,7 @@ export const data: Event[] = [
 		id: 36,
 		name: 'Marek Antonín',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold', 'VIP-silver'],
 		time: new Date('2024-09-27'),
 		active: true
 	},
@@ -293,7 +293,7 @@ export const data: Event[] = [
 		id: 37,
 		name: 'Pešek Bronislav',
 		event: 'Konference TechSummit',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-10-04'),
 		active: false
 	},
@@ -301,7 +301,7 @@ export const data: Event[] = [
 		id: 38,
 		name: 'Toman Rostislav',
 		event: 'Gala večer Nadace Světlo',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-10-11'),
 		active: true
 	},
@@ -309,7 +309,7 @@ export const data: Event[] = [
 		id: 39,
 		name: 'Janda Miloslav',
 		event: 'Firemní večírek 2024',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-10-18'),
 		active: true
 	},
@@ -317,7 +317,7 @@ export const data: Event[] = [
 		id: 40,
 		name: 'Havel Ctibor',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-10-25'),
 		active: false
 	},
@@ -325,7 +325,7 @@ export const data: Event[] = [
 		id: 41,
 		name: 'Nováčková Simona',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-11-01'),
 		active: true
 	},
@@ -333,7 +333,7 @@ export const data: Event[] = [
 		id: 42,
 		name: 'Zemanová Tereza',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-11-08'),
 		active: true
 	},
@@ -341,7 +341,7 @@ export const data: Event[] = [
 		id: 43,
 		name: 'Kopečná Monika',
 		event: 'Konference TechSummit',
-		label: 'VIP-silver',
+		label: ['VIP-silver', 'premium'],
 		time: new Date('2024-11-15'),
 		active: true
 	},
@@ -349,7 +349,7 @@ export const data: Event[] = [
 		id: 44,
 		name: 'Pokorná Renata',
 		event: 'Gala večer Nadace Světlo',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-11-22'),
 		active: false
 	},
@@ -357,7 +357,7 @@ export const data: Event[] = [
 		id: 45,
 		name: 'Blažková Andrea',
 		event: 'Firemní večírek 2024',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-11-29'),
 		active: true
 	},
@@ -365,7 +365,7 @@ export const data: Event[] = [
 		id: 46,
 		name: 'Urbanová Lenka',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2024-12-06'),
 		active: true
 	},
@@ -373,7 +373,7 @@ export const data: Event[] = [
 		id: 47,
 		name: 'Holubová Veronika',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2024-12-13'),
 		active: false
 	},
@@ -381,7 +381,7 @@ export const data: Event[] = [
 		id: 48,
 		name: 'Králová Michaela',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2024-12-20'),
 		active: true
 	},
@@ -389,7 +389,7 @@ export const data: Event[] = [
 		id: 49,
 		name: 'Fischerová Dagmar',
 		event: 'Konference TechSummit',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2024-12-27'),
 		active: true
 	},
@@ -397,7 +397,7 @@ export const data: Event[] = [
 		id: 50,
 		name: 'Benešová Alena',
 		event: 'Gala večer Nadace Světlo',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2025-01-03'),
 		active: false
 	},
@@ -405,7 +405,7 @@ export const data: Event[] = [
 		id: 51,
 		name: 'Šimánková Barbora',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2025-01-10'),
 		active: true
 	},
@@ -413,7 +413,7 @@ export const data: Event[] = [
 		id: 52,
 		name: 'Krejčová Helena',
 		event: 'Firemní večírek 2024',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2025-01-17'),
 		active: true
 	},
@@ -421,7 +421,7 @@ export const data: Event[] = [
 		id: 53,
 		name: 'Kolářová Ivana',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2025-01-24'),
 		active: true
 	},
@@ -429,7 +429,7 @@ export const data: Event[] = [
 		id: 54,
 		name: 'Sedláčková Jitka',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2025-01-31'),
 		active: false
 	},
@@ -437,7 +437,7 @@ export const data: Event[] = [
 		id: 55,
 		name: 'Musilová Klára',
 		event: 'Konference TechSummit',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2025-02-07'),
 		active: true
 	},
@@ -445,7 +445,7 @@ export const data: Event[] = [
 		id: 56,
 		name: 'Hájková Libuše',
 		event: 'Ples města Pardubice',
-		label: 'VIP-gold',
+		label: ['VIP-gold'],
 		time: new Date('2025-02-14'),
 		active: true
 	},
@@ -453,7 +453,7 @@ export const data: Event[] = [
 		id: 57,
 		name: 'Růžičková Naděžda',
 		event: 'Gala večer Nadace Světlo',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2025-02-21'),
 		active: false
 	},
@@ -461,7 +461,7 @@ export const data: Event[] = [
 		id: 58,
 		name: 'Kopecká Olga',
 		event: 'Firemní večírek 2024',
-		label: 'VIP-silver',
+		label: ['VIP-silver'],
 		time: new Date('2025-02-28'),
 		active: true
 	},
@@ -469,7 +469,7 @@ export const data: Event[] = [
 		id: 59,
 		name: 'Tomanová Pavla',
 		event: 'Hudební festival Kmochův Kolín',
-		label: 'premium',
+		label: ['premium'],
 		time: new Date('2025-03-07'),
 		active: true
 	},
@@ -477,9 +477,8 @@ export const data: Event[] = [
 		id: 60,
 		name: 'Jandová Růžena',
 		event: 'Sportovní banket FC Pardubice',
-		label: 'normal',
+		label: ['normal'],
 		time: new Date('2025-03-14'),
 		active: true
 	}
 ];
-export class events {}
