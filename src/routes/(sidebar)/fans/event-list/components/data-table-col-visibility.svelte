@@ -6,12 +6,11 @@
 
 	let { table }: { table: Table<TData> } = $props();
 
-	// 1. TADY si nadefinuj hezká jména podle ID sloupců
 	const columnTitles: Record<string, string> = {
 		event: 'Název',
 		label: 'Štítky',
-		name: 'Vytvořil',
-		time: 'Datum vytvoření/a',
+		name: 'Vytvořil/a',
+		time: 'Datum vytvoření',
 		active: 'Aktivní'
 	};
 </script>

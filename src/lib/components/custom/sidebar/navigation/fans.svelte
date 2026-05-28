@@ -31,10 +31,10 @@
 		{
 			label: m.nav_fans_communication(),
 			items: [
-				{ title: m.nav_fans_campaigns(), url: '/fans/akce', icon: WaypointsIcon },
+				{ title: m.nav_fans_campaigns(), url: '/fans/events', icon: WaypointsIcon },
 				{ title: m.nav_fans_surveys(), url: '/fans/dotazniky', icon: FileTextIcon },
 				{ title: m.nav_fans_web_form(), url: '/fans/webovy-formular', icon: ClipboardListIcon },
-				{ title: m.nav_fans_event_lists(), url: '/fans/seznamy-udalosti', icon: CalendarDaysIcon }
+				{ title: m.nav_fans_event_lists(), url: '/fans/event-list', icon: CalendarDaysIcon }
 			]
 		},
 		{
