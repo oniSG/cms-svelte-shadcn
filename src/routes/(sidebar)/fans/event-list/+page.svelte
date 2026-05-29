@@ -6,6 +6,6 @@
 </script>
 
 <PageHeader breadcrumbs={[{ title: 'Home', url: '/' }, { title: 'Fans' }, { title: 'Seznamy událostí' }]} />
-<DataTable {data} {columns} />
+<DataTable {columns} {data} />
 <!-- svelte-ignore element_invalid_self_closing_tag -->
 <div class="h-4" />

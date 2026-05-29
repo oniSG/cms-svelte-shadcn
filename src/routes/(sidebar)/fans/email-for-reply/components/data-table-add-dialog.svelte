@@ -8,7 +8,7 @@
 	import { z } from 'zod';
 
 	const formSchema = z.object({
-		email: z.email('Neplatná e-mailová adresa'),
+		email: z.email('Neplatná e-mailová adresa')
 	});
 
 	let { open = $bindable() }: { open: boolean } = $props();
@@ -20,7 +20,7 @@
 			if (form.valid) {
 				open = false;
 			}
-		},
+		}
 	});
 
 	const { form: formData, enhance } = form;
@@ -50,9 +50,9 @@
 
 			<Dialog.Footer class="mt-4">
 				<Button
-					variant="outline"
+					onclick={() => (open = false)}
 					type="button"
-					onclick={() => (open = false)}>
+					variant="outline">
 					Zrušit
 				</Button>
 				<Button

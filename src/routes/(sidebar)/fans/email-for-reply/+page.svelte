@@ -155,7 +155,7 @@
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 
-	<Button variant="default" size="sm" onclick={() => showAddDialog = true}>
+	<Button onclick={() => showAddDialog = true} size="sm" variant="default">
 		<Plus class="mr-2 size-4" />
 		Přidat e-mail
 	</Button>
@@ -174,7 +174,7 @@
 				<ContextMenu.Root>
 					<ContextMenu.Trigger>
 						{#snippet child({ props })}
-							<Table.Row  class="hover:cursor-context-menu" {...props}>
+							<Table.Row class="hover:cursor-context-menu" {...props}>
 								<Table.Cell>{email.email}</Table.Cell>
 								<Table.Cell>
 									{#if (email.isActive === "true")}
@@ -198,10 +198,6 @@
 				</ContextMenu.Root>
 			{/each}
 		</Table.Body>
-		<Table.Footer>
-
-
-		</Table.Footer>
 	</Table.Root>
 </div>
 
@@ -224,28 +220,28 @@
 
 	<ButtonGroup.Root>
 		<Button
-			variant="outline" size="icon" class="size-8"
-			disabled={currentPage <= 1}
-			onclick={() => currentPage -= 1}
+			class="size-8" disabled={currentPage <= 1} onclick={() => currentPage -= 1}
+			size="icon"
+			variant="outline"
 		>
 			<ChevronLeftIcon class="size-4" />
 		</Button>
 
-		<Button variant="outline" class="size-8 px-8 pointer-events-none">
+		<Button class="size-8 px-8 pointer-events-none" variant="outline">
 			<span class="text-sm">{currentPage} / {totalPages}</span>
 		</Button>
 
 		<Button
-			variant="outline" size="icon" class="size-8"
-			disabled={currentPage >= totalPages}
-			onclick={() => currentPage += 1}
+			class="size-8" disabled={currentPage >= totalPages} onclick={() => currentPage += 1}
+			size="icon"
+			variant="outline"
 		>
 			<ChevronRightIcon class="size-4" />
 		</Button>
 	</ButtonGroup.Root>
 </div>
 
-<EditDialog bind:emailToEdit/>
+<EditDialog bind:emailToEdit />
 <DeleteDialog bind:emailToDelete />
 <AddDialog bind:open={showAddDialog} />
 

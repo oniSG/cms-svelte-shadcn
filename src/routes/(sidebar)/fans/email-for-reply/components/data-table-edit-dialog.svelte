@@ -8,13 +8,13 @@
 	import { z } from 'zod';
 
 	const formSchema = z.object({
-		email: z.string().email('Neplatná e-mailová adresa'),
+		email: z.string().email('Neplatná e-mailová adresa')
 	});
 
 	type Email = { id: number; email: string; isActive: string };
 
 	let {
-		emailToEdit = $bindable(),
+		emailToEdit = $bindable()
 	}: {
 		emailToEdit: Email | null;
 	} = $props();
@@ -27,12 +27,11 @@
 				emailToEdit.email = form.data.email;
 				emailToEdit = null;
 			}
-		},
+		}
 	});
 
 	const { form: formData, enhance } = form;
 
-	// Při otevření dialogu naplní input aktuální hodnotou
 	$effect(() => {
 		if (emailToEdit) {
 			$formData.email = emailToEdit.email;
@@ -41,8 +40,8 @@
 </script>
 
 <Dialog.Root
-	open={emailToEdit !== null}
 	onOpenChange={(open) => { if (!open) emailToEdit = null; }}
+	open={emailToEdit !== null}
 >
 	<Dialog.Content>
 		<Dialog.Header>
@@ -66,7 +65,7 @@
 			</Form.Field>
 
 			<Dialog.Footer class="mt-4">
-				<Button variant="outline" type="button" onclick={() => emailToEdit = null}>
+				<Button onclick={() => emailToEdit = null} type="button" variant="outline">
 					Zrušit
 				</Button>
 				<Button type="submit">Uložit</Button>

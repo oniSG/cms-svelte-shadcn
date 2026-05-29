@@ -4,10 +4,10 @@
 
 	type Email = { id: number; email: string; isActive: string };
 
-	let { emailToDelete = $bindable(), } : { emailToDelete: Email | null; } = $props();
+	let { emailToDelete = $bindable() }: { emailToDelete: Email | null; } = $props();
 </script>
 
-<Dialog.Root open={emailToDelete !== null} onOpenChange={(open) => { if (!open) emailToDelete = null; }}>
+<Dialog.Root onOpenChange={(open) => { if (!open) emailToDelete = null; }} open={emailToDelete !== null}>
 	<Dialog.Content>
 		<Dialog.Header>
 			<Dialog.Title>Odstranit e-mail</Dialog.Title>
@@ -16,8 +16,8 @@
 			</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
-			<Button variant="outline" onclick={() => emailToDelete = null}>Zrušit</Button>
-			<Button variant="destructive" onclick={() => { emailToDelete = null; }}>Odstranit</Button>
+			<Button onclick={() => emailToDelete = null} variant="outline">Zrušit</Button>
+			<Button onclick={() => { emailToDelete = null; }} variant="destructive">Odstranit</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>
