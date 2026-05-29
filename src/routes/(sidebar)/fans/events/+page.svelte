@@ -7,6 +7,9 @@
 	import { scaleTime, scaleBand } from 'd3-scale';
 	import { BarChart } from 'layerchart';
 	import { cubicInOut } from 'svelte/easing';
+	import { curveNatural } from "d3-shape";
+
+
 
 	const barData = [
 		{ date: new Date(2026, 4, 19), doruceno: 2930, nedoruceno: 12, hardBounce: 3,  softBounce: 15, spam: 2 },
@@ -187,36 +190,42 @@
 
 				<AreaChart
 					data={chartData}
-					props={{
-						area: {
-							fillOpacity: 0.12,
-							motion: "tween"
-						},
-						line: {
-							class: "fill-none stroke-2",
-							motion: "tween"
-						},
-						xAxis: {
-							format: (v: Date) => `${v.getDate()}/${v.getMonth()+1}`,
-							class: "text-[11px] fill-muted-foreground"
-						},
-						yAxis: {
-							class: "text-[11px] fill-muted-foreground",
-							grid: {
-								class: "stroke-muted/30"
-							}
-						}
-					}}
-					series={[
-						{ key: "doruceno", label: "Doručeno", color: "var(--primary)" },
-						{ key: "otevreno", label: "Otevřeno", color: "var(--chart-6)" },
-						{ key: "kliknuto", label: "Kliknuto", color: "var(--chart-7)" }
-					]}
-					tooltip={true}
 					x="date"
 					xScale={scaleTime()}
-					yPadding={[10,10]}
+					yPadding={[10, 10]}
+					series={[
+        { key: "doruceno", label: "Doručeno", color: "var(--primary)" },
+        { key: "otevreno", label: "Otevřeno", color: "var(--chart-6)" },
+        { key: "kliknuto", label: "Kliknuto", color: "var(--chart-7)" }
+    ]}
+					tooltip={true}
+					props={{
+        area: {
+            curve: curveNatural, // <-- PŘIDÁNO ZDE
+            fillOpacity: 0.12,
+            motion: "tween"
+        },
+        line: {
+            curve: curveNatural, // <-- PŘIDÁNO ZDE
+            class: "fill-none stroke-2",
+            motion: "tween"
+        },
+        xAxis: {
+            format: (v: Date) => `${v.getDate()}/${v.getMonth()+1}`,
+            class: "text-[11px] fill-muted-foreground"
+        },
+        yAxis: {
+            class: "text-[11px] fill-muted-foreground",
+            grid: {
+                class: "stroke-muted/30"
+            }
+        }
+    }}
+
+
 				/>
+
+
 			</div>
 		</Card.Content>
 	</Card.Root>
@@ -279,44 +288,6 @@
 
 				{/each}
 			</svg>
-		</Card.Content>
-	</Card.Root>
-
-
-	<Card.Root>
-		<Card.Header>
-			<Card.Title class="text-sm font-semibold">Tooltip - Default</Card.Title>
-		</Card.Header>
-		<Card.Content>
-			<div class="h-72 w-full">
-				<BarChart
-					axis="x"
-					data={barData}
-					grid={false}
-					props={{
-                    bars: {
-                        stroke: "none",
-                        motion: { type: "tween", duration: 500, easing: cubicInOut },
-                    },
-                    xAxis: {
-                        format: (d) =>
-                            new Date(d).toLocaleDateString("en-US", { weekday: "short" }),
-                    },
-                }}
-					rule={false}
-					series={[
-    { key: "doruceno",   label: "Doručeno",    color: "#84cc16" },
-    { key: "nedoruceno", label: "Nedoručeno",   color: "#f87171" },
-    { key: "hardBounce", label: "Hard bounce",  color: "#22d3ee" },
-    { key: "softBounce", label: "Soft bounce",  color: "#eab308" },
-    { key: "spam",       label: "Spam",         color: "#f97316" },
-]}
-					seriesLayout="stack"
-					tooltip={true}
-					x="date"
-					xScale={scaleTime()}
-				/>
-			</div>
 		</Card.Content>
 	</Card.Root>
 
