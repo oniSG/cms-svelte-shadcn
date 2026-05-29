@@ -3,6 +3,8 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import type { Event } from '../columns';
 
+	import * as m from '$lib/paraglide/messages.js';
+
 	let { eventToCopy = $bindable() }: { eventToCopy: Event | null } = $props();
 </script>
 
@@ -12,17 +14,15 @@
 >
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Duplikovat událost</Dialog.Title>
+			<Dialog.Title>{m.event_dialog_copy_title()}</Dialog.Title>
 			<Dialog.Description>
-				Opravdu chceš duplikovat <strong>{eventToCopy?.event}</strong>?
+				{@html m.event_dialog_copy_description({ event: `<strong>${eventToCopy?.event}</strong>` })}
 			</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
-			<Button onclick={() => eventToCopy = null} variant="outline">Zrušit</Button>
-			<Button onclick={() => {
-                eventToCopy = null;
-            }} variant="default">
-				Duplikovat
+			<Button onclick={() => eventToCopy = null} variant="outline">{m.common_cancel()}</Button>
+			<Button onclick={() => { eventToCopy = null; }} variant="default">
+				{m.event_dialog_copy_submit()}
 			</Button>
 		</Dialog.Footer>
 	</Dialog.Content>

@@ -6,6 +6,7 @@ import { SvelteSet } from 'svelte/reactivity';
 import DataTableBadge from './components/data-table-badge.svelte';
 import Check from '@lucide/svelte/icons/check';
 import X from '@lucide/svelte/icons/x';
+import * as m from '$lib/paraglide/messages.js';
 
 export type Event = {
 	id: number;
@@ -16,7 +17,7 @@ export type Event = {
 	active: boolean;
 };
 
-export const tags: string[] = ['VIP-gold', 'VIP-silver', 'normal', 'premium', 'denis'];
+export const tags: string[] = ['VIP-gold', 'VIP-silver', 'normal', 'premium', 'denis',];
 
 export const users = new SvelteSet(data.map((event) => event.name));
 
@@ -26,7 +27,7 @@ export const columns: ColumnDef<Event>[] = [
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
-				title: 'Název'
+				title: m.col_event()
 			});
 		}
 	},
@@ -35,7 +36,7 @@ export const columns: ColumnDef<Event>[] = [
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
-				title: 'Štítky'
+				title: m.col_label()
 			});
 		},
 		cell: ({ getValue }) => {
@@ -59,7 +60,7 @@ export const columns: ColumnDef<Event>[] = [
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
-				title: 'Vytvořil/a'
+				title: m.col_created_by()
 			});
 		},
 		filterFn: (row, id, value: string[]) => {
@@ -72,7 +73,7 @@ export const columns: ColumnDef<Event>[] = [
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
-				title: 'Datum vytvoření'
+				title: m.col_created_at()
 			});
 		},
 		filterFn: (row, id, value: [Date, Date | undefined]) => {
@@ -88,7 +89,7 @@ export const columns: ColumnDef<Event>[] = [
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
-				title: 'Aktivní'
+				title: m.col_active()
 			});
 		},
 		cell: ({ getValue }) => {

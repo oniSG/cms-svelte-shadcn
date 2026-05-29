@@ -10,6 +10,8 @@
 	import { ChevronsUpDownIcon, X } from '@lucide/svelte';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 
+	import * as m from '$lib/paraglide/messages.js';
+
 	let { open = $bindable() }: { open: boolean } = $props();
 
 	let eventName = $state('');
@@ -23,11 +25,9 @@
 		{ id: '98766', name: 'Test Event Zuz Feb3', date: '06.02.2026' }
 	];
 
-	// STAV PRO ŠTÍTKY
 	let selectedTags = $state<string[]>([]);
 	let tagsOpen = $state(false);
 
-	// STAV PRO UDÁLOSTI (Ukládá pole IDček)
 	let selectedEvents = $state<string[]>([]);
 	let eventsOpen = $state(false);
 
@@ -43,7 +43,6 @@
 		selectedTags = selectedTags.filter((t) => t !== value);
 	}
 
-	// Funkce upravené pro práci s ID události
 	function toggleEvent(id: string) {
 		if (selectedEvents.includes(id)) {
 			selectedEvents = selectedEvents.filter((e) => e !== id);
@@ -81,25 +80,24 @@
 >
 	<Dialog.Content class="max-w-lg">
 		<Dialog.Header>
-			<Dialog.Title>Nová událost</Dialog.Title>
+			<Dialog.Title>{m.event_dialog_create_title()}</Dialog.Title>
 		</Dialog.Header>
 
 		<div class="flex flex-col gap-5 py-2">
 			<div class="flex flex-col gap-1.5">
 				<Label for="event-name">
-					Název <span class="text-destructive">*</span>
+					{m.event_name_label()} <span class="text-destructive">*</span>
 				</Label>
-				<Input bind:value={eventName} id="event-name" placeholder="Název události" />
+				<Input bind:value={eventName} id="event-name" placeholder={m.event_name_placeholder()} />
 
 				<div class="flex items-center mt-2 justify-between">
-					<Label for="active">Aktivní</Label>
+					<Label for="active">{m.col_active()}</Label>
 					<Switch id="active" />
 				</div>
 			</div>
 
 			<div class="flex flex-col gap-1.5">
-
-				<Label>Štítky</Label>
+				<Label>{m.event_tags_label()}</Label>
 
 				<Popover.Root bind:open={tagsOpen}>
 					<Popover.Trigger>
@@ -120,7 +118,7 @@
 									</Badge>
 								{/each}
 								{#if selectedTags.length === 0}
-									<span class="text-muted-foreground">Vyberte štítky</span>
+									<span class="text-muted-foreground">{m.event_tags_placeholder()}</span>
 								{/if}
 								<ChevronsUpDownIcon class="text-muted-foreground ml-auto size-4 shrink-0" />
 							</button>
@@ -133,17 +131,17 @@
 						style="width: var(--bits-popover-anchor-width)"
 					>
 						<Command.Root>
-							<Command.Input placeholder="Hledat štítek..." />
+							<Command.Input placeholder={m.event_tags_search()} />
 							<Command.List>
-								<Command.Empty>Žádné výsledky.</Command.Empty>
+								<Command.Empty>{m.event_no_results()}</Command.Empty>
 								<Command.Group>
 									{#each tags as tag (tag)}
 										<Command.Item
 											value={tag}
 											onSelect={() => {
-                                                toggleTag(tag);
-                                                tagsOpen = true;
-                                            }}
+												toggleTag(tag);
+												tagsOpen = true;
+											}}
 										>
 											<span class="mr-2 w-4">{selectedTags.includes(tag) ? '✓' : ''}</span>
 											{tag}
@@ -154,15 +152,15 @@
 						</Command.Root>
 					</Popover.Content>
 				</Popover.Root>
+
 				<div class="flex items-center mt-2 justify-between">
-					<Label for="update">Aktualizovat podle ticketingu</Label>
+					<Label for="update">{m.event_update_ticketing()}</Label>
 					<Switch id="update" />
 				</div>
-
 			</div>
 
 			<div class="flex flex-col gap-1.5">
-				<Label>Události</Label>
+				<Label>{m.event_events_label()}</Label>
 				<Popover.Root bind:open={eventsOpen}>
 					<Popover.Trigger>
 						{#snippet child({ props })}
@@ -185,7 +183,7 @@
 									{/if}
 								{/each}
 								{#if selectedEvents.length === 0}
-									<span class="text-muted-foreground">Vyberte události</span>
+									<span class="text-muted-foreground">{m.event_events_placeholder()}</span>
 								{/if}
 								<ChevronsUpDownIcon class="text-muted-foreground ml-auto size-4 shrink-0" />
 							</button>
@@ -198,22 +196,22 @@
 						style="width: var(--bits-popover-anchor-width)"
 					>
 						<Command.Root>
-							<Command.Input placeholder="Hledat událost podle názvu nebo ID..." />
+							<Command.Input placeholder={m.event_events_search()} />
 							<Command.List>
-								<Command.Empty>Žádné výsledky.</Command.Empty>
+								<Command.Empty>{m.event_no_results()}</Command.Empty>
 								<Command.Group>
 									{#each eventsList as ev (ev.id)}
 										<Command.Item
-											value={`${ev.name} ${ev.id}`} onSelect={() => {
-                                                toggleEvent(ev.id);
-                                                eventsOpen = true;
-                                            }}
+											value={`${ev.name} ${ev.id}`}
+											onSelect={() => {
+												toggleEvent(ev.id);
+												eventsOpen = true;
+											}}
 											class="flex items-start gap-2 py-2.5"
 										>
-                                            <span class="mt-0.5 w-4 shrink-0 text-sm">
-                                                {selectedEvents.includes(ev.id) ? '✓' : ''}
-                                            </span>
-
+											<span class="mt-0.5 w-4 shrink-0 text-sm">
+												{selectedEvents.includes(ev.id) ? '✓' : ''}
+											</span>
 											<div class="flex flex-1 flex-col gap-0.5 text-left">
 												<div class="flex items-center justify-between w-full">
 													<span class="font-normal text-sm text-foreground">{ev.name}</span>
@@ -232,8 +230,8 @@
 		</div>
 
 		<Dialog.Footer>
-			<Button onclick={handleClose} variant="outline">Zrušit</Button>
-			<Button disabled={!eventName.trim()} onclick={handleSave}>Vytvořit</Button>
+			<Button onclick={handleClose} variant="outline">{m.common_cancel()}</Button>
+			<Button disabled={!eventName.trim()} onclick={handleSave}>{m.event_create_submit()}</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

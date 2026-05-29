@@ -7,8 +7,10 @@
 	import { zod4 } from 'sveltekit-superforms/adapters';
 	import { z } from 'zod';
 
+	import * as m from '$lib/paraglide/messages.js';
+
 	const formSchema = z.object({
-		email: z.email('Neplatná e-mailová adresa')
+		email: z.email(m.reply_email_validation_invalid())
 	});
 
 	let { open = $bindable() }: { open: boolean } = $props();
@@ -29,14 +31,13 @@
 <Dialog.Root bind:open>
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Přidat e-mail</Dialog.Title>
+			<Dialog.Title>{m.reply_email_dialog_add_title()}</Dialog.Title>
 		</Dialog.Header>
-
 		<form use:enhance>
 			<Form.Field {form} name="email">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label>E-mail</Form.Label>
+						<Form.Label>{m.login_email()}</Form.Label>
 						<Input
 							{...props}
 							type="email"
@@ -47,20 +48,17 @@
 				</Form.Control>
 				<Form.FieldErrors />
 			</Form.Field>
-
 			<Dialog.Footer class="mt-4">
 				<Button
 					onclick={() => (open = false)}
 					type="button"
 					variant="outline">
-					Zrušit
+					{m.common_cancel()}
 				</Button>
-				<Button
-					type="submit">
-					Přidat
+				<Button type="submit">
+					{m.reply_email_dialog_add_submit()}
 				</Button>
 			</Dialog.Footer>
 		</form>
-
 	</Dialog.Content>
 </Dialog.Root>

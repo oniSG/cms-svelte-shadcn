@@ -29,6 +29,7 @@
 	import DataTableEditDialog from './data-table-edit-dialog.svelte';
 	import DataTableCreateDialog from './data-table-create-dialog.svelte';
 	import { X } from '@lucide/svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -124,17 +125,10 @@
 	<div class="flex items-center py-2">
 		{#if lebelCol && timeCol && nameCol}
 			<ButtonGroup.Root>
-				<!-- <Button variant="outline" size="sm">
-					<FunnelIcon />
-				</Button> -->
-				<DataTableColFilter
-					icon={UserIcon}
-					column={nameCol}
-					title="Vytvořil/a"
-					options={userOptions}
-				/>
-				<DataTableColFilter icon={TagIcon} column={lebelCol} title="Štítky" options={tags} />
+				<DataTableColFilter icon={UserIcon} column={nameCol} title={m.col_created_by()} options={userOptions} />
+				<DataTableColFilter icon={TagIcon} column={lebelCol} title={m.col_label()} options={tags} />
 				<DataTableDateFilter  column={timeCol}/>
+
 				{#if isFiltered}
 					<Button variant="outline" size="sm" onclick={() => table.resetColumnFilters()}>
 						<X />
@@ -151,7 +145,7 @@
 			onclick={() => createDialog = true}
 			size="sm"
 		>
-			+ Přidat záznam
+			+ {m.add_record()}
 		</Button>
 	</div>
 	<div class="overflow-hidden rounded-md border">
@@ -196,22 +190,22 @@
 						<ContextMenu.Content>
 							<ContextMenu.Item
 								onclick={() => editRow = row.original as Event}>
-								Editace
+								{m.reply_email_edit()}
 							</ContextMenu.Item>
 							<ContextMenu.Item
 								onclick={() => copyRow = row.original as Event}>
-								Duplikovat
+								{m.event_dialog_copy_submit()}
 							</ContextMenu.Item>
 							<ContextMenu.Item
 								onclick={() => detailRow = row.original as Event}>
-								Detail
+								{m.event_detail()}
 							</ContextMenu.Item>
 							<ContextMenu.Separator />
 							<ContextMenu.Item
 								class="text-destructive"
 								onclick={() => deleteRow = row.original as Event}
 							>
-								Smazat
+								{m.event_dialog_delete_submit()}
 							</ContextMenu.Item>
 						</ContextMenu.Content>
 					</ContextMenu.Root>

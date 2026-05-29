@@ -6,6 +6,8 @@
 	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
 
+	import * as m from '$lib/paraglide/messages.js';
+
 	const PAGE_SIZE_OPTIONS = [10, 20, 30, 50];
 
 	let { table }: { table: Table<TData> } = $props();
@@ -22,7 +24,7 @@
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
 					<Button {...props} variant="outline" size="sm">
-						{pageSize} items per page
+						{m.table_items_per_page({ count: pageSize })}
 					</Button>
 				{/snippet}
 			</DropdownMenu.Trigger>
@@ -38,7 +40,6 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
-
 	<ButtonGroup.Root>
 		<Button
 			disabled={!table.getCanPreviousPage()}

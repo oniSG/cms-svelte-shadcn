@@ -3,15 +3,16 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Button } from '$lib/components/ui/button';
 	import Settings2Icon from '@lucide/svelte/icons/settings-2';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let { table }: { table: Table<TData> } = $props();
 
 	const columnTitles: Record<string, string> = {
-		event: 'Název',
-		label: 'Štítky',
-		name: 'Vytvořil/a',
-		time: 'Datum vytvoření',
-		active: 'Aktivní'
+		event: m.col_event(),
+		label: m.col_label(),
+		name: m.col_created_by(),
+		time: m.col_created_at(),
+		active: m.col_active()
 	};
 </script>
 
@@ -20,7 +21,7 @@
 		{#snippet child({ props })}
 			<Button {...props} variant="outline" size="sm" class="ml-auto">
 				<Settings2Icon />
-				Zobrazení
+				{m.reply_email_view()}
 			</Button>
 		{/snippet}
 	</DropdownMenu.Trigger>

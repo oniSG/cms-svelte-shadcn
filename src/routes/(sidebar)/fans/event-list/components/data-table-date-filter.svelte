@@ -7,6 +7,7 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import CalendarIcon from '@lucide/svelte/icons/calendar';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let { column }: { column: Column<TData, TValue> } = $props();
 
@@ -30,7 +31,7 @@
 	}
 
 	const label = $derived(
-		!range?.start ? 'Datum' : range.end ? `${fmt(range.start)} – ${fmt(range.end)}` : fmt(range.start)
+		!range?.start ? m.col_created() : range.end ? `${fmt(range.start)} – ${fmt(range.end)}` : fmt(range.start)
 	);
 
 	function applyFilter(v: DateRange | undefined) {

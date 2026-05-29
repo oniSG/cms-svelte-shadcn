@@ -3,6 +3,8 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import type { Event } from '../columns';
 
+	import * as m from '$lib/paraglide/messages.js';
+
 	let { eventToDelete = $bindable() }: { eventToDelete: Event | null } = $props();
 </script>
 
@@ -12,17 +14,15 @@
 >
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Smazat událost</Dialog.Title>
+			<Dialog.Title>{m.event_dialog_delete_title()}</Dialog.Title>
 			<Dialog.Description>
-				Opravdu chceš smazat <strong>{eventToDelete?.event}</strong>? Tato akce je nevratná.
+				{m.event_dialog_delete_description({ event: `${eventToDelete?.event}` })}
 			</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
-			<Button variant="outline" onclick={() => eventToDelete = null}>Zrušit</Button>
-			<Button variant="destructive" onclick={() => {
-                eventToDelete = null;
-            }}>
-				Smazat
+			<Button variant="outline" onclick={() => eventToDelete = null}>{m.common_cancel()}</Button>
+			<Button variant="destructive" onclick={() => { eventToDelete = null; }}>
+				{m.event_dialog_delete_submit()}
 			</Button>
 		</Dialog.Footer>
 	</Dialog.Content>

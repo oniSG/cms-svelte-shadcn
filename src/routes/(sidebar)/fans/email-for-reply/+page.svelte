@@ -3,7 +3,6 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import Settings2Icon from '@lucide/svelte/icons/settings-2';
 	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
 	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
@@ -15,11 +14,10 @@
 	import EditDialog from './components/data-table-edit-dialog.svelte';
 	import AddDialog from './components/data-table-add-dialog.svelte';
 	import { Plus } from '@lucide/svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
-	let showEmail = $state(true);
-	let showStatus = $state(true);
-	let currentPage = $state(1); //Aktuální číslo stránky
-	let maxItemsPerPage = $state(10); //Maximální počet záznamů v tabulce
+	let currentPage = $state(1);
+	let maxItemsPerPage = $state(10);
 	const emails = [
 		{ id: 1, email: 'alice757@gmail.com', isActive: 'true' },
 		{ id: 2, email: 'alice@gmail.com', isActive: 'true' },
@@ -128,36 +126,16 @@
 	let emailToDelete = $state<typeof emails[0] | null>(null);
 	let emailToEdit = $state<typeof emails[0] | null>(null);
 	let showAddDialog = $state(false);
-
 </script>
 
 <PageHeader
-	breadcrumbs={[{ title: 'Home', url: '/' }, { title: 'Settings' }, { title: 'Email for reply' }]}
+	breadcrumbs={[{ title: 'Home', url: '/' }, { title: m.sidebar_module_settings() }, { title: m.nav_set_fans_reply_email() }]}
 />
 
-<div class="flex flex-row justify-between mb-2">
-	<DropdownMenu.Root>
-		<DropdownMenu.Trigger>
-			{#snippet child({ props })}
-				<Button {...props} variant="outline" size="sm">
-					<Settings2Icon />
-					View
-				</Button>
-			{/snippet}
-		</DropdownMenu.Trigger>
-		<DropdownMenu.Content>
-			<DropdownMenu.CheckboxItem bind:checked={showEmail}>
-				Email
-			</DropdownMenu.CheckboxItem>
-			<DropdownMenu.CheckboxItem bind:checked={showStatus}>
-				Status
-			</DropdownMenu.CheckboxItem>
-		</DropdownMenu.Content>
-	</DropdownMenu.Root>
-
+<div class="flex flex-row justify-end mb-2">
 	<Button onclick={() => showAddDialog = true} size="sm" variant="default">
 		<Plus class="mr-2 size-4" />
-		Přidat e-mail
+		{m.reply_email_add()}
 	</Button>
 </div>
 
@@ -165,8 +143,8 @@
 	<Table.Root>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head class="w-25">Název</Table.Head>
-				<Table.Head>Aktivní</Table.Head>
+				<Table.Head class="w-25">{m.reply_email_name()}</Table.Head>
+				<Table.Head>{m.reply_email_active()}</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
@@ -187,12 +165,11 @@
 						{/snippet}
 					</ContextMenu.Trigger>
 					<ContextMenu.Content>
-
 						<ContextMenu.Item onclick={() => { emailToEdit = email; }}>
-							Editovat
+							{m.reply_email_edit()}
 						</ContextMenu.Item>
 						<ContextMenu.Item onclick={() => emailToDelete = email}>
-							Odstranit
+							{m.reply_email_delete()}
 						</ContextMenu.Item>
 					</ContextMenu.Content>
 				</ContextMenu.Root>
@@ -201,14 +178,13 @@
 	</Table.Root>
 </div>
 
-
 <div class="flex items-center justify-between mt-2 mb-6">
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger>
 			{#snippet child({ props })}
-				<Button {...props} variant="outline" size="sm">{maxItemsPerPage} items per page</Button>
+				<Button {...props} variant="outline"
+				        size="sm">{m.reply_email_items_per_page({ count: maxItemsPerPage })}</Button>
 			{/snippet}
-
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content align="start">
 			<DropdownMenu.Item onclick={() => { maxItemsPerPage = 10; currentPage = 1; }}>10</DropdownMenu.Item>
@@ -244,13 +220,3 @@
 <EditDialog bind:emailToEdit />
 <DeleteDialog bind:emailToDelete />
 <AddDialog bind:open={showAddDialog} />
-
-
-
-
-
-
-
-
-
-

@@ -5,6 +5,8 @@
 	import type { Event } from '../columns';
 	import { Check, X } from '@lucide/svelte';
 
+	import * as m from '$lib/paraglide/messages.js';
+
 	let { eventToShow = $bindable() }: { eventToShow: Event | null } = $props();
 
 	const formattedDate = $derived(
@@ -26,22 +28,18 @@
 		<Dialog.Header>
 			<Dialog.Title>{eventToShow?.event}</Dialog.Title>
 		</Dialog.Header>
-
-		<div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-5 text-sm ">
-			<span class="text-muted-foreground">Vytvořil/a</span>
+		<div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-5 text-sm">
+			<span class="text-muted-foreground">{m.col_created_by()}</span>
 			<span>{eventToShow?.name}</span>
-
-			<span class="text-muted-foreground">Štítky</span>
+			<span class="text-muted-foreground">{m.event_tags_label()}</span>
 			<div class="flex flex-wrap gap-1">
 				{#each (eventToShow?.label ?? []) as tag (tag)}
 					<Badge variant="secondary">{tag}</Badge>
 				{/each}
 			</div>
-
-			<span class="text-muted-foreground">Vytvořeno</span>
+			<span class="text-muted-foreground">{m.event_created_at_label()}</span>
 			<span>{formattedDate}</span>
-
-			<span class="text-muted-foreground">Aktivní</span>
+			<span class="text-muted-foreground">{m.col_active()}</span>
 			<span>
 				{#if eventToShow?.active === true}
 					<Check class="text-primary size-4" />
@@ -50,9 +48,8 @@
 				{/if}
 			</span>
 		</div>
-
 		<Dialog.Footer>
-			<Button onclick={() => eventToShow = null} variant="default">Zavřít</Button>
+			<Button onclick={() => eventToShow = null} variant="default">{m.common_close()}</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

@@ -169,5 +169,106 @@
 	"nav_set_users": "Users",
 	"nav_set_security_logs": "Security & Logs",
 	"nav_set_security": "Security",
-	"nav_set_logs": "Logs Table"
+	"nav_set_logs": "Logs Table",
+
+	"nav_frequency_info": "The setting for the frequency of mobile message delivery will apply to all users",
+	"nav_mobile_message": "Mobile message",
+	"nav_allowed_sending": "Maximum number of submissions",
+	"nav_days_count": "Number of days",
+	"nav_verified": "Verified",
+	"nav_unverified": "Unverified",
+
+	"nav_set_fans_sending_domains_title": "Sending domains",
+	"nav_set_fans_sending_domains_recheck": "Re-check all",
+	"nav_set_fans_sending_domains_create": "Create domain",
+
+	"domain_verified": "Domain verified",
+	"domain_last_checked": "Last checked",
+	"domain_last_checked_value": "2 min ago",
+	"domain_dns_delay": "DNS changes may take up to 24 hours to propagate. We refresh the status automatically every hour.",
+
+	"domain_dkim_description": "DKIM record configuration for domain verification",
+	"domain_dmarc_description": "DMARC record configuration for domain protection",
+	"domain_spf_description": "SPF is added automatically — no need to add it manually",
+
+	"domain_host": "Host",
+	"domain_value": "Value",
+
+	"domain_drawer_title": "What is a sending domain?",
+	"domain_drawer_sending_domain_body": "A sending domain is the domain used in the From: address of your emails. Authenticating it proves to receiving mail servers that you are authorized to send on behalf of that domain, which dramatically improves deliverability and protects your brand from spoofing.",
+	"domain_drawer_dns_title": "Required DNS records",
+	"domain_drawer_dns_body": "You need to add three types of records to your domain's DNS zone.",
+	"domain_drawer_dkim_body": "DKIM attaches a cryptographic signature to every outgoing message. The receiving server fetches your public key from DNS and verifies the signature, confirming the email was not tampered with in transit.",
+	"domain_drawer_dkim_step1": "Copy the Host and Value shown on this page.",
+	"domain_drawer_dkim_step2": "In your DNS provider, create a new TXT record with those values.",
+	"domain_drawer_dkim_step3": "Propagation can take up to 24 hours. Use the Re-check all button to refresh the status.",
+	"domain_drawer_dmarc_body": "DMARC tells receiving servers what to do when a message fails DKIM or SPF checks — for example, reject it or send it to spam. It also enables aggregate reports so you can monitor who is sending email from your domain.",
+	"domain_drawer_dmarc_minimal": "A minimal policy to get started:",
+	"domain_drawer_dmarc_tighten": "Once you are confident in your setup, tighten the policy to p=quarantine or p=reject.",
+	"domain_drawer_spf_body": "SPF lists the mail servers permitted to send email for your domain. Our platform adds the required SPF entry automatically — you do not need to create it manually. If you already have an SPF record, we will merge our entry into it.",
+	"domain_drawer_troubleshooting_title": "Troubleshooting",
+	"domain_drawer_trouble_not_found": "Record not found — double-check there are no extra spaces in the host name and that the record type is TXT.",
+	"domain_drawer_trouble_unverified": "Still unverified after 24 h — some registrars cache DNS for up to 48 hours. Try a public checker like MXToolbox to confirm the record is live.",
+	"domain_drawer_trouble_spf": "Multiple SPF records — a domain must have exactly one SPF TXT record. Merge all include: entries into a single record.",
+
+	"security_title": "Security",
+	"security_description": "Security settings apply to all users",
+	"security_2fa": "Mandatory two-factor authentication",
+
+	"reply_email_add": "Add email",
+	"reply_email_name": "Name",
+	"reply_email_active": "Active",
+	"reply_email_edit": "Edit",
+	"reply_email_delete": "Delete",
+	"reply_email_view": "View",
+	"reply_email_items_per_page": "{count} items per page",
+
+	"reply_email_dialog_add_title": "Add email",
+	"reply_email_dialog_add_submit": "Add",
+	"common_cancel": "Cancel",
+	"reply_email_validation_invalid": "Invalid email address",
+
+	"reply_email_dialog_delete_title": "Delete email",
+	"reply_email_dialog_delete_description": "Are you sure you want to delete {email}? This action is irreversible.",
+
+	"reply_email_dialog_edit_title": "Edit email",
+	"save": "Save",
+
+	"table_items_per_page": "{count} items per page",
+
+	"col_event": "Name",
+	"col_label": "Labels",
+	"col_created_by": "Created by",
+	"col_created": "Date",
+	"col_created_at": "Created at",
+	"col_active": "Active",
+
+	"add_record": "Add a record",
+
+	"event_dialog_create_title": "New event",
+	"event_name_label": "Name",
+	"event_name_placeholder": "Event name",
+	"event_tags_label": "Labels",
+	"event_tags_placeholder": "Select labels",
+	"event_tags_search": "Search label...",
+	"event_events_label": "Events",
+	"event_events_placeholder": "Select events",
+	"event_events_search": "Search event by name or ID...",
+	"event_no_results": "No results.",
+	"event_update_ticketing": "Update from ticketing",
+	"event_create_submit": "Create",
+
+	"event_dialog_edit_title": "Edit event",
+	"event_save_close": "Save and close",
+
+	"event_created_at_label": "Created",
+
+	"event_dialog_copy_title": "Duplicate event",
+	"event_dialog_copy_description": "Are you sure you want to duplicate {event}?",
+	"event_dialog_copy_submit": "Duplicate",
+
+	"event_dialog_delete_title": "Delete event",
+	"event_dialog_delete_description": "Are you sure you want to delete {event}? This action is irreversible.",
+	"event_dialog_delete_submit": "Delete",
+	"event_detail": "Detail"
 }
