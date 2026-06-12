@@ -3,18 +3,21 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
+
+	import * as m from '$lib/paraglide/messages.js';
 </script>
 
 <PageHeader
-	breadcrumbs={[{ title: 'Home', url: '/' }, { title: 'Settings' }, { title: 'Security' }]}
+	breadcrumbs={[{ title: 'Home', url: '/' }, { title: m.sidebar_module_settings() }, { title: m.nav_set_security() }]}
 />
+
 <Card.Root class="w-full max-w-xl">
 	<Card.Header>
-		<Card.Title>Zabezpečení</Card.Title>
-		<Card.Description>Nastavení zabezpečení se projeví u všech uživatelů</Card.Description>
+		<Card.Title>{m.security_title()}</Card.Title>
+		<Card.Description>{m.security_description()}</Card.Description>
 	</Card.Header>
 	<Card.Content class="flex justify-between gap-6">
-		<Label class="text-sm">Povinné dvoufaktorové ověření</Label>
+		<Label class="text-sm">{m.security_2fa()}</Label>
 		<Switch />
 	</Card.Content>
 </Card.Root>

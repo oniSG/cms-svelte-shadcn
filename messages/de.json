@@ -169,5 +169,106 @@
 	"nav_set_users": "Benutzer",
 	"nav_set_security_logs": "Sicherheit & Protokolle",
 	"nav_set_security": "Sicherheit",
-	"nav_set_logs": "Protokolltabelle"
+	"nav_set_logs": "Protokolltabelle",
+
+	"nav_frequency_info": "Die Einstellung der Sendehäufigkeit von SMS-Nachrichten gilt für alle Nutzer",
+	"nav_mobile_message": "Mobile Nachricht",
+	"nav_allowed_sending": "Zulässige Anzahl von Sendungen",
+	"nav_days_count": "Anzahl der Tage",
+	"nav_verified": "Geprüft",
+	"nav_unverified": "Unbestätigt",
+
+	"nav_set_fans_sending_domains_title": "Versanddomänen",
+	"nav_set_fans_sending_domains_recheck": "Alles erneut prüfen",
+	"nav_set_fans_sending_domains_create": "Domain erstellen",
+
+	"domain_verified": "Domain verifiziert",
+	"domain_last_checked": "Zuletzt geprüft",
+	"domain_last_checked_value": "Vor 2 Minuten",
+	"domain_dns_delay": "DNS-Änderungen können bis zu 24 Stunden dauern. Der Status wird automatisch jede Stunde aktualisiert.",
+
+	"domain_dkim_description": "DKIM-Eintrag zur Domain-Verifizierung konfigurieren",
+	"domain_dmarc_description": "DMARC-Eintrag zum Schutz der Domain konfigurieren",
+	"domain_spf_description": "SPF wird automatisch hinzugefügt – kein manuelles Einrichten erforderlich",
+
+	"domain_host": "Host",
+	"domain_value": "Wert",
+
+	"domain_drawer_title": "Was ist eine Versanddomäne?",
+	"domain_drawer_sending_domain_body": "Eine Versanddomäne ist die Domain, die in der Von:-Adresse Ihrer E-Mails verwendet wird. Durch die Authentifizierung wird empfangenden Mailservern nachgewiesen, dass Sie berechtigt sind, im Namen dieser Domain zu senden, was die Zustellbarkeit erheblich verbessert und Ihre Marke vor Spoofing schützt.",
+	"domain_drawer_dns_title": "Erforderliche DNS-Einträge",
+	"domain_drawer_dns_body": "Sie müssen drei Arten von Einträgen zur DNS-Zone Ihrer Domain hinzufügen.",
+	"domain_drawer_dkim_body": "DKIM fügt jeder ausgehenden Nachricht eine kryptografische Signatur hinzu. Der empfangende Server ruft Ihren öffentlichen Schlüssel aus dem DNS ab und verifiziert die Signatur, um sicherzustellen, dass die E-Mail während der Übertragung nicht manipuliert wurde.",
+	"domain_drawer_dkim_step1": "Kopieren Sie Host und Wert, die auf dieser Seite angezeigt werden.",
+	"domain_drawer_dkim_step2": "Erstellen Sie bei Ihrem DNS-Anbieter einen neuen TXT-Eintrag mit diesen Werten.",
+	"domain_drawer_dkim_step3": "Die Übertragung kann bis zu 24 Stunden dauern. Aktualisieren Sie den Status mit der Schaltfläche Alles erneut prüfen.",
+	"domain_drawer_dmarc_body": "DMARC teilt empfangenden Servern mit, was zu tun ist, wenn eine Nachricht die DKIM- oder SPF-Prüfung nicht besteht – z. B. ablehnen oder in den Spam verschieben. Es ermöglicht auch aggregierte Berichte, um zu überwachen, wer E-Mails von Ihrer Domain sendet.",
+	"domain_drawer_dmarc_minimal": "Eine minimale Richtlinie für den Einstieg:",
+	"domain_drawer_dmarc_tighten": "Sobald Sie von Ihrer Konfiguration überzeugt sind, verschärfen Sie die Richtlinie auf p=quarantine oder p=reject.",
+	"domain_drawer_spf_body": "SPF listet die Mailserver auf, die berechtigt sind, E-Mails für Ihre Domain zu senden. Unsere Plattform fügt den erforderlichen SPF-Eintrag automatisch hinzu – Sie müssen ihn nicht manuell erstellen. Falls Sie bereits einen SPF-Eintrag haben, fügen wir unseren Eintrag darin zusammen.",
+	"domain_drawer_troubleshooting_title": "Fehlerbehebung",
+	"domain_drawer_trouble_not_found": "Eintrag nicht gefunden – prüfen Sie, ob im Hostnamen keine zusätzlichen Leerzeichen vorhanden sind und der Eintragstyp TXT ist.",
+	"domain_drawer_trouble_unverified": "Nach 24 Stunden noch nicht verifiziert – einige Registrare cachen DNS bis zu 48 Stunden. Prüfen Sie den Eintrag mit einem öffentlichen Tool wie MXToolbox.",
+	"domain_drawer_trouble_spf": "Mehrere SPF-Einträge – eine Domain darf genau einen SPF-TXT-Eintrag haben. Führen Sie alle include:-Einträge in einem einzigen Eintrag zusammen.",
+
+	"security_title": "Sicherheit",
+	"security_description": "Sicherheitseinstellungen gelten für alle Benutzer",
+	"security_2fa": "Obligatorische Zwei-Faktor-Authentifizierung",
+
+	"reply_email_add": "E-Mail hinzufügen",
+	"reply_email_name": "Name",
+	"reply_email_active": "Aktiv",
+	"reply_email_edit": "Bearbeiten",
+	"reply_email_delete": "Entfernen",
+	"reply_email_view": "Ansicht",
+	"reply_email_items_per_page": "{count} Einträge pro Seite",
+
+	"reply_email_dialog_add_title": "E-Mail hinzufügen",
+	"reply_email_dialog_add_submit": "Hinzufügen",
+	"common_cancel": "Abbrechen",
+	"reply_email_validation_invalid": "Ungültige E-Mail-Adresse",
+
+	"reply_email_dialog_delete_title": "E-Mail entfernen",
+	"reply_email_dialog_delete_description": "Möchtest du {email} wirklich entfernen? Diese Aktion ist unwiderruflich.",
+
+	"reply_email_dialog_edit_title": "E-Mail bearbeiten",
+	"save": "Speichern",
+
+	"table_items_per_page": "{count} Einträge pro Seite",
+
+	"col_event": "Name",
+	"col_label": "Etiketten",
+	"col_created_by": "Erstellt von",
+	"col_created": "Date",
+	"col_created_at": "Erstellungsdatum",
+	"col_active": "Aktiv",
+
+	"add_record": "Eintrag hinzufügen",
+
+	"event_dialog_create_title": "Neue Veranstaltung",
+	"event_name_label": "Name",
+	"event_name_placeholder": "Name der Veranstaltung",
+	"event_tags_label": "Etiketten",
+	"event_tags_placeholder": "Etiketten auswählen",
+	"event_tags_search": "Etikett suchen...",
+	"event_events_label": "Veranstaltungen",
+	"event_events_placeholder": "Veranstaltungen auswählen",
+	"event_events_search": "Veranstaltung nach Name oder ID suchen...",
+	"event_no_results": "Keine Ergebnisse.",
+	"event_update_ticketing": "Aus Ticketing aktualisieren",
+	"event_create_submit": "Erstellen",
+
+	"event_dialog_edit_title": "Veranstaltung bearbeiten",
+	"event_save_close": "Speichern und schließen",
+
+	"event_created_at_label": "Erstellt",
+
+	"event_dialog_copy_title": "Veranstaltung duplizieren",
+	"event_dialog_copy_description": "Möchtest du {event} wirklich duplizieren?",
+	"event_dialog_copy_submit": "Duplizieren",
+
+	"event_dialog_delete_title": "Veranstaltung löschen",
+	"event_dialog_delete_description": "Möchtest du {event} wirklich löschen? Diese Aktion ist unwiderruflich.",
+	"event_dialog_delete_submit": "Löschen",
+	"event_detail": "Detail"
 }

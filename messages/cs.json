@@ -169,5 +169,108 @@
 	"nav_set_users": "Uživatelé",
 	"nav_set_security_logs": "Zabezpečení a logy",
 	"nav_set_security": "Zabezpečení",
-	"nav_set_logs": "Tabulka logů"
+	"nav_set_logs": "Tabulka logů",
+
+	"nav_frequency_info": "Nastavení frekvence odesílání mobilních zpráv se projeví u všech uživatelů",
+	"nav_mobile_message": "Mobilní zpráva",
+	"nav_allowed_sending": "Povolený počet odeslání",
+	"nav_days_count": "Počet dní",
+	"nav_verified": "Ověřeno",
+	"nav_unverified": "Neověřeno",
+
+	"nav_set_fans_sending_domains_title": "Odesílací domény",
+	"nav_set_fans_sending_domains_recheck": "Znovu zkontrolovat vše",
+	"nav_set_fans_sending_domains_create": "Vytvořit doménu",
+
+	"domain_verified": "Doména ověřena",
+	"domain_last_checked": "Naposledy zkontrolováno",
+	"domain_last_checked_value": "Před 2 minutami",
+	"domain_dns_delay": "Změny v DNS se mohou projevit až za 24 hodin. Status obnovujeme automaticky každou hodinu.",
+
+	"domain_dkim_description": "Nastavení DKIM záznamu pro ověření domény",
+	"domain_dmarc_description": "Nastavení DMARC záznamu pro ochranu domény",
+	"domain_spf_description": "Nastavení SPF se přidá automaticky, není potřeba ho přidávat ručně",
+
+	"domain_host": "Host",
+	"domain_value": "Hodnota",
+
+	"domain_drawer_title": "Co je to odesílací doména?",
+	"domain_drawer_sending_domain_body": "Odesílací doména je doména použitá v adrese Odesílatel: vašich e-mailů. Její ověření dokazuje přijímajícím poštovním serverům, že jste oprávněni odesílat jménem této domény, což výrazně zlepšuje doručitelnost a chrání vaši značku před podvržením.",
+	"domain_drawer_dns_title": "Potřebné DNS záznamy",
+	"domain_drawer_dns_body": "Do DNS zóny vaší domény je potřeba přidat tři typy záznamů.",
+	"domain_drawer_dkim_body": "DKIM připojuje kryptografický podpis ke každé odchozí zprávě. Přijímající server načte váš veřejný klíč z DNS a ověří podpis, čímž potvrdí, že e-mail nebyl při přenosu upraven.",
+	"domain_drawer_dmarc_body": "DMARC říká přijímajícím serverům, co mají dělat, když zpráva neproj dne kontrolou DKIM nebo SPF – například ji odmítnout nebo přesunout do spamu. Umožňuje také souhrnné reporty pro monitorování odesílání z vaší domény.",
+	"domain_drawer_spf_body": "SPF uvádí poštovní servery oprávněné odesílat e-maily za vaši doménu. Naše platforma přidá potřebný SPF záznam automaticky – nemusíte ho vytvářet ručně. Pokud již SPF záznam máte, náš záznam do něj sloučíme.",
+	"domain_drawer_troubleshooting_title": "Řešení problémů",
+	"domain_drawer_trouble_not_found": "Záznam nenalezen – zkontrolujte, zda v názvu hostu nejsou přebytečné mezery a zda je typ záznamu TXT.",
+	"domain_drawer_trouble_unverified": "Stále neověřeno po 24 hodinách – někteří registrátoři cachují DNS až 48 hodin. Ověřte záznam pomocí veřejného nástroje, např. MXToolbox.",
+	"domain_drawer_trouble_spf": "Více SPF záznamů – doména musí mít přesně jeden SPF TXT záznam. Sloučte všechny hodnoty include: do jednoho záznamu.",
+
+	"domain_drawer_dkim_step1": "Zkopírujte Host a Hodnota zobrazené na této stránce.",
+	"domain_drawer_dkim_step2": "U svého DNS poskytovatele vytvořte nový TXT záznam s těmito hodnotami.",
+	"domain_drawer_dkim_step3": "Propagace může trvat až 24 hodin. Stav obnovíte tlačítkem Znovu zkontrolovat vše.",
+
+	"domain_drawer_dmarc_minimal": "Minimální politika pro začátek:",
+	"domain_drawer_dmarc_tighten": "Jakmile budete se svým nastavením spokojeni, zpřísněte politiku na p=quarantine nebo p=reject.",
+
+	"security_title": "Zabezpečení",
+	"security_description": "Nastavení zabezpečení se projeví u všech uživatelů",
+	"security_2fa": "Povinné dvoufaktorové ověření",
+
+	"reply_email_add": "Přidat e-mail",
+	"reply_email_name": "Název",
+	"reply_email_active": "Aktivní",
+	"reply_email_edit": "Editovat",
+	"reply_email_delete": "Odstranit",
+	"reply_email_view": "Zobrazení",
+	"reply_email_items_per_page": "{count} záznamů na stránku",
+
+	"reply_email_dialog_add_title": "Přidat e-mail",
+	"reply_email_dialog_add_submit": "Přidat",
+	"common_cancel": "Zrušit",
+	"reply_email_validation_invalid": "Neplatná e-mailová adresa",
+
+	"reply_email_dialog_delete_title": "Odstranit e-mail",
+	"reply_email_dialog_delete_description": "Opravdu chceš odstranit {email}? Tato akce je nevratná.",
+
+	"reply_email_dialog_edit_title": "Editovat e-mail",
+	"save": "Uložit",
+
+	"table_items_per_page": "{count} záznamů na stránku",
+
+	"col_event": "Název",
+	"col_label": "Štítky",
+	"col_created_by": "Vytvořil/a",
+	"col_created_at": "Datum vytvoření",
+	"col_created": "Datum",
+	"col_active": "Aktivní",
+
+	"add_record": "Přidat záznam",
+
+	"event_dialog_create_title": "Nová událost",
+	"event_name_label": "Název",
+	"event_name_placeholder": "Název události",
+	"event_tags_label": "Štítky",
+	"event_tags_placeholder": "Vyberte štítky",
+	"event_tags_search": "Hledat štítek...",
+	"event_events_label": "Události",
+	"event_events_placeholder": "Vyberte události",
+	"event_events_search": "Hledat událost podle názvu nebo ID...",
+	"event_no_results": "Žádné výsledky.",
+	"event_update_ticketing": "Aktualizovat podle ticketingu",
+	"event_create_submit": "Vytvořit",
+
+	"event_dialog_edit_title": "Editace události",
+	"event_save_close": "Uložit a zavřít",
+
+	"event_created_at_label": "Vytvořeno",
+
+	"event_dialog_copy_title": "Duplikovat událost",
+	"event_dialog_copy_description": "Opravdu chceš duplikovat {event}?",
+	"event_dialog_copy_submit": "Duplikovat",
+
+	"event_dialog_delete_title": "Smazat událost",
+	"event_dialog_delete_description": "Opravdu chceš smazat {event}? Tato akce je nevratná.",
+	"event_dialog_delete_submit": "Smazat",
+	"event_detail": "Detail"
 }
