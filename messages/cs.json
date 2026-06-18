@@ -173,6 +173,10 @@
 
 	"nav_frequency_info": "Nastavení frekvence odesílání mobilních zpráv se projeví u všech uživatelů",
 	"nav_mobile_message": "Mobilní zpráva",
+	"nav_set_biz_group": "Business nastavení",
+	"nav_set_fans_settings": "Fans nastavení",
+	"nav_reports": "Reporty",
+	"nav_biz_plan": "Plán",
 	"nav_allowed_sending": "Povolený počet odeslání",
 	"nav_days_count": "Počet dní",
 	"nav_verified": "Ověřeno",

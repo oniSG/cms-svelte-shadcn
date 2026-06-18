@@ -111,9 +111,6 @@
 	<div class="flex items-center py-2">
 		{#if typeCol && emailCol && timeCol}
 			<ButtonGroup.Root>
-				<!-- <Button variant="outline" size="sm">
-					<FunnelIcon />
-				</Button> -->
 				<DataTableColFilter icon={ShapesIcon} column={typeCol} title="Type" options={types} />
 				<DataTableColFilter icon={UserIcon} column={emailCol} title="User" options={emails} />
 				<DataTableDateFilter column={timeCol} />

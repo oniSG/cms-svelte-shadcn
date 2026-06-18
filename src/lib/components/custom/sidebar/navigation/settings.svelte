@@ -1,9 +1,8 @@
 <script lang="ts" module>
 	import BriefcaseIcon from '@lucide/svelte/icons/briefcase';
-	import MailIcon from '@lucide/svelte/icons/mail';
-	import PaletteIcon from '@lucide/svelte/icons/palette';
 	import Settings2Icon from '@lucide/svelte/icons/settings-2';
 	import ShieldIcon from '@lucide/svelte/icons/shield';
+	import StarIcon from '@lucide/svelte/icons/star';
 	import UsersIcon from '@lucide/svelte/icons/users';
 </script>
 
@@ -17,81 +16,64 @@
 			items: [
 				{
 					title: m.nav_set_general(),
-					url: '/',
+					url: '#',
 					icon: Settings2Icon,
 					items: [
-						{ title: m.nav_set_tags(), url: '/' },
-						{ title: m.nav_set_currencies(), url: '/' },
-						{ title: m.nav_set_companies(), url: '/' },
-						{ title: m.nav_set_seasons(), url: '/' }
+						{ title: m.nav_set_tags(), url: '/tag' },
+						{ title: m.nav_set_currencies(), url: '/currency' },
+						{ title: m.nav_set_companies(), url: '/company' },
+						{ title: m.nav_set_seasons(), url: '/season' }
 					]
-				}
-			]
-		},
-		{
-			label: m.nav_set_modules(),
-			items: [
+				},
 				{
-					title: m.sidebar_module_business(),
-					url: '/',
+					title: m.nav_set_biz_group(),
+					url: '#',
 					icon: BriefcaseIcon,
 					items: [
-						{ title: m.nav_set_biz_opp_states(), url: '/' },
-						{ title: m.nav_set_biz_opp_types(), url: '/' },
-						{ title: m.nav_set_biz_offer_states(), url: '/' },
-						{ title: m.nav_set_biz_ad_states(), url: '/' },
-						{ title: m.nav_set_biz_settings(), url: '/' },
-						{ title: m.nav_set_biz_email_assistant(), url: '/' },
-						{ title: m.nav_set_biz_contact_types(), url: '/' }
+						{ title: m.nav_set_biz_opp_states(), url: '/business-case-state' },
+						{ title: m.nav_set_biz_opp_types(), url: '/business-case-type' },
+						{ title: m.nav_set_biz_offer_states(), url: '/offer-state' },
+						{ title: m.nav_set_biz_ad_states(), url: '/advertising-space-item-state' },
+						{ title: m.nav_set_biz_settings(), url: '/business-settings' },
+						{ title: m.nav_set_biz_email_assistant(), url: '/mail-assistant' },
+						{ title: m.nav_set_biz_contact_types(), url: '/contact-person-types' }
 					]
 				},
 				{
-					title: m.nav_set_fans_email(),
-					url: '/',
-					icon: MailIcon,
+					title: m.nav_set_fans_settings(),
+					url: '#',
+					icon: StarIcon,
 					items: [
-						{ title: m.nav_set_fans_newsletter_form(), url: '/' },
-						{ title: m.nav_set_fans_sending_domains(), url: '/fans/sending-domain' },
-						{ title: m.nav_set_fans_domain_prefix(), url: '/' },
-						{ title: m.nav_set_fans_reply_email(), url: '/fans/email-for-reply' },
-						{ title: m.nav_set_fans_send_frequency(), url: '/fans/frequency-cap' }
+						{ title: m.nav_set_fans_newsletter_form(), url: '/newsletter' },
+						{ title: m.nav_set_fans_loyalty(), url: '/touchpoint' },
+						{ title: m.nav_set_fans_custom_font(), url: '/custom-font' },
+						{ title: m.nav_set_fans_custom_block(), url: '/custom-block' },
+						{ title: m.nav_set_fans_sending_domains(), url: '/sending-domain' },
+						{ title: m.nav_set_fans_domain_prefix(), url: '/sending-domain-prefix' },
+						{ title: m.nav_set_fans_reply_email(), url: '/email-for-reply' },
+						{ title: m.nav_set_fans_custom_visitor_field(), url: '/custom-attribute' },
+						{ title: m.nav_set_fans_waitlist(), url: '/waiting-list' },
+						{ title: m.nav_set_fans_gdpr_texts(), url: '/gdpr-texts' },
+						{ title: m.nav_set_fans_send_frequency(), url: '/frequency-cap' }
 					]
 				},
-				{
-					title: m.nav_set_fans_content(),
-					url: '/',
-					icon: PaletteIcon,
-					items: [
-						{ title: m.nav_set_fans_loyalty(), url: '/' },
-						{ title: m.nav_set_fans_custom_font(), url: '/' },
-						{ title: m.nav_set_fans_custom_block(), url: '/' },
-						{ title: m.nav_set_fans_custom_visitor_field(), url: '/' },
-						{ title: m.nav_set_fans_waitlist(), url: '/' },
-						{ title: m.nav_set_fans_gdpr_texts(), url: '/' }
-					]
-				}
-			]
-		},
-		{
-			label: m.nav_set_system(),
-			items: [
 				{
 					title: m.nav_set_users_access(),
-					url: '/',
+					url: '#',
 					icon: UsersIcon,
 					items: [
-						{ title: m.nav_set_user_masks(), url: '/' },
-						{ title: m.nav_set_user_groups(), url: '/' },
-						{ title: m.nav_set_users(), url: '/' }
+						{ title: m.nav_set_user_masks(), url: '/privilege' },
+						{ title: m.nav_set_user_groups(), url: '/user-group' },
+						{ title: m.nav_set_users(), url: '/user' }
 					]
 				},
 				{
 					title: m.nav_set_security_logs(),
-					url: '/',
+					url: '#',
 					icon: ShieldIcon,
 					items: [
 						{ title: m.nav_set_security(), url: '/settings/security' },
-						{ title: m.nav_set_logs(), url: '/settings/logs' }
+						{ title: m.nav_set_logs(), url: '/log' }
 					]
 				}
 			]

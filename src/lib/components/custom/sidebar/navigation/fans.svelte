@@ -1,13 +1,14 @@
 <script lang="ts" module>
-	import WaypointsIcon from '@lucide/svelte/icons/waypoints';
 	import CalendarDaysIcon from '@lucide/svelte/icons/calendar-days';
 	import ChartBarIcon from '@lucide/svelte/icons/chart-bar';
 	import ClipboardListIcon from '@lucide/svelte/icons/clipboard-list';
 	import FileTextIcon from '@lucide/svelte/icons/file-text';
 	import LayersIcon from '@lucide/svelte/icons/layers';
 	import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard';
+	import MonitorIcon from '@lucide/svelte/icons/monitor';
 	import TargetIcon from '@lucide/svelte/icons/target';
 	import TvIcon from '@lucide/svelte/icons/tv';
+	import WaypointsIcon from '@lucide/svelte/icons/waypoints';
 	import ZapIcon from '@lucide/svelte/icons/zap';
 </script>
 
@@ -18,54 +19,45 @@
 
 	const nav = $derived<NavGroup[]>([
 		{
-			items: [{ title: m.nav_dashboard(), url: '/fans', icon: TargetIcon, isActive: true }]
-		},
-		{
-			label: m.nav_fans_management(),
 			items: [
-				{ title: m.nav_fans_visitors(), url: '/fans/navstevnici', icon: ZapIcon },
-				{ title: m.nav_fans_segments(), url: '/fans/segmenty', icon: LayersIcon },
-				{ title: m.nav_fans_templates(), url: '/fans/sablony', icon: LayoutDashboardIcon }
+				{ title: m.nav_dashboard(), url: '/fans', icon: TargetIcon },
+				{ title: m.nav_fans_visitors(), url: '/fan', icon: ZapIcon },
+				{ title: m.nav_fans_segments(), url: '/segment', icon: LayersIcon },
+				{ title: m.nav_fans_templates(), url: '/template', icon: LayoutDashboardIcon },
+				{ title: m.nav_fans_campaigns(), url: '/fan-action', icon: WaypointsIcon },
+				{ title: m.nav_fans_surveys(), url: '/survey', icon: FileTextIcon },
+				{ title: m.nav_fans_event_lists(), url: '/event-list', icon: CalendarDaysIcon },
+				{ title: m.nav_fans_web_form(), url: '/custom-web-form', icon: ClipboardListIcon }
 			]
 		},
 		{
-			label: m.nav_fans_communication(),
-			items: [
-				{ title: m.nav_fans_campaigns(), url: '/fans/events', icon: WaypointsIcon },
-				{ title: m.nav_fans_surveys(), url: '/fans/dotazniky', icon: FileTextIcon },
-				{ title: m.nav_fans_web_form(), url: '/fans/webovy-formular', icon: ClipboardListIcon },
-				{ title: m.nav_fans_event_lists(), url: '/fans/event-list', icon: CalendarDaysIcon }
-			]
-		},
-		{
-			label: m.nav_fans_data(),
 			items: [
 				{
 					title: m.nav_fans_overviews(),
 					url: '#',
 					icon: TvIcon,
 					items: [
-						{ title: m.nav_fans_tickets(), url: '/fans/prehledy/vstupenky' },
-						{ title: m.nav_fans_season_tickets(), url: '/fans/prehledy/permanentky' },
-						{ title: m.nav_fans_occasions(), url: '/fans/prehledy/udalosti' },
-						{ title: m.nav_fans_visits(), url: '/fans/prehledy/navstevy' },
-						{ title: m.nav_fans_memberships(), url: '/fans/prehledy/clenstvi' },
-						{ title: m.nav_fans_football_schools(), url: '/fans/prehledy/fotbalove-skolicky' },
-						{ title: m.nav_fans_products(), url: '/fans/prehledy/produkty' }
+						{ title: m.nav_fans_tickets(), url: '/ticket' },
+						{ title: m.nav_fans_season_tickets(), url: '/season-ticket' },
+						{ title: m.nav_fans_occasions(), url: '/events' },
+						{ title: m.nav_fans_visits(), url: '/visit' },
+						{ title: m.nav_fans_memberships(), url: '/fan-memberships' },
+						{ title: m.nav_fans_football_schools(), url: '/football-class' },
+						{ title: m.nav_fans_products(), url: '/ticketing-products' }
 					]
 				},
 				{
-					title: m.nav_analytics(),
+					title: m.nav_reports(),
 					url: '#',
 					icon: ChartBarIcon,
 					items: [
-						{ title: m.nav_fans_analytics_global(), url: '/fans/analytika/globalni' },
-						{ title: m.nav_fans_analytics_insights(), url: '/fans/analytika/postrehy-relatoo' },
-						{ title: m.nav_fans_analytics_top_visitors(), url: '/fans/analytika/nejvernejsi' },
-						{ title: m.nav_fans_analytics_history(), url: '/fans/analytika/historie' },
-						{ title: m.nav_fans_analytics_gdpr(), url: '/fans/analytika/gdpr' },
-						{ title: m.nav_fans_analytics_event_report(), url: '/fans/analytika/report-udalosti' },
-						{ title: m.nav_manager_report(), url: '/fans/analytika/manazersky' }
+						{ title: m.nav_fans_analytics_global(), url: '/report-fan-general' },
+						{ title: m.nav_fans_analytics_insights(), url: '/report-expert' },
+						{ title: m.nav_fans_analytics_top_visitors(), url: '/report-loyalty-program' },
+						{ title: m.nav_fans_analytics_history(), url: '/report-history-fan' },
+						{ title: m.nav_fans_analytics_gdpr(), url: '/report-gdpr-change' },
+						{ title: m.nav_fans_analytics_event_report(), url: '/report-event' },
+						{ title: m.nav_manager_report(), url: '/report-management' }
 					]
 				}
 			]

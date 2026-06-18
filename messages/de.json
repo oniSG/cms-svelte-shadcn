@@ -173,6 +173,10 @@
 
 	"nav_frequency_info": "Die Einstellung der Sendehäufigkeit von SMS-Nachrichten gilt für alle Nutzer",
 	"nav_mobile_message": "Mobile Nachricht",
+	"nav_set_biz_group": "Business-Einstellungen",
+	"nav_set_fans_settings": "Fans-Einstellungen",
+	"nav_reports": "Berichte",
+	"nav_biz_plan": "Plan",
 	"nav_allowed_sending": "Zulässige Anzahl von Sendungen",
 	"nav_days_count": "Anzahl der Tage",
 	"nav_verified": "Geprüft",

@@ -7,5 +7,4 @@
 
 <PageHeader breadcrumbs={[{ title: 'Home', url: '/' }, { title: 'Settings' }, { title: 'Logs' }]} />
 <DataTable {data} {columns} />
-<!-- svelte-ignore element_invalid_self_closing_tag -->
-<div class="h-4" />
+<div class="h-4"></div>

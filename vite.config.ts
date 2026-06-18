@@ -4,6 +4,9 @@ import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+	optimizeDeps: {
+		exclude: ['layerchart']
+	},
 	plugins: [
 		paraglideVitePlugin({
 			project: './project.inlang',

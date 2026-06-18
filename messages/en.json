@@ -173,6 +173,10 @@
 
 	"nav_frequency_info": "The setting for the frequency of mobile message delivery will apply to all users",
 	"nav_mobile_message": "Mobile message",
+	"nav_set_biz_group": "Business Settings",
+	"nav_set_fans_settings": "Fans Settings",
+	"nav_reports": "Reports",
+	"nav_biz_plan": "Plan",
 	"nav_allowed_sending": "Maximum number of submissions",
 	"nav_days_count": "Number of days",
 	"nav_verified": "Verified",
