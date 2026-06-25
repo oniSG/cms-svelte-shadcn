@@ -49,10 +49,7 @@
 				<Form.FieldErrors />
 			</Form.Field>
 			<Dialog.Footer class="mt-4">
-				<Button
-					onclick={() => (open = false)}
-					type="button"
-					variant="outline">
+				<Button onclick={() => (open = false)} type="button" variant="outline">
 					{m.common_cancel()}
 				</Button>
 				<Button type="submit">

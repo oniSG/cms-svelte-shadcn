@@ -4,6 +4,7 @@ export type Icon = any;
 export type NavSubItem = {
 	title: string;
 	url: string;
+	isActive?: boolean;
 };
 
 export type NavItem = {

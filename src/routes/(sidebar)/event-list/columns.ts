@@ -17,7 +17,7 @@ export type Event = {
 	active: boolean;
 };
 
-export const tags: string[] = ['VIP-gold', 'VIP-silver', 'normal', 'premium', 'denis',];
+export const tags: string[] = ['VIP-gold', 'VIP-silver', 'normal', 'premium', 'denis'];
 
 export const users = new SvelteSet(data.map((event) => event.name));
 

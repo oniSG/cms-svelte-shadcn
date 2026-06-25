@@ -1,18 +1,32 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { moduleState } from '$lib/stores/module.svelte';
 	import type { ComponentProps } from 'svelte';
 	import ModuleSwitcher from './module-switcher.svelte';
-	import NavUser from './user.svelte';
-	import Fans from './navigation/fans.svelte';
-	import Settings from './navigation/settings.svelte';
 	import Business from './navigation/business.svelte';
+	import Fans from './navigation/fans.svelte';
+	import { getModuleForPath } from './navigation/nav-data';
+	import Settings from './navigation/settings.svelte';
+	import NavUser from './user.svelte';
 
 	let {
 		ref = $bindable(null),
 		collapsible = 'icon',
 		...restProps
 	}: ComponentProps<typeof Sidebar.Root> = $props();
+
+	const initialModule = getModuleForPath(page.url.pathname);
+	if (initialModule && initialModule !== moduleState.current) {
+		moduleState.current = initialModule;
+	}
+
+	$effect(() => {
+		const mod = getModuleForPath(page.url.pathname);
+		if (mod && mod !== moduleState.current) {
+			moduleState.current = mod;
+		}
+	});
 </script>
 
 <Sidebar.Root bind:ref {collapsible} {...restProps}>

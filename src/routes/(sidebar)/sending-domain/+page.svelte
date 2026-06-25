@@ -18,7 +18,11 @@
 </script>
 
 <PageHeader
-	breadcrumbs={[{ title: 'Home', url: '/' }, { title: m.sidebar_module_settings() }, { title: m.nav_set_fans_sending_domains() }]}
+	breadcrumbs={[
+		{ title: 'Home', url: '/' },
+		{ title: m.sidebar_module_settings() },
+		{ title: m.nav_set_fans_sending_domains() }
+	]}
 >
 	<Drawer.Root direction="right">
 		<Drawer.Trigger>

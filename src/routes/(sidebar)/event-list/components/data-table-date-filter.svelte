@@ -31,7 +31,11 @@
 	}
 
 	const label = $derived(
-		!range?.start ? m.col_created() : range.end ? `${fmt(range.start)} – ${fmt(range.end)}` : fmt(range.start)
+		!range?.start
+			? m.col_created()
+			: range.end
+				? `${fmt(range.start)} – ${fmt(range.end)}`
+				: fmt(range.start)
 	);
 
 	function applyFilter(v: DateRange | undefined) {

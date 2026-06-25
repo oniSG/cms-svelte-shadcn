@@ -123,17 +123,21 @@
 	];
 	const totalPages = $derived(Math.ceil(emails.length / maxItemsPerPage));
 
-	let emailToDelete = $state<typeof emails[0] | null>(null);
-	let emailToEdit = $state<typeof emails[0] | null>(null);
+	let emailToDelete = $state<(typeof emails)[0] | null>(null);
+	let emailToEdit = $state<(typeof emails)[0] | null>(null);
 	let showAddDialog = $state(false);
 </script>
 
 <PageHeader
-	breadcrumbs={[{ title: 'Home', url: '/' }, { title: m.sidebar_module_settings() }, { title: m.nav_set_fans_reply_email() }]}
+	breadcrumbs={[
+		{ title: 'Home', url: '/' },
+		{ title: m.sidebar_module_settings() },
+		{ title: m.nav_set_fans_reply_email() }
+	]}
 />
 
-<div class="flex flex-row justify-end mb-2">
-	<Button onclick={() => showAddDialog = true} size="sm" variant="default">
+<div class="mb-2 flex flex-row justify-end">
+	<Button onclick={() => (showAddDialog = true)} size="sm" variant="default">
 		<Plus class="mr-2 size-4" />
 		{m.reply_email_add()}
 	</Button>
@@ -155,7 +159,7 @@
 							<Table.Row class="hover:cursor-context-menu" {...props}>
 								<Table.Cell>{email.email}</Table.Cell>
 								<Table.Cell>
-									{#if (email.isActive === "true")}
+									{#if email.isActive === 'true'}
 										<Check class="size-4 text-primary" />
 									{:else}
 										<X class="size-4 text-destructive" />
@@ -165,10 +169,14 @@
 						{/snippet}
 					</ContextMenu.Trigger>
 					<ContextMenu.Content>
-						<ContextMenu.Item onclick={() => { emailToEdit = email; }}>
+						<ContextMenu.Item
+							onclick={() => {
+								emailToEdit = email;
+							}}
+						>
 							{m.reply_email_edit()}
 						</ContextMenu.Item>
-						<ContextMenu.Item onclick={() => emailToDelete = email}>
+						<ContextMenu.Item onclick={() => (emailToDelete = email)}>
 							{m.reply_email_delete()}
 						</ContextMenu.Item>
 					</ContextMenu.Content>
@@ -178,37 +186,62 @@
 	</Table.Root>
 </div>
 
-<div class="flex items-center justify-between mt-2 mb-6">
+<div class="mt-2 mb-6 flex items-center justify-between">
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger>
 			{#snippet child({ props })}
-				<Button {...props} variant="outline"
-				        size="sm">{m.reply_email_items_per_page({ count: maxItemsPerPage })}</Button>
+				<Button {...props} variant="outline" size="sm"
+					>{m.reply_email_items_per_page({ count: maxItemsPerPage })}</Button
+				>
 			{/snippet}
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content align="start">
-			<DropdownMenu.Item onclick={() => { maxItemsPerPage = 10; currentPage = 1; }}>10</DropdownMenu.Item>
-			<DropdownMenu.Item onclick={() => { maxItemsPerPage = 20; currentPage = 1; }}>20</DropdownMenu.Item>
-			<DropdownMenu.Item onclick={() => { maxItemsPerPage = 30; currentPage = 1; }}>30</DropdownMenu.Item>
-			<DropdownMenu.Item onclick={() => { maxItemsPerPage = 50; currentPage = 1; }}>50</DropdownMenu.Item>
+			<DropdownMenu.Item
+				onclick={() => {
+					maxItemsPerPage = 10;
+					currentPage = 1;
+				}}>10</DropdownMenu.Item
+			>
+			<DropdownMenu.Item
+				onclick={() => {
+					maxItemsPerPage = 20;
+					currentPage = 1;
+				}}>20</DropdownMenu.Item
+			>
+			<DropdownMenu.Item
+				onclick={() => {
+					maxItemsPerPage = 30;
+					currentPage = 1;
+				}}>30</DropdownMenu.Item
+			>
+			<DropdownMenu.Item
+				onclick={() => {
+					maxItemsPerPage = 50;
+					currentPage = 1;
+				}}>50</DropdownMenu.Item
+			>
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 
 	<ButtonGroup.Root>
 		<Button
-			class="size-8" disabled={currentPage <= 1} onclick={() => currentPage -= 1}
+			class="size-8"
+			disabled={currentPage <= 1}
+			onclick={() => (currentPage -= 1)}
 			size="icon"
 			variant="outline"
 		>
 			<ChevronLeftIcon class="size-4" />
 		</Button>
 
-		<Button class="size-8 px-8 pointer-events-none" variant="outline">
+		<Button class="pointer-events-none size-8 px-8" variant="outline">
 			<span class="text-sm">{currentPage} / {totalPages}</span>
 		</Button>
 
 		<Button
-			class="size-8" disabled={currentPage >= totalPages} onclick={() => currentPage += 1}
+			class="size-8"
+			disabled={currentPage >= totalPages}
+			onclick={() => (currentPage += 1)}
 			size="icon"
 			variant="outline"
 		>

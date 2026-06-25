@@ -10,7 +10,9 @@
 
 <Dialog.Root
 	open={eventToDelete !== null}
-	onOpenChange={(open) => { if (!open) eventToDelete = null; }}
+	onOpenChange={(open) => {
+		if (!open) eventToDelete = null;
+	}}
 >
 	<Dialog.Content>
 		<Dialog.Header>
@@ -20,8 +22,13 @@
 			</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
-			<Button variant="outline" onclick={() => eventToDelete = null}>{m.common_cancel()}</Button>
-			<Button variant="destructive" onclick={() => { eventToDelete = null; }}>
+			<Button variant="outline" onclick={() => (eventToDelete = null)}>{m.common_cancel()}</Button>
+			<Button
+				variant="destructive"
+				onclick={() => {
+					eventToDelete = null;
+				}}
+			>
 				{m.event_dialog_delete_submit()}
 			</Button>
 		</Dialog.Footer>

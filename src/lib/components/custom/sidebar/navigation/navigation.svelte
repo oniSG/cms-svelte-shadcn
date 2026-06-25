@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import type { Pathname } from '$app/types';
-	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { useSidebar } from '$lib/components/ui/sidebar/index.js';
 	import type { NavItem } from '$lib/types/sidebar';
-	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
+	import { cn } from '$lib/utils.js';
+	import NavCollapsibleItem from './nav-collapsible-item.svelte';
 
 	let { label, items }: { label?: string; items: NavItem[] } = $props();
 
@@ -25,7 +25,7 @@
 						<DropdownMenu.Root>
 							<DropdownMenu.Trigger>
 								{#snippet child({ props })}
-									<Sidebar.MenuButton {...props}>
+									<Sidebar.MenuButton {...props} isActive={item.isActive}>
 										{#if item.icon}
 											<item.icon />
 										{/if}
@@ -46,7 +46,15 @@
 								{#each item.items as subItem (subItem.title)}
 									<DropdownMenu.Item>
 										{#snippet child({ props })}
-											<a href={resolve(subItem.url as Pathname)} {...props}>
+											<a
+												href={resolve(subItem.url as Pathname)}
+												{...props}
+												data-active={subItem.isActive ? '' : undefined}
+												class={cn(
+													props.class as string | undefined,
+													subItem.isActive && 'bg-accent text-accent-foreground'
+												)}
+											>
 												{subItem.title}
 											</a>
 										{/snippet}
@@ -56,40 +64,7 @@
 						</DropdownMenu.Root>
 					</Sidebar.MenuItem>
 				{:else}
-					<Collapsible.Root open={item.isActive} class="group/collapsible">
-						{#snippet child({ props })}
-							<Sidebar.MenuItem {...props}>
-								<Collapsible.Trigger>
-									{#snippet child({ props })}
-										<Sidebar.MenuButton {...props} tooltipContent={item.title}>
-											{#if item.icon}
-												<item.icon />
-											{/if}
-											<span>{item.title}</span>
-											<ChevronRightIcon
-												class="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-											/>
-										</Sidebar.MenuButton>
-									{/snippet}
-								</Collapsible.Trigger>
-								<Collapsible.Content>
-									<Sidebar.MenuSub>
-										{#each item.items as subItem (subItem.title)}
-											<Sidebar.MenuSubItem>
-												<Sidebar.MenuSubButton>
-													{#snippet child({ props })}
-														<a href={resolve(subItem.url as Pathname)} {...props}>
-															<span>{subItem.title}</span>
-														</a>
-													{/snippet}
-												</Sidebar.MenuSubButton>
-											</Sidebar.MenuSubItem>
-										{/each}
-									</Sidebar.MenuSub>
-								</Collapsible.Content>
-							</Sidebar.MenuItem>
-						{/snippet}
-					</Collapsible.Root>
+					<NavCollapsibleItem {item} />
 				{/if}
 			{:else}
 				<Sidebar.MenuItem>

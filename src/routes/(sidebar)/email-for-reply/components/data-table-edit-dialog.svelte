@@ -41,7 +41,9 @@
 </script>
 
 <Dialog.Root
-	onOpenChange={(open) => { if (!open) emailToEdit = null; }}
+	onOpenChange={(open) => {
+		if (!open) emailToEdit = null;
+	}}
 	open={emailToEdit !== null}
 >
 	<Dialog.Content>
@@ -64,7 +66,7 @@
 				<Form.FieldErrors />
 			</Form.Field>
 			<Dialog.Footer class="mt-4">
-				<Button onclick={() => emailToEdit = null} type="button" variant="outline">
+				<Button onclick={() => (emailToEdit = null)} type="button" variant="outline">
 					{m.common_cancel()}
 				</Button>
 				<Button type="submit">{m.save()}</Button>

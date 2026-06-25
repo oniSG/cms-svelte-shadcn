@@ -73,7 +73,9 @@
 </script>
 
 <Dialog.Root
-	onOpenChange={(open) => { if (!open) eventToEdit = null; }}
+	onOpenChange={(open) => {
+		if (!open) eventToEdit = null;
+	}}
 	open={eventToEdit !== null}
 >
 	<Dialog.Content class="max-w-lg">
@@ -101,13 +103,16 @@
 						{#snippet child({ props })}
 							<button
 								{...props}
-								class="border-input flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-xs"
+								class="flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
 							>
 								{#each selectedTags as tag (tag)}
 									<Badge variant="secondary" class="gap-1 pr-1">
 										{tag}
 										<button
-											onclick={(e) => { e.stopPropagation(); removeTag(tag); }}
+											onclick={(e) => {
+												e.stopPropagation();
+												removeTag(tag);
+											}}
 											class="hover:text-destructive"
 										>
 											<X class="size-3" />
@@ -117,7 +122,7 @@
 								{#if selectedTags.length === 0}
 									<span class="text-muted-foreground">{m.event_tags_placeholder()}</span>
 								{/if}
-								<ChevronsUpDownIcon class="text-muted-foreground ml-auto size-4 shrink-0" />
+								<ChevronsUpDownIcon class="ml-auto size-4 shrink-0 text-muted-foreground" />
 							</button>
 						{/snippet}
 					</Popover.Trigger>
@@ -140,7 +145,7 @@
 												tagsOpen = true;
 											}}
 										>
-											<span class="mr-2 flex size-4 items-center justify-center shrink-0">
+											<span class="mr-2 flex size-4 shrink-0 items-center justify-center">
 												<Check class="size-4 {selectedTags.includes(tag) ? '' : 'hidden'}" />
 											</span>
 											{tag}
@@ -165,15 +170,18 @@
 						{#snippet child({ props })}
 							<button
 								{...props}
-								class="border-input flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-xs"
+								class="flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
 							>
 								{#each selectedEvents as eventId (eventId)}
-									{@const ev = eventsList.find(e => e.id === eventId)}
+									{@const ev = eventsList.find((e) => e.id === eventId)}
 									{#if ev}
 										<Badge variant="secondary" class="gap-1 pr-1">
-											{ev.name} <span class="text-muted-foreground text-xs">({ev.id})</span>
+											{ev.name} <span class="text-xs text-muted-foreground">({ev.id})</span>
 											<button
-												onclick={(e) => { e.stopPropagation(); removeEvent(eventId); }}
+												onclick={(e) => {
+													e.stopPropagation();
+													removeEvent(eventId);
+												}}
 												class="hover:text-destructive"
 											>
 												<X class="size-3" />
@@ -184,7 +192,7 @@
 								{#if selectedEvents.length === 0}
 									<span class="text-muted-foreground">{m.event_events_placeholder()}</span>
 								{/if}
-								<ChevronsUpDownIcon class="text-muted-foreground ml-auto size-4 shrink-0" />
+								<ChevronsUpDownIcon class="ml-auto size-4 shrink-0 text-muted-foreground" />
 							</button>
 						{/snippet}
 					</Popover.Trigger>
@@ -208,15 +216,15 @@
 											}}
 											class="flex items-start gap-2 py-2.5"
 										>
-											<span class="mt-0.5 mr-2 flex size-4 items-center justify-center shrink-0">
+											<span class="mt-0.5 mr-2 flex size-4 shrink-0 items-center justify-center">
 												<Check class="size-4 {selectedEvents.includes(ev.id) ? '' : 'hidden'}" />
 											</span>
 											<div class="flex flex-1 flex-col gap-0.5 text-left">
-												<div class="flex items-center justify-between w-full">
-													<span class="font-normal text-sm text-foreground">{ev.name}</span>
-													<span class="text-muted-foreground text-xs">{ev.date}</span>
+												<div class="flex w-full items-center justify-between">
+													<span class="text-sm font-normal text-foreground">{ev.name}</span>
+													<span class="text-xs text-muted-foreground">{ev.date}</span>
 												</div>
-												<span class="text-muted-foreground text-xs">ID: {ev.id}</span>
+												<span class="text-xs text-muted-foreground">ID: {ev.id}</span>
 											</div>
 										</Command.Item>
 									{/each}
@@ -229,7 +237,7 @@
 		</div>
 
 		<Dialog.Footer>
-			<Button onclick={() => eventToEdit = null} variant="outline">{m.common_cancel()}</Button>
+			<Button onclick={() => (eventToEdit = null)} variant="outline">{m.common_cancel()}</Button>
 			<Button disabled={!eventName.trim()} onclick={handleSave}>{m.event_save_close()}</Button>
 		</Dialog.Footer>
 	</Dialog.Content>

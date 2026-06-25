@@ -14,7 +14,11 @@
 </script>
 
 <PageHeader
-	breadcrumbs={[{ title: 'Home', url: '/' }, { title: m.sidebar_module_settings() }, { title: m.nav_set_fans_send_frequency() }]}
+	breadcrumbs={[
+		{ title: 'Home', url: '/' },
+		{ title: m.sidebar_module_settings() },
+		{ title: m.nav_set_fans_send_frequency() }
+	]}
 />
 
 <div class="my-5">
@@ -23,7 +27,6 @@
 			<Card.Header>
 				<Card.Title>E-mail</Card.Title>
 				<Card.Description>{m.nav_frequency_info()}</Card.Description>
-
 			</Card.Header>
 
 			<Card.Content>

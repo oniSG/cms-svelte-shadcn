@@ -274,5 +274,60 @@
 	"event_dialog_delete_title": "Delete event",
 	"event_dialog_delete_description": "Are you sure you want to delete {event}? This action is irreversible.",
 	"event_dialog_delete_submit": "Delete",
-	"event_detail": "Detail"
+	"event_detail": "Detail",
+
+	"log_breadcrumb_home": "Home",
+	"log_breadcrumb_settings": "Settings",
+	"log_breadcrumb_logs": "Logs",
+
+	"log_col_id": "ID",
+	"log_col_type": "Type",
+	"log_col_user_id": "User ID",
+	"log_col_email": "Email",
+	"log_col_time": "Time",
+
+	"log_filter_type": "Type",
+	"log_filter_user": "User",
+	"log_filter_date": "Date",
+	"log_filter_no_results": "No results found.",
+	"log_filter_clear_filters": "Clear filters",
+	"log_filter_clear_dates": "Clear dates",
+
+	"log_action_sort_asc": "Asc",
+	"log_action_sort_desc": "Desc",
+	"log_action_hide": "Hide",
+	"log_action_view": "View",
+	"log_action_reset": "Reset",
+
+	"log_pagination_items_per_page": "{count} items per page",
+	"log_pagination_rows_per_page": "Rows per page",
+	"log_pagination_goto_aria": "Go to page",
+	"log_pagination_page_label": "Page",
+	"log_pagination_records": "{count} records",
+	"log_pagination_refresh": "Refresh",
+	"log_pagination_snapshot": "Snapshot {time}",
+	"log_pagination_prev": "Previous page",
+	"log_pagination_next": "Next page",
+
+	"log_table_no_results": "No results.",
+
+	"log_drawer_title": "Log: {id}",
+	"log_drawer_copy": "Copy",
+	"log_drawer_copied": "Copied",
+	"log_drawer_close": "Close",
+
+	"log_type_login": "Login",
+	"log_type_action_test": "Action Test",
+	"log_type_action_run": "Action Run",
+	"log_type_action_scenario_edit": "Action Scenario Edit",
+	"log_type_action_edit": "Action Edit",
+	"log_type_action_delete": "Action Delete",
+	"log_type_action_duplicate": "Action Duplicate",
+	"log_type_action_archive": "Action Archive",
+	"log_type_action_auto_stop": "Action Auto Stop",
+	"log_type_visitor_edit": "Visitor Edit",
+	"log_type_user_edit": "User Edit",
+	"log_type_lock_acquired": "Lock Acquired",
+	"log_type_lock_released": "Lock Released",
+	"log_type_lock_force_released": "Lock Force Released"
 }

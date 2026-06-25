@@ -68,7 +68,7 @@
 													'[&[data-today]:not([data-selected]):not([data-range-middle])]:bg-accent [&[data-today]:not([data-selected]):not([data-range-middle])]:text-accent-foreground',
 													'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
 													'data-[unavailable]:text-muted-foreground data-[unavailable]:line-through',
-													'data-[outside-visible-months]:invisible data-[outside-visible-months]:pointer-events-none'
+													'data-[outside-visible-months]:pointer-events-none data-[outside-visible-months]:invisible'
 												)}
 											/>
 										</RangeCalendarPrimitive.Cell>

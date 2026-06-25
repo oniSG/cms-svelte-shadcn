@@ -12,16 +12,18 @@
 	const formattedDate = $derived(
 		eventToShow?.time
 			? new Date(eventToShow.time).toLocaleDateString('cs-CZ', {
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric'
-			})
+					day: 'numeric',
+					month: 'long',
+					year: 'numeric'
+				})
 			: ''
 	);
 </script>
 
 <Dialog.Root
-	onOpenChange={(open) => { if (!open) eventToShow = null; }}
+	onOpenChange={(open) => {
+		if (!open) eventToShow = null;
+	}}
 	open={eventToShow !== null}
 >
 	<Dialog.Content class="max-w-sm">
@@ -33,7 +35,7 @@
 			<span>{eventToShow?.name}</span>
 			<span class="text-muted-foreground">{m.event_tags_label()}</span>
 			<div class="flex flex-wrap gap-1">
-				{#each (eventToShow?.label ?? []) as tag (tag)}
+				{#each eventToShow?.label ?? [] as tag (tag)}
 					<Badge variant="secondary">{tag}</Badge>
 				{/each}
 			</div>
@@ -42,14 +44,14 @@
 			<span class="text-muted-foreground">{m.col_active()}</span>
 			<span>
 				{#if eventToShow?.active === true}
-					<Check class="text-primary size-4" />
+					<Check class="size-4 text-primary" />
 				{:else}
-					<X class="text-destructive size-4" />
+					<X class="size-4 text-destructive" />
 				{/if}
 			</span>
 		</div>
 		<Dialog.Footer>
-			<Button onclick={() => eventToShow = null} variant="default">{m.common_close()}</Button>
+			<Button onclick={() => (eventToShow = null)} variant="default">{m.common_close()}</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

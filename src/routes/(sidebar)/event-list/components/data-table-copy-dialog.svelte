@@ -9,7 +9,9 @@
 </script>
 
 <Dialog.Root
-	onOpenChange={(open) => { if (!open) eventToCopy = null; }}
+	onOpenChange={(open) => {
+		if (!open) eventToCopy = null;
+	}}
 	open={eventToCopy !== null}
 >
 	<Dialog.Content>
@@ -20,8 +22,13 @@
 			</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
-			<Button onclick={() => eventToCopy = null} variant="outline">{m.common_cancel()}</Button>
-			<Button onclick={() => { eventToCopy = null; }} variant="default">
+			<Button onclick={() => (eventToCopy = null)} variant="outline">{m.common_cancel()}</Button>
+			<Button
+				onclick={() => {
+					eventToCopy = null;
+				}}
+				variant="default"
+			>
 				{m.event_dialog_copy_submit()}
 			</Button>
 		</Dialog.Footer>

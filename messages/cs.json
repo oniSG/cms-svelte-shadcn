@@ -276,5 +276,60 @@
 	"event_dialog_delete_title": "Smazat událost",
 	"event_dialog_delete_description": "Opravdu chceš smazat {event}? Tato akce je nevratná.",
 	"event_dialog_delete_submit": "Smazat",
-	"event_detail": "Detail"
+	"event_detail": "Detail",
+
+	"log_breadcrumb_home": "Domů",
+	"log_breadcrumb_settings": "Nastavení",
+	"log_breadcrumb_logs": "Protokoly",
+
+	"log_col_id": "ID",
+	"log_col_type": "Typ",
+	"log_col_user_id": "ID uživatele",
+	"log_col_email": "E-mail",
+	"log_col_time": "Čas",
+
+	"log_filter_type": "Typ",
+	"log_filter_user": "Uživatel",
+	"log_filter_date": "Datum",
+	"log_filter_no_results": "Nic nenalezeno.",
+	"log_filter_clear_filters": "Vymazat filtry",
+	"log_filter_clear_dates": "Vymazat data",
+
+	"log_action_sort_asc": "Vzestupně",
+	"log_action_sort_desc": "Sestupně",
+	"log_action_hide": "Skrýt",
+	"log_action_view": "Zobrazit",
+	"log_action_reset": "Resetovat",
+
+	"log_pagination_items_per_page": "{count} záznamů na stránku",
+	"log_pagination_rows_per_page": "Řádků na stránku",
+	"log_pagination_goto_aria": "Přejít na stránku",
+	"log_pagination_page_label": "Stránka",
+	"log_pagination_records": "{count} záznamů",
+	"log_pagination_refresh": "Obnovit",
+	"log_pagination_snapshot": "Snímek {time}",
+	"log_pagination_prev": "Předchozí stránka",
+	"log_pagination_next": "Další stránka",
+
+	"log_table_no_results": "Žádné výsledky.",
+
+	"log_drawer_title": "Záznam: {id}",
+	"log_drawer_copy": "Kopírovat",
+	"log_drawer_copied": "Zkopírováno",
+	"log_drawer_close": "Zavřít",
+
+	"log_type_login": "Přihlášení",
+	"log_type_action_test": "Test akce",
+	"log_type_action_run": "Spuštění akce",
+	"log_type_action_scenario_edit": "Úprava scénáře akce",
+	"log_type_action_edit": "Úprava akce",
+	"log_type_action_delete": "Smazání akce",
+	"log_type_action_duplicate": "Duplikování akce",
+	"log_type_action_archive": "Archivace akce",
+	"log_type_action_auto_stop": "Automatické zastavení akce",
+	"log_type_visitor_edit": "Úprava návštěvníka",
+	"log_type_user_edit": "Úprava uživatele",
+	"log_type_lock_acquired": "Získání zámku",
+	"log_type_lock_released": "Uvolnění zámku",
+	"log_type_lock_force_released": "Vynucené uvolnění zámku"
 }

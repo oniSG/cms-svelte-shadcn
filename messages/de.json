@@ -274,5 +274,60 @@
 	"event_dialog_delete_title": "Veranstaltung löschen",
 	"event_dialog_delete_description": "Möchtest du {event} wirklich löschen? Diese Aktion ist unwiderruflich.",
 	"event_dialog_delete_submit": "Löschen",
-	"event_detail": "Detail"
+	"event_detail": "Detail",
+
+	"log_breadcrumb_home": "Startseite",
+	"log_breadcrumb_settings": "Einstellungen",
+	"log_breadcrumb_logs": "Protokolle",
+
+	"log_col_id": "ID",
+	"log_col_type": "Typ",
+	"log_col_user_id": "Benutzer-ID",
+	"log_col_email": "E-Mail",
+	"log_col_time": "Zeit",
+
+	"log_filter_type": "Typ",
+	"log_filter_user": "Benutzer",
+	"log_filter_date": "Datum",
+	"log_filter_no_results": "Keine Ergebnisse gefunden.",
+	"log_filter_clear_filters": "Filter löschen",
+	"log_filter_clear_dates": "Datum löschen",
+
+	"log_action_sort_asc": "Aufsteigend",
+	"log_action_sort_desc": "Absteigend",
+	"log_action_hide": "Ausblenden",
+	"log_action_view": "Ansicht",
+	"log_action_reset": "Zurücksetzen",
+
+	"log_pagination_items_per_page": "{count} Einträge pro Seite",
+	"log_pagination_rows_per_page": "Zeilen pro Seite",
+	"log_pagination_goto_aria": "Gehe zu Seite",
+	"log_pagination_page_label": "Seite",
+	"log_pagination_records": "{count} Datensätze",
+	"log_pagination_refresh": "Aktualisieren",
+	"log_pagination_snapshot": "Snapshot {time}",
+	"log_pagination_prev": "Vorherige Seite",
+	"log_pagination_next": "Nächste Seite",
+
+	"log_table_no_results": "Keine Ergebnisse.",
+
+	"log_drawer_title": "Protokoll: {id}",
+	"log_drawer_copy": "Kopieren",
+	"log_drawer_copied": "Kopiert",
+	"log_drawer_close": "Schließen",
+
+	"log_type_login": "Anmeldung",
+	"log_type_action_test": "Aktionstest",
+	"log_type_action_run": "Aktion ausführen",
+	"log_type_action_scenario_edit": "Aktionsszenario bearbeiten",
+	"log_type_action_edit": "Aktion bearbeiten",
+	"log_type_action_delete": "Aktion löschen",
+	"log_type_action_duplicate": "Aktion duplizieren",
+	"log_type_action_archive": "Aktion archivieren",
+	"log_type_action_auto_stop": "Aktion automatisch stoppen",
+	"log_type_visitor_edit": "Besucher bearbeiten",
+	"log_type_user_edit": "Benutzer bearbeiten",
+	"log_type_lock_acquired": "Sperre erworben",
+	"log_type_lock_released": "Sperre freigegeben",
+	"log_type_lock_force_released": "Sperre erzwungenermaßen freigegeben"
 }

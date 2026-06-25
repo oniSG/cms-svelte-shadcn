@@ -75,7 +75,9 @@
 </script>
 
 <Dialog.Root
-	onOpenChange={(o) => { if (!o) handleClose(); }}
+	onOpenChange={(o) => {
+		if (!o) handleClose();
+	}}
 	{open}
 >
 	<Dialog.Content class="max-w-lg">
@@ -90,7 +92,7 @@
 				</Label>
 				<Input bind:value={eventName} id="event-name" placeholder={m.event_name_placeholder()} />
 
-				<div class="flex items-center mt-2 justify-between">
+				<div class="mt-2 flex items-center justify-between">
 					<Label for="active">{m.col_active()}</Label>
 					<Switch id="active" />
 				</div>
@@ -104,13 +106,16 @@
 						{#snippet child({ props })}
 							<button
 								{...props}
-								class="border-input flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-xs"
+								class="flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
 							>
 								{#each selectedTags as tag (tag)}
 									<Badge variant="secondary" class="gap-1 pr-1">
 										{tag}
 										<button
-											onclick={(e) => { e.stopPropagation(); removeTag(tag); }}
+											onclick={(e) => {
+												e.stopPropagation();
+												removeTag(tag);
+											}}
 											class="hover:text-destructive"
 										>
 											<X class="size-3" />
@@ -120,7 +125,7 @@
 								{#if selectedTags.length === 0}
 									<span class="text-muted-foreground">{m.event_tags_placeholder()}</span>
 								{/if}
-								<ChevronsUpDownIcon class="text-muted-foreground ml-auto size-4 shrink-0" />
+								<ChevronsUpDownIcon class="ml-auto size-4 shrink-0 text-muted-foreground" />
 							</button>
 						{/snippet}
 					</Popover.Trigger>
@@ -153,7 +158,7 @@
 					</Popover.Content>
 				</Popover.Root>
 
-				<div class="flex items-center mt-2 justify-between">
+				<div class="mt-2 flex items-center justify-between">
 					<Label for="update">{m.event_update_ticketing()}</Label>
 					<Switch id="update" />
 				</div>
@@ -166,15 +171,18 @@
 						{#snippet child({ props })}
 							<button
 								{...props}
-								class="border-input flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border bg-transparent px-3 py-1.5 text-sm shadow-xs"
+								class="flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
 							>
 								{#each selectedEvents as eventId (eventId)}
-									{@const ev = eventsList.find(e => e.id === eventId)}
+									{@const ev = eventsList.find((e) => e.id === eventId)}
 									{#if ev}
 										<Badge variant="secondary" class="gap-1 pr-1">
-											{ev.name} <span class="text-muted-foreground text-xs">({ev.id})</span>
+											{ev.name} <span class="text-xs text-muted-foreground">({ev.id})</span>
 											<button
-												onclick={(e) => { e.stopPropagation(); removeEvent(eventId); }}
+												onclick={(e) => {
+													e.stopPropagation();
+													removeEvent(eventId);
+												}}
 												class="hover:text-destructive"
 											>
 												<X class="size-3" />
@@ -185,7 +193,7 @@
 								{#if selectedEvents.length === 0}
 									<span class="text-muted-foreground">{m.event_events_placeholder()}</span>
 								{/if}
-								<ChevronsUpDownIcon class="text-muted-foreground ml-auto size-4 shrink-0" />
+								<ChevronsUpDownIcon class="ml-auto size-4 shrink-0 text-muted-foreground" />
 							</button>
 						{/snippet}
 					</Popover.Trigger>
@@ -213,11 +221,11 @@
 												{selectedEvents.includes(ev.id) ? '✓' : ''}
 											</span>
 											<div class="flex flex-1 flex-col gap-0.5 text-left">
-												<div class="flex items-center justify-between w-full">
-													<span class="font-normal text-sm text-foreground">{ev.name}</span>
-													<span class="text-muted-foreground text-xs">{ev.date}</span>
+												<div class="flex w-full items-center justify-between">
+													<span class="text-sm font-normal text-foreground">{ev.name}</span>
+													<span class="text-xs text-muted-foreground">{ev.date}</span>
 												</div>
-												<span class="text-muted-foreground text-xs">ID: {ev.id}</span>
+												<span class="text-xs text-muted-foreground">ID: {ev.id}</span>
 											</div>
 										</Command.Item>
 									{/each}

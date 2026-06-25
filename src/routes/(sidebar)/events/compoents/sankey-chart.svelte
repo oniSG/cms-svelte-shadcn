@@ -52,10 +52,7 @@
 	</Card.Header>
 	<Card.Content>
 		<div class="h-80 w-full">
-			<Chart
-				data={graphData}
-				padding={{ top: PAD.top, bottom: 10, left: PAD.left, right: 100 }}
-			>
+			<Chart data={graphData} padding={{ top: PAD.top, bottom: 10, left: PAD.left, right: 100 }}>
 				{#snippet children(_)}
 					<!-- SVG layer: ribbons, nodes, labels -->
 					<Svg>
@@ -131,7 +128,9 @@
 							<Tooltip.Root delayDuration={100}>
 								<Tooltip.Trigger
 									class="absolute cursor-default border-0 bg-transparent p-0 outline-none"
-									style="left:{PAD.left + (node.x0 ?? 0)}px; top:{PAD.top + (node.y0 ?? 0) + dy}px; width:{(node.x1 ?? 0) - (node.x0 ?? 0)}px; height:{nodeH}px"
+									style="left:{PAD.left + (node.x0 ?? 0)}px; top:{PAD.top +
+										(node.y0 ?? 0) +
+										dy}px; width:{(node.x1 ?? 0) - (node.x0 ?? 0)}px; height:{nodeH}px"
 								/>
 								<Tooltip.Content>
 									<p class="font-medium">{node.label}</p>

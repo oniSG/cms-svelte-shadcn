@@ -52,7 +52,7 @@
 		{/snippet}
 	</Popover.Trigger>
 	<Popover.Content class="w-auto p-0" align="end">
-		<RangeCalendar value={value} onValueChange={handleChange} />
+		<RangeCalendar {value} onValueChange={handleChange} />
 		{#if isActive}
 			<div class="border-t p-2">
 				<Button variant="ghost" size="sm" class="w-full" onclick={clear}>Clear dates</Button>

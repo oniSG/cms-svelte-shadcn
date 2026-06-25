@@ -11,6 +11,7 @@
 	<Sidebar.Inset>
 		<Px>
 			{@render children()}
+			<div class="h-4"></div>
 		</Px>
 	</Sidebar.Inset>
 </Sidebar.Provider>

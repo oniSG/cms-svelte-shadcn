@@ -27,7 +27,7 @@
 		<Table.Root>
 			<Table.Header>
 				<Table.Row>
-					<Table.Head class="pl-4 w-10">#</Table.Head>
+					<Table.Head class="w-10 pl-4">#</Table.Head>
 					<Table.Head>Link</Table.Head>
 					<Table.Head class="text-right">Unique Clicks</Table.Head>
 					<Table.Head class="text-right">Uniqueness</Table.Head>

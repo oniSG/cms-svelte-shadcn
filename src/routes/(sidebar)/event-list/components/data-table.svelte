@@ -118,16 +118,20 @@
 	let detailRow = $state<Event | null>(null);
 	let editRow = $state<Event | null>(null);
 	let createDialog = $state(false);
-
 </script>
 
 <div>
 	<div class="flex items-center py-2">
 		{#if lebelCol && timeCol && nameCol}
 			<ButtonGroup.Root>
-				<DataTableColFilter icon={UserIcon} column={nameCol} title={m.col_created_by()} options={userOptions} />
+				<DataTableColFilter
+					icon={UserIcon}
+					column={nameCol}
+					title={m.col_created_by()}
+					options={userOptions}
+				/>
 				<DataTableColFilter icon={TagIcon} column={lebelCol} title={m.col_label()} options={tags} />
-				<DataTableDateFilter  column={timeCol}/>
+				<DataTableDateFilter column={timeCol} />
 
 				{#if isFiltered}
 					<Button variant="outline" size="sm" onclick={() => table.resetColumnFilters()}>
@@ -140,11 +144,7 @@
 
 		<DataTableColVisibility {table} />
 
-		<Button
-			class="ml-2"
-			onclick={() => createDialog = true}
-			size="sm"
-		>
+		<Button class="ml-2" onclick={() => (createDialog = true)} size="sm">
 			+ {m.add_record()}
 		</Button>
 	</div>
@@ -188,22 +188,19 @@
 							{/snippet}
 						</ContextMenu.Trigger>
 						<ContextMenu.Content>
-							<ContextMenu.Item
-								onclick={() => editRow = row.original as Event}>
+							<ContextMenu.Item onclick={() => (editRow = row.original as Event)}>
 								{m.reply_email_edit()}
 							</ContextMenu.Item>
-							<ContextMenu.Item
-								onclick={() => copyRow = row.original as Event}>
+							<ContextMenu.Item onclick={() => (copyRow = row.original as Event)}>
 								{m.event_dialog_copy_submit()}
 							</ContextMenu.Item>
-							<ContextMenu.Item
-								onclick={() => detailRow = row.original as Event}>
+							<ContextMenu.Item onclick={() => (detailRow = row.original as Event)}>
 								{m.event_detail()}
 							</ContextMenu.Item>
 							<ContextMenu.Separator />
 							<ContextMenu.Item
 								class="text-destructive"
-								onclick={() => deleteRow = row.original as Event}
+								onclick={() => (deleteRow = row.original as Event)}
 							>
 								{m.event_dialog_delete_submit()}
 							</ContextMenu.Item>
@@ -239,5 +236,3 @@
 {#if createDialog}
 	<DataTableCreateDialog bind:open={createDialog} />
 {/if}
-
-
