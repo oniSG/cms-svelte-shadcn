@@ -30,7 +30,7 @@
 				{#snippet child({ props })}
 					<Button
 						{...props}
-						variant="ghost"
+						variant="outline"
 						size="sm"
 						class="-ms-3 h-8 font-semibold data-[state=open]:bg-accent"
 					>

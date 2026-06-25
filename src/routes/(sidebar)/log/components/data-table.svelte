@@ -13,11 +13,17 @@
 <script lang="ts">
 	import {
 		type ColumnDef,
+		type ColumnSizingState,
 		getCoreRowModel,
 		type RowSelectionState,
 		type SortingState,
 		type VisibilityState
 	} from '@tanstack/table-core';
+	import ResizableTableHeader from '$lib/components/custom/data-table/resizable-table-header.svelte';
+	import {
+		LAST_COLUMN_BUFFER,
+		nonLastColumnTotal
+	} from '$lib/components/custom/data-table/resizable-table';
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import { Button } from '$lib/components/ui/button';
@@ -67,6 +73,7 @@
 	// Purely local UI state — these don't affect the backend query.
 	let columnVisibility = $state<VisibilityState>({});
 	let rowSelection = $state<RowSelectionState>({});
+	let columnSizing = $state<ColumnSizingState>({});
 
 	// Translate our `query.sort` + `query.dir` into the shape TanStack
 	// Table expects for its built-in sort header UI (the up/down arrow).
@@ -86,6 +93,11 @@
 		manualPagination: true,
 		manualSorting: true,
 		manualFiltering: true,
+		// Drag the right edge of any header cell to resize that column.
+		// `onChange` updates width live during the drag (vs. `onEnd`).
+		// Per-column min/max sizes come from `columns.ts` via `defaultColumn`.
+		enableColumnResizing: true,
+		columnResizeMode: 'onChange',
 		// User clicked a column's sort dropdown → notify the page.
 		// The page updates the URL → query refetches → new rows arrive.
 		onSortingChange: (updater) => {
@@ -104,6 +116,9 @@
 		onRowSelectionChange: (updater) => {
 			rowSelection = typeof updater === 'function' ? updater(rowSelection) : updater;
 		},
+		onColumnSizingChange: (updater) => {
+			columnSizing = typeof updater === 'function' ? updater(columnSizing) : updater;
+		},
 		state: {
 			get sorting() {
 				return sorting;
@@ -113,6 +128,9 @@
 			},
 			get rowSelection() {
 				return rowSelection;
+			},
+			get columnSizing() {
+				return columnSizing;
 			}
 		}
 	});
@@ -176,23 +194,16 @@
 			loading && data.length > 0 && 'opacity-60'
 		)}
 	>
-		<Table.Root>
-			<Table.Header>
-				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
-					<Table.Row>
-						{#each headerGroup.headers as header (header.id)}
-							<Table.Head colspan={header.colSpan}>
-								{#if !header.isPlaceholder}
-									<FlexRender
-										content={header.column.columnDef.header}
-										context={header.getContext()}
-									/>
-								{/if}
-							</Table.Head>
-						{/each}
-					</Table.Row>
-				{/each}
-			</Table.Header>
+		<!-- `table-fixed` + `w-full` lets the LAST column absorb leftover
+		     space (it has no explicit width and no resize handle). The
+		     `min-width` keeps the table from compressing the fixed columns
+		     when the user drags them wider than the viewport — the parent's
+		     `overflow-x-auto` then scrolls. -->
+		<Table.Root
+			class="w-full table-fixed"
+			style="min-width: {nonLastColumnTotal(table) + LAST_COLUMN_BUFFER}px"
+		>
+			<ResizableTableHeader {table} />
 			<Table.Body>
 				{#each table.getRowModel().rows as row (row.id)}
 					<!-- Each row is clickable and opens a details dialog. -->
@@ -204,7 +215,7 @@
 								class="hover:cursor-pointer"
 							>
 								{#each row.getVisibleCells() as cell (cell.id)}
-									<Table.Cell>
+									<Table.Cell class="overflow-hidden">
 										<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
 									</Table.Cell>
 								{/each}
@@ -218,7 +229,7 @@
 						{#each Array.from({ length: query.limit }, (_, i) => i) as i (i)}
 							<Table.Row>
 								{#each table.getVisibleLeafColumns() as col (col.id)}
-									<Table.Cell>
+									<Table.Cell class="overflow-hidden">
 										<Skeleton class="h-4 w-full max-w-40 rounded" />
 									</Table.Cell>
 								{/each}

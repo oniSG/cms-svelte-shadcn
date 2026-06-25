@@ -11,9 +11,19 @@ export type Payment = {
 	email: string;
 };
 
+// Per-column resize bounds. `size` is the initial width; min/max cap how
+// far the user can drag. The last visible column ignores `size` and fills
+// remaining space (see `resizable-table-header.svelte`).
+const DEFAULT_MIN_SIZE = 80;
+const DEFAULT_MAX_SIZE = 600;
+
 export const columns: ColumnDef<Payment>[] = [
 	{
 		id: 'select',
+		size: 50,
+		minSize: 40,
+		maxSize: 60,
+		enableResizing: false,
 		header: ({ table }) =>
 			renderComponent(Checkbox, {
 				checked: table.getIsAllPageRowsSelected(),
@@ -32,10 +42,16 @@ export const columns: ColumnDef<Payment>[] = [
 	},
 	{
 		accessorKey: 'status',
+		size: 160,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: 'Status'
 	},
 	{
 		accessorKey: 'email',
+		size: 280,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) =>
 			renderComponent(DataTableEmailButton, {
 				onclick: column.getToggleSortingHandler(),
@@ -44,6 +60,9 @@ export const columns: ColumnDef<Payment>[] = [
 	},
 	{
 		accessorKey: 'amount',
+		size: 160,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: () => {
 			const amountHeaderSnippet = createRawSnippet(() => ({
 				render: () => `<div class="text-end">Amount</div>`

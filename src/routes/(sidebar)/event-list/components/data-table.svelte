@@ -2,6 +2,7 @@
 	import {
 		type ColumnDef,
 		type ColumnFiltersState,
+		type ColumnSizingState,
 		getCoreRowModel,
 		getFilteredRowModel,
 		getPaginationRowModel,
@@ -11,6 +12,11 @@
 		type SortingState,
 		type VisibilityState
 	} from '@tanstack/table-core';
+	import ResizableTableHeader from '$lib/components/custom/data-table/resizable-table-header.svelte';
+	import {
+		LAST_COLUMN_BUFFER,
+		nonLastColumnTotal
+	} from '$lib/components/custom/data-table/resizable-table';
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
 	import { Button } from '$lib/components/ui/button';
@@ -43,6 +49,7 @@
 	let columnFilters = $state<ColumnFiltersState>([]);
 	let columnVisibility = $state<VisibilityState>({});
 	let rowSelection = $state<RowSelectionState>({});
+	let columnSizing = $state<ColumnSizingState>({});
 
 	const table = createSvelteTable({
 		get data() {
@@ -53,6 +60,8 @@
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
+		enableColumnResizing: true,
+		columnResizeMode: 'onChange',
 		onPaginationChange: (updater) => {
 			if (typeof updater === 'function') {
 				pagination = updater(pagination);
@@ -88,6 +97,9 @@
 				rowSelection = updater;
 			}
 		},
+		onColumnSizingChange: (updater) => {
+			columnSizing = typeof updater === 'function' ? updater(columnSizing) : updater;
+		},
 		state: {
 			get pagination() {
 				return pagination;
@@ -103,6 +115,9 @@
 			},
 			get rowSelection() {
 				return rowSelection;
+			},
+			get columnSizing() {
+				return columnSizing;
 			}
 		}
 	});
@@ -149,23 +164,11 @@
 		</Button>
 	</div>
 	<div class="overflow-hidden rounded-md border">
-		<Table.Root>
-			<Table.Header class="bg-accent">
-				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
-					<Table.Row>
-						{#each headerGroup.headers as header (header.id)}
-							<Table.Head colspan={header.colSpan}>
-								{#if !header.isPlaceholder}
-									<FlexRender
-										content={header.column.columnDef.header}
-										context={header.getContext()}
-									/>
-								{/if}
-							</Table.Head>
-						{/each}
-					</Table.Row>
-				{/each}
-			</Table.Header>
+		<Table.Root
+			class="w-full table-fixed"
+			style="min-width: {nonLastColumnTotal(table) + LAST_COLUMN_BUFFER}px"
+		>
+			<ResizableTableHeader {table} class="bg-accent" />
 			<Table.Body>
 				{#each table.getRowModel().rows as row (row.id)}
 					<ContextMenu.Root>
@@ -177,7 +180,7 @@
 									class="hover:cursor-pointer"
 								>
 									{#each row.getVisibleCells() as cell (cell.id)}
-										<Table.Cell>
+										<Table.Cell class="overflow-hidden">
 											<FlexRender
 												content={cell.column.columnDef.cell}
 												context={cell.getContext()}

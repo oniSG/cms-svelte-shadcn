@@ -21,9 +21,18 @@ export const tags: string[] = ['VIP-gold', 'VIP-silver', 'normal', 'premium', 'd
 
 export const users = new SvelteSet(data.map((event) => event.name));
 
+// Per-column resize bounds. `size` is the initial width; min/max cap how
+// far the user can drag. The last visible column ignores `size` and fills
+// remaining space (see `resizable-table-header.svelte`).
+const DEFAULT_MIN_SIZE = 80;
+const DEFAULT_MAX_SIZE = 600;
+
 export const columns: ColumnDef<Event>[] = [
 	{
 		accessorKey: 'event',
+		size: 260,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
@@ -33,6 +42,9 @@ export const columns: ColumnDef<Event>[] = [
 	},
 	{
 		accessorKey: 'label',
+		size: 180,
+		minSize: 100,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
@@ -57,6 +69,9 @@ export const columns: ColumnDef<Event>[] = [
 	},
 	{
 		accessorKey: 'name',
+		size: 220,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
@@ -70,6 +85,9 @@ export const columns: ColumnDef<Event>[] = [
 	},
 	{
 		accessorKey: 'time',
+		size: 200,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,
@@ -86,6 +104,9 @@ export const columns: ColumnDef<Event>[] = [
 	},
 	{
 		accessorKey: 'active',
+		size: 120,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) => {
 			return renderComponent(DataTableColumnHeader, {
 				column,

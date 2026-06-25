@@ -105,30 +105,51 @@ export function getColumnLabel(id: string): string {
 	}
 }
 
+// Initial / min / max widths used by the column-resize handle.
+// `size` is the starting width in pixels. `minSize` / `maxSize` cap how far
+// the user can drag. Per-column overrides go on each column below.
+const DEFAULT_MIN_SIZE = 150;
+const DEFAULT_MAX_SIZE = 400;
+
 export const columns: ColumnDef<Log>[] = [
 	{
 		accessorKey: 'id',
+		size: 300,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) =>
 			renderComponent(DataTableColumnHeader, { column, title: m.log_col_id() })
 	},
 	{
 		accessorKey: 'type',
+		size: 200,
+		minSize: 120,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) =>
 			renderComponent(DataTableColumnHeader, { column, title: m.log_col_type() }),
 		cell: ({ row }) => renderComponent(TypeCell, { value: row.original.type })
 	},
 	{
 		accessorKey: 'user_id',
+		size: 300,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) =>
 			renderComponent(DataTableColumnHeader, { column, title: m.log_col_user_id() })
 	},
 	{
 		accessorKey: 'email',
+		size: 240,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) =>
 			renderComponent(DataTableColumnHeader, { column, title: m.log_col_email() })
 	},
 	{
 		accessorKey: 'time',
+		size: 200,
+		minSize: DEFAULT_MIN_SIZE,
+		maxSize: DEFAULT_MAX_SIZE,
 		header: ({ column }) =>
 			renderComponent(DataTableColumnHeader, { column, title: m.log_col_time() }),
 		cell: ({ row }) => renderComponent(TimeCell, { value: row.original.time })
