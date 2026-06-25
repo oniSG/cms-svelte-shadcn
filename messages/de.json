@@ -295,6 +295,7 @@
 
 	"log_action_sort_asc": "Aufsteigend",
 	"log_action_sort_desc": "Absteigend",
+	"log_action_filter": "Filtern",
 	"log_action_hide": "Ausblenden",
 	"log_action_view": "Ansicht",
 	"log_action_reset": "Zurücksetzen",

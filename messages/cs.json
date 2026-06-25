@@ -297,6 +297,7 @@
 
 	"log_action_sort_asc": "Vzestupně",
 	"log_action_sort_desc": "Sestupně",
+	"log_action_filter": "Filtrovat",
 	"log_action_hide": "Skrýt",
 	"log_action_view": "Zobrazit",
 	"log_action_reset": "Resetovat",

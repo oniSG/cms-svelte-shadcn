@@ -22,11 +22,11 @@
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {
-		title,             // shown on the trigger button (e.g. "Type")
-		icon: Icon,        // optional icon next to the title
-		options,           // all options the user can pick from
-		value,             // currently selected values (controlled by parent)
-		onChange           // called when selection changes; parent applies it
+		title, // shown on the trigger button (e.g. "Type")
+		icon: Icon, // optional icon next to the title
+		options, // all options the user can pick from
+		value, // currently selected values (controlled by parent)
+		onChange // called when selection changes; parent applies it
 	}: {
 		title: string;
 		icon: Component;

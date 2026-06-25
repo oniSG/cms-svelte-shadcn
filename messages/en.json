@@ -295,6 +295,7 @@
 
 	"log_action_sort_asc": "Asc",
 	"log_action_sort_desc": "Desc",
+	"log_action_filter": "Filter",
 	"log_action_hide": "Hide",
 	"log_action_view": "View",
 	"log_action_reset": "Reset",

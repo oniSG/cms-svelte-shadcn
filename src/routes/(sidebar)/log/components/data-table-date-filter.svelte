@@ -27,9 +27,9 @@
 	import { localeState } from '$lib/i18n.svelte.js';
 
 	let {
-		from,           // current "from" date (controlled)
-		to,             // current "to" date (controlled)
-		onChange        // called when the user picks a new range or clears it
+		from, // current "from" date (controlled)
+		to, // current "to" date (controlled)
+		onChange // called when the user picks a new range or clears it
 	}: {
 		from: Date | null;
 		to: Date | null;

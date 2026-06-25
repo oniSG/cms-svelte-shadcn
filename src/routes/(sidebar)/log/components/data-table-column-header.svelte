@@ -3,6 +3,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import type { Column } from '@tanstack/table-core';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import type { Snippet } from 'svelte';
 	import { cn } from '$lib/utils.js';
 	import ArrowUpIcon from '@lucide/svelte/icons/arrow-up';
 	import ArrowDownIcon from '@lucide/svelte/icons/arrow-down';
@@ -14,9 +15,19 @@
 	let {
 		column,
 		title,
+		// Optional `filter` snippet rendered as the FIRST entry in the dropdown
+		// (above the sort items). The caller is expected to render a
+		// <DropdownMenu.Sub> so the filter UI shows up as a nested sub-menu —
+		// this keeps the column header dumb and lets each column choose its own
+		// filter shape (checkbox list, calendar, etc.).
+		filter,
 		class: className,
 		...restProps
-	}: { column: Column<Log>; title: string } & HTMLAttributes<HTMLDivElement> = $props();
+	}: {
+		column: Column<Log>;
+		title: string;
+		filter?: Snippet;
+	} & HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
 {#if !column?.getCanSort()}
@@ -48,6 +59,10 @@
 				{/snippet}
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content align="start">
+				{#if filter}
+					{@render filter()}
+					<DropdownMenu.Separator />
+				{/if}
 				<DropdownMenu.Item onclick={() => column.toggleSorting(false)}>
 					<ArrowUpIcon class="me-2 size-3.5 text-muted-foreground/70" />
 					{m.log_action_sort_asc()}

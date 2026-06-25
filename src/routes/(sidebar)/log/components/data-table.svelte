@@ -19,27 +19,31 @@
 		type SortingState,
 		type VisibilityState
 	} from '@tanstack/table-core';
-	import ResizableTableHeader from '$lib/components/custom/data-table/resizable-table-header.svelte';
+	import ColumnResizer from '$lib/components/custom/data-table/column-resizer.svelte';
 	import {
 		LAST_COLUMN_BUFFER,
 		nonLastColumnTotal
 	} from '$lib/components/custom/data-table/resizable-table';
 	import { createSvelteTable, FlexRender } from '$lib/components/ui/data-table/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Button } from '$lib/components/ui/button';
+	import { RangeCalendar } from '$lib/components/ui/range-calendar/index.js';
 	import { cn } from '$lib/utils.js';
 	import XIcon from '@lucide/svelte/icons/x';
-	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
-	import ShapesIcon from '@lucide/svelte/icons/shapes';
-	import UserIcon from '@lucide/svelte/icons/user';
+	import FilterIcon from '@lucide/svelte/icons/filter';
+	import CalendarIcon from '@lucide/svelte/icons/calendar';
+	import { fromDate, getLocalTimeZone, toCalendarDate } from '@internationalized/date';
+	import type { DateRange } from 'bits-ui';
 	import { emails, types, getTypeLabel, getColumnLabel, type Log } from '../columns';
 	import * as m from '$lib/paraglide/messages.js';
-	import DataTableColFilter from './data-table-col-filter.svelte';
+	import DataTableColumnHeader from './data-table-column-header.svelte';
 	import DataTableColVisibility from './data-table-col-visibility.svelte';
-	import DataTableDateFilter from './data-table-date-filter.svelte';
 	import DataTableRowDrawer from './data-table-row-drawer.svelte';
 	import DataTablePagination from './data-table-pagination.svelte';
+	import FilterSubMenu from './filter-sub-menu.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+	import type { ActionType } from '../columns';
 	import type { LogsPatch, LogsQuery, LogsSort } from '../temp/api';
 
 	let {
@@ -147,39 +151,129 @@
 	// Localized option list for the Type filter. Rebuilt on every locale
 	// change because m.*() (inside getTypeLabel) reads localeState.current.
 	const typeOptions = $derived(types.map((value) => ({ value, label: getTypeLabel(value) })));
+
+	// Date filter helpers — the column-header sub-menu hosts a RangeCalendar,
+	// which speaks `@internationalized/date` while the rest of the app uses
+	// plain Date. Convert at the boundary in both directions.
+	const tz = getLocalTimeZone();
+	const dateRange: DateRange | undefined = $derived(
+		query.from
+			? {
+					start: toCalendarDate(fromDate(query.from, tz)),
+					end: query.to ? toCalendarDate(fromDate(query.to, tz)) : undefined
+				}
+			: undefined
+	);
+
+	function applyDate(v: DateRange | undefined) {
+		if (!v?.start) {
+			onPatch({ from: null, to: null });
+			return;
+		}
+		const start = v.start.toDate(tz);
+		// Push the end to the very end of the day so filtering is inclusive.
+		const end = v.end ? new Date(v.end.toDate(tz).setHours(23, 59, 59, 999)) : null;
+		onPatch({ from: start, to: end });
+	}
+
+	function toggleType(t: ActionType, on: boolean) {
+		onPatch({ types: on ? [...query.types, t] : query.types.filter((v) => v !== t) });
+	}
+
+	function toggleEmail(e: string, on: boolean) {
+		onPatch({ emails: on ? [...query.emails, e] : query.emails.filter((v) => v !== e) });
+	}
 </script>
 
-<div>
-	<!-- Toolbar: filters live here. Each filter takes a value + onChange
-	     and converts user actions into onPatch calls. -->
-	<div class="flex items-center py-2">
-		<ButtonGroup.Root>
-			<DataTableColFilter
-				icon={ShapesIcon}
-				title={m.log_filter_type()}
+<!--
+  Per-column filter sub-menus. Each renders as a <DropdownMenu.Sub> so it
+  appears as a nested sub-menu inside the column-title dropdown. We keep
+  them at the top level here so the same snippet instance is reused across
+  every header that needs it (the loop picks one by column id).
+-->
+{#snippet typeFilter()}
+	<DropdownMenu.Sub>
+		<DropdownMenu.SubTrigger>
+			<FilterIcon class="me-2 size-3.5 text-muted-foreground/70" />
+			{m.log_action_filter()}
+		</DropdownMenu.SubTrigger>
+		<!--
+		  bits-ui's FloatingLayerContent defaults align="center" — without an
+		  explicit `align="start"` the sub-menu is vertically centered on the
+		  trigger, which puts its top ~half-its-height above "Filtrovat".
+		  alignOffset={-6}: negate SubContent's `p-1.5` so the search input
+		  row lands at the same Y as the SubTrigger row.
+		  avoidCollisions={false}: stop bits-ui from auto-shifting the
+		  sub-menu when the list is long — the inner list scrolls instead.
+		-->
+		<DropdownMenu.SubContent class="w-56" align="start" alignOffset={-6} avoidCollisions={false}>
+			<FilterSubMenu
 				options={typeOptions}
-				value={query.types}
-				onChange={(v) => onPatch({ types: v })}
+				selected={query.types}
+				onToggle={toggleType}
+				onClear={() => onPatch({ types: [] })}
+				placeholder={m.log_filter_type()}
 			/>
-			<DataTableColFilter
-				icon={UserIcon}
-				title={m.log_filter_user()}
+		</DropdownMenu.SubContent>
+	</DropdownMenu.Sub>
+{/snippet}
+
+{#snippet emailFilter()}
+	<DropdownMenu.Sub>
+		<DropdownMenu.SubTrigger>
+			<FilterIcon class="me-2 size-3.5 text-muted-foreground/70" />
+			{m.log_action_filter()}
+		</DropdownMenu.SubTrigger>
+		<DropdownMenu.SubContent class="w-64" align="start" alignOffset={-6} avoidCollisions={false}>
+			<FilterSubMenu
 				options={emails}
-				value={query.emails}
-				onChange={(v) => onPatch({ emails: v })}
+				selected={query.emails}
+				onToggle={toggleEmail}
+				onClear={() => onPatch({ emails: [] })}
+				placeholder={m.log_filter_user()}
 			/>
-			<DataTableDateFilter
-				from={query.from}
-				to={query.to}
-				onChange={(from, to) => onPatch({ from, to })}
-			/>
-			{#if isFiltered}
-				<Button variant="outline" size="sm" onclick={onReset}>
-					<XIcon />
-					{m.log_action_reset()}
-				</Button>
+		</DropdownMenu.SubContent>
+	</DropdownMenu.Sub>
+{/snippet}
+
+{#snippet dateFilter()}
+	<DropdownMenu.Sub>
+		<DropdownMenu.SubTrigger>
+			<CalendarIcon class="me-2 size-3.5 text-muted-foreground/70" />
+			{m.log_action_filter()}
+		</DropdownMenu.SubTrigger>
+		<!-- align="start" mirrors the type/email sub-menus so the calendar's
+		     top edge lines up with the SubTrigger row. No alignOffset compensation
+		     here because the SubContent uses p-0. -->
+		<DropdownMenu.SubContent class="p-0" align="start" avoidCollisions={false}>
+			<RangeCalendar value={dateRange} onValueChange={applyDate} />
+			{#if query.from}
+				<div class="border-t p-2">
+					<Button
+						variant="ghost"
+						size="sm"
+						class="w-full"
+						onclick={() => onPatch({ from: null, to: null })}
+					>
+						{m.log_filter_clear_dates()}
+					</Button>
+				</div>
 			{/if}
-		</ButtonGroup.Root>
+		</DropdownMenu.SubContent>
+	</DropdownMenu.Sub>
+{/snippet}
+
+<div>
+	<!-- Toolbar: filters now live INSIDE each filterable column header
+	     (see the inline header render below). This bar only holds the
+	     Reset shortcut (when something is filtered) + column visibility. -->
+	<div class="flex items-center justify-end gap-2 py-2">
+		{#if isFiltered}
+			<Button variant="outline" size="sm" onclick={onReset}>
+				<XIcon />
+				{m.log_action_reset()}
+			</Button>
+		{/if}
 		<DataTableColVisibility {table} labelFor={getColumnLabel} />
 	</div>
 
@@ -203,7 +297,44 @@
 			class="w-full table-fixed"
 			style="min-width: {nonLastColumnTotal(table) + LAST_COLUMN_BUFFER}px"
 		>
-			<ResizableTableHeader {table} />
+			<!-- Inline header render (instead of <ResizableTableHeader />) so we
+			     can render <DataTableColumnHeader /> ourselves and hand it a
+			     per-column `filter` snippet. The snippets below render as a
+			     <DropdownMenu.Sub> inside the column-title dropdown — i.e. the
+			     filter UI lives as a sub-menu of the sort/hide menu. -->
+			<Table.Header>
+				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
+					<Table.Row>
+						{#each headerGroup.headers as header, i (header.id)}
+							{@const isLast = i === headerGroup.headers.length - 1}
+							{@const filterSnippet =
+								header.column.id === 'type'
+									? typeFilter
+									: header.column.id === 'email'
+										? emailFilter
+										: header.column.id === 'time'
+											? dateFilter
+											: undefined}
+							<Table.Head
+								colspan={header.colSpan}
+								class="relative"
+								style={isLast ? '' : `width: ${header.getSize()}px`}
+							>
+								{#if !header.isPlaceholder}
+									<DataTableColumnHeader
+										column={header.column}
+										title={getColumnLabel(header.column.id)}
+										filter={filterSnippet}
+									/>
+								{/if}
+								{#if !isLast}
+									<ColumnResizer {header} />
+								{/if}
+							</Table.Head>
+						{/each}
+					</Table.Row>
+				{/each}
+			</Table.Header>
 			<Table.Body>
 				{#each table.getRowModel().rows as row (row.id)}
 					<!-- Each row is clickable and opens a details dialog. -->
