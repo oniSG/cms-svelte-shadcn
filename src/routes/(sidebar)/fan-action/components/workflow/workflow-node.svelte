@@ -27,10 +27,10 @@
 
 	const headerClass = $derived(
 		data.variant === 'trigger'
-			? 'bg-sky-500'
+			? 'bg-chart-3'
 			: data.variant === 'condition'
-				? 'bg-orange-400'
-				: 'bg-emerald-500'
+				? 'bg-chart-2'
+				: 'bg-chart-1'
 	);
 
 	function duplicateNode() {

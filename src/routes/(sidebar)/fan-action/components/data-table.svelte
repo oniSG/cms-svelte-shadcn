@@ -37,6 +37,7 @@
 	import { X } from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { goto } from '$app/navigation';
+	import { fanActionEditTabHref } from '../edit-tabs.js';
 
 	type DataTableProps<TData, TValue> = {
 		columns: ColumnDef<TData, TValue>[];
@@ -136,7 +137,7 @@
 	let createDialog = $state(false);
 
 	function navigateToEdit(action: FanAction) {
-		goto(`/fan-action/edit/${action.id}`);
+		goto(fanActionEditTabHref(action.id, 'basic'));
 	}
 </script>
 
