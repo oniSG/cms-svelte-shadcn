@@ -3,7 +3,6 @@
 		Handle,
 		NodeToolbar,
 		Position,
-		useEdges,
 		useNodes,
 		useSvelteFlow,
 		type Node,
@@ -30,17 +29,8 @@
 
 	const { deleteElements, getNode } = useSvelteFlow();
 	const nodesStore = useNodes();
-	const edgesStore = useEdges();
 
 	const label = $derived(workflowItemLabel(data.itemId));
-
-	const outgoingCount = $derived(edgesStore.current.filter((edge) => edge.source === id).length);
-	const yesCount = $derived(
-		edgesStore.current.filter((edge) => edge.source === id && edge.sourceHandle === 'yes').length
-	);
-	const noCount = $derived(
-		edgesStore.current.filter((edge) => edge.source === id && edge.sourceHandle === 'no').length
-	);
 
 	let toolbarVisible = $state(false);
 	let hideToolbarTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -86,10 +76,11 @@
 	const handleBase = '!size-3.5 !border-2';
 	const handleInputClass = `${handleBase} relative !left-0 !border-foreground !bg-background after:pointer-events-none after:absolute after:top-1/2 after:left-[55%] after:h-0 after:w-0 after:-translate-x-1/2 after:-translate-y-1/2 after:border-y-[3px] after:border-y-transparent after:border-l-[4px] after:border-l-foreground after:content-['']`;
 	const handleNeutralClass = `${handleBase} relative !border-foreground !bg-background after:pointer-events-none after:absolute after:top-1/2 after:left-[55%] after:h-0 after:w-0 after:-translate-x-1/2 after:-translate-y-1/2 after:border-y-[3px] after:border-y-transparent after:border-l-[4px] after:border-l-foreground after:content-['']`;
-	const handleYesClass = `${handleBase} !top-0 !left-1/2 !-translate-x-1/2 !-translate-y-1/2 ${colors.conditionYesPort}`;
-	const handleNoClass = `${handleBase} !bottom-0 !left-1/2 !-translate-x-1/2 !translate-y-1/2 ${colors.conditionNoPort}`;
-	const portBadgeClass =
-		'absolute z-[1] min-w-[1.125rem] rounded-full bg-muted-foreground px-1 text-center text-[10px] leading-4 font-semibold text-white';
+	const handleYesClass = `${handleBase} ${colors.conditionYesPort}`;
+	const handleNoClass = `${handleBase} ${colors.conditionNoPort}`;
+	const conditionHandleYesStyle = 'left: 50%; top: 0; transform: translate(-50%, -50%);';
+	const conditionHandleNoStyle =
+		'left: 50%; bottom: 0; top: auto; transform: translate(-50%, 50%);';
 </script>
 
 <NodeToolbar position={Position.Top} align="center" isVisible={toolbarVisible}>
@@ -117,22 +108,15 @@
 </NodeToolbar>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div
-	class="flex flex-col items-center gap-1.5"
-	onmouseenter={showToolbar}
-	onmouseleave={scheduleHideToolbar}
->
+<div class="relative" onmouseenter={showToolbar} onmouseleave={scheduleHideToolbar}>
 	{#if data.variant === 'trigger'}
-		<div class="relative">
+		<div class="relative mx-auto h-14 w-[4.75rem]">
 			<button
 				class="relative block cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
 				onclick={openSettings}
 				type="button"
 			>
-				{#if outgoingCount > 0}
-					<span class="{portBadgeClass} -top-2 left-1/2 -translate-x-1/2">{outgoingCount}</span>
-				{/if}
 				<div class="relative h-14 w-[4.75rem]">
 					<svg
 						class="absolute inset-0 size-full overflow-visible"
@@ -156,9 +140,9 @@
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
 		</div>
 	{:else if data.variant === 'condition'}
-		<div class="relative">
+		<div class="relative mx-auto w-14">
 			<button
-				class="relative block cursor-pointer border-0 bg-transparent p-0"
+				class="relative block w-full cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
 				onclick={openSettings}
 				type="button"
@@ -171,30 +155,29 @@
 				</div>
 			</button>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
-			<Handle id="yes" class={handleYesClass} position={Position.Top} type="source" />
-			<Handle id="no" class={handleNoClass} position={Position.Bottom} type="source" />
-			{#if yesCount > 0}
-				<span class="{portBadgeClass} top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
-					>{yesCount}</span
-				>
-			{/if}
-			{#if noCount > 0}
-				<span class="{portBadgeClass} bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2"
-					>{noCount}</span
-				>
-			{/if}
+			<Handle
+				id="yes"
+				class={handleYesClass}
+				position={Position.Top}
+				type="source"
+				style={conditionHandleYesStyle}
+			/>
+			<Handle
+				id="no"
+				class={handleNoClass}
+				position={Position.Bottom}
+				type="source"
+				style={conditionHandleNoStyle}
+			/>
 		</div>
 	{:else}
-		<div class="relative">
+		<div class="relative mx-auto w-16">
 			<button
 				class="relative block cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
 				onclick={openSettings}
 				type="button"
 			>
-				{#if outgoingCount > 0}
-					<span class="{portBadgeClass} -top-2 left-1/2 -translate-x-1/2">{outgoingCount}</span>
-				{/if}
 				<div
 					class="flex size-16 items-center justify-center rounded-lg shadow-sm {colors.action
 						.surface}"
@@ -215,16 +198,20 @@
 		</div>
 	{/if}
 
-	<button
-		class="max-w-[9rem] cursor-pointer border-0 bg-transparent p-0 text-center text-xs leading-tight text-foreground"
-		onclick={openSettings}
-		type="button"
+	<div
+		class="pointer-events-none absolute top-full left-1/2 z-10 mt-1.5 w-max max-w-[9rem] -translate-x-1/2 text-center"
 	>
-		{label}
-	</button>
-	{#if data.incomplete}
-		<p class="max-w-[9rem] text-center text-[10px] leading-tight text-destructive">
-			{m.fan_action_flow_must_complete()}
-		</p>
-	{/if}
+		<button
+			class="pointer-events-auto max-w-[9rem] cursor-pointer border-0 bg-transparent p-0 text-center text-xs leading-tight text-foreground"
+			onclick={openSettings}
+			type="button"
+		>
+			{label}
+		</button>
+		{#if data.incomplete}
+			<p class="text-[10px] leading-tight text-destructive">
+				{m.fan_action_flow_must_complete()}
+			</p>
+		{/if}
+	</div>
 </div>
