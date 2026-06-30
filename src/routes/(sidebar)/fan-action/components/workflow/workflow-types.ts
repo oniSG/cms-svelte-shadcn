@@ -1,14 +1,13 @@
 export type WorkflowNodeVariant = 'trigger' | 'condition' | 'action';
 
 export type WorkflowNodeData = {
-	label: string;
+	itemId: string;
 	variant: WorkflowNodeVariant;
 	incomplete?: boolean;
 };
 
 export type WorkflowPaletteItem = {
 	id: string;
-	label: string;
 	variant: WorkflowNodeVariant;
 	incomplete?: boolean;
 };

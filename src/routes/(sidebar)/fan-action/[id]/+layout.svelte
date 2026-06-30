@@ -34,6 +34,8 @@
 
 	const tabTriggerClass =
 		'gap-2 rounded-full border border-transparent! px-3 py-1 text-sm font-medium text-foreground/60 hover:text-foreground relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring after:absolute after:inset-x-0 after:bottom-[-5px] after:h-0.5 after:bg-foreground after:opacity-0 after:transition-opacity data-[active]:text-foreground data-[active]:after:opacity-100';
+
+	const isSettingsTab = $derived(activeTab === 'settings');
 </script>
 
 <PageHeader
@@ -48,6 +50,32 @@
 
 {#if !action}
 	<p class="text-muted-foreground">{m.fan_action_not_found()}</p>
+{:else if isSettingsTab}
+	<div class="-mx-4 -mb-4 flex h-[calc(100svh-3.5rem)] flex-col overflow-x-hidden overflow-y-hidden">
+		<Tabs.Root value={activeTab} class="shrink-0 gap-0">
+			<div class="overflow-x-auto border-b px-4">
+				<Tabs.List
+					variant="line"
+					class="h-auto w-max min-w-full justify-start rounded-none bg-transparent"
+				>
+					{#each FAN_ACTION_EDIT_TABS as tab (tab)}
+						<a
+							href={fanActionEditTabHref(actionId, tab)}
+							data-active={activeTab === tab ? true : undefined}
+							aria-current={activeTab === tab ? 'page' : undefined}
+							class={cn(tabTriggerClass)}
+						>
+							{tabLabels[tab]()}
+						</a>
+					{/each}
+				</Tabs.List>
+			</div>
+		</Tabs.Root>
+
+		<div class="min-h-0 flex-1">
+			{@render children()}
+		</div>
+	</div>
 {:else}
 	<div class="space-y-6 pb-8">
 		<Tabs.Root value={activeTab} class="gap-6">

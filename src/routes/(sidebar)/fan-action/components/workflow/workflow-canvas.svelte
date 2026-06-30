@@ -51,7 +51,7 @@
 			type: 'workflow',
 			position,
 			data: {
-				label: item.label,
+				itemId: item.id,
 				variant: item.variant,
 				incomplete: item.incomplete ?? item.variant !== 'trigger'
 			}
@@ -62,7 +62,7 @@
 </script>
 
 <div
-	class="relative min-h-[640px] flex-1"
+	class="absolute inset-0 h-full w-full"
 	ondragover={onDragOver}
 	ondrop={onDrop}
 	role="presentation"
@@ -70,7 +70,7 @@
 	<SvelteFlow
 		bind:nodes
 		bind:edges
-		class="!bg-muted/20"
+		class="h-full w-full !bg-muted/20"
 		{nodeTypes}
 		defaultEdgeOptions={{ type: 'smoothstep' }}
 		fitView

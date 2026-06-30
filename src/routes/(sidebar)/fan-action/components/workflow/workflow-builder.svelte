@@ -7,19 +7,25 @@
 	import WorkflowSidebar from './workflow-sidebar.svelte';
 	import { createInitialFlow } from './workflow-data';
 	import type { WorkflowNodeData } from './workflow-types';
-	import * as m from '$lib/paraglide/messages.js';
 
-	const initial = createInitialFlow({
-		runNow: m.fan_action_flow_trigger_run_now(),
-		condition: m.fan_action_flow_condition(),
-		sendEmail: m.fan_action_flow_action_email()
-	});
+	const initialFlow = createInitialFlow();
 
-	let nodes = $state.raw<Node<WorkflowNodeData>[]>(initial.nodes);
-	let edges = $state.raw<Edge[]>(initial.edges);
-	let scriptStopped = $state(true);
-	let testingStopped = $state(true);
-	let sidebarTab = $state('triggers');
+	let {
+		nodes = $bindable(initialFlow.nodes),
+		edges = $bindable(initialFlow.edges),
+		scriptStopped = $bindable(true),
+		testingStopped = $bindable(true),
+		sidebarTab = $bindable('triggers')
+	}: {
+		nodes?: Node<WorkflowNodeData>[];
+		edges?: Edge[];
+		scriptStopped?: boolean;
+		testingStopped?: boolean;
+		sidebarTab?: string;
+	} = $props();
+
+	const overlayPanelClass =
+		'overflow-hidden rounded-xl border bg-background/95 shadow-lg backdrop-blur-sm supports-backdrop-filter:bg-background/80';
 
 	function handleSave() {
 		scriptStopped = true;
@@ -29,15 +35,22 @@
 
 {#if browser}
 	<SvelteFlowProvider>
-		<div class="overflow-hidden rounded-lg border bg-background">
-			<WorkflowToolbar bind:scriptStopped bind:testingStopped onSave={handleSave} />
+		<div class="relative h-full w-full overflow-hidden">
+			<WorkflowCanvas bind:nodes bind:edges />
 
-			<div class="flex min-h-[640px]">
-				<WorkflowCanvas bind:nodes bind:edges />
-				<WorkflowSidebar bind:activeTab={sidebarTab} />
+			<div class="pointer-events-none absolute inset-0 z-20 p-3">
+				<div
+					class="pointer-events-auto absolute top-3 right-[calc(18rem+1.5rem)] left-3 {overlayPanelClass}"
+				>
+					<WorkflowToolbar bind:scriptStopped bind:testingStopped onSave={handleSave} />
+				</div>
+
+				<div class="pointer-events-auto absolute top-3 right-3 bottom-3 w-72 {overlayPanelClass}">
+					<WorkflowSidebar bind:activeTab={sidebarTab} />
+				</div>
 			</div>
 		</div>
 	</SvelteFlowProvider>
 {:else}
-	<div class="min-h-[640px] rounded-lg border bg-muted/20"></div>
+	<div class="relative h-full w-full bg-muted/20"></div>
 {/if}

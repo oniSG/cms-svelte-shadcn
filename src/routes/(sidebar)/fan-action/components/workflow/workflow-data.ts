@@ -1,59 +1,55 @@
 import type { Edge, Node } from '@xyflow/svelte';
 import type { WorkflowNodeData } from './workflow-types';
 
-export function createInitialFlow(labels: {
-	runNow: string;
-	condition: string;
-	sendEmail: string;
-}): { nodes: Node<WorkflowNodeData>[]; edges: Edge[] } {
+export function createInitialFlow(): { nodes: Node<WorkflowNodeData>[]; edges: Edge[] } {
 	const nodes: Node<WorkflowNodeData>[] = [
 		{
 			id: 'trigger-1',
 			type: 'workflow',
 			position: { x: 40, y: 30 },
-			data: { label: labels.runNow, variant: 'trigger' }
+			data: { itemId: 'run-now', variant: 'trigger' }
 		},
 		{
 			id: 'condition-1',
 			type: 'workflow',
 			position: { x: 300, y: 170 },
-			data: { label: labels.condition, variant: 'condition', incomplete: true }
+			data: { itemId: 'condition', variant: 'condition', incomplete: true }
 		},
 		{
 			id: 'condition-2',
 			type: 'workflow',
 			position: { x: 500, y: 30 },
-			data: { label: labels.condition, variant: 'condition' }
+			data: { itemId: 'condition', variant: 'condition' }
 		},
 		{
 			id: 'condition-3',
 			type: 'workflow',
 			position: { x: 500, y: 170 },
-			data: { label: labels.condition, variant: 'condition', incomplete: true }
+			data: { itemId: 'condition', variant: 'condition', incomplete: true }
 		},
 		{
 			id: 'condition-4',
 			type: 'workflow',
 			position: { x: 300, y: 320 },
-			data: { label: labels.condition, variant: 'condition', incomplete: true }
+			data: { itemId: 'condition', variant: 'condition', incomplete: true }
 		},
 		{
 			id: 'action-1',
 			type: 'workflow',
 			position: { x: 720, y: 30 },
-			data: { label: labels.sendEmail, variant: 'action', incomplete: true }
+			data: { itemId: 'email', variant: 'action', incomplete: true }
 		},
 		{
 			id: 'action-2',
 			type: 'workflow',
 			position: { x: 720, y: 170 },
-			data: { label: labels.sendEmail, variant: 'action', incomplete: true }
+			data: { itemId: 'email', variant: 'action', incomplete: true }
 		},
 		{
 			id: 'action-3',
 			type: 'workflow',
 			position: { x: 720, y: 320 },
-			data: { label: labels.sendEmail, variant: 'action', incomplete: true }
+			data: { itemId: 'email', variant: 'action', incomplete: true }
 		}
 	];
 

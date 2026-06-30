@@ -11,6 +11,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { WorkflowNodeData } from './workflow-types';
 	import { createNodeId } from './workflow-data';
+	import { workflowItemLabel } from './workflow-labels';
 	import Forward from '@lucide/svelte/icons/forward';
 	import GitFork from '@lucide/svelte/icons/git-fork';
 	import Mail from '@lucide/svelte/icons/mail';
@@ -32,6 +33,8 @@
 				? 'bg-chart-2'
 				: 'bg-chart-1'
 	);
+
+	const label = $derived(workflowItemLabel(data.itemId));
 
 	function duplicateNode() {
 		const node = getNode(id);
@@ -78,6 +81,7 @@
 	</div>
 </NodeToolbar>
 
+<!-- Node -->
 <div class="min-w-[168px] overflow-hidden rounded-md border bg-background shadow-sm">
 	<div class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white {headerClass}">
 		{#if data.variant === 'trigger'}
@@ -87,7 +91,7 @@
 		{:else}
 			<Mail class="size-4 shrink-0" />
 		{/if}
-		<span class="truncate">{data.label}</span>
+		<span class="truncate">{label}</span>
 	</div>
 	{#if data.incomplete}
 		<p class="border-t px-3 py-1.5 text-xs text-destructive">{m.fan_action_flow_must_complete()}</p>
