@@ -6,5 +6,5 @@ import { fanActionIdEntries } from '../id-entries';
 export const entries: EntryGenerator = fanActionIdEntries;
 
 export function load({ params }) {
-	redirect(307, fanActionEditTabHref(params.id, 'basic'));
+	redirect(307, fanActionEditTabHref(params.id, 'settings'));
 }

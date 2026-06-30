@@ -5,6 +5,8 @@
 	import WorkflowCanvas from './workflow-canvas.svelte';
 	import WorkflowToolbar from './workflow-toolbar.svelte';
 	import WorkflowSidebar from './workflow-sidebar.svelte';
+	import WorkflowNodeDrawerHost from './workflow-node-drawer-host.svelte';
+	import { setWorkflowConfigureNode } from './workflow-context';
 	import { createInitialFlow } from './workflow-data';
 	import type { WorkflowNodeData } from './workflow-types';
 
@@ -24,6 +26,11 @@
 		sidebarTab?: string;
 	} = $props();
 
+	let drawerOpen = $state(false);
+	let activeNodeId = $state<string | null>(null);
+
+	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
+
 	const overlayPanelClass =
 		'overflow-hidden rounded-xl border bg-background/95 shadow-lg backdrop-blur-sm supports-backdrop-filter:bg-background/80';
 
@@ -31,6 +38,13 @@
 		scriptStopped = true;
 		testingStopped = true;
 	}
+
+	function openNodeDrawer(nodeId: string) {
+		activeNodeId = nodeId;
+		drawerOpen = true;
+	}
+
+	setWorkflowConfigureNode(openNodeDrawer);
 </script>
 
 {#if browser}
@@ -50,6 +64,8 @@
 				</div>
 			</div>
 		</div>
+
+		<WorkflowNodeDrawerHost bind:open={drawerOpen} node={activeNode} />
 	</SvelteFlowProvider>
 {:else}
 	<div class="relative h-full w-full bg-muted/20"></div>

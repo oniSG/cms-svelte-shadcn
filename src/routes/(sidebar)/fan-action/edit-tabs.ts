@@ -1,12 +1,4 @@
-export const FAN_ACTION_EDIT_TABS = [
-	'basic',
-	'settings',
-	'email',
-	'sms',
-	'push',
-	'popup',
-	'notification-bar'
-] as const;
+export const FAN_ACTION_EDIT_TABS = ['settings', 'stats'] as const;
 
 export type FanActionEditTab = (typeof FAN_ACTION_EDIT_TABS)[number];
 

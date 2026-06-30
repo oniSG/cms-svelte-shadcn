@@ -137,7 +137,7 @@
 	let createDialog = $state(false);
 
 	function navigateToEdit(action: FanAction) {
-		goto(fanActionEditTabHref(action.id, 'basic'));
+		goto(fanActionEditTabHref(action.id, 'settings'));
 	}
 </script>
 

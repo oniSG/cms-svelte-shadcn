@@ -7,8 +7,8 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
-	import { data } from '../../data.js';
-	import { tags as tagOptions } from '../../columns.js';
+	import { data } from '../data.js';
+	import { tags as tagOptions } from '../columns.js';
 	import CircleHelp from '@lucide/svelte/icons/circle-help';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import X from '@lucide/svelte/icons/x';
@@ -68,7 +68,7 @@
 	}
 </script>
 
-<div class="max-w-3xl space-y-6">
+<div class="space-y-3">
 	<div class="space-y-2">
 		<Label for="action-name">
 			{m.event_name_label()} <span class="text-destructive">*</span>
@@ -109,7 +109,7 @@
 					<button
 						{...props}
 						type="button"
-						class="flex min-h-9 w-full max-w-3xl flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
+						class="flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
 					>
 						{#each selectedSegments as segment (segment)}
 							<Badge variant="secondary" class="gap-1 pr-1">
@@ -168,7 +168,7 @@
 					<button
 						{...props}
 						type="button"
-						class="flex min-h-9 w-full max-w-3xl flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
+						class="flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
 					>
 						{#each selectedTags as tag (tag)}
 							<Badge variant="secondary" class="gap-1 pr-1">

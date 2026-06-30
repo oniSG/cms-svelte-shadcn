@@ -17,6 +17,7 @@
 	import type { WorkflowPaletteItem } from './workflow-types';
 	import { WORKFLOW_DRAG_MIME } from './workflow-types';
 	import { workflowItemLabel } from './workflow-labels';
+	import FanActionBasicForm from '../fan-action-basic-form.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	type PaletteIconTone = 'sky' | 'emerald' | 'orange' | 'muted' | 'destructive';
@@ -190,12 +191,16 @@
 {/snippet}
 
 <aside class="flex h-full min-h-0 w-full flex-col bg-transparent">
-	<Tabs.Root bind:value={activeTab} class="flex min-h-0 flex-1 flex-col gap-2 p-3">
-		<Tabs.List class="w-full shrink-0">
-			<Tabs.Trigger class="flex-1" value="triggers">
+	<div class="max-h-[45%] shrink-0 overflow-y-auto border-b p-3">
+		<FanActionBasicForm />
+	</div>
+
+	<Tabs.Root bind:value={activeTab} class="flex min-h-0 flex-1 flex-col gap-2 p-3 pt-2">
+		<Tabs.List class="w-fit shrink-0 self-start">
+			<Tabs.Trigger value="triggers">
 				{m.fan_action_flow_tab_triggers()}
 			</Tabs.Trigger>
-			<Tabs.Trigger class="flex-1" value="actions">
+			<Tabs.Trigger value="actions">
 				{m.fan_action_flow_tab_actions()}
 			</Tabs.Trigger>
 		</Tabs.List>

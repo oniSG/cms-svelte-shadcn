@@ -19,21 +19,16 @@
 
 	const activeTab = $derived.by(() => {
 		const segment = page.url.pathname.split('/').at(-1) ?? '';
-		return isFanActionEditTab(segment) ? segment : 'basic';
+		return isFanActionEditTab(segment) ? segment : 'settings';
 	});
 
 	const tabLabels: Record<FanActionEditTab, () => string> = {
-		basic: () => m.fan_action_tab_basic(),
 		settings: () => m.fan_action_tab_settings(),
-		email: () => m.fan_action_tab_email_stats(),
-		sms: () => m.fan_action_tab_sms_stats(),
-		push: () => m.fan_action_tab_push_stats(),
-		popup: () => m.fan_action_tab_popup_stats(),
-		'notification-bar': () => m.fan_action_tab_notification_bar_stats()
+		stats: () => m.fan_action_tab_stats()
 	};
 
-	const tabTriggerClass =
-		'gap-2 rounded-full border border-transparent! px-3 py-1 text-sm font-medium text-foreground/60 hover:text-foreground relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring after:absolute after:inset-x-0 after:bottom-[-5px] after:h-0.5 after:bg-foreground after:opacity-0 after:transition-opacity data-[active]:text-foreground data-[active]:after:opacity-100';
+	const editTabTriggerClass =
+		'gap-2 rounded-full border border-transparent! px-3 py-1 text-sm font-medium text-foreground/60 hover:text-foreground relative inline-flex h-[calc(100%-1px)] items-center justify-center whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring data-active:bg-background data-active:text-foreground';
 
 	const isSettingsTab = $derived(activeTab === 'settings');
 </script>
@@ -50,56 +45,34 @@
 
 {#if !action}
 	<p class="text-muted-foreground">{m.fan_action_not_found()}</p>
-{:else if isSettingsTab}
-	<div class="-mx-4 -mb-4 flex h-[calc(100svh-3.5rem)] flex-col overflow-x-hidden overflow-y-hidden">
-		<Tabs.Root value={activeTab} class="shrink-0 gap-0">
-			<div class="overflow-x-auto border-b px-4">
-				<Tabs.List
-					variant="line"
-					class="h-auto w-max min-w-full justify-start rounded-none bg-transparent"
-				>
+{:else}
+	<div
+		class={cn(
+			'-mx-4 flex flex-col',
+			isSettingsTab &&
+				'-mb-4 h-[calc(100svh-3.5rem)] overflow-x-hidden overflow-y-hidden'
+		)}
+	>
+		<div class="flex shrink-0 justify-start px-4 pt-3">
+			<Tabs.Root value={activeTab}>
+				<Tabs.List class="w-fit shrink-0">
 					{#each FAN_ACTION_EDIT_TABS as tab (tab)}
 						<a
 							href={fanActionEditTabHref(actionId, tab)}
+							data-slot="tabs-trigger"
 							data-active={activeTab === tab ? true : undefined}
 							aria-current={activeTab === tab ? 'page' : undefined}
-							class={cn(tabTriggerClass)}
+							class={editTabTriggerClass}
 						>
 							{tabLabels[tab]()}
 						</a>
 					{/each}
 				</Tabs.List>
-			</div>
-		</Tabs.Root>
+			</Tabs.Root>
+		</div>
 
-		<div class="min-h-0 flex-1">
+		<div class={cn(isSettingsTab ? 'min-h-0 flex-1' : 'px-4 pt-4 pb-8')}>
 			{@render children()}
 		</div>
-	</div>
-{:else}
-	<div class="space-y-6 pb-8">
-		<Tabs.Root value={activeTab} class="gap-6">
-			<div class="overflow-x-auto border-b">
-				<Tabs.List
-					variant="line"
-					class="h-auto w-max min-w-full justify-start rounded-none bg-transparent"
-				>
-					{#each FAN_ACTION_EDIT_TABS as tab (tab)}
-						<a
-							href={fanActionEditTabHref(actionId, tab)}
-							data-active={activeTab === tab ? true : undefined}
-							aria-current={activeTab === tab ? 'page' : undefined}
-							class={cn(tabTriggerClass)}
-						>
-							{tabLabels[tab]()}
-						</a>
-					{/each}
-				</Tabs.List>
-			</div>
-
-			<div class="pt-2">
-				{@render children()}
-			</div>
-		</Tabs.Root>
 	</div>
 {/if}
