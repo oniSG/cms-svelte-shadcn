@@ -11,11 +11,13 @@
 		type Node
 	} from '@xyflow/svelte';
 	import WorkflowNode from './workflow-node.svelte';
+	import WorkflowEdge from './workflow-edge.svelte';
 	import { createNodeId } from './workflow-data';
 	import type { WorkflowNodeData, WorkflowPaletteItem } from './workflow-types';
 	import { WORKFLOW_DRAG_MIME } from './workflow-types';
 
 	const nodeTypes = { workflow: WorkflowNode };
+	const edgeTypes = { workflow: WorkflowEdge };
 
 	let {
 		nodes = $bindable(),
@@ -28,7 +30,7 @@
 	const { screenToFlowPosition } = useSvelteFlow();
 
 	function onConnect(connection: Connection) {
-		edges = addEdge({ ...connection, type: 'smoothstep' }, edges);
+		edges = addEdge({ ...connection, type: 'workflow' }, edges);
 	}
 
 	function onDragOver(event: DragEvent) {
@@ -72,7 +74,8 @@
 		bind:edges
 		class="h-full w-full !bg-muted/20"
 		{nodeTypes}
-		defaultEdgeOptions={{ type: 'smoothstep' }}
+		{edgeTypes}
+		defaultEdgeOptions={{ type: 'workflow' }}
 		fitView
 		onconnect={onConnect}
 	>

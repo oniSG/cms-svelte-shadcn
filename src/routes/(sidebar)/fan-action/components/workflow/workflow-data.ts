@@ -54,16 +54,16 @@ export function createInitialFlow(): { nodes: Node<WorkflowNodeData>[]; edges: E
 	];
 
 	const edges: Edge[] = [
-		{ id: 'e-trigger-condition-1', source: 'trigger-1', target: 'condition-1', type: 'smoothstep' },
+		{ id: 'e-trigger-condition-1', source: 'trigger-1', target: 'condition-1', type: 'workflow' },
 		{
 			id: 'e-condition-1-condition-4',
 			source: 'condition-1',
 			target: 'condition-4',
-			type: 'smoothstep'
+			type: 'workflow'
 		},
-		{ id: 'e-condition-2-action-1', source: 'condition-2', target: 'action-1', type: 'smoothstep' },
-		{ id: 'e-condition-3-action-2', source: 'condition-3', target: 'action-2', type: 'smoothstep' },
-		{ id: 'e-condition-4-action-3', source: 'condition-4', target: 'action-3', type: 'smoothstep' }
+		{ id: 'e-condition-2-action-1', source: 'condition-2', target: 'action-1', type: 'workflow' },
+		{ id: 'e-condition-3-action-2', source: 'condition-3', target: 'action-2', type: 'workflow' },
+		{ id: 'e-condition-4-action-3', source: 'condition-4', target: 'action-3', type: 'workflow' }
 	];
 
 	return { nodes, edges };
