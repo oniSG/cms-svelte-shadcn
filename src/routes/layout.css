@@ -6,6 +6,13 @@
 @custom-variant dark (&:is(.dark *));
 @plugin '@tailwindcss/typography';
 
+/* Kill the rubber-band / bounce effect when scrolling past the top or
+   bottom of the page. `none` also prevents scroll-chaining to ancestors. */
+html,
+body {
+	overscroll-behavior: none;
+}
+
 :root {
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.153 0.006 107.1);

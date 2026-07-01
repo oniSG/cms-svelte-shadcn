@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Px from '$lib/components/custom/px.svelte';
 	import AppSidebar from '$lib/components/custom/sidebar/sidebar.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 
@@ -8,10 +7,9 @@
 
 <Sidebar.Provider>
 	<AppSidebar />
-	<Sidebar.Inset>
-		<Px>
+	<Sidebar.Inset class="h-svh overflow-hidden">
+		<div class="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto overscroll-none">
 			{@render children()}
-			<div class="h-4"></div>
-		</Px>
+		</div>
 	</Sidebar.Inset>
 </Sidebar.Provider>

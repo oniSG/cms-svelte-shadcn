@@ -3,7 +3,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
 	import InfoIcon from '@lucide/svelte/icons/info';
-	import XIcon from '@lucide/svelte/icons/x';
+	import { ChevronRightIcon } from '@lucide/svelte';
 
 	let {
 		title = 'Information',
@@ -25,8 +25,8 @@
 			<Drawer.Header class="flex flex-row items-center justify-between">
 				<Drawer.Title>{title}</Drawer.Title>
 				<Drawer.Close>
-					<Button variant="ghost" size="icon">
-						<XIcon />
+					<Button variant="secondary" size="icon">
+						<ChevronRightIcon />
 					</Button>
 				</Drawer.Close>
 			</Drawer.Header>

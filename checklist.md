@@ -1,58 +1,58 @@
 # PR checklist
 
-A pass through this before every PR. Each item lists *what* to do, *how* to verify, and *why* it matters. If you don't understand the why, ask before merging — the why is the part you'll need on the next PR.
+A pass through this before every PR. Each item lists _what_ to do, _how_ to verify, and _why_ it matters. If you don't understand the why, ask before merging — the why is the part you'll need on the next PR.
 
 ---
 
 ## 1. Plan (before you write code)
 
 - **Scope is one thing.** Am I solving one problem in this PR? Unrelated refactors, renames, and "while I'm here" cleanups go in a separate PR.
-  *Why:* mixed PRs are slow to review and risky to revert.
+  _Why:_ mixed PRs are slow to review and risky to revert.
 
 - **Component lives in the right place.** Used by one page → `src/routes/.../components/`. Used by 2+ pages → `src/lib/components/custom/`. shadcn primitives → `src/lib/components/ui/` (never write here by hand).
-  *Why:* the file structure is the only navigation we have.
+  _Why:_ the file structure is the only navigation we have.
 
 - **Util / helper / store lives in the right place.** Used by one page → next to it as `src/routes/.../<name>.ts` (or `.svelte.ts` if it uses runes). Used by 2+ pages → `src/lib/utils.ts` for pure helpers, `src/lib/hooks/` for rune-based hooks, `src/lib/stores/` for shared reactive state, `src/lib/types/` for shared types.
-  *Why:* a helper that quietly grows into a second consumer is the start of duplication — promote it to `src/lib/` the moment a second page needs it, don't copy-paste.
+  _Why:_ a helper that quietly grows into a second consumer is the start of duplication — promote it to `src/lib/` the moment a second page needs it, don't copy-paste.
 
 - **Reuse before invent.** Is there already a shadcn primitive (`Button`, `Dialog`, `Drawer`, `DataTable`, …) or a custom component that fits? Check `.claude/shadcn-svelte-docs.md` and `src/lib/components/custom/`.
-  *Why:* every duplicated abstraction is a future inconsistency.
+  _Why:_ every duplicated abstraction is a future inconsistency.
 
 - **New dependency?** Ask before installing.
-  *Why:* `pnpm-lock.yaml` churn and bundle weight need a decision, not a default.
+  _Why:_ `pnpm-lock.yaml` churn and bundle weight need a decision, not a default.
 
 ## 2. Build (while you code)
 
 - **Follow Svelte 5 runes.** `$state`, `$derived`, `$effect`, `$props`. Use `{@render children()}`, never `<slot/>`. Destructure props with `let` (not `const`) so they stay reactive in closures.
-  *Verify:* run `mcp__svelte__svelte-autofixer` on every changed `.svelte` file until it reports zero issues.
-  *Why:* `const` destructuring captures the initial prop value — `state_referenced_locally` warnings are real bugs.
+  _Verify:_ run `mcp__svelte__svelte-autofixer` on every changed `.svelte` file until it reports zero issues.
+  _Why:_ `const` destructuring captures the initial prop value — `state_referenced_locally` warnings are real bugs.
 
 - **No hardcoded strings.** Every user-facing string goes through `m.*()` from `$lib/paraglide/messages.js`. Add keys to all three locales: `messages/en.json`, `messages/cs.json`, `messages/de.json`.
-  *Verify:* `pnpm exec paraglide-js compile` succeeds; switch the language picker — does every word change?
-  *Why:* shipping `'Loading…'` instead of `m.loading()` ships English to Czech users.
+  _Verify:_ `pnpm exec paraglide-js compile` succeeds; switch the language picker — does every word change?
+  _Why:_ shipping `'Loading…'` instead of `m.loading()` ships English to Czech users.
 
 - **No hardcoded colors.** Use design tokens (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `text-destructive`, …) — never `bg-white`, `text-gray-700`.
-  *Verify:* search your diff for hex codes, `bg-white`, `text-black`, `bg-gray-`.
-  *Why:* tokens flip automatically in dark mode; hex codes don't.
+  _Verify:_ search your diff for hex codes, `bg-white`, `text-black`, `bg-gray-`.
+  _Why:_ tokens flip automatically in dark mode; hex codes don't.
 
 - **Dates and times use `Intl`.** Format with `new Intl.DateTimeFormat(localeState.current, { dateStyle, timeStyle })`. Never `Date.toString()` or `toLocaleDateString('en-US', …)`.
-  *Why:* `Tue Mar 05 2026 14:23:45 GMT+0100` is not a UI string. A Czech user expects `5. 3. 2026`.
+  _Why:_ `Tue Mar 05 2026 14:23:45 GMT+0100` is not a UI string. A Czech user expects `5. 3. 2026`.
 
 - **Filter / sort / page state lives in the URL.** Use `sveltekit-search-params` (`createLogsParams` is the pattern). Never store filters in component `$state` only.
-  *Why:* refresh-safe, deep-linkable, browser back/forward works.
+  _Why:_ refresh-safe, deep-linkable, browser back/forward works.
 
 - **Personal preferences live in `localStorage`.** Column visibility, theme, sidebar collapsed — gate reads with `if (browser)` from `$app/environment`.
-  *Why:* SSR / `adapter-static` will crash if you touch `localStorage` at module load.
+  _Why:_ SSR / `adapter-static` will crash if you touch `localStorage` at module load.
 
 - **Loading, empty, error.** Every data view needs all three. Initial load → skeletons. Refetch with rows on screen → dim with `opacity-60`. No rows → "No results" message. Network error → visible state, not a silent empty.
-  *Verify:* simulate slow network in devtools; clear all rows; kill the fetch.
-  *Why:* "it works on my machine with cached data" is the most common PR regression.
+  _Verify:_ simulate slow network in devtools; clear all rows; kill the fetch.
+  _Why:_ "it works on my machine with cached data" is the most common PR regression.
 
 - **Accessibility basics.** Icon-only buttons get `aria-label`. Images get `alt`. Form inputs have labels. Clickable rows that look like rows but trigger actions need a `role` or keyboard handler.
-  *Why:* screen readers and keyboard users are real users.
+  _Why:_ screen readers and keyboard users are real users.
 
-- **Comments explain *why*, not *what*.** If your comment restates the code, delete it. Keep comments that flag hidden constraints, workarounds, or non-obvious decisions.
-  *Why:* `// loop over the items` ages into noise; `// reset cursor — old cursor points into the pre-filter list` survives a refactor.
+- **Comments explain _why_, not _what_.** If your comment restates the code, delete it. Keep comments that flag hidden constraints, workarounds, or non-obvious decisions.
+  _Why:_ `// loop over the items` ages into noise; `// reset cursor — old cursor points into the pre-filter list` survives a refactor.
 
 ## 3. Ship (before you push)
 
@@ -62,7 +62,7 @@ A pass through this before every PR. Each item lists *what* to do, *how* to veri
 - **Build.** `pnpm build` — succeeds.
 - **Manual smoke test.** Open the page in the browser. Test the golden path AND one edge case. UI changes that only pass type checks are not verified.
 - **Diff review.** `git diff` — read every line. Is there debug code, `console.log`, commented-out blocks, unrelated whitespace? Delete it.
-- **Title and description.** PR title under 70 chars, describes the *outcome*. Description explains *why*, lists the files of interest, and notes anything reviewers should test.
+- **Title and description.** PR title under 70 chars, describes the _outcome_. Description explains _why_, lists the files of interest, and notes anything reviewers should test.
 
 ---
 
@@ -80,13 +80,13 @@ A pass through this before every PR. Each item lists *what* to do, *how* to veri
 
 ## Command cheat sheet
 
-| Task | Command |
-|---|---|
-| Format files | `pnpm format` |
-| Lint | `pnpm lint` |
-| Type check | `pnpm check` |
-| Dev server | `pnpm dev` |
-| Production build | `pnpm build` |
-| Recompile translations | `pnpm exec paraglide-js compile` |
-| Regenerate `$app/*` types | `pnpm exec svelte-kit sync` |
+| Task                      | Command                                    |
+| ------------------------- | ------------------------------------------ |
+| Format files              | `pnpm format`                              |
+| Lint                      | `pnpm lint`                                |
+| Type check                | `pnpm check`                               |
+| Dev server                | `pnpm dev`                                 |
+| Production build          | `pnpm build`                               |
+| Recompile translations    | `pnpm exec paraglide-js compile`           |
+| Regenerate `$app/*` types | `pnpm exec svelte-kit sync`                |
 | Re-add a shadcn primitive | `pnpm dlx shadcn-svelte@latest add <name>` |
