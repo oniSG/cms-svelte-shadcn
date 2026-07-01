@@ -8,7 +8,7 @@
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import { data } from '../data.js';
-	import { tags as tagOptions } from '../columns.js';
+	import { allTags as tagOptions } from '../fan-action.js';
 	import CircleHelp from '@lucide/svelte/icons/circle-help';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import X from '@lucide/svelte/icons/x';

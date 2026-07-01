@@ -7,18 +7,10 @@ import DataTableBadge from './components/data-table-badge.svelte';
 import Check from '@lucide/svelte/icons/check';
 import X from '@lucide/svelte/icons/x';
 import * as m from '$lib/paraglide/messages.js';
+import { allTags, type FanAction } from './fan-action';
 
-export type FanAction = {
-	id: number;
-	event: string;
-	tags: string[];
-	description: string;
-	created_at: Date;
-	created_by: string;
-	active: boolean;
-};
-
-export const tags: string[] = ['VIP-gold', 'VIP-silver', 'normal', 'premium', 'denis'];
+export type { FanAction };
+export const tags: string[] = [...allTags];
 
 export const users = new SvelteSet(data.map((action) => action.created_by));
 
