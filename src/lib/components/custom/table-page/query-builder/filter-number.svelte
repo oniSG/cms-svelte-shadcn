@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input/index.js';
 	import FilterShell from './filter-shell.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 	import type { Filter, NumberFilter } from './fields.js';
 	import type { QueryFieldDef } from '../types';
 
@@ -26,7 +27,7 @@
 	<Input
 		type="number"
 		value={filter.value ?? ''}
-		placeholder="Value"
+		placeholder={m.qb_value_placeholder()}
 		oninput={onInput}
 		class="w-full border border-border bg-background text-foreground placeholder:text-muted-foreground"
 	/>

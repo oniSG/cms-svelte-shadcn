@@ -6,6 +6,7 @@
 	import XIcon from '@lucide/svelte/icons/x';
 	import Trash2Icon from '@lucide/svelte/icons/trash-2';
 	import { localeState } from '$lib/i18n.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 	import Pagination from './pagination.svelte';
 	import type { SelectionAction } from './types';
 
@@ -59,9 +60,9 @@
 	<div class="flex flex-1 items-center justify-center gap-2">
 		{#if showCount}
 			<span class="text-sm text-muted-foreground tabular-nums">
-				Total {total.toLocaleString(localeState.current)} records
+				{m.tp_total_records({ total: total.toLocaleString(localeState.current) })}
 				{#if selectionCount > 0}
-					<span class="text-foreground"> / {selectionCount} selected</span>
+					<span class="text-foreground"> / {m.tp_selected({ count: selectionCount })}</span>
 				{/if}
 			</span>
 		{/if}
@@ -84,7 +85,7 @@
 						onclick={() => onDeleteSelected(selectionIds)}
 					>
 						<Trash2Icon />
-						Delete
+						{m.tp_delete()}
 					</Button>
 				{/if}
 			</ButtonGroup.Root>
@@ -94,7 +95,7 @@
 			<Button
 				variant="outline"
 				size="icon-sm"
-				aria-label="Clear selection"
+				aria-label={m.tp_clear_selection()}
 				onclick={onClearSelection}
 			>
 				<XIcon />
@@ -103,12 +104,12 @@
 	</div>
 
 	<div class="flex flex-1 items-center justify-end gap-2 text-sm">
-		<span class="text-muted-foreground">Rows per page</span>
+		<span class="text-muted-foreground">{m.tp_rows_per_page()}</span>
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
 					<Button {...props} variant="outline" size="sm" class="tabular-nums">
-						{Number.isFinite(limit) ? limit : 'Infinite'}
+						{Number.isFinite(limit) ? limit : m.tp_all()}
 					</Button>
 				{/snippet}
 			</DropdownMenu.Trigger>
@@ -131,7 +132,7 @@
 											checked={!Number.isFinite(limit)}
 											class="flex items-center justify-between"
 										>
-											<span> Infinite scroll </span>
+											<span>{m.tp_infinite_scroll()}</span>
 										</DropdownMenu.CheckboxItem>
 									</div>
 								{/snippet}

@@ -1,31 +1,32 @@
 import type { QueryFieldDef, QueryFieldType } from '../types';
+import * as m from '$lib/paraglide/messages.js';
 
-export type Operator = { value: string; label: string };
+export type Operator = { value: string; label: () => string };
 
 export const operators: Record<QueryFieldType, Operator[]> = {
 	text: [
-		{ value: 'equals', label: 'equals' },
-		{ value: 'contains', label: 'contains' },
-		{ value: 'starts_with', label: 'starts with' },
-		{ value: 'ends_with', label: 'ends with' }
+		{ value: 'equals', label: () => m.qb_op_equals() },
+		{ value: 'contains', label: () => m.qb_op_contains() },
+		{ value: 'starts_with', label: () => m.qb_op_starts_with() },
+		{ value: 'ends_with', label: () => m.qb_op_ends_with() }
 	],
 	number: [
-		{ value: 'equals', label: 'equals' },
-		{ value: 'greater_than', label: 'greater than' },
-		{ value: 'less_than', label: 'less than' }
+		{ value: 'equals', label: () => m.qb_op_equals() },
+		{ value: 'greater_than', label: () => m.qb_op_greater_than() },
+		{ value: 'less_than', label: () => m.qb_op_less_than() }
 	],
 	select: [
-		{ value: 'is', label: 'is' },
-		{ value: 'is_not', label: 'is not' }
+		{ value: 'is', label: () => m.qb_op_is() },
+		{ value: 'is_not', label: () => m.qb_op_is_not() }
 	],
 	date: [
-		{ value: 'equals', label: 'on' },
-		{ value: 'before', label: 'before' },
-		{ value: 'after', label: 'after' }
+		{ value: 'equals', label: () => m.qb_op_on() },
+		{ value: 'before', label: () => m.qb_op_before() },
+		{ value: 'after', label: () => m.qb_op_after() }
 	],
 	bool: [
-		{ value: 'is', label: 'is' },
-		{ value: 'is_not', label: 'is not' }
+		{ value: 'is', label: () => m.qb_op_is() },
+		{ value: 'is_not', label: () => m.qb_op_is_not() }
 	]
 };
 

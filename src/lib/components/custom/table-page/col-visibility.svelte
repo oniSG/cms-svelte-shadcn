@@ -8,6 +8,7 @@
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
 	import { cn } from '$lib/utils.js';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let {
 		table,
@@ -70,12 +71,12 @@
 		{#snippet child({ props })}
 			<Button {...props} variant="outline" size="sm" class="ml-auto">
 				<Columns3Icon />
-				Columns
+				{m.tp_columns()}
 			</Button>
 		{/snippet}
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content align="end" class="w-64 p-3">
-		<DropdownMenu.Label>Columns</DropdownMenu.Label>
+		<DropdownMenu.Label>{m.tp_columns()}</DropdownMenu.Label>
 		<div
 			use:dragHandleZone={{
 				items,
@@ -113,7 +114,7 @@
 									role="presentation"
 									onclick={stopGrip}
 									onmousedown={(e) => e.stopPropagation()}
-									aria-label="Reorder column"
+									aria-label={m.tp_reorder_column()}
 								>
 									<GripVerticalIcon class="size-4" />
 								</span>

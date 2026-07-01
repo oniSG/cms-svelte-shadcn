@@ -20,47 +20,79 @@
 	import { fetchFans } from './temp/api';
 	import FanDrawer from './components/fan-drawer.svelte';
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
-	const breadcrumbs = [
-		{ title: 'Home', url: '/' as const },
-		{ title: 'Fans' },
-		{ title: 'Visitors' }
-	];
+	const breadcrumbs = $derived([
+		{ title: m.crumb_home(), url: '/' as const },
+		{ title: m.sidebar_module_fans() },
+		{ title: m.fans_crumb_visitors() }
+	]);
 
 	const tagOptions = allTags.map((t) => ({ value: t, label: t }));
 	const sourceOptions = allSources.map((s) => ({ value: s, label: s }));
-	const boolOptions = [
-		{ value: 'true', label: 'Yes' },
-		{ value: 'false', label: 'No' }
-	];
+	const boolOptions = $derived([
+		{ value: 'true', label: m.common_yes() },
+		{ value: 'false', label: m.common_no() }
+	]);
 
-	const columns: TableColumn<Fan>[] = [
-		{ id: 'surname', label: 'Surname', type: 'text', width: 160 },
-		{ id: 'first_name', label: 'First name', type: 'text', width: 160 },
-		{ id: 'email', label: 'E-mail', type: 'text', width: 260 },
-		{ id: 'phone', label: 'Phone', type: 'text', width: 180, accessor: (f) => f.phone ?? '' },
-		{ id: 'city', label: 'City', type: 'text', width: 160, accessor: (f) => f.city ?? '' },
-		{ id: 'tags', label: 'Tags', type: 'text', width: 220, sortable: true, cell: CellTags },
+	const columns = $derived<TableColumn<Fan>[]>([
+		{ id: 'surname', label: m.fans_col_surname(), type: 'text', width: 160 },
+		{ id: 'first_name', label: m.fans_col_first_name(), type: 'text', width: 160 },
+		{ id: 'email', label: m.fans_col_email(), type: 'text', width: 260 },
+		{
+			id: 'phone',
+			label: m.fans_col_phone(),
+			type: 'text',
+			width: 180,
+			accessor: (f) => f.phone ?? ''
+		},
+		{
+			id: 'city',
+			label: m.fans_col_city(),
+			type: 'text',
+			width: 160,
+			accessor: (f) => f.city ?? ''
+		},
+		{
+			id: 'tags',
+			label: m.fans_col_tags(),
+			type: 'text',
+			width: 220,
+			sortable: true,
+			cell: CellTags
+		},
 		{
 			id: 'registration_source',
-			label: 'Source',
+			label: m.fans_col_source(),
 			type: 'select',
 			options: sourceOptions,
 			searchable: true,
 			width: 180,
 			cell: CellBadge
 		},
-		{ id: 'partner', label: 'Partner', type: 'text', width: 200, accessor: (f) => f.partner ?? '' },
-		{ id: 'segment_match', label: 'In segment', type: 'bool', width: 110, align: 'center' },
-		{ id: 'date_added', label: 'Date added', type: 'date', width: 200 },
-		{ id: 'id', label: 'ID', type: 'text', width: 110 }
-	];
+		{
+			id: 'partner',
+			label: m.fans_col_partner(),
+			type: 'text',
+			width: 200,
+			accessor: (f) => f.partner ?? ''
+		},
+		{
+			id: 'segment_match',
+			label: m.fans_col_in_segment(),
+			type: 'bool',
+			width: 110,
+			align: 'center'
+		},
+		{ id: 'date_added', label: m.fans_col_date_added(), type: 'date', width: 200 },
+		{ id: 'id', label: m.fans_col_id(), type: 'text', width: 110 }
+	]);
 
-	const shortcuts: Shortcut[] = [
+	const shortcuts = $derived<Shortcut[]>([
 		{
 			kind: 'multi-select',
 			id: 'tags',
-			label: 'Tags',
+			label: m.fans_col_tags(),
 			icon: TagIcon,
 			field: 'tags',
 			options: tagOptions
@@ -68,7 +100,7 @@
 		{
 			kind: 'multi-select',
 			id: 'source',
-			label: 'Source',
+			label: m.fans_col_source(),
 			icon: ZapIcon,
 			field: 'registration_source',
 			options: sourceOptions,
@@ -77,14 +109,14 @@
 		{
 			kind: 'multi-select',
 			id: 'segment',
-			label: 'In segment',
+			label: m.fans_col_in_segment(),
 			icon: TargetIcon,
 			field: 'segment_match',
 			options: boolOptions,
 			searchable: false
 		},
-		{ kind: 'date-range', id: 'date_added', label: 'Added', field: 'date_added' }
-	];
+		{ kind: 'date-range', id: 'date_added', label: m.fans_shortcut_added(), field: 'date_added' }
+	]);
 
 	function handleCreate() {
 		console.log('create visitor');
@@ -110,11 +142,11 @@
 <PageHeader separator {breadcrumbs}>
 	<Button variant="outline" size="sm" onclick={handleImport}>
 		<UploadIcon />
-		Import
+		{m.common_import()}
 	</Button>
 	<Button size="sm" onclick={handleCreate}>
 		<PlusIcon />
-		Create visitor
+		{m.fans_create_visitor()}
 	</Button>
 </PageHeader>
 
@@ -124,7 +156,7 @@
 	{shortcuts}
 	fetcher={fetchFans}
 	search={{
-		placeholder: 'Search visitors',
+		placeholder: m.fans_search_placeholder(),
 		fields: ['surname', 'first_name', 'email', 'phone', 'city', 'partner', 'id']
 	}}
 	defaultSort={{ id: 'surname', desc: false }}
@@ -133,7 +165,7 @@
 	rowActionsTitle={(f) => `${f.first_name} ${f.surname}`}
 	selectable
 	selectionActions={[
-		{ label: 'Edit', icon: PencilIcon, onClick: (ids) => console.log('bulk edit', ids) }
+		{ label: m.common_edit(), icon: PencilIcon, onClick: (ids) => console.log('bulk edit', ids) }
 	]}
 	onDeleteSelected={(ids) => console.log('bulk delete', ids)}
 />
@@ -145,15 +177,15 @@
 {#snippet rowActions(fan: Fan, { Item, Separator }: ActionWrap)}
 	<Item onSelect={() => editFan(fan)}>
 		<PencilIcon />
-		Edit
+		{m.common_edit()}
 	</Item>
 	<Item onSelect={() => emailFan(fan)}>
 		<MailIcon />
-		Send e-mail
+		{m.fans_send_email()}
 	</Item>
 	<Separator />
 	<Item onSelect={() => deleteFan(fan)} class="text-destructive focus:text-destructive">
 		<TrashIcon />
-		Delete
+		{m.common_delete()}
 	</Item>
 {/snippet}

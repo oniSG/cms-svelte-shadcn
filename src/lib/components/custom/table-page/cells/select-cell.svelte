@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Row as TanStackRow } from '@tanstack/table-core';
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
+	import * as m from '$lib/paraglide/messages.js';
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let { row }: { row: TanStackRow<any> } = $props();
@@ -23,7 +24,7 @@
 		checked={row.getIsSelected()}
 		disabled={!row.getCanSelect()}
 		onCheckedChange={(v) => row.toggleSelected(!!v)}
-		aria-label="Select row"
+		aria-label={m.tp_select_row()}
 		class="scale-110"
 	/>
 </div>

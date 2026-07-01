@@ -8,6 +8,7 @@
 	import ArrowRightLeftIcon from '@lucide/svelte/icons/arrow-right-left';
 
 	import { createFilter, createGroup, type Group, type Node } from './fields.js';
+	import * as m from '$lib/paraglide/messages.js';
 	import FilterText from './filter-text.svelte';
 	import FilterNumber from './filter-number.svelte';
 	import FilterSelect from './filter-select.svelte';
@@ -116,10 +117,12 @@
 
 {#snippet renderActions()}
 	<Button variant="outline" size="sm" onclick={addCondition}>
-		<PlusIcon /> Condition
+		<PlusIcon />
+		{m.qb_condition()}
 	</Button>
 	<Button variant="outline" size="sm" onclick={addGroup}>
-		<LayoutGridIcon /> Group
+		<LayoutGridIcon />
+		{m.qb_group()}
 	</Button>
 {/snippet}
 
@@ -134,13 +137,18 @@
 			<ButtonGroup.Root>
 				<ButtonGroup.Root>
 					<Button size="sm" class={pillClass} onclick={toggleCombinator}>
-						{group.combinator.toUpperCase()}
+						{group.combinator === 'and' ? m.qb_combinator_and() : m.qb_combinator_or()}
 						<ArrowRightLeftIcon />
 					</Button>
 				</ButtonGroup.Root>
 				<ButtonGroup.Root>
 					{#if onDelete}
-						<Button size="icon-sm" variant="outline" onclick={onDelete} aria-label="Remove group">
+						<Button
+							size="icon-sm"
+							variant="outline"
+							onclick={onDelete}
+							aria-label={m.qb_remove_group()}
+						>
 							<XIcon />
 						</Button>
 					{/if}

@@ -9,6 +9,7 @@
 	import CalendarIcon from '@lucide/svelte/icons/calendar';
 	import { cn } from '$lib/utils.js';
 	import { localeState } from '$lib/i18n.svelte.js';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let {
 		from,
@@ -80,12 +81,12 @@
 		);
 	}
 
-	type Preset = { id: string; label: string; getRange: () => [Date, Date] };
+	type Preset = { id: string; label: () => string; getRange: () => [Date, Date] };
 
 	const presets: Preset[] = [
 		{
 			id: 'today',
-			label: 'Today',
+			label: () => m.tp_date_today(),
 			getRange: () => {
 				const t = new Date();
 				return [startOfDay(t), endOfDay(t)];
@@ -93,7 +94,7 @@
 		},
 		{
 			id: 'yesterday',
-			label: 'Yesterday',
+			label: () => m.tp_date_yesterday(),
 			getRange: () => {
 				const y = new Date();
 				y.setDate(y.getDate() - 1);
@@ -102,7 +103,7 @@
 		},
 		{
 			id: 'last-7',
-			label: 'Last 7 days',
+			label: () => m.tp_date_last_7(),
 			getRange: () => {
 				const e = new Date();
 				const s = new Date();
@@ -112,7 +113,7 @@
 		},
 		{
 			id: 'last-30',
-			label: 'Last 30 days',
+			label: () => m.tp_date_last_30(),
 			getRange: () => {
 				const e = new Date();
 				const s = new Date();
@@ -122,7 +123,7 @@
 		},
 		{
 			id: 'this-month',
-			label: 'This month',
+			label: () => m.tp_date_this_month(),
 			getRange: () => {
 				const t = new Date();
 				return [new Date(t.getFullYear(), t.getMonth(), 1), endOfDay(t)];
@@ -130,7 +131,7 @@
 		},
 		{
 			id: 'last-month',
-			label: 'Last month',
+			label: () => m.tp_date_last_month(),
 			getRange: () => {
 				const t = new Date();
 				const start = new Date(t.getFullYear(), t.getMonth() - 1, 1);
@@ -140,7 +141,7 @@
 		},
 		{
 			id: 'this-quarter',
-			label: 'This quarter',
+			label: () => m.tp_date_this_quarter(),
 			getRange: () => {
 				const t = new Date();
 				const q = Math.floor(t.getMonth() / 3);
@@ -149,7 +150,7 @@
 		},
 		{
 			id: 'ytd',
-			label: 'Year to date',
+			label: () => m.tp_date_ytd(),
 			getRange: () => {
 				const t = new Date();
 				return [new Date(t.getFullYear(), 0, 1), endOfDay(t)];
@@ -195,7 +196,7 @@
 						)}
 						onclick={() => applyPreset(p)}
 					>
-						{p.label}
+						{p.label()}
 					</Button>
 				{/each}
 				{#if isActive}
@@ -206,7 +207,7 @@
 							class="w-full justify-start font-normal text-muted-foreground"
 							onclick={() => onChange(null, null)}
 						>
-							Clear
+							{m.tp_clear()}
 						</Button>
 					</div>
 				{/if}

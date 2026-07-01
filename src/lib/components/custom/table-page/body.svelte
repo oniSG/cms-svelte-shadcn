@@ -16,6 +16,7 @@
 	import SearchXIcon from '@lucide/svelte/icons/search-x';
 	import InboxIcon from '@lucide/svelte/icons/inbox';
 	import RowWrapper from './row-wrapper.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 	import type { ClickConfig } from './types';
 
 	let {
@@ -32,10 +33,10 @@
 		scrollKey = '',
 		isFiltered = false,
 		onResetFilters,
-		noResultsTitle = 'No results',
-		noResultsDescription = 'No rows match your current filters.',
-		noResultsEmptyTitle = 'No data yet',
-		noResultsEmptyDescription = 'There is nothing to show here.'
+		noResultsTitle = '',
+		noResultsDescription = '',
+		noResultsEmptyTitle = '',
+		noResultsEmptyDescription = ''
 	}: {
 		table: TanStackTable<Row>;
 		rows: Row[];
@@ -103,13 +104,19 @@
 					<InboxIcon />
 				{/if}
 			</EmptyMedia>
-			<EmptyTitle>{isFiltered ? noResultsTitle : noResultsEmptyTitle}</EmptyTitle>
+			<EmptyTitle>
+				{isFiltered
+					? noResultsTitle || m.tp_no_results_title()
+					: noResultsEmptyTitle || m.tp_no_data_title()}
+			</EmptyTitle>
 			<EmptyDescription>
-				{isFiltered ? noResultsDescription : noResultsEmptyDescription}
+				{isFiltered
+					? noResultsDescription || m.tp_no_results_description()
+					: noResultsEmptyDescription || m.tp_no_data_description()}
 			</EmptyDescription>
 		</EmptyHeader>
 		{#if isFiltered && onResetFilters}
-			<Button variant="outline" size="sm" onclick={onResetFilters}>Clear filters</Button>
+			<Button variant="outline" size="sm" onclick={onResetFilters}>{m.tp_clear_filters()}</Button>
 		{/if}
 	</Empty>
 {/snippet}

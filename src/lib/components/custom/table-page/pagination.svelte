@@ -4,6 +4,7 @@
 	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
 	import GotoPage from './goto-page.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let {
 		page,
@@ -30,11 +31,11 @@
 
 {#if initialLoad}
 	<ButtonGroup.Root>
-		<Button variant="outline" size="sm" disabled aria-label="Previous page" class="px-2">
+		<Button variant="outline" size="sm" disabled aria-label={m.tp_prev_page()} class="px-2">
 			<ChevronLeftIcon />
 		</Button>
 		<Button variant="outline" size="sm" disabled class="tabular-nums">0 / 0</Button>
-		<Button variant="outline" size="sm" disabled aria-label="Next page" class="px-2">
+		<Button variant="outline" size="sm" disabled aria-label={m.tp_next_page()} class="px-2">
 			<ChevronRightIcon />
 		</Button>
 	</ButtonGroup.Root>
@@ -44,7 +45,7 @@
 			variant="outline"
 			size="sm"
 			disabled={isFirst || loading}
-			aria-label="Previous page"
+			aria-label={m.tp_prev_page()}
 			onclick={onPrev}
 			class="px-2"
 		>
@@ -55,7 +56,7 @@
 			variant="outline"
 			size="sm"
 			disabled={isLast || loading}
-			aria-label="Next page"
+			aria-label={m.tp_next_page()}
 			onclick={onNext}
 			class="px-2"
 		>

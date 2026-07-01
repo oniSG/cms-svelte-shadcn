@@ -4,6 +4,7 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let {
 		title,
@@ -49,7 +50,7 @@
 			{/if}
 			<Command.List>
 				{#if searchable}
-					<Command.Empty>No results.</Command.Empty>
+					<Command.Empty>{m.qb_no_results()}</Command.Empty>
 				{/if}
 				<Command.Group heading={title}>
 					{#each options as option (option.value)}
@@ -63,7 +64,7 @@
 					<Command.Separator />
 					<Command.Group>
 						<Command.Item onSelect={() => onChange([])} class="justify-center text-center">
-							Clear filters
+							{m.tp_clear_filters()}
 						</Command.Item>
 					</Command.Group>
 				{/if}

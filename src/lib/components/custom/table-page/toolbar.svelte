@@ -34,6 +34,7 @@
 	} from './query-builder/fields.js';
 	import { loadPreferences, patchPreferences } from './preferences.js';
 	import { createSavedViewsStore, type SavedView } from './saved-views.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 	import type { QueryFieldDef, SearchConfig, Shortcut, TableColumn } from './types';
 
 	let {
@@ -148,8 +149,7 @@
 		if (ordered.length === 0) return search.placeholder;
 		const first = labelFor(ordered[0]);
 		const rest = ordered.length - 1;
-		const tail = rest > 0 ? ` + ${rest} ${rest === 1 ? 'other' : 'others'}` : '';
-		return `Search by ${first}${tail}`;
+		return rest > 0 ? m.tp_search_by_more({ first, rest }) : m.tp_search_by({ first });
 	});
 
 	// svelte-ignore state_referenced_locally
@@ -292,7 +292,7 @@
 						{/snippet}
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content align="end">
-						<DropdownMenu.Label>Search in</DropdownMenu.Label>
+						<DropdownMenu.Label>{m.tp_search_in()}</DropdownMenu.Label>
 						{#each search.fields as field (field)}
 							<DropdownMenu.CheckboxItem
 								checked={selectedSearchFields.includes(field)}
@@ -345,13 +345,18 @@
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger>
 						{#snippet child({ props })}
-							<Button {...props} variant="outline" size="icon-sm" aria-label="Configure shortcuts">
+							<Button
+								{...props}
+								variant="outline"
+								size="icon-sm"
+								aria-label={m.tp_configure_shortcuts()}
+							>
 								<SettingsIcon />
 							</Button>
 						{/snippet}
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content align="start" class="w-56">
-						<DropdownMenu.Label>Shortcuts</DropdownMenu.Label>
+						<DropdownMenu.Label>{m.tp_shortcuts()}</DropdownMenu.Label>
 						{#each shortcuts as shortcut (shortcut.id)}
 							{@const Icon =
 								shortcut.icon ?? (shortcut.kind === 'date-range' ? CalendarIcon : undefined)}
@@ -381,7 +386,7 @@
 		{#if isFiltered}
 			<Button variant="ghost" size="sm" onclick={onReset}>
 				<XIcon />
-				Reset
+				{m.tp_reset()}
 			</Button>
 		{/if}
 	</div>
@@ -394,16 +399,16 @@
 				{#snippet child({ props })}
 					<Button {...props} variant="outline" size="sm">
 						<BookmarkIcon />
-						Views
+						{m.tp_views()}
 					</Button>
 				{/snippet}
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content align="end" class="w-64">
 				<DropdownMenu.Group>
-					<DropdownMenu.Label>Views</DropdownMenu.Label>
+					<DropdownMenu.Label>{m.tp_views()}</DropdownMenu.Label>
 					<DropdownMenu.Item onSelect={onResetView}>
 						<RotateCcwIcon />
-						Default view
+						{m.tp_default_view()}
 					</DropdownMenu.Item>
 					{#each savedViews.items as v (v.id)}
 						<DropdownMenu.Item
@@ -414,7 +419,7 @@
 							<button
 								type="button"
 								class="delete-view-btn cursor-pointer"
-								aria-label={`Delete view ${v.name}`}
+								aria-label={m.tp_delete_view_aria({ name: v.name })}
 								onclick={(e) => {
 									e.stopPropagation();
 									e.preventDefault();
@@ -430,7 +435,7 @@
 				<DropdownMenu.Group>
 					<DropdownMenu.Item onSelect={() => (saveViewDialogOpen = true)}>
 						<SaveIcon />
-						Save current view…
+						{m.tp_save_current_view()}
 					</DropdownMenu.Item>
 				</DropdownMenu.Group>
 			</DropdownMenu.Content>
@@ -441,11 +446,8 @@
 <Dialog.Root bind:open={saveViewDialogOpen}>
 	<Dialog.Content class="sm:max-w-md">
 		<Dialog.Header>
-			<Dialog.Title>Save view</Dialog.Title>
-			<Dialog.Description>
-				Save the current filters, columns, sort and page size as a view you can reopen later from
-				this device.
-			</Dialog.Description>
+			<Dialog.Title>{m.tp_save_view_title()}</Dialog.Title>
+			<Dialog.Description>{m.tp_save_view_description()}</Dialog.Description>
 		</Dialog.Header>
 		<form
 			class="flex flex-col gap-2"
@@ -457,13 +459,15 @@
 			<Input
 				bind:ref={saveViewInputEl}
 				bind:value={saveViewName}
-				placeholder="View name"
+				placeholder={m.tp_view_name_placeholder()}
 				autocomplete="off"
 			/>
 		</form>
 		<Dialog.Footer>
-			<Button variant="outline" onclick={() => (saveViewDialogOpen = false)}>Cancel</Button>
-			<Button onclick={confirmSaveView} disabled={!saveViewName.trim()}>Save</Button>
+			<Button variant="outline" onclick={() => (saveViewDialogOpen = false)}>
+				{m.common_cancel()}
+			</Button>
+			<Button onclick={confirmSaveView} disabled={!saveViewName.trim()}>{m.save()}</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>
@@ -476,17 +480,16 @@
 >
 	<Dialog.Content class="sm:max-w-md">
 		<Dialog.Header>
-			<Dialog.Title>Delete view</Dialog.Title>
+			<Dialog.Title>{m.tp_delete_view_title()}</Dialog.Title>
 			<Dialog.Description>
-				Delete the view <span class="font-medium text-foreground">{pendingDeleteViewName}</span>?
-				This cannot be undone.
+				{m.tp_delete_view_description({ name: pendingDeleteViewName })}
 			</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
-			<Button variant="outline" onclick={cancelDeleteView}>Cancel</Button>
+			<Button variant="outline" onclick={cancelDeleteView}>{m.common_cancel()}</Button>
 			<Button variant="destructive" onclick={confirmDeleteView}>
 				<Trash2Icon />
-				Delete
+				{m.tp_delete()}
 			</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
