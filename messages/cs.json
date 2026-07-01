@@ -307,6 +307,8 @@
 	"fan_action_flow_trigger_attended": "Navštívena akce",
 	"fan_action_flow_condition": "Podmínka",
 	"fan_action_flow_condition_add": "Přidat podmínku",
+	"fan_action_flow_edge_yes": "Ano",
+	"fan_action_flow_edge_no": "Ne",
 	"fan_action_flow_action_email": "E-mail",
 	"fan_action_flow_action_sms": "SMS",
 	"fan_action_flow_action_push": "Push notifikace",

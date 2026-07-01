@@ -305,6 +305,8 @@
 	"fan_action_flow_trigger_attended": "Veranstaltung besucht",
 	"fan_action_flow_condition": "Bedingung",
 	"fan_action_flow_condition_add": "Bedingung hinzufügen",
+	"fan_action_flow_edge_yes": "Ja",
+	"fan_action_flow_edge_no": "Nein",
 	"fan_action_flow_action_email": "E-Mail",
 	"fan_action_flow_action_sms": "SMS",
 	"fan_action_flow_action_push": "Push-Benachrichtigungen",

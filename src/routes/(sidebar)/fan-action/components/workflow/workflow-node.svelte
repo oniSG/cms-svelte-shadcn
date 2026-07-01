@@ -110,7 +110,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="relative" onmouseenter={showToolbar} onmouseleave={scheduleHideToolbar}>
 	{#if data.variant === 'trigger'}
-		<div class="relative mx-auto h-14 w-[4.75rem]">
+		<div class="relative z-20 mx-auto h-14 w-[4.75rem]">
 			<button
 				class="relative block cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
@@ -140,7 +140,7 @@
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
 		</div>
 	{:else if data.variant === 'condition'}
-		<div class="relative mx-auto w-14">
+		<div class="relative z-20 mx-auto w-14">
 			<button
 				class="relative block w-full cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
@@ -171,7 +171,7 @@
 			/>
 		</div>
 	{:else}
-		<div class="relative mx-auto w-16">
+		<div class="relative z-20 mx-auto w-16">
 			<button
 				class="relative block cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
@@ -199,7 +199,7 @@
 	{/if}
 
 	<div
-		class="pointer-events-none absolute top-full left-1/2 z-10 mt-1.5 w-max max-w-[9rem] -translate-x-1/2 text-center"
+		class="pointer-events-none absolute top-full left-1/2 z-10 mt-2 w-max max-w-[9rem] -translate-x-1/2 rounded-sm bg-background px-2 py-0.5 text-center"
 	>
 		<button
 			class="pointer-events-auto max-w-[9rem] cursor-pointer border-0 bg-transparent p-0 text-center text-xs leading-tight text-foreground"

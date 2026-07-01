@@ -80,17 +80,9 @@
 		onconnect={onConnect}
 	>
 		<Background gap={16} size={1} variant={BackgroundVariant.Dots} />
-		<Controls showLock={false} />
+		<Controls
+			showLock={false}
+			class="shadow-none [&_.svelte-flow__controls-button]:border [&_.svelte-flow__controls-button]:border-border [&_.svelte-flow__controls-button]:bg-background"
+		/>
 	</SvelteFlow>
 </div>
-
-<style>
-	:global(.svelte-flow__controls) {
-		box-shadow: none;
-	}
-
-	:global(.svelte-flow__controls-button) {
-		border: 1px solid hsl(var(--border));
-		background: hsl(var(--background));
-	}
-</style>

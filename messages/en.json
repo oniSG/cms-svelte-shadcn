@@ -305,6 +305,8 @@
 	"fan_action_flow_trigger_attended": "Attended event",
 	"fan_action_flow_condition": "Condition",
 	"fan_action_flow_condition_add": "Add condition",
+	"fan_action_flow_edge_yes": "Yes",
+	"fan_action_flow_edge_no": "No",
 	"fan_action_flow_action_email": "E-mail",
 	"fan_action_flow_action_sms": "SMS",
 	"fan_action_flow_action_push": "Push notifications",
