@@ -6,21 +6,30 @@
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import type { Snippet } from 'svelte';
+	import { twMerge } from 'tailwind-merge';
 
 	let {
 		breadcrumbs,
+		separator = false,
 		children
-	}: { breadcrumbs: Array<{ title: string; url?: Pathname }>; children?: Snippet<[]> } = $props();
+	}: {
+		breadcrumbs: Array<{ title: string; url?: Pathname }>;
+		separator?: boolean;
+		children?: Snippet<[]>;
+	} = $props();
 
 	const ITEMS_TO_DISPLAY = 3;
 	let open = $state(false);
 </script>
 
 <header
-	class="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-14"
+	class={twMerge(
+		'sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 border-b border-border bg-background pr-2 pl-3 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12',
+		separator && 'border-b border-border'
+	)}
 >
-	<div class="flex w-full items-center justify-between">
-		<div class="flex items-center gap-2">
+	<div class="flex w-full items-center justify-between gap-4">
+		<div class="flex min-w-0 items-center gap-2">
 			<Sidebar.Trigger class="-ms-1" />
 			<Separator orientation="vertical" class="me-2 data-[orientation=vertical]:h-4" />
 
@@ -84,7 +93,7 @@
 				</Breadcrumb.List>
 			</Breadcrumb.Root>
 		</div>
-		<div class="flex items-center gap-2">
+		<div class="flex shrink-0 items-center gap-2">
 			{#if children}
 				{@render children()}
 			{/if}

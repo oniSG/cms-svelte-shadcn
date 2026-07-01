@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { moduleState } from '$lib/stores/module.svelte';
-	import type { ComponentProps } from 'svelte';
+	import { untrack, type ComponentProps } from 'svelte';
 	import ModuleSwitcher from './module-switcher.svelte';
 	import Business from './navigation/business.svelte';
 	import Fans from './navigation/fans.svelte';
@@ -23,7 +23,7 @@
 
 	$effect(() => {
 		const mod = getModuleForPath(page.url.pathname);
-		if (mod && mod !== moduleState.current) {
+		if (mod && mod !== untrack(() => moduleState.current)) {
 			moduleState.current = mod;
 		}
 	});

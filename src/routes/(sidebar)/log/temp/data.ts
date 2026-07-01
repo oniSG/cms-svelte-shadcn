@@ -1,4 +1,4 @@
-import type { Log } from '../columns';
+import type { Log } from '../log';
 
 export const data: Log[] = [
 	{
@@ -360,6 +360,19 @@ export const data: Log[] = [
 		email: 'eve@example.com',
 		type: 'action_delete',
 		time: new Date('2026-05-17T17:34:30'),
+		data: {
+			entity: 'campaign',
+			entity_id: 'cmp-7',
+			name: 'Black Friday 2025',
+			soft_delete: false
+		}
+	},
+	{
+		id: 'log-041',
+		user_id: 'usr-5',
+		email: 'eve@example.com',
+		type: 'action_delete',
+		time: new Date('2026-05-17T17:36:30'),
 		data: {
 			entity: 'campaign',
 			entity_id: 'cmp-7',
