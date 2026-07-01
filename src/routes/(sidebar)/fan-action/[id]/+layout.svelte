@@ -48,11 +48,11 @@
 {:else}
 	<div
 		class={cn(
-			'-mx-4 flex flex-col',
-			isSettingsTab &&
-				'-mb-4 h-[calc(100svh-3.5rem)] overflow-x-hidden overflow-y-hidden'
+			'flex flex-col',
+			isSettingsTab && '-mb-4 h-[calc(100svh-3.5rem)] overflow-x-hidden overflow-y-hidden'
 		)}
 	>
+		<!--
 		<div class="flex shrink-0 justify-start px-4 pt-3">
 			<Tabs.Root value={activeTab}>
 				<Tabs.List class="w-fit shrink-0">
@@ -70,6 +70,7 @@
 				</Tabs.List>
 			</Tabs.Root>
 		</div>
+		-->
 
 		<div class={cn(isSettingsTab ? 'min-h-0 flex-1' : 'px-4 pt-4 pb-8')}>
 			{@render children()}

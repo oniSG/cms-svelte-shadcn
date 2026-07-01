@@ -1,124 +1,64 @@
 <script lang="ts">
-	import * as Tabs from '$lib/components/ui/tabs/index.js';
-	import * as Accordion from '$lib/components/ui/accordion/index.js';
-	import type { Component } from 'svelte';
-	import Forward from '@lucide/svelte/icons/forward';
-	import GitFork from '@lucide/svelte/icons/git-fork';
-	import Mail from '@lucide/svelte/icons/mail';
-	import MessageSquare from '@lucide/svelte/icons/message-square';
-	import Smartphone from '@lucide/svelte/icons/smartphone';
-	import Clock from '@lucide/svelte/icons/clock';
-	import Tag from '@lucide/svelte/icons/tag';
-	import Coins from '@lucide/svelte/icons/coins';
-	import Gauge from '@lucide/svelte/icons/gauge';
-	import List from '@lucide/svelte/icons/list';
-	import Gift from '@lucide/svelte/icons/gift';
-	import CircleAlert from '@lucide/svelte/icons/circle-alert';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import GripVertical from '@lucide/svelte/icons/grip-vertical';
+	import Info from '@lucide/svelte/icons/info';
 	import type { WorkflowPaletteItem } from './workflow-types';
 	import { WORKFLOW_DRAG_MIME } from './workflow-types';
-	import { workflowItemLabel } from './workflow-labels';
+	import { workflowItemDescription, workflowItemLabel } from './workflow-labels';
+	import { workflowItemIcon, workflowItemIconModifier } from './workflow-icons';
+	import { workflowPaletteSectionBgClass } from './workflow-node-colors';
 	import FanActionBasicForm from '../fan-action-basic-form.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
-	type PaletteIconTone = 'sky' | 'emerald' | 'orange' | 'muted' | 'destructive';
+	type PaletteSectionId = 'triggers' | 'operators' | 'actions';
 
-	type StyledPaletteItem = WorkflowPaletteItem & {
-		iconTone: PaletteIconTone;
-		iconClass?: string;
-	};
+	type StyledPaletteItem = WorkflowPaletteItem;
 
-	type PaletteCategory = {
-		id: string;
+	type PaletteSection = {
+		id: PaletteSectionId;
 		label: string;
 		items: StyledPaletteItem[];
 	};
 
-	let { activeTab = $bindable('triggers') }: { activeTab?: string } = $props();
-
-	const triggerCategories = $derived<PaletteCategory[]>([
+	const paletteSections = $derived<PaletteSection[]>([
 		{
-			id: 'common',
-			label: m.fan_action_flow_category_common(),
+			id: 'triggers',
+			label: m.fan_action_flow_tab_triggers(),
 			items: [
-				{ id: 'run-now', variant: 'trigger', iconTone: 'sky' },
-				{ id: 'schedule', variant: 'trigger', iconTone: 'sky' },
-				{ id: 'loyalty', variant: 'trigger', iconTone: 'sky' },
-				{ id: 'ticket', variant: 'trigger', iconTone: 'sky' },
-				{ id: 'season-ticket', variant: 'trigger', iconTone: 'sky' },
-				{ id: 'attended', variant: 'trigger', iconTone: 'sky' }
+				{ id: 'run-now', variant: 'trigger' },
+				{ id: 'schedule', variant: 'trigger' },
+				{ id: 'loyalty', variant: 'trigger' },
+				{ id: 'ticket', variant: 'trigger' },
+				{ id: 'season-ticket', variant: 'trigger' },
+				{ id: 'attended', variant: 'trigger' }
 			]
 		},
 		{
-			id: 'temporal',
-			label: m.fan_action_flow_category_temporal(),
-			items: []
-		},
-		{
-			id: 'ticketing',
-			label: m.fan_action_flow_category_ticketing(),
-			items: []
-		},
-		{
-			id: 'eshop',
-			label: m.fan_action_flow_category_eshop(),
-			items: []
-		},
-		{
-			id: 'call-center',
-			label: m.fan_action_flow_category_call_center(),
-			items: []
-		},
-		{
-			id: 'mobile-app',
-			label: m.fan_action_flow_category_mobile_app(),
-			items: []
-		},
-		{
-			id: 'other',
-			label: m.fan_action_flow_category_other(),
-			items: []
-		}
-	]);
-
-	const actionCategories = $derived<PaletteCategory[]>([
-		{
-			id: 'send',
-			label: m.fan_action_flow_category_send(),
+			id: 'operators',
+			label: m.fan_action_flow_section_operators(),
 			items: [
-				{ id: 'email', variant: 'action', incomplete: true, iconTone: 'emerald' },
-				{ id: 'sms', variant: 'action', incomplete: true, iconTone: 'emerald' },
-				{ id: 'push', variant: 'action', incomplete: true, iconTone: 'emerald' }
+				{ id: 'condition', variant: 'condition', incomplete: true },
+				{ id: 'wait', variant: 'action', incomplete: true },
+				{ id: 'ab-test', variant: 'action', incomplete: true },
+				{ id: 'end-branch', variant: 'action', incomplete: true }
 			]
 		},
 		{
-			id: 'automation',
-			label: m.fan_action_flow_category_automation(),
+			id: 'actions',
+			label: m.fan_action_flow_tab_actions(),
 			items: [
-				{ id: 'wait', variant: 'action', incomplete: true, iconTone: 'muted' },
-				{
-					id: 'condition',
-					variant: 'condition',
-					incomplete: true,
-					iconTone: 'orange',
-					iconClass: 'rotate-90'
-				},
-				{ id: 'tag', variant: 'action', incomplete: true, iconTone: 'emerald' },
-				{ id: 'remove-tag', variant: 'action', incomplete: true, iconTone: 'destructive' },
-				{ id: 'credit', variant: 'action', incomplete: true, iconTone: 'emerald' },
-				{ id: 'ab-test', variant: 'action', incomplete: true, iconTone: 'orange' },
-				{ id: 'custom-attribute', variant: 'action', incomplete: true, iconTone: 'emerald' },
-				{ id: 'reward-conversion', variant: 'action', incomplete: true, iconTone: 'emerald' }
+				{ id: 'email', variant: 'action', incomplete: true },
+				{ id: 'sms', variant: 'action', incomplete: true },
+				{ id: 'push', variant: 'action', incomplete: true },
+				{ id: 'tag', variant: 'action', incomplete: true },
+				{ id: 'remove-tag', variant: 'action', incomplete: true },
+				{ id: 'custom-attribute', variant: 'action', incomplete: true },
+				{ id: 'reward-conversion', variant: 'action', incomplete: true }
 			]
 		}
 	]);
 
-	const iconToneClass: Record<PaletteIconTone, string> = {
-		sky: 'text-chart-3',
-		emerald: 'text-chart-1',
-		orange: 'text-chart-9',
-		muted: 'text-muted-foreground',
-		destructive: 'text-destructive'
-	};
+	const sectionIconBgClass = workflowPaletteSectionBgClass;
 
 	function onDragStart(event: DragEvent, item: StyledPaletteItem) {
 		if (!event.dataTransfer) return;
@@ -131,86 +71,88 @@
 		event.dataTransfer.effectAllowed = 'move';
 	}
 
-	function paletteIcon(item: StyledPaletteItem): Component {
-		if (item.variant === 'trigger') return Forward;
-		if (item.variant === 'condition') return GitFork;
-		if (item.id === 'sms') return MessageSquare;
-		if (item.id === 'push') return Smartphone;
-		if (item.id === 'wait') return Clock;
-		if (item.id === 'tag' || item.id === 'remove-tag') return Tag;
-		if (item.id === 'credit') return Coins;
-		if (item.id === 'ab-test') return Gauge;
-		if (item.id === 'custom-attribute') return List;
-		if (item.id === 'reward-conversion') return Gift;
-		return Mail;
+	function itemTooltip(item: StyledPaletteItem): string {
+		const description = workflowItemDescription(item.id);
+		if (item.incomplete) {
+			return description
+				? `${description} ${m.fan_action_flow_must_complete()}`
+				: m.fan_action_flow_must_complete();
+		}
+		return description;
 	}
 </script>
 
-{#snippet paletteCategories(categories: PaletteCategory[], openIds: string[])}
-	<Accordion.Root type="multiple" value={openIds} class="space-y-2 border-none">
-		{#each categories as category (category.id)}
-			<Accordion.Item
-				value={category.id}
-				class="overflow-hidden rounded-[1.125rem] border bg-background"
-			>
-				<Accordion.Trigger
-					class="rounded-none bg-muted px-3 py-2.5 text-sm font-medium hover:no-underline [&[data-state=open]]:border-b"
-				>
-					{category.label}
-				</Accordion.Trigger>
-				<Accordion.Content class="px-0 pb-0">
-					{#if category.items.length > 0}
-						<ul class="divide-y">
-							{#each category.items as item (item.id)}
-								{@const Icon = paletteIcon(item)}
-								<li>
+{#snippet paletteSectionsList(sections: PaletteSection[])}
+	<div class="space-y-4">
+		{#each sections as section (section.id)}
+			{#if section.items.length > 0}
+				<section>
+					<h3
+						class="mb-1.5 px-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase"
+					>
+						{section.label}
+					</h3>
+
+					<ul class="space-y-0.5">
+						{#each section.items as item (item.id)}
+							{@const Icon = workflowItemIcon(item.id, item.variant)}
+							{@const iconModifier = workflowItemIconModifier(item.id, item.variant)}
+							<li>
+								<div class="flex w-full items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-accent/50">
 									<button
 										type="button"
-										class="flex w-full cursor-grab items-center gap-3 px-3 py-2.5 text-left text-sm hover:bg-accent/50 active:cursor-grabbing"
+										class="flex min-w-0 flex-1 cursor-grab items-center gap-2 text-left active:cursor-grabbing"
 										draggable="true"
 										ondragstart={(event) => onDragStart(event, item)}
 									>
-										<Icon
-											class="size-4 shrink-0 {iconToneClass[item.iconTone]} {item.iconClass ?? ''}"
+										<GripVertical
+											class="size-4 shrink-0 text-muted-foreground/70"
+											aria-hidden="true"
 										/>
-										<span class="min-w-0 flex-1 truncate">{workflowItemLabel(item.id)}</span>
-										{#if item.incomplete}
-											<CircleAlert class="size-4 shrink-0 text-destructive" />
-										{/if}
+										<span
+											class="flex size-7 shrink-0 items-center justify-center rounded-md {sectionIconBgClass[
+												section.id
+											]}"
+										>
+											<Icon class="size-3.5 text-white {iconModifier ?? ''}" />
+										</span>
+										<span class="min-w-0 flex-1 truncate text-sm">
+											{workflowItemLabel(item.id)}
+										</span>
 									</button>
-								</li>
-							{/each}
-						</ul>
-					{:else}
-						<p class="px-3 py-2.5 text-sm text-muted-foreground">—</p>
-					{/if}
-				</Accordion.Content>
-			</Accordion.Item>
+
+									{#if itemTooltip(item)}
+										<Tooltip.Root>
+											<Tooltip.Trigger
+												class="inline-flex shrink-0 rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
+												onclick={(event) => event.stopPropagation()}
+											>
+												<Info class="size-3.5" />
+												<span class="sr-only">{workflowItemLabel(item.id)}</span>
+											</Tooltip.Trigger>
+											<Tooltip.Content side="right" class="max-w-56">
+												{itemTooltip(item)}
+											</Tooltip.Content>
+										</Tooltip.Root>
+									{/if}
+								</div>
+							</li>
+						{/each}
+					</ul>
+				</section>
+			{/if}
 		{/each}
-	</Accordion.Root>
+	</div>
 {/snippet}
 
-<aside class="flex h-full min-h-0 w-full flex-col bg-transparent">
-	<div class="max-h-[45%] shrink-0 overflow-y-auto border-b p-3">
+<aside class="min-h-0 w-full flex-1 overflow-y-auto bg-transparent">
+	<div class="border-b p-3">
 		<FanActionBasicForm />
 	</div>
 
-	<Tabs.Root bind:value={activeTab} class="flex min-h-0 flex-1 flex-col gap-2 p-3 pt-2">
-		<Tabs.List class="w-fit shrink-0 self-start">
-			<Tabs.Trigger value="triggers">
-				{m.fan_action_flow_tab_triggers()}
-			</Tabs.Trigger>
-			<Tabs.Trigger value="actions">
-				{m.fan_action_flow_tab_actions()}
-			</Tabs.Trigger>
-		</Tabs.List>
-
-		<Tabs.Content class="mt-0 min-h-0 flex-1 overflow-y-auto" value="triggers">
-			{@render paletteCategories(triggerCategories, ['common'])}
-		</Tabs.Content>
-
-		<Tabs.Content class="mt-0 min-h-0 flex-1 overflow-y-auto" value="actions">
-			{@render paletteCategories(actionCategories, ['send', 'automation'])}
-		</Tabs.Content>
-	</Tabs.Root>
+	<Tooltip.Provider>
+		<div class="p-3 pt-2">
+			{@render paletteSectionsList(paletteSections)}
+		</div>
+	</Tooltip.Provider>
 </aside>

@@ -13,13 +13,12 @@
 	import { createNodeId } from './workflow-data';
 	import { workflowItemLabel } from './workflow-labels';
 	import { getWorkflowConfigureNode } from './workflow-context';
-	import { workflowNodeChartColors as colors } from './workflow-node-colors';
-	import Forward from '@lucide/svelte/icons/forward';
-	import Shuffle from '@lucide/svelte/icons/shuffle';
-	import Mail from '@lucide/svelte/icons/mail';
-	import MessageSquare from '@lucide/svelte/icons/message-square';
-	import Smartphone from '@lucide/svelte/icons/smartphone';
-	import Clock from '@lucide/svelte/icons/clock';
+	import {
+		workflowNodeChartColors as colors,
+		workflowNodeIconClass,
+		workflowNodeSurfaceClass
+	} from './workflow-node-colors';
+	import { workflowItemIcon, workflowItemIconModifier } from './workflow-icons';
 	import Copy from '@lucide/svelte/icons/copy';
 	import Layers from '@lucide/svelte/icons/layers';
 	import X from '@lucide/svelte/icons/x';
@@ -31,6 +30,10 @@
 	const nodesStore = useNodes();
 
 	const label = $derived(workflowItemLabel(data.itemId));
+	const surfaceClass = $derived(workflowNodeSurfaceClass(data.itemId, data.variant));
+	const iconClass = $derived(workflowNodeIconClass(data.itemId, data.variant));
+	const NodeIcon = $derived(workflowItemIcon(data.itemId, data.variant));
+	const iconModifier = $derived(workflowItemIconModifier(data.itemId, data.variant));
 
 	let toolbarVisible = $state(false);
 	let hideToolbarTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -133,7 +136,7 @@
 						/>
 					</svg>
 					<div class="pointer-events-none absolute inset-0 flex items-center justify-center pr-2">
-						<Forward class="size-6 {colors.trigger.icon}" />
+						<NodeIcon class="size-6 {iconClass}" />
 					</div>
 				</div>
 			</button>
@@ -147,11 +150,8 @@
 				onclick={openSettings}
 				type="button"
 			>
-				<div
-					class="flex size-14 items-center justify-center rounded-lg shadow-sm {colors.condition
-						.surface}"
-				>
-					<Shuffle class="size-6 {colors.condition.icon}" />
+				<div class="flex size-14 items-center justify-center rounded-lg shadow-sm {surfaceClass}">
+					<NodeIcon class="size-6 {iconClass} {iconModifier ?? ''}" />
 				</div>
 			</button>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
@@ -178,19 +178,8 @@
 				onclick={openSettings}
 				type="button"
 			>
-				<div
-					class="flex size-16 items-center justify-center rounded-lg shadow-sm {colors.action
-						.surface}"
-				>
-					{#if data.itemId === 'sms'}
-						<MessageSquare class="size-7 {colors.action.icon}" />
-					{:else if data.itemId === 'push'}
-						<Smartphone class="size-7 {colors.action.icon}" />
-					{:else if data.itemId === 'wait'}
-						<Clock class="size-7 {colors.action.icon}" />
-					{:else}
-						<Mail class="size-7 {colors.action.icon}" />
-					{/if}
+				<div class="flex size-16 items-center justify-center rounded-lg shadow-sm {surfaceClass}">
+					<NodeIcon class="size-7 {iconClass} {iconModifier ?? ''}" />
 				</div>
 			</button>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />

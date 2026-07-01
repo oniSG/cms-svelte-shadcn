@@ -4,7 +4,7 @@
 	import '@xyflow/svelte/dist/style.css';
 	import WorkflowCanvas from './workflow-canvas.svelte';
 	import WorkflowToolbar from './workflow-toolbar.svelte';
-	import WorkflowSidebar from './workflow-sidebar.svelte';
+	import WorkflowPaletteSheet from './workflow-palette-sheet.svelte';
 	import WorkflowNodeDrawerHost from './workflow-node-drawer-host.svelte';
 	import { setWorkflowConfigureNode } from './workflow-context';
 	import { createInitialFlow } from './workflow-data';
@@ -16,23 +16,17 @@
 		nodes = $bindable(initialFlow.nodes),
 		edges = $bindable(initialFlow.edges),
 		scriptStopped = $bindable(true),
-		testingStopped = $bindable(true),
-		sidebarTab = $bindable('triggers')
+		testingStopped = $bindable(true)
 	}: {
 		nodes?: Node<WorkflowNodeData>[];
 		edges?: Edge[];
 		scriptStopped?: boolean;
 		testingStopped?: boolean;
-		sidebarTab?: string;
 	} = $props();
 
 	let drawerOpen = $state(false);
 	let activeNodeId = $state<string | null>(null);
-
 	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
-
-	const overlayPanelClass =
-		'overflow-hidden rounded-xl border bg-background/95 shadow-lg backdrop-blur-sm supports-backdrop-filter:bg-background/80';
 
 	function handleSave() {
 		scriptStopped = true;
@@ -49,19 +43,21 @@
 
 {#if browser}
 	<SvelteFlowProvider>
-		<div class="relative h-full w-full overflow-hidden">
-			<WorkflowCanvas bind:nodes bind:edges />
+		<div class="flex h-full w-full overflow-hidden">
+			<WorkflowPaletteSheet />
 
-			<div class="pointer-events-none absolute inset-0 z-20 p-3">
-				<div
-					class="pointer-events-auto absolute top-3 right-[calc(18rem+1.5rem)] left-3 {overlayPanelClass}"
-				>
-					<WorkflowToolbar bind:scriptStopped bind:testingStopped onSave={handleSave} />
-				</div>
+			<div class="relative min-h-0 min-w-0 flex-1">
+				<WorkflowCanvas bind:nodes bind:edges />
 
-				<div class="pointer-events-auto absolute top-3 right-3 bottom-3 w-72 {overlayPanelClass}">
-					<WorkflowSidebar bind:activeTab={sidebarTab} />
+				<!-- 
+				<div class="pointer-events-none absolute inset-0 z-20 p-3">
+					<div
+						class="pointer-events-auto absolute top-3 right-3 left-3 overflow-hidden rounded-xl border bg-background/95 shadow-lg backdrop-blur-sm supports-backdrop-filter:bg-background/80"
+					>
+						<WorkflowToolbar bind:scriptStopped bind:testingStopped onSave={handleSave} />
+					</div>
 				</div>
+				-->
 			</div>
 		</div>
 
