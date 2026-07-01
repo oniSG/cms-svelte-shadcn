@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import { Label } from '$lib/components/ui/label/index.js';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
 	import Info from '@lucide/svelte/icons/info';
 	import type { WorkflowPaletteItem } from './workflow-types';
@@ -83,22 +84,20 @@
 </script>
 
 {#snippet paletteSectionsList(sections: PaletteSection[])}
-	<div class="space-y-4">
+	<div class="space-y-3">
 		{#each sections as section (section.id)}
 			{#if section.items.length > 0}
-				<section>
-					<h3
-						class="mb-1.5 px-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase"
-					>
-						{section.label}
-					</h3>
+				<section class="space-y-2">
+					<Label>{section.label}</Label>
 
 					<ul class="space-y-0.5">
 						{#each section.items as item (item.id)}
 							{@const Icon = workflowItemIcon(item.id, item.variant)}
 							{@const iconModifier = workflowItemIconModifier(item.id, item.variant)}
 							<li>
-								<div class="flex w-full items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-accent/50">
+								<div
+									class="flex w-full items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-accent/50"
+								>
 									<button
 										type="button"
 										class="flex min-w-0 flex-1 cursor-grab items-center gap-2 text-left active:cursor-grabbing"
