@@ -13,6 +13,7 @@
 	} from './fields.js';
 	import GroupView from './group.svelte';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 	import type { QueryFieldDef } from '../types';
 
 	let {
@@ -54,7 +55,7 @@
 		{#snippet child({ props })}
 			<Button {...props} size="sm" variant={total > 0 ? 'default' : 'outline'}>
 				<FilterIcon />
-				Advanced filtering
+				{m.tp_advanced_filtering()}
 			</Button>
 		{/snippet}
 	</Drawer.Trigger>
@@ -70,13 +71,13 @@
 				<FilterIcon class="text-primary" />
 			</Button>
 			<div class="flex min-w-0 flex-col">
-				<Drawer.Title class="text-lg font-medium">Advanced filtering</Drawer.Title>
+				<Drawer.Title class="text-lg font-medium">{m.tp_advanced_filtering()}</Drawer.Title>
 				<Drawer.Description class="text-sm text-muted-foreground">
-					Build a complex nested query.
+					{m.tp_advanced_filtering_description()}
 				</Drawer.Description>
 			</div>
 			<div class="ml-auto flex items-center gap-2">
-				<Button size="sm" onclick={apply} disabled={!draftDirty}>Apply</Button>
+				<Button size="sm" onclick={apply} disabled={!draftDirty}>{m.tp_apply()}</Button>
 				<Drawer.Close class={buttonVariants({ variant: 'secondary', size: 'icon' })}>
 					<ChevronRightIcon />
 				</Drawer.Close>

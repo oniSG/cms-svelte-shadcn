@@ -4,6 +4,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import EllipsisVerticalIcon from '@lucide/svelte/icons/ellipsis-vertical';
 	import { ROW_ACTIONS_KEY, type RowActionsContext } from '../context';
+	import * as m from '$lib/paraglide/messages.js';
 
 	// eslint-disable-next-line svelte/no-unused-props
 	let { row }: { value: unknown; row: unknown } = $props();
@@ -27,7 +28,7 @@
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
-					<Button {...props} variant="ghost" size="icon" aria-label="Row actions">
+					<Button {...props} variant="ghost" size="icon" aria-label={m.tp_row_actions()}>
 						<EllipsisVerticalIcon />
 					</Button>
 				{/snippet}

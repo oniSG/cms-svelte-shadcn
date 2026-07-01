@@ -7,6 +7,7 @@
 	import { cn } from '$lib/utils.js';
 	import FilterShell from './filter-shell.svelte';
 	import { getField, type Filter, type SelectFilter } from './fields.js';
+	import * as m from '$lib/paraglide/messages.js';
 	import type { QueryFieldDef } from '../types';
 
 	let {
@@ -26,7 +27,9 @@
 	const def = $derived(getField(fields, filter.field));
 	const options = $derived(def?.type === 'select' ? def.options : []);
 	const searchable = $derived(def?.type === 'select' ? def.searchable !== false : true);
-	const valueLabel = $derived(options.find((o) => o.value === filter.value)?.label ?? 'value...');
+	const valueLabel = $derived(
+		options.find((o) => o.value === filter.value)?.label ?? m.qb_value_dots()
+	);
 </script>
 
 <FilterShell {filter} {fields} {onChange} {onDelete}>
@@ -48,13 +51,17 @@
 		<Popover.Content class="w-72 p-0" align="start">
 			<Command.Root>
 				{#if searchable}
-					<Command.Input placeholder="Search {def?.label?.toLowerCase() ?? 'options'}..." />
+					<Command.Input
+						placeholder={m.qb_search_options({
+							label: def?.label?.toLowerCase() ?? m.qb_options().toLowerCase()
+						})}
+					/>
 				{/if}
 				<Command.List>
 					{#if searchable}
-						<Command.Empty>No results.</Command.Empty>
+						<Command.Empty>{m.qb_no_results()}</Command.Empty>
 					{/if}
-					<Command.Group heading={def?.label ?? 'Options'}>
+					<Command.Group heading={def?.label ?? m.qb_options()}>
 						{#each options as o (o.value)}
 							<Command.Item
 								value={o.value}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as InputGroup from '$lib/components/ui/input-group/index.js';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let {
 		currentPage,
@@ -70,7 +71,7 @@
 		inputmode="numeric"
 		pattern="[0-9]*"
 		maxlength={String(totalPages).length}
-		aria-label="Go to page"
+		aria-label={m.tp_goto_page()}
 		value={displayValue}
 		onfocus={onFocus}
 		onblur={onBlur}
