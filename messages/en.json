@@ -280,6 +280,8 @@
 	"fan_action_tags_placeholder": "Tags for labeling the action",
 	"fan_action_not_found": "Action not found.",
 	"fan_action_stats_empty": "No statistics available yet.",
+	"fan_action_flow_accordion_basic_info": "Basic information",
+	"fan_action_flow_accordion_blocks": "Blocks",
 
 	"fan_action_flow_processed": "Processed: {percent}%",
 	"fan_action_flow_saved": "Saved",

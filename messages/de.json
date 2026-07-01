@@ -280,6 +280,8 @@
 	"fan_action_tags_placeholder": "Tags zur Kennzeichnung der Aktion",
 	"fan_action_not_found": "Aktion nicht gefunden.",
 	"fan_action_stats_empty": "Noch keine Statistiken verfügbar.",
+	"fan_action_flow_accordion_basic_info": "Grundinformationen",
+	"fan_action_flow_accordion_blocks": "Blöcke",
 
 	"fan_action_flow_processed": "Verarbeitet: {percent}%",
 	"fan_action_flow_saved": "Gespeichert",

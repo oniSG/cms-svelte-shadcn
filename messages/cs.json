@@ -282,6 +282,8 @@
 	"fan_action_tags_placeholder": "Štítky pro označení akce",
 	"fan_action_not_found": "Akce nebyla nalezena.",
 	"fan_action_stats_empty": "Statistiky zatím nejsou k dispozici.",
+	"fan_action_flow_accordion_basic_info": "Základní informace",
+	"fan_action_flow_accordion_blocks": "Bloky",
 
 	"fan_action_flow_processed": "Zpracováno: {percent}%",
 	"fan_action_flow_saved": "Uloženo",
