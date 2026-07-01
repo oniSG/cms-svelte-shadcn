@@ -27,7 +27,7 @@
 
 <div class="space-y-2">
 	<div class="flex items-center gap-2">
-		<Label class="text-muted-foreground" for="action-segments">
+		<Label class="text-sm font-medium text-muted-foreground" for="action-segments">
 			{m.fan_action_segment()} <span class="text-destructive">*</span>
 		</Label>
 		<Tooltip.Provider>

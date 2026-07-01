@@ -62,8 +62,11 @@
 	]);
 
 	const sectionIconBgClass = workflowPaletteSectionBgClass;
-	const accordionTriggerClass = 'px-4 py-2 hover:no-underline';
+	const accordionTriggerClass =
+		'cursor-pointer px-4 py-3.5 text-base font-semibold hover:no-underline';
 	const accordionContentClass = 'px-0 pt-0 pb-2';
+	const accordionItemClass = 'cursor-pointer [&_[data-slot=accordion-content]]:cursor-auto';
+	const subheadingClass = 'text-sm font-medium text-muted-foreground';
 
 	function onDragStart(event: DragEvent, item: StyledPaletteItem) {
 		if (!event.dataTransfer) return;
@@ -91,7 +94,7 @@
 		{#each sections as section (section.id)}
 			{#if section.items.length > 0}
 				<section class="space-y-2">
-					<Label class="text-muted-foreground">{section.label}</Label>
+					<Label class={subheadingClass}>{section.label}</Label>
 
 					<ul class="space-y-0.5">
 						{#each section.items as item (item.id)}
@@ -169,7 +172,7 @@
 
 <aside class="min-h-0 w-full flex-1 overflow-y-auto bg-transparent">
 	<Accordion.Root type="multiple" value={['blocks']} class="rounded-none border-0">
-		<Accordion.Item value="basic-info">
+		<Accordion.Item value="basic-info" class={accordionItemClass}>
 			<Accordion.Trigger class={accordionTriggerClass}>
 				{m.fan_action_flow_accordion_basic_info()}
 			</Accordion.Trigger>
@@ -178,7 +181,7 @@
 			</Accordion.Content>
 		</Accordion.Item>
 
-		<Accordion.Item value="blocks">
+		<Accordion.Item value="blocks" class={accordionItemClass}>
 			<Accordion.Trigger class={accordionTriggerClass}>
 				{m.fan_action_flow_accordion_blocks()}
 			</Accordion.Trigger>
@@ -187,7 +190,7 @@
 			</Accordion.Content>
 		</Accordion.Item>
 
-		<Accordion.Item value="settings">
+		<Accordion.Item value="settings" class={accordionItemClass}>
 			<Accordion.Trigger class={accordionTriggerClass}>
 				{m.fan_action_tab_settings()}
 			</Accordion.Trigger>
