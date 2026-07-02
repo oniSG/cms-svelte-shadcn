@@ -1,51 +1,69 @@
 <script lang="ts">
-	import { page } from '$app/state';
 	import { Label } from '$lib/components/ui/label/index.js';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import MultiSelectCombobox from '$lib/components/custom/multi-select-combobox.svelte';
-	import { data } from '../data.js';
-	import CircleHelp from '@lucide/svelte/icons/circle-help';
+	import { Switch } from '$lib/components/ui/switch/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
+	import Info from '@lucide/svelte/icons/info';
 	import * as m from '$lib/paraglide/messages.js';
 
-	const actionId = $derived(Number(page.params.id));
-	const action = $derived(data.find((item) => item.id === actionId));
+	let automaticStop = $state(false);
+	let plannedRunOut = $state(false);
 
-	const segmentOptions = $derived([
-		m.fan_action_segment_all(),
-		m.fan_action_segment_vip(),
-		m.fan_action_segment_new(),
-		m.fan_action_segment_inactive()
-	]);
+	let savedAutomaticStop = $state(false);
+	let savedPlannedRunOut = $state(false);
 
-	let selectedSegments = $state<string[]>([]);
+	function handleCancel() {
+		automaticStop = savedAutomaticStop;
+		plannedRunOut = savedPlannedRunOut;
+	}
 
-	$effect(() => {
-		if (!action) return;
-		selectedSegments = [m.fan_action_segment_all()];
-	});
+	function handleSave() {
+		savedAutomaticStop = automaticStop;
+		savedPlannedRunOut = plannedRunOut;
+	}
 </script>
 
-<div class="space-y-2">
-	<div class="flex items-center gap-2">
-		<Label class="text-sm font-medium text-muted-foreground" for="action-segments">
-			{m.fan_action_segment()} <span class="text-destructive">*</span>
+<div class="space-y-4">
+	<div class="flex items-center justify-between gap-2">
+		<Label class="text-sm font-medium text-muted-foreground" for="automatic-stop">
+			{m.fan_action_settings_auto_stop()}
 		</Label>
-		<Tooltip.Provider>
-			<Tooltip.Root>
-				<Tooltip.Trigger class="inline-flex text-muted-foreground">
-					<CircleHelp class="size-4" />
-				</Tooltip.Trigger>
-				<Tooltip.Content>{m.fan_action_segment_info()}</Tooltip.Content>
-			</Tooltip.Root>
-		</Tooltip.Provider>
+		<Switch bind:checked={automaticStop} id="automatic-stop" />
 	</div>
 
-	<MultiSelectCombobox
-		id="action-segments"
-		bind:value={selectedSegments}
-		options={segmentOptions}
-		placeholder={m.fan_action_segment()}
-		searchPlaceholder={m.fan_action_segment()}
-		emptyText={m.event_no_results()}
-	/>
+	<div class="flex items-center justify-between gap-2">
+		<div class="flex min-w-0 items-center gap-2">
+			<Label class="text-sm font-medium text-muted-foreground" for="planned-run-out">
+				{m.fan_action_settings_planned_run_out()}
+			</Label>
+			<HoverCard.Root openDelay={200} closeDelay={100}>
+				<HoverCard.Trigger>
+					{#snippet child({ props })}
+						<button
+							{...props}
+							type="button"
+							class="inline-flex shrink-0 rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
+						>
+							<Info class="size-3.5" />
+							<span class="sr-only">{m.fan_action_settings_planned_run_out()}</span>
+						</button>
+					{/snippet}
+				</HoverCard.Trigger>
+				<HoverCard.Content side="right" class="w-56">
+					<div class="space-y-1">
+						<h4 class="text-sm font-semibold">{m.fan_action_settings_planned_run_out()}</h4>
+						<p class="text-sm text-muted-foreground">
+							{m.fan_action_settings_planned_run_out_info()}
+						</p>
+					</div>
+				</HoverCard.Content>
+			</HoverCard.Root>
+		</div>
+		<Switch bind:checked={plannedRunOut} id="planned-run-out" />
+	</div>
+
+	<div class="flex justify-end gap-2 pt-1">
+		<Button type="button" variant="outline" onclick={handleCancel}>{m.common_cancel()}</Button>
+		<Button type="button" onclick={handleSave}>{m.save()}</Button>
+	</div>
 </div>

@@ -3,7 +3,6 @@
 		SvelteFlow,
 		Background,
 		BackgroundVariant,
-		Controls,
 		addEdge,
 		useSvelteFlow,
 		type Connection,
@@ -12,12 +11,16 @@
 	} from '@xyflow/svelte';
 	import WorkflowNode from './workflow-node.svelte';
 	import WorkflowEdge from './workflow-edge.svelte';
+	import WorkflowZoomControls from './workflow-zoom-controls.svelte';
 	import { createNodeId } from './workflow-data';
 	import type { WorkflowNodeData, WorkflowPaletteItem } from './workflow-types';
 	import { WORKFLOW_DRAG_MIME } from './workflow-types';
+	import { mode } from 'mode-watcher';
 
 	const nodeTypes = { workflow: WorkflowNode };
 	const edgeTypes = { workflow: WorkflowEdge };
+
+	const flowColorMode = $derived(mode.current === 'dark' ? 'dark' : 'light');
 
 	let {
 		nodes = $bindable(),
@@ -72,7 +75,8 @@
 	<SvelteFlow
 		bind:nodes
 		bind:edges
-		class="h-full w-full !bg-muted/20"
+		colorMode={flowColorMode}
+		class="h-full w-full !bg-muted/20 [--xy-edge-label-background-color:var(--background)] [--xy-edge-label-color:var(--foreground)]"
 		{nodeTypes}
 		{edgeTypes}
 		defaultEdgeOptions={{ type: 'workflow' }}
@@ -80,9 +84,6 @@
 		onconnect={onConnect}
 	>
 		<Background gap={16} size={1} variant={BackgroundVariant.Dots} />
-		<Controls
-			showLock={false}
-			class="shadow-none [&_.svelte-flow__controls-button]:border [&_.svelte-flow__controls-button]:border-border [&_.svelte-flow__controls-button]:bg-background"
-		/>
+		<WorkflowZoomControls />
 	</SvelteFlow>
 </div>

@@ -16,7 +16,7 @@
 
 <Drawer.Root direction="right">
 	<Drawer.Trigger>
-		<Button variant="outline" size="icon">
+		<Button variant="outline" size="icon-sm">
 			<InfoIcon />
 		</Button>
 	</Drawer.Trigger>

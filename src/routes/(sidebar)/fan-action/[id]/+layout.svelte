@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
+	import InfoDrawer from '$lib/components/custom/info-drawer.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { cn } from '$lib/utils.js';
 	import { data } from '../data.js';
@@ -10,6 +12,7 @@
 		isFanActionEditTab,
 		type FanActionEditTab
 	} from '../edit-tabs.js';
+	import ChartColumn from '@lucide/svelte/icons/chart-column';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { children } = $props();
@@ -31,6 +34,10 @@
 		'gap-2 rounded-full border border-transparent! px-3 py-1 text-sm font-medium text-foreground/60 hover:text-foreground relative inline-flex h-[calc(100%-1px)] items-center justify-center whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring data-active:bg-background data-active:text-foreground';
 
 	const isSettingsTab = $derived(activeTab === 'settings');
+
+	function handleSave() {
+		console.log('save fan action', actionId);
+	}
 </script>
 
 <PageHeader
@@ -41,7 +48,18 @@
 		...(action ? [{ title: action.event }] : []),
 		{ title: m.fan_action_edit_title() }
 	]}
-/>
+>
+	{#if action}
+		<InfoDrawer title={m.fan_action_edit_title()}>
+			<p class="text-sm text-muted-foreground">{m.fan_action_info_description()}</p>
+		</InfoDrawer>
+		<Button variant="outline" size="sm" href={fanActionEditTabHref(actionId, 'stats')}>
+			<ChartColumn />
+			{m.nav_analytics()}
+		</Button>
+		<Button size="sm" onclick={handleSave}>{m.save()}</Button>
+	{/if}
+</PageHeader>
 
 {#if !action}
 	<p class="text-muted-foreground">{m.fan_action_not_found()}</p>
