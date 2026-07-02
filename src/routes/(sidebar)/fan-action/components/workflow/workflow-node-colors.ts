@@ -15,9 +15,9 @@ export function workflowPaletteSection(
 
 /** Solid icon backgrounds in the palette sidebar. */
 export const workflowPaletteSectionBgClass: Record<WorkflowPaletteSection, string> = {
-	triggers: 'bg-chart-3',
-	operators: 'bg-chart-9/85',
-	actions: 'bg-chart-1/85'
+	triggers: 'bg-workflow-trigger',
+	operators: 'bg-workflow-operator/85',
+	actions: 'bg-workflow-action/85'
 };
 
 type BoxNodeClasses = {
@@ -28,24 +28,33 @@ type BoxNodeClasses = {
 
 const workflowNodeBoxClassBySection: Record<WorkflowPaletteSection, BoxNodeClasses> = {
 	triggers: {
-		tint: 'bg-[oklch(0.623_0.214_250)]/15',
-		tintEditing: 'bg-[oklch(0.623_0.214_250)]/45',
-		stroke: 'stroke-[oklch(0.623_0.214_250)]'
+		tint: 'bg-workflow-trigger/15',
+		tintEditing: 'bg-workflow-trigger/45',
+		stroke: 'stroke-workflow-trigger'
 	},
 	operators: {
-		tint: 'bg-[oklch(0.705_0.191_55)]/15',
-		tintEditing: 'bg-[oklch(0.705_0.191_55)]/40',
-		stroke: 'stroke-[oklch(0.705_0.191_55)]'
+		tint: 'bg-workflow-operator/15',
+		tintEditing: 'bg-workflow-operator/40',
+		stroke: 'stroke-workflow-operator'
 	},
 	actions: {
-		tint: 'bg-[oklch(0.723_0.219_149.579)]/15',
-		tintEditing: 'bg-[oklch(0.723_0.219_149.579)]/40',
-		stroke: 'stroke-[oklch(0.723_0.219_149.579)]'
+		tint: 'bg-workflow-action/15',
+		tintEditing: 'bg-workflow-action/40',
+		stroke: 'stroke-workflow-action'
 	}
 };
 
-/** Literal oklch for trigger SVG fills — same hues as chart-3/1/9. */
-const workflowTriggerSvgColor = 'oklch(0.623 0.214 250)';
+const workflowColorVarBySection: Record<WorkflowPaletteSection, string> = {
+	triggers: 'var(--workflow-color-trigger)',
+	operators: 'var(--workflow-color-operator)',
+	actions: 'var(--workflow-color-action)'
+};
+
+const workflowIconClassBySection: Record<WorkflowPaletteSection, string> = {
+	triggers: 'text-workflow-trigger',
+	operators: 'text-workflow-operator',
+	actions: 'text-workflow-action'
+};
 
 export type TriggerShapeStyles = {
 	backgroundFill: string;
@@ -73,17 +82,14 @@ export function workflowNodeBoxClasses(
 export function workflowTriggerShapeStyles(editing = false): TriggerShapeStyles {
 	return {
 		backgroundFill: 'var(--background)',
-		tintFill: workflowTriggerSvgColor,
+		tintFill: workflowColorVarBySection.triggers,
 		tintOpacity: editing ? 0.45 : 0.15,
-		stroke: workflowTriggerSvgColor
+		stroke: workflowColorVarBySection.triggers
 	};
 }
 
 export function workflowNodeIconClass(itemId: string, variant: WorkflowNodeVariant): string {
-	const section = workflowPaletteSection(itemId, variant);
-	if (section === 'triggers') return 'text-[oklch(0.623_0.214_250)]';
-	if (section === 'operators') return 'text-[oklch(0.705_0.191_55)]';
-	return 'text-[oklch(0.723_0.219_149.579)]';
+	return workflowIconClassBySection[workflowPaletteSection(itemId, variant)];
 }
 
 export const workflowNodeChartColors = {
