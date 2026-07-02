@@ -26,6 +26,7 @@
 
 	let drawerOpen = $state(false);
 	let activeNodeId = $state<string | null>(null);
+	let runFitView: (() => void) | null = null;
 	const editingNode = $state<{ nodeId: string | null }>({ nodeId: null });
 	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
 
@@ -42,6 +43,29 @@
 	setWorkflowConfigureNode(openNodeDrawer);
 	setWorkflowEditingNode(editingNode);
 
+	function handleFitViewReady(fitView: () => void) {
+		runFitView = fitView;
+	}
+
+	let skipInitialDrawerFit = true;
+
+	$effect(() => {
+		void drawerOpen;
+
+		if (skipInitialDrawerFit) {
+			skipInitialDrawerFit = false;
+			return;
+		}
+
+		if (!runFitView) return;
+
+		const timeout = setTimeout(() => {
+			runFitView?.();
+		}, 0);
+
+		return () => clearTimeout(timeout);
+	});
+
 	$effect(() => {
 		editingNode.nodeId = drawerOpen ? activeNodeId : null;
 	});
@@ -49,11 +73,11 @@
 
 {#if browser}
 	<SvelteFlowProvider>
-		<div class="flex h-full min-w-0 w-full overflow-hidden">
+		<div class="flex h-full w-full min-w-0 overflow-hidden">
 			<WorkflowPaletteSheet />
 
-			<div class="relative min-h-0 min-w-0 w-0 flex-1">
-				<WorkflowCanvas bind:nodes bind:edges />
+			<div class="relative min-h-0 w-0 min-w-0 flex-1">
+				<WorkflowCanvas bind:nodes bind:edges onFitViewReady={handleFitViewReady} />
 
 				<!-- 
 				<div class="pointer-events-none absolute inset-0 z-20 p-3">

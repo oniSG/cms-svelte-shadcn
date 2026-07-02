@@ -12,6 +12,7 @@
 	import WorkflowNode from './workflow-node.svelte';
 	import WorkflowEdge from './workflow-edge.svelte';
 	import WorkflowZoomControls from './workflow-zoom-controls.svelte';
+	import WorkflowDrawerFitView from './workflow-drawer-fit-view.svelte';
 	import { createNodeId } from './workflow-data';
 	import type { WorkflowNodeData, WorkflowPaletteItem } from './workflow-types';
 	import { WORKFLOW_DRAG_MIME } from './workflow-types';
@@ -24,10 +25,12 @@
 
 	let {
 		nodes = $bindable(),
-		edges = $bindable()
+		edges = $bindable(),
+		onFitViewReady
 	}: {
 		nodes: Node<WorkflowNodeData>[];
 		edges: Edge[];
+		onFitViewReady?: (fitView: () => void) => void;
 	} = $props();
 
 	const { screenToFlowPosition } = useSvelteFlow();
@@ -66,12 +69,7 @@
 	}
 </script>
 
-<div
-	class="absolute inset-0 h-full w-full"
-	ondragover={onDragOver}
-	ondrop={onDrop}
-	role="presentation"
->
+<div class="h-full min-h-0 w-full" ondragover={onDragOver} ondrop={onDrop} role="presentation">
 	<SvelteFlow
 		bind:nodes
 		bind:edges
@@ -85,5 +83,6 @@
 	>
 		<Background gap={16} size={1} variant={BackgroundVariant.Dots} />
 		<WorkflowZoomControls />
+		<WorkflowDrawerFitView onReady={onFitViewReady} />
 	</SvelteFlow>
 </div>
