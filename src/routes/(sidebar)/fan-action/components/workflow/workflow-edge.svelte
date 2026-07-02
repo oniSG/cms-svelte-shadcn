@@ -68,6 +68,14 @@
 				: undefined
 	);
 
+	const edgeStyle = $derived(
+		conditionBranch === 'yes'
+			? [style, 'stroke: var(--success)'].filter(Boolean).join('; ')
+			: conditionBranch === 'no'
+				? [style, 'stroke: var(--destructive)'].filter(Boolean).join('; ')
+				: style
+	);
+
 	function deleteEdge(event: MouseEvent) {
 		event.stopPropagation();
 		if (!id) return;
@@ -75,15 +83,17 @@
 	}
 </script>
 
-<BaseEdge {id} {path} {markerEnd} {markerStart} {style} />
+<BaseEdge {id} {path} {markerEnd} {markerStart} style={edgeStyle} />
 
 <EdgeLabel x={labelX} y={labelY} transparent class="!p-0">
 	<ButtonGroup.Root class="overflow-hidden rounded-4xl bg-workflow-canvas-base">
+		<!--
 		{#if conditionBranchLabel}
 			<Button variant="outline" size="sm" class={cn(conditionBranchButtonClass)}>
 				{conditionBranchLabel}
 			</Button>
 		{/if}
+		-->
 		<Button variant="outline" size="sm">
 			<UserIcon />
 			225

@@ -58,6 +58,10 @@ export function workflowNodeBoxShapeStyles(
 }
 
 export const workflowConditionNodeBox = { size: 70, radius: 8, stroke: 2 } as const;
+
+export function workflowConditionNodeBounds(size: number = workflowConditionNodeBox.size): number {
+	return Math.ceil(size * Math.SQRT2);
+}
 export const workflowActionNodeBox = { size: 80, radius: 10, stroke: 2 } as const;
 export const workflowTriggerNodeBox = { height: 70, width: 95 } as const;
 

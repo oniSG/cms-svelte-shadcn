@@ -41,6 +41,5 @@ export function workflowItemIconModifier(
 	variant: WorkflowNodeVariant
 ): string | undefined {
 	if (itemId === 'loyalty') return 'fill-current';
-	if (variant === 'condition' || itemId === 'condition') return 'rotate-90';
 	return undefined;
 }

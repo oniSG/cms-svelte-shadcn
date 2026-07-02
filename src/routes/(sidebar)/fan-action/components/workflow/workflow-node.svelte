@@ -20,6 +20,7 @@
 		workflowNodeIconClass,
 		workflowTriggerShapeStyles,
 		workflowConditionNodeBox,
+		workflowConditionNodeBounds,
 		workflowActionNodeBox,
 		workflowTriggerNodeBox,
 		workflowNodeBoxRect
@@ -98,9 +99,8 @@
 	const handleNeutralClass = `${handleBase} relative !border-foreground !bg-background after:pointer-events-none after:absolute after:top-1/2 after:left-[55%] after:h-0 after:w-0 after:-translate-x-1/2 after:-translate-y-1/2 after:border-y-transparent ${handleArrowClass} after:border-l-foreground after:content-['']`;
 	const handleYesClass = `${handleBase} ${colors.conditionYesPort}`;
 	const handleNoClass = `${handleBase} ${colors.conditionNoPort}`;
-	const conditionHandleYesStyle = 'left: 50%; top: 0; transform: translate(-50%, -50%);';
-	const conditionHandleNoStyle =
-		'left: 50%; bottom: 0; top: auto; transform: translate(-50%, 50%);';
+	const conditionHandleYesStyle = 'left: 75%; top: 25%; transform: translate(-50%, -50%);';
+	const conditionHandleNoStyle = 'left: 75%; top: 75%; transform: translate(-50%, -50%);';
 </script>
 
 <NodeToolbar position={Position.Top} align="center" isVisible={toolbarVisible}>
@@ -176,9 +176,14 @@
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
 		</div>
 	{:else if data.variant === 'condition'}
-		<div class="relative z-20 mx-auto" style:width="{workflowConditionNodeBox.size}px">
+		{@const conditionBounds = workflowConditionNodeBounds()}
+		<div
+			class="relative z-20 mx-auto"
+			style:width="{conditionBounds}px"
+			style:height="{conditionBounds}px"
+		>
 			<button
-				class="relative block cursor-pointer border-0 bg-transparent p-0"
+				class="absolute top-1/2 left-1/2 block -translate-x-1/2 -translate-y-1/2 rotate-45 cursor-pointer border-0 bg-transparent p-0"
 				style:width="{workflowConditionNodeBox.size}px"
 				style:height="{workflowConditionNodeBox.size}px"
 				aria-label={label}
@@ -221,23 +226,23 @@
 						stroke-width={workflowConditionNodeBox.stroke}
 					/>
 				</svg>
-				<NodeIcon
-					class="pointer-events-none absolute inset-0 m-auto size-[1.875rem] {iconClass} {iconModifier ??
-						''}"
-				/>
 			</button>
+			<NodeIcon
+				class="pointer-events-none absolute top-1/2 left-1/2 size-[1.875rem] -translate-x-1/2 -translate-y-1/2 {iconClass} {iconModifier ??
+					''}"
+			/>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
 			<Handle
 				id="yes"
 				class={handleYesClass}
-				position={Position.Top}
+				position={Position.Right}
 				type="source"
 				style={conditionHandleYesStyle}
 			/>
 			<Handle
 				id="no"
 				class={handleNoClass}
-				position={Position.Bottom}
+				position={Position.Right}
 				type="source"
 				style={conditionHandleNoStyle}
 			/>
