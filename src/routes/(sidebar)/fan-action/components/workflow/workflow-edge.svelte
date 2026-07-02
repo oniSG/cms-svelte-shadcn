@@ -62,9 +62,9 @@
 
 	const conditionBranchButtonClass = $derived(
 		conditionBranch === 'yes'
-			? 'bg-success/10 text-success hover:bg-success/20 dark:bg-success/20 dark:hover:bg-success/30'
+			? 'bg-success/10 text-success hover:bg-success/20 dark:bg-success/20 dark:hover:bg-success/30 border-success/25 dark:border-success/30'
 			: conditionBranch === 'no'
-				? 'bg-destructive/10 text-destructive hover:bg-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30'
+				? 'bg-destructive/10 text-destructive hover:bg-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 border-destructive/25 dark:border-destructive/30'
 				: undefined
 	);
 
@@ -85,7 +85,7 @@
 
 <BaseEdge {id} {path} {markerEnd} {markerStart} style={edgeStyle} />
 
-<EdgeLabel x={labelX} y={labelY} transparent class="!p-0">
+<EdgeLabel x={labelX} y={labelY} transparent class="workflow-edge-label relative z-10 !p-0">
 	<ButtonGroup.Root class="overflow-hidden rounded-4xl bg-workflow-canvas-base">
 		<!--
 		{#if conditionBranchLabel}
@@ -94,7 +94,7 @@
 			</Button>
 		{/if}
 		-->
-		<Button variant="outline" size="sm">
+		<Button variant="outline" size="sm" class={conditionBranchButtonClass}>
 			<UserIcon />
 			225
 		</Button>

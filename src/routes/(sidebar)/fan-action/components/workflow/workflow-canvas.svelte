@@ -69,12 +69,17 @@
 	}
 </script>
 
-<div class="h-full min-h-0 w-full" ondragover={onDragOver} ondrop={onDrop} role="presentation">
+<div
+	class="workflow-flow-canvas h-full min-h-0 w-full"
+	ondragover={onDragOver}
+	ondrop={onDrop}
+	role="presentation"
+>
 	<SvelteFlow
 		bind:nodes
 		bind:edges
 		colorMode={flowColorMode}
-		class="h-full w-full !bg-muted/20"
+		class="workflow-flow h-full w-full !bg-muted/20"
 		{nodeTypes}
 		{edgeTypes}
 		defaultEdgeOptions={{ type: 'workflow' }}
@@ -86,3 +91,13 @@
 		<WorkflowDrawerFitView onReady={onFitViewReady} />
 	</SvelteFlow>
 </div>
+<style>
+	:global(.workflow-flow .workflow-node-label) {
+		z-index: 0;
+	}
+
+	:global(.workflow-flow .workflow-edge-label) {
+		z-index: 10;
+	}
+</style>
+

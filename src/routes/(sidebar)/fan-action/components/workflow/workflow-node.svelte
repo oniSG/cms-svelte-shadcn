@@ -3,6 +3,7 @@
 		Handle,
 		NodeToolbar,
 		Position,
+		portal,
 		useNodes,
 		useSvelteFlow,
 		type Node,
@@ -33,7 +34,14 @@
 
 	const triggerPath = 'M2 2H55.72L76 29L55.72 56H2V2Z';
 
-	let { id, data }: NodeProps<Node<WorkflowNodeData>> = $props();
+	let {
+		id,
+		data,
+		positionAbsoluteX,
+		positionAbsoluteY,
+		width,
+		height
+	}: NodeProps<Node<WorkflowNodeData>> = $props();
 
 	const { deleteElements, getNode } = useSvelteFlow();
 	const nodesStore = useNodes();
@@ -101,6 +109,20 @@
 	const handleNoClass = `${handleBase} ${colors.conditionNoPort}`;
 	const conditionHandleYesStyle = 'left: 75%; top: 25%; transform: translate(-50%, -50%);';
 	const conditionHandleNoStyle = 'left: 75%; top: 75%; transform: translate(-50%, -50%);';
+
+	const nodeShapeSize = $derived.by(() => {
+		if (data.variant === 'trigger') {
+			return { width: workflowTriggerNodeBox.width, height: workflowTriggerNodeBox.height };
+		}
+		if (data.variant === 'condition') {
+			const bounds = workflowConditionNodeBounds();
+			return { width: bounds, height: bounds };
+		}
+		return { width: workflowActionNodeBox.size, height: workflowActionNodeBox.size };
+	});
+
+	const labelX = $derived(positionAbsoluteX + (width ?? nodeShapeSize.width) / 2);
+	const labelY = $derived(positionAbsoluteY + (height ?? nodeShapeSize.height) + 10);
 </script>
 
 <NodeToolbar position={Position.Top} align="center" isVisible={toolbarVisible}>
@@ -164,7 +186,7 @@
 							class={editingBorderClass}
 							fill="none"
 							stroke={triggerShapeStyles.stroke}
-							stroke-width="2"
+							stroke-width={workflowTriggerNodeBox.stroke}
 							stroke-linejoin="round"
 						/>
 					</svg>
@@ -300,21 +322,23 @@
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
 		</div>
 	{/if}
+</div>
 
-	<div
-		class="pointer-events-none absolute top-full left-1/2 z-10 mt-2.5 w-max max-w-[11.25rem] -translate-x-1/2 rounded-sm bg-background px-2.5 py-0.5 text-center"
+<div
+	use:portal={'edge-labels'}
+	class="workflow-node-label pointer-events-none absolute z-0 w-max max-w-[11.25rem] text-center"
+	style:transform="translate(-50%, 0) translate({labelX}px, {labelY}px)"
+>
+	<button
+		class="pointer-events-auto max-w-[11.25rem] cursor-pointer border-0 bg-transparent p-0 text-center text-xs leading-tight text-foreground"
+		onclick={openSettings}
+		type="button"
 	>
-		<button
-			class="pointer-events-auto max-w-[11.25rem] cursor-pointer border-0 bg-transparent p-0 text-center text-xs leading-tight text-foreground"
-			onclick={openSettings}
-			type="button"
-		>
-			{label}
-		</button>
-		{#if data.incomplete}
-			<p class="text-[12.5px] leading-tight text-destructive">
-				{m.fan_action_flow_must_complete()}
-			</p>
-		{/if}
-	</div>
+		{label}
+	</button>
+	{#if data.incomplete}
+		<p class="text-[12.5px] leading-tight text-destructive">
+			{m.fan_action_flow_must_complete()}
+		</p>
+	{/if}
 </div>
