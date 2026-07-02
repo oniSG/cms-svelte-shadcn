@@ -64,7 +64,7 @@
 			}
 
 			clearTimeout(timeout);
-			timeout = setTimeout(scheduleFitView, 80);
+			timeout = setTimeout(scheduleFitView, 0);
 		});
 
 		observer.observe(domNode);

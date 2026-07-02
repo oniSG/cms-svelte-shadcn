@@ -62,8 +62,5 @@
 		<Switch bind:checked={plannedRunOut} id="planned-run-out" />
 	</div>
 
-	<div class="flex justify-end gap-2 pt-1">
-		<Button type="button" variant="outline" onclick={handleCancel}>{m.common_cancel()}</Button>
-		<Button type="button" onclick={handleSave}>{m.save()}</Button>
-	</div>
+	
 </div>

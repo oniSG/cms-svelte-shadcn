@@ -8,6 +8,9 @@
 
 	let {}: WorkflowDrawerContentProps = $props();
 
+	const labelClass = 'text-sm font-medium text-muted-foreground';
+	const sectionTitleClass = 'text-base font-semibold';
+
 	const emailPrefixes = ['info', 'news', 'support'];
 	const emailDomains = ['relatoo.cz', 'example.com'];
 	const emailTemplates = ['welcome-email', 'event-reminder', 'newsletter'];
@@ -28,15 +31,19 @@
 	]);
 </script>
 
-<div class="space-y-4">
+<div class="space-y-3">
 	<div class="space-y-2">
-		<Label for="email-note">{m.fan_action_flow_email_note_label()}</Label>
-		<Input bind:value={note} id="email-note" placeholder={m.fan_action_flow_email_note_placeholder()} />
+		<Label class={labelClass} for="email-note">{m.fan_action_flow_email_note_label()}</Label>
+		<Input
+			bind:value={note}
+			id="email-note"
+			placeholder={m.fan_action_flow_email_note_placeholder()}
+		/>
 	</div>
 
 	<div class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-end gap-3">
 		<div class="space-y-2">
-			<Label>
+			<Label class={labelClass}>
 				{m.fan_action_flow_email_prefix_label()}
 				<span class="text-destructive">*</span>
 			</Label>
@@ -57,7 +64,7 @@
 		<span class="pb-2 text-muted-foreground">@</span>
 
 		<div class="space-y-2">
-			<Label>
+			<Label class={labelClass}>
 				{m.fan_action_flow_email_domain_label()}
 				<span class="text-destructive">*</span>
 			</Label>
@@ -77,7 +84,7 @@
 	</div>
 
 	<div class="space-y-2">
-		<Label for="email-reply">
+		<Label class={labelClass} for="email-reply">
 			{m.fan_action_flow_email_reply_label()}
 			<span class="text-destructive">*</span>
 		</Label>
@@ -89,7 +96,7 @@
 	</div>
 
 	<div class="space-y-2">
-		<Label for="email-subject">
+		<Label class={labelClass} for="email-subject">
 			{m.fan_action_flow_email_subject_label()}
 			<span class="text-destructive">*</span>
 		</Label>
@@ -101,7 +108,7 @@
 	</div>
 
 	<div class="space-y-2">
-		<Label>
+		<Label class={labelClass}>
 			{m.fan_action_flow_email_template_label()}
 			<span class="text-destructive">*</span>
 		</Label>
@@ -110,7 +117,8 @@
 				{#if emailTemplate}
 					{emailTemplate}
 				{:else}
-					<span class="text-muted-foreground">{m.fan_action_flow_email_template_placeholder()}</span>
+					<span class="text-muted-foreground">{m.fan_action_flow_email_template_placeholder()}</span
+					>
 				{/if}
 			</Select.Trigger>
 			<Select.Content>
@@ -123,24 +131,20 @@
 		</Select.Root>
 	</div>
 
-	<div class="flex items-center justify-between gap-4">
-		<Label for="send-copy" class="text-sm leading-snug font-normal">
-			{m.fan_action_flow_email_send_copy()}
-		</Label>
+	<div class="flex items-center justify-between gap-2">
+		<Label class={labelClass} for="send-copy">{m.fan_action_flow_email_send_copy()}</Label>
 		<Switch bind:checked={sendCopyToVisitors} id="send-copy" />
 	</div>
 
-	<div class="space-y-3">
-		<h3 class="text-sm font-semibold">{m.fan_action_flow_email_consent_title()}</h3>
-		<ul class="overflow-hidden rounded-md border">
-			{#each consentPreferences as pref (pref.id)}
-				<li class="flex items-center justify-between gap-4 px-4 py-3 even:bg-muted/40">
-					<label for="email-consent-{pref.id}" class="text-sm leading-snug">
-						{pref.label()}
-					</label>
-					<Switch id="email-consent-{pref.id}" bind:checked={pref.checked} class="shrink-0" />
-				</li>
-			{/each}
-		</ul>
+	<div class="space-y-4">
+		<h3 class={sectionTitleClass}>{m.fan_action_flow_email_consent_title()}</h3>
+		{#each consentPreferences as pref (pref.id)}
+			<div class="flex items-center justify-between gap-2">
+				<Label class={labelClass} for="email-consent-{pref.id}">
+					{pref.label()}
+				</Label>
+				<Switch id="email-consent-{pref.id}" bind:checked={pref.checked} class="shrink-0" />
+			</div>
+		{/each}
 	</div>
 </div>
