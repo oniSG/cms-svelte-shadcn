@@ -1,0 +1,21 @@
+=== 2026-06  (trailing 30 days, 72 tenants, 868,717 active fans total) ===
+=== 2026-05  (trailing 30 days, 73 tenants, 913,745 active fans total) ===
+=== 2026-04  (trailing 30 days, 75 tenants, 1,111,612 active fans total) ===
+=== 2026-03  (trailing 30 days, 74 tenants, 969,500 active fans total) ===
+=== 2026-02  (trailing 30 days, 67 tenants, 928,743 active fans total) ===
+=== 2026-01  (trailing 30 days, 67 tenants, 973,439 active fans total) ===
+=== 2025-12  (trailing 30 days, 66 tenants, 835,689 active fans total) ===
+=== 2025-11  (trailing 30 days, 64 tenants, 1,024,992 active fans total) ===
+=== 2025-10  (trailing 30 days, 61 tenants, 935,138 active fans total) ===
+=== 2025-09  (trailing 30 days, 51 tenants, 863,269 active fans total) ===
+=== 2025-08  (trailing 30 days, 42 tenants, 655,231 active fans total) ===
+=== 2025-07  (trailing 30 days, 32 tenants, 393,523 active fans total) ===
+
+
+
+=== Sent emails per month (state = SEND, all tenants) ===
+  2026-07    271,638
+  2026-06  2,233,819
+  2026-05  3,798,176
+  2026-04  4,084,669
+  2026-03  2,094,596
