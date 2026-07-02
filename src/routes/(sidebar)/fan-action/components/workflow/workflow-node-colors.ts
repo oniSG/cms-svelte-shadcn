@@ -20,30 +20,6 @@ export const workflowPaletteSectionBgClass: Record<WorkflowPaletteSection, strin
 	actions: 'bg-workflow-action/85'
 };
 
-type BoxNodeClasses = {
-	tint: string;
-	tintEditing: string;
-	stroke: string;
-};
-
-const workflowNodeBoxClassBySection: Record<WorkflowPaletteSection, BoxNodeClasses> = {
-	triggers: {
-		tint: 'bg-workflow-trigger/15',
-		tintEditing: 'bg-workflow-trigger/45',
-		stroke: 'stroke-workflow-trigger'
-	},
-	operators: {
-		tint: 'bg-workflow-operator/15',
-		tintEditing: 'bg-workflow-operator/40',
-		stroke: 'stroke-workflow-operator'
-	},
-	actions: {
-		tint: 'bg-workflow-action/15',
-		tintEditing: 'bg-workflow-action/40',
-		stroke: 'stroke-workflow-action'
-	}
-};
-
 const workflowColorVarBySection: Record<WorkflowPaletteSection, string> = {
 	triggers: 'var(--workflow-color-trigger)',
 	operators: 'var(--workflow-color-operator)',
@@ -65,17 +41,33 @@ export type TriggerShapeStyles = {
 
 export const workflowNodeEditingBorderClass = 'workflow-node-editing-border';
 
-export function workflowNodeBoxClasses(
+export function workflowNodeBoxShapeStyles(
 	itemId: string,
 	variant: WorkflowNodeVariant,
 	editing = false
-): BoxNodeClasses & { tintClass: string } {
+): TriggerShapeStyles {
 	const section = workflowPaletteSection(itemId, variant);
-	const classes = workflowNodeBoxClassBySection[section];
+	const opacity = editing ? (section === 'triggers' ? 0.45 : 0.4) : 0.15;
 
 	return {
-		...classes,
-		tintClass: editing ? classes.tintEditing : classes.tint
+		backgroundFill: 'var(--background)',
+		tintFill: workflowColorVarBySection[section],
+		tintOpacity: opacity,
+		stroke: workflowColorVarBySection[section]
+	};
+}
+
+export const workflowConditionNodeBox = { size: 70, radius: 8, stroke: 2 } as const;
+export const workflowActionNodeBox = { size: 80, radius: 10, stroke: 2 } as const;
+export const workflowTriggerNodeBox = { height: 70, width: 95 } as const;
+
+export function workflowNodeBoxRect(size: number, stroke: number) {
+	const inset = stroke / 2;
+	return {
+		x: inset,
+		y: inset,
+		width: size - stroke,
+		height: size - stroke
 	};
 }
 

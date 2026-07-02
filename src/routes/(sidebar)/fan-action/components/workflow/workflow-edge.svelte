@@ -11,8 +11,9 @@
 	import X from '@lucide/svelte/icons/x';
 	import UserIcon from '@lucide/svelte/icons/user';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Button, type ButtonVariant } from '$lib/components/ui/button';
+	import { Button } from '$lib/components/ui/button';
 	import * as ButtonGroup from '$lib/components/ui/button-group';
+	import { cn } from '$lib/utils.js';
 
 	let {
 		id,
@@ -59,8 +60,12 @@
 				: null
 	);
 
-	const conditionBranchVariant = $derived<ButtonVariant>(
-		conditionBranch === 'yes' ? 'success' : conditionBranch === 'no' ? 'destructive' : 'outline'
+	const conditionBranchButtonClass = $derived(
+		conditionBranch === 'yes'
+			? 'bg-success/10 text-success hover:bg-success/20 dark:bg-success/20 dark:hover:bg-success/30'
+			: conditionBranch === 'no'
+				? 'bg-destructive/10 text-destructive hover:bg-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30'
+				: undefined
 	);
 
 	function deleteEdge(event: MouseEvent) {
@@ -75,7 +80,7 @@
 <EdgeLabel x={labelX} y={labelY} transparent class="!p-0">
 	<ButtonGroup.Root class="overflow-hidden rounded-4xl bg-workflow-canvas-base">
 		{#if conditionBranchLabel}
-			<Button variant={conditionBranchVariant} size="sm">
+			<Button variant="outline" size="sm" class={cn(conditionBranchButtonClass)}>
 				{conditionBranchLabel}
 			</Button>
 		{/if}

@@ -45,12 +45,7 @@
 {#if !action}
 	<p class="text-muted-foreground">{m.fan_action_not_found()}</p>
 {:else}
-	<div
-		class={cn(
-			'flex flex-col',
-			isSettingsTab && '-mb-4 h-[calc(100svh-3.5rem)] overflow-x-hidden overflow-y-hidden'
-		)}
-	>
+	<div class={cn('flex flex-col', isSettingsTab && 'min-h-0 flex-1 overflow-hidden')}>
 		<!--
 		<div class="flex shrink-0 justify-start px-4 pt-3">
 			<Tabs.Root value={activeTab}>
