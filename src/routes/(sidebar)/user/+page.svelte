@@ -120,12 +120,12 @@
 		fields: ['surname', 'first_name', 'email', 'phone']
 	}}
 	defaultSort={{ id: 'surname', desc: false }}
-	click={{ drawer: userDrawer }}
+	click={{ sheet: userSheet }}
 	{rowActions}
 	rowActionsTitle={(u) => `${u.first_name} ${u.surname}`}
 />
 
-{#snippet userDrawer(user: User)}
+{#snippet userSheet(user: User)}
 	<UserDrawer {user} />
 {/snippet}
 

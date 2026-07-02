@@ -81,7 +81,7 @@ export type QueryFieldDef =
 	  };
 
 export type ClickConfig<Row> = {
-	drawer?: Snippet<[Row]>;
+	sheet?: Snippet<[Row]>;
 	href?: (row: Row) => Pathname;
 	onClick?: (row: Row) => void;
 	menu?: Snippet<[Row]>;

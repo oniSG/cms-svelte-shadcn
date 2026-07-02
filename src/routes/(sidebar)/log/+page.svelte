@@ -71,9 +71,9 @@
 		fields: ['id', 'user_id', 'email']
 	}}
 	defaultSort={{ id: 'time', desc: true }}
-	click={{ drawer: rowDrawer }}
+	click={{ sheet: rowSheet }}
 />
 
-{#snippet rowDrawer(log: Log)}
+{#snippet rowSheet(log: Log)}
 	<LogDrawer {log} />
 {/snippet}

@@ -3,21 +3,21 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import type { Pathname } from '$app/types';
-	import * as Drawer from '$lib/components/ui/drawer/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import * as ContextMenu from '$lib/components/ui/context-menu/index.js';
 	import { cn } from '$lib/utils.js';
 	import { ROW_ACTIONS_KEY, type RowActionsContext } from './context';
 
 	let {
 		row,
-		drawer,
+		sheet,
 		href,
 		onClick,
 		menu,
 		children
 	}: {
 		row: Row;
-		drawer?: Snippet<[Row]>;
+		sheet?: Snippet<[Row]>;
 		href?: (row: Row) => Pathname;
 		onClick?: (row: Row) => void;
 		menu?: Snippet<[Row]>;
@@ -29,7 +29,7 @@
 	const title = $derived(ctx?.title(row));
 	const showContext = $derived(!!(rowActions || menu));
 
-	const isInteractive = $derived(!!(drawer || href || onClick));
+	const isInteractive = $derived(!!(sheet || href || onClick));
 
 	const cursorClass = $derived(
 		isInteractive ? 'hover:cursor-pointer' : showContext ? 'hover:cursor-context-menu' : ''
@@ -60,17 +60,17 @@
 </script>
 
 {#snippet inner()}
-	{#if drawer}
-		<Drawer.Root direction="right">
-			<Drawer.Trigger>
+	{#if sheet}
+		<Sheet.Root>
+			<Sheet.Trigger>
 				{#snippet child({ props })}
 					{@render children(mergeChildProps(props))}
 				{/snippet}
-			</Drawer.Trigger>
-			<Drawer.Content>
-				{@render drawer(row)}
-			</Drawer.Content>
-		</Drawer.Root>
+			</Sheet.Trigger>
+			<Sheet.Content>
+				{@render sheet(row)}
+			</Sheet.Content>
+		</Sheet.Root>
 	{:else if href || onClick}
 		{@render children(mergeChildProps({ onclick: handleClick }))}
 	{:else}
@@ -82,15 +82,15 @@
 	<ContextMenu.Root>
 		<ContextMenu.Trigger>
 			{#snippet child({ props })}
-				{#if drawer}
-					<Drawer.Root direction="right">
-						<Drawer.Trigger>
+				{#if sheet}
+					<Sheet.Root>
+						<Sheet.Trigger>
 							{#snippet child({ props: dProps })}
 								{@render children(mergeChildProps(props, dProps))}
 							{/snippet}
-						</Drawer.Trigger>
-						<Drawer.Content>{@render drawer(row)}</Drawer.Content>
-					</Drawer.Root>
+						</Sheet.Trigger>
+						<Sheet.Content>{@render sheet(row)}</Sheet.Content>
+					</Sheet.Root>
 				{:else if href || onClick}
 					{@render children(mergeChildProps(props, { onclick: handleClick }))}
 				{:else}
