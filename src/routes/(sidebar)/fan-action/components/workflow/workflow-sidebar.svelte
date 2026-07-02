@@ -11,7 +11,10 @@
 	import { workflowPaletteSectionBgClass } from './workflow-node-colors';
 	import FanActionBasicForm from '../fan-action-basic-form.svelte';
 	import FanActionSettingsForm from '../fan-action-settings-form.svelte';
+	import type { FanAction } from '$lib/types/fan-action.js';
 	import * as m from '$lib/paraglide/messages.js';
+
+	let { action = null }: { action?: FanAction | null } = $props();
 
 	type PaletteSectionId = 'triggers' | 'operators' | 'actions';
 
@@ -177,7 +180,7 @@
 				{m.fan_action_flow_accordion_basic_info()}
 			</Accordion.Trigger>
 			<Accordion.Content class={accordionContentClass}>
-				<FanActionBasicForm />
+				<FanActionBasicForm {action} />
 			</Accordion.Content>
 		</Accordion.Item>
 

@@ -3,15 +3,9 @@
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
 	import InfoDrawer from '$lib/components/custom/info-drawer.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { cn } from '$lib/utils.js';
 	import { data } from '../data.js';
-	import {
-		FAN_ACTION_EDIT_TABS,
-		fanActionEditTabHref,
-		isFanActionEditTab,
-		type FanActionEditTab
-	} from '../edit-tabs.js';
+	import { fanActionEditTabHref } from '../edit-tabs.js';
 	import ChartColumn from '@lucide/svelte/icons/chart-column';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -20,20 +14,7 @@
 	const actionId = $derived(Number(page.params.id));
 	const action = $derived(data.find((item) => item.id === actionId));
 
-	const activeTab = $derived.by(() => {
-		const segment = page.url.pathname.split('/').at(-1) ?? '';
-		return isFanActionEditTab(segment) ? segment : 'settings';
-	});
-
-	const tabLabels: Record<FanActionEditTab, () => string> = {
-		settings: () => m.fan_action_tab_settings(),
-		stats: () => m.fan_action_tab_stats()
-	};
-
-	const editTabTriggerClass =
-		'gap-2 rounded-full border border-transparent! px-3 py-1 text-sm font-medium text-foreground/60 hover:text-foreground relative inline-flex h-[calc(100%-1px)] items-center justify-center whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring data-active:bg-background data-active:text-foreground';
-
-	const isSettingsTab = $derived(activeTab === 'settings');
+	const isSettingsTab = $derived(page.url.pathname.endsWith('/settings'));
 
 	function handleSave() {
 		console.log('save fan action', actionId);
@@ -42,8 +23,8 @@
 
 <PageHeader
 	breadcrumbs={[
-		{ title: 'Home', url: '/' },
-		{ title: 'Fans' },
+		{ title: m.crumb_home(), url: '/' },
+		{ title: m.sidebar_module_fans() },
 		{ title: m.nav_fans_campaigns(), url: '/fan-action' },
 		...(action ? [{ title: action.event }] : []),
 		{ title: m.fan_action_edit_title() }

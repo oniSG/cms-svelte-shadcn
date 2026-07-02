@@ -22,30 +22,37 @@
 	import { fanActionEditTabHref } from './edit-tabs';
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
 
-	const breadcrumbs = [
-		{ title: 'Home', url: '/' as const },
-		{ title: 'Fans' },
-		{ title: 'Fan Action' }
-	];
+	const breadcrumbs = $derived([
+		{ title: m.crumb_home(), url: '/' as const },
+		{ title: m.sidebar_module_fans() },
+		{ title: m.nav_fans_campaigns() }
+	]);
 
 	const tagOptions = allTags.map((t) => ({ value: t, label: t }));
 	const creatorOptions = allCreators.map((c) => ({ value: c, label: c }));
-	const boolOptions = [
-		{ value: 'true', label: 'Yes' },
-		{ value: 'false', label: 'No' }
-	];
+	const boolOptions = $derived([
+		{ value: 'true', label: m.common_yes() },
+		{ value: 'false', label: m.common_no() }
+	]);
 
-	const columns: TableColumn<FanAction>[] = [
+	const columns = $derived<TableColumn<FanAction>[]>([
 		{ id: 'event', label: m.col_event(), type: 'text', width: 260 },
-		{ id: 'tags', label: m.event_tags_label(), type: 'text', width: 200, sortable: true, cell: CellTags },
+		{
+			id: 'tags',
+			label: m.event_tags_label(),
+			type: 'text',
+			width: 200,
+			sortable: true,
+			cell: CellTags
+		},
 		{ id: 'description', label: m.col_description(), type: 'text', width: 220 },
 		{ id: 'created_at', label: m.col_created_at(), type: 'date', width: 200 },
 		{ id: 'created_by', label: m.col_created_by(), type: 'text', width: 200 },
 		{ id: 'active', label: m.col_active(), type: 'bool', width: 120, align: 'center' },
 		{ id: 'id', label: 'ID', type: 'number', width: 80 }
-	];
+	]);
 
-	const shortcuts: Shortcut[] = [
+	const shortcuts = $derived<Shortcut[]>([
 		{
 			kind: 'multi-select',
 			id: 'created_by',
@@ -72,7 +79,7 @@
 			searchable: false
 		},
 		{ kind: 'date-range', id: 'created_at', label: m.col_created_at(), field: 'created_at' }
-	];
+	]);
 
 	function handleCreate() {
 		console.log('create fan action');

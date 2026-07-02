@@ -6,6 +6,9 @@ export function isFanActionEditTab(value: string): value is FanActionEditTab {
 	return (FAN_ACTION_EDIT_TABS as readonly string[]).includes(value);
 }
 
-export function fanActionEditTabHref(id: number | string, tab: FanActionEditTab) {
+export function fanActionEditTabHref(
+	id: number | string,
+	tab: FanActionEditTab
+): `/fan-action/${string}/${FanActionEditTab}` {
 	return `/fan-action/${id}/${tab}`;
 }

@@ -1,4 +1,4 @@
-import type { FanAction } from '../fan-action';
+import type { FanAction } from '$lib/types/fan-action.js';
 import { allCreators } from '../fan-action';
 
 const campaigns = [

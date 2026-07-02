@@ -9,7 +9,10 @@
 	} from '@xyflow/svelte';
 	import type { WorkflowNodeData } from './workflow-types';
 	import X from '@lucide/svelte/icons/x';
+	import UserIcon from '@lucide/svelte/icons/user';
 	import * as m from '$lib/paraglide/messages.js';
+	import { Button, type ButtonVariant } from '$lib/components/ui/button';
+	import * as ButtonGroup from '$lib/components/ui/button-group';
 
 	let {
 		id,
@@ -39,14 +42,26 @@
 		})
 	);
 
-	const conditionBranchLabel = $derived.by(() => {
+	const conditionBranch = $derived.by((): 'yes' | 'no' | null => {
 		const sourceNode = getNode(source) as Node<WorkflowNodeData> | undefined;
 		if (sourceNode?.data.variant !== 'condition') return null;
 
-		if (sourceHandleId === 'yes') return m.fan_action_flow_edge_yes();
-		if (sourceHandleId === 'no') return m.fan_action_flow_edge_no();
+		if (sourceHandleId === 'yes') return 'yes';
+		if (sourceHandleId === 'no') return 'no';
 		return null;
 	});
+
+	const conditionBranchLabel = $derived(
+		conditionBranch === 'yes'
+			? m.fan_action_flow_edge_yes()
+			: conditionBranch === 'no'
+				? m.fan_action_flow_edge_no()
+				: null
+	);
+
+	const conditionBranchVariant = $derived<ButtonVariant>(
+		conditionBranch === 'yes' ? 'success' : conditionBranch === 'no' ? 'destructive' : 'outline'
+	);
 
 	function deleteEdge(event: MouseEvent) {
 		event.stopPropagation();
@@ -57,18 +72,19 @@
 
 <BaseEdge {id} {path} {markerEnd} {markerStart} {style} />
 
-<EdgeLabel x={labelX} y={labelY}>
-	<div class="flex flex-col items-center gap-1">
+<EdgeLabel x={labelX} y={labelY} transparent class="!p-0">
+	<ButtonGroup.Root class="overflow-hidden rounded-4xl bg-workflow-canvas-base">
 		{#if conditionBranchLabel}
-			<span class="text-xs text-muted-foreground">{conditionBranchLabel}</span>
+			<Button variant={conditionBranchVariant} size="sm">
+				{conditionBranchLabel}
+			</Button>
 		{/if}
-		<button
-			type="button"
-			class="nodrag nopan flex size-5 cursor-pointer items-center justify-center rounded-full border border-border bg-background text-muted-foreground shadow-sm hover:bg-muted"
-			aria-label="Delete connection"
-			onclick={deleteEdge}
-		>
-			<X class="size-3" />
-		</button>
-	</div>
+		<Button variant="outline" size="sm">
+			<UserIcon />
+			225
+		</Button>
+		<Button variant="outline" size="icon-sm" aria-label="Delete connection" onclick={deleteEdge}>
+			<X />
+		</Button>
+	</ButtonGroup.Root>
 </EdgeLabel>

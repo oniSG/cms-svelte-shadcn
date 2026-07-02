@@ -10,10 +10,7 @@ function inferConditionSourceHandle(
 	return 'yes';
 }
 
-export function normalizeWorkflowEdges(
-	nodes: Node<WorkflowNodeData>[],
-	edges: Edge[]
-): Edge[] {
+export function normalizeWorkflowEdges(nodes: Node<WorkflowNodeData>[], edges: Edge[]): Edge[] {
 	const nodeById = new Map(nodes.map((node) => [node.id, node]));
 
 	return edges.map((edge) => {

@@ -1,13 +1,10 @@
 <script lang="ts">
-	import { type Edge, type Node } from '@xyflow/svelte';
+	import { page } from '$app/state';
 	import WorkflowBuilder from '../../components/workflow/workflow-builder.svelte';
-	import { createInitialFlow } from '../../components/workflow/workflow-data';
-	import type { WorkflowNodeData } from '../../components/workflow/workflow-types';
+	import { data } from '../../data.js';
 
-	const initialFlow = createInitialFlow();
-
-	let nodes = $state.raw<Node<WorkflowNodeData>[]>(initialFlow.nodes);
-	let edges = $state.raw<Edge[]>(initialFlow.edges);
+	const actionId = $derived(Number(page.params.id));
+	const action = $derived(data.find((item) => item.id === actionId) ?? null);
 </script>
 
-<WorkflowBuilder bind:nodes bind:edges />
+<WorkflowBuilder {action} />

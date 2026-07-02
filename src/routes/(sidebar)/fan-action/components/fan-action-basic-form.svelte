@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { page } from '$app/state';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import MultiSelectCombobox from '$lib/components/custom/multi-select-combobox.svelte';
-	import { data } from '../data.js';
-	import { allTags as tagOptions } from '../fan-action.js';
+	import type { FanAction } from '$lib/types/fan-action.js';
+	import { allTags as tagOptions } from '$lib/mocks/fan-action-options.js';
 	import * as m from '$lib/paraglide/messages.js';
 
-	const actionId = $derived(Number(page.params.id));
-	const action = $derived(data.find((item) => item.id === actionId));
+	let { action = null }: { action?: FanAction | null } = $props();
 
 	let name = $state('');
 	let description = $state('');

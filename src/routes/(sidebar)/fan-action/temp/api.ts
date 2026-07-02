@@ -1,5 +1,5 @@
 import { data as seed } from './data';
-import type { FanAction } from '../fan-action';
+import type { FanAction } from '$lib/types/fan-action.js';
 import { matchGroup, type Group } from '$lib/components/custom/table-page/query-builder/fields';
 import type { TableFetchArgs, TablePageResponse } from '$lib/components/custom/table-page';
 
@@ -31,9 +31,7 @@ function applyFilters(rows: FanAction[], asOf: Date, q: Group): FanAction[] {
 	});
 }
 
-export async function fetchFanActions(
-	args: TableFetchArgs
-): Promise<TablePageResponse<FanAction>> {
+export async function fetchFanActions(args: TableFetchArgs): Promise<TablePageResponse<FanAction>> {
 	const filtered = applyFilters(seed, args.asOf, args.q as Group);
 	const sorted = [...filtered].sort((a, b) => compare(a, b, args.sort, args.dir));
 

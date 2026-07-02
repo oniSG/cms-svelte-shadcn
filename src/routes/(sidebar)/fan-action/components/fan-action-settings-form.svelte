@@ -1,26 +1,12 @@
 <script lang="ts">
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
 	import Info from '@lucide/svelte/icons/info';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let automaticStop = $state(false);
 	let plannedRunOut = $state(false);
-
-	let savedAutomaticStop = $state(false);
-	let savedPlannedRunOut = $state(false);
-
-	function handleCancel() {
-		automaticStop = savedAutomaticStop;
-		plannedRunOut = savedPlannedRunOut;
-	}
-
-	function handleSave() {
-		savedAutomaticStop = automaticStop;
-		savedPlannedRunOut = plannedRunOut;
-	}
 </script>
 
 <div class="space-y-4">

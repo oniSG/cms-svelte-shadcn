@@ -40,7 +40,14 @@
 		>
 			<Minus />
 		</Button>
-		<Button type="button" size="icon-sm" variant="outline" class="px-2" onclick={fitView} aria-label="Fit view">
+		<Button
+			type="button"
+			size="icon-sm"
+			variant="outline"
+			class="px-2"
+			onclick={fitView}
+			aria-label="Fit view"
+		>
 			<Scan />
 		</Button>
 	</ButtonGroup.Root>

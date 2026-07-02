@@ -74,7 +74,7 @@
 		bind:nodes
 		bind:edges
 		colorMode={flowColorMode}
-		class="h-full w-full !bg-muted/20 [--xy-edge-label-background-color:var(--background)] [--xy-edge-label-color:var(--foreground)]"
+		class="h-full w-full !bg-muted/20"
 		{nodeTypes}
 		{edgeTypes}
 		defaultEdgeOptions={{ type: 'workflow' }}
