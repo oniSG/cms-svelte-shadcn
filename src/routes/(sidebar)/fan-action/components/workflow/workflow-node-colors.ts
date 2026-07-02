@@ -57,7 +57,7 @@ export function workflowNodeBoxShapeStyles(
 	};
 }
 
-export const workflowNodeStroke = 1;
+export const workflowNodeStroke = 2.5;
 
 export const workflowConditionNodeBox = {
 	size: 70,

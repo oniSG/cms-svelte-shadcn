@@ -110,6 +110,13 @@
 	const conditionHandleYesStyle = 'left: 75%; top: 25%; transform: translate(-50%, -50%);';
 	const conditionHandleNoStyle = 'left: 75%; top: 75%; transform: translate(-50%, -50%);';
 
+	const workflowNodeButtonResetClass =
+		'!block h-auto min-h-0 w-auto gap-0 rounded-none border-0 bg-transparent p-0 font-normal shadow-none transition-none hover:bg-transparent focus-visible:ring-0';
+	const workflowNodeButtonClass = `${workflowNodeButtonResetClass} active:not-aria-[haspopup]:!translate-y-0`;
+	const workflowNodeConditionButtonClass = `${workflowNodeButtonResetClass} active:not-aria-[haspopup]:-translate-x-1/2 active:not-aria-[haspopup]:-translate-y-1/2 active:not-aria-[haspopup]:rotate-45`;
+	const workflowNodeLabelButtonClass =
+		'h-auto max-w-[11.25rem] gap-0 rounded-none border-0 bg-transparent p-0 text-center text-xs leading-tight font-normal text-foreground shadow-none transition-none hover:bg-transparent focus-visible:ring-0 active:not-aria-[haspopup]:!translate-y-0';
+
 	const nodeShapeSize = $derived.by(() => {
 		if (data.variant === 'trigger') {
 			return { width: workflowTriggerNodeBox.width, height: workflowTriggerNodeBox.height };
@@ -157,11 +164,11 @@
 			style:height="{workflowTriggerNodeBox.height}px"
 			style:width="{workflowTriggerNodeBox.width}px"
 		>
-			<button
-				class="relative block cursor-pointer border-0 bg-transparent p-0"
+			<Button
+				variant="ghost"
+				class="{workflowNodeButtonClass} relative cursor-pointer"
 				aria-label={label}
 				onclick={openSettings}
-				type="button"
 			>
 				<div
 					class="relative"
@@ -171,7 +178,6 @@
 					<svg
 						class="absolute inset-0 size-full overflow-visible"
 						viewBox="0 0 78 58"
-						xmlns="http://www.w3.org/2000/svg"
 						aria-hidden="true"
 					>
 						<path d={triggerPath} fill={triggerShapeStyles.backgroundFill} stroke="none" />
@@ -194,7 +200,7 @@
 						<NodeIcon class="size-[1.875rem] {iconClass}" />
 					</div>
 				</div>
-			</button>
+			</Button>
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
 		</div>
 	{:else if data.variant === 'condition'}
@@ -204,13 +210,12 @@
 			style:width="{conditionBounds}px"
 			style:height="{conditionBounds}px"
 		>
-			<button
-				class="absolute top-1/2 left-1/2 block -translate-x-1/2 -translate-y-1/2 rotate-45 cursor-pointer border-0 bg-transparent p-0"
-				style:width="{workflowConditionNodeBox.size}px"
-				style:height="{workflowConditionNodeBox.size}px"
+			<Button
+				variant="ghost"
+				class="{workflowNodeConditionButtonClass} absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 cursor-pointer"
+				style="width: {workflowConditionNodeBox.size}px; height: {workflowConditionNodeBox.size}px"
 				aria-label={label}
 				onclick={openSettings}
-				type="button"
 			>
 				<svg
 					class="size-full"
@@ -248,7 +253,7 @@
 						stroke-width={workflowConditionNodeBox.stroke}
 					/>
 				</svg>
-			</button>
+			</Button>
 			<NodeIcon
 				class="pointer-events-none absolute top-1/2 left-1/2 size-[1.875rem] -translate-x-1/2 -translate-y-1/2 {iconClass} {iconModifier ??
 					''}"
@@ -271,11 +276,11 @@
 		</div>
 	{:else}
 		<div class="relative z-20 mx-auto w-20">
-			<button
-				class="relative block size-20 cursor-pointer border-0 bg-transparent p-0"
+			<Button
+				variant="ghost"
+				class="{workflowNodeButtonClass} relative size-20 cursor-pointer"
 				aria-label={label}
 				onclick={openSettings}
-				type="button"
 			>
 				<svg
 					class="size-full"
@@ -317,7 +322,7 @@
 					class="pointer-events-none absolute inset-0 m-auto size-[2.1875rem] {iconClass} {iconModifier ??
 						''}"
 				/>
-			</button>
+			</Button>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
 		</div>
@@ -329,13 +334,13 @@
 	class="workflow-node-label pointer-events-none absolute z-0 w-max max-w-[11.25rem] text-center"
 	style:transform="translate(-50%, 0) translate({labelX}px, {labelY}px)"
 >
-	<button
-		class="pointer-events-auto max-w-[11.25rem] cursor-pointer border-0 bg-transparent p-0 text-center text-xs leading-tight text-foreground"
+	<Button
+		variant="ghost"
+		class="{workflowNodeLabelButtonClass} pointer-events-auto max-w-[11.25rem] cursor-pointer"
 		onclick={openSettings}
-		type="button"
 	>
 		{label}
-	</button>
+	</Button>
 	{#if data.incomplete}
 		<p class="text-[12.5px] leading-tight text-destructive">
 			{m.fan_action_flow_must_complete()}

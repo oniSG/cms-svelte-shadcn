@@ -15,6 +15,8 @@
 	import * as ButtonGroup from '$lib/components/ui/button-group';
 	import { cn } from '$lib/utils.js';
 
+	const workflowEdgeStrokeWidth = 1.5;
+
 	let {
 		id,
 		source,
@@ -69,11 +71,17 @@
 	);
 
 	const edgeStyle = $derived(
-		conditionBranch === 'yes'
-			? [style, 'stroke: var(--success)'].filter(Boolean).join('; ')
-			: conditionBranch === 'no'
-				? [style, 'stroke: var(--destructive)'].filter(Boolean).join('; ')
-				: style
+		[
+			style,
+			`stroke-width: ${workflowEdgeStrokeWidth}`,
+			conditionBranch === 'yes'
+				? 'stroke: var(--success)'
+				: conditionBranch === 'no'
+					? 'stroke: var(--destructive)'
+					: null
+		]
+			.filter(Boolean)
+			.join('; ')
 	);
 
 	function deleteEdge(event: MouseEvent) {
