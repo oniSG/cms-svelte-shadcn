@@ -163,7 +163,7 @@
 			{#each table.getRowModel().rows as row (row.id)}
 				<RowWrapper
 					row={row.original as Row}
-					drawer={click?.drawer}
+					sheet={click?.sheet}
 					href={click?.href}
 					onClick={click?.onClick}
 					menu={click?.menu}

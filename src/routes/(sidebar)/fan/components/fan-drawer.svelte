@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as Drawer from '$lib/components/ui/drawer/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { Badge } from '$lib/components/ui/badge';
 	import XIcon from '@lucide/svelte/icons/x';
 	import { tagColorClass } from '$lib/components/custom/table-page';
@@ -14,10 +14,10 @@
 	);
 </script>
 
-<Drawer.Header>
-	<Drawer.Title>{fan.first_name} {fan.surname}</Drawer.Title>
-	<Drawer.Description>{fan.email}</Drawer.Description>
-</Drawer.Header>
+<Sheet.Header>
+	<Sheet.Title>{fan.first_name} {fan.surname}</Sheet.Title>
+	<Sheet.Description>{fan.email}</Sheet.Description>
+</Sheet.Header>
 
 <div class="space-y-4 px-4 text-sm">
 	<dl class="grid grid-cols-[max-content_1fr] gap-x-4 gap-y-2">
@@ -57,9 +57,9 @@
 	{/if}
 </div>
 
-<Drawer.Footer>
-	<Drawer.Close class={buttonVariants({ variant: 'outline' })}>
+<Sheet.Footer>
+	<Sheet.Close class={buttonVariants({ variant: 'outline' })}>
 		<XIcon />
 		Close
-	</Drawer.Close>
-</Drawer.Footer>
+	</Sheet.Close>
+</Sheet.Footer>

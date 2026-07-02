@@ -12,7 +12,7 @@
 	import * as ButtonGroup from '$lib/components/ui/button-group';
 	import * as InputGroup from '$lib/components/ui/input-group';
 	import CopyIcon from '@lucide/svelte/icons/copy';
-	import * as Drawer from '$lib/components/ui/drawer/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
 
 	import * as m from '$lib/paraglide/messages.js';
 </script>
@@ -24,13 +24,15 @@
 		{ title: m.nav_set_fans_sending_domains() }
 	]}
 >
-	<Drawer.Root direction="right">
-		<Drawer.Trigger>
-			<Button variant="outline" size="icon">
-				<InfoIcon />
-			</Button>
-		</Drawer.Trigger>
-		<Drawer.Content>
+	<Sheet.Root>
+		<Sheet.Trigger>
+			{#snippet child({ props })}
+				<Button {...props} variant="outline" size="icon">
+					<InfoIcon />
+				</Button>
+			{/snippet}
+		</Sheet.Trigger>
+		<Sheet.Content>
 			<div
 				class="prose prose-sm min-h-0 flex-1 overflow-y-auto px-6 py-6 dark:prose-invert prose-code:before:content-none prose-code:after:content-none"
 			>
@@ -64,8 +66,8 @@
 					<li>{m.domain_drawer_trouble_spf()}</li>
 				</ul>
 			</div>
-		</Drawer.Content>
-	</Drawer.Root>
+		</Sheet.Content>
+	</Sheet.Root>
 	<Button variant="secondary">
 		<RefreshCcwIcon />
 		{m.nav_set_fans_sending_domains_recheck()}

@@ -160,7 +160,7 @@
 		fields: ['surname', 'first_name', 'email', 'phone', 'city', 'partner', 'id']
 	}}
 	defaultSort={{ id: 'surname', desc: false }}
-	click={{ drawer: fanDrawer }}
+	click={{ sheet: fanSheet }}
 	{rowActions}
 	rowActionsTitle={(f) => `${f.first_name} ${f.surname}`}
 	selectable
@@ -170,7 +170,7 @@
 	onDeleteSelected={(ids) => console.log('bulk delete', ids)}
 />
 
-{#snippet fanDrawer(fan: Fan)}
+{#snippet fanSheet(fan: Fan)}
 	<FanDrawer {fan} />
 {/snippet}
 

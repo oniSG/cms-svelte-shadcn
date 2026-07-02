@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as Drawer from '$lib/components/ui/drawer/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import CopyIcon from '@lucide/svelte/icons/copy';
@@ -23,13 +23,13 @@
 	}
 </script>
 
-<Drawer.Header>
-	<Drawer.Title>{m.log_drawer_title({ id: log.id })}</Drawer.Title>
-</Drawer.Header>
+<Sheet.Header>
+	<Sheet.Title>{m.log_drawer_title({ id: log.id })}</Sheet.Title>
+</Sheet.Header>
 <div class="no-scrollbar overflow-y-auto px-4">
 	<CodeBlock code={logJson} />
 </div>
-<Drawer.Footer class="flex gap-2">
+<Sheet.Footer class="flex gap-2">
 	<Button variant="outline" onclick={copyLog}>
 		{#if copied}
 			<CheckIcon class="text-emerald-500" />
@@ -39,8 +39,8 @@
 			{m.log_drawer_copy()}
 		{/if}
 	</Button>
-	<Drawer.Close class={buttonVariants({ variant: 'outline' })}>
+	<Sheet.Close class={buttonVariants({ variant: 'outline' })}>
 		<XIcon />
 		{m.log_drawer_close()}
-	</Drawer.Close>
-</Drawer.Footer>
+	</Sheet.Close>
+</Sheet.Footer>
