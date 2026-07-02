@@ -332,7 +332,7 @@
 	"fan_action_flow_email_subject_label": "Email subject",
 	"fan_action_flow_email_subject_placeholder": "Email subject",
 	"fan_action_flow_email_template_label": "Email template",
-	"fan_action_flow_email_template_placeholder": "-- Email template --",
+	"fan_action_flow_email_template_placeholder": "Email template",
 	"fan_action_flow_email_send_copy": "Send a copy of the e-mail to connected visitors",
 	"fan_action_flow_email_consent_title": "Marketing consent settings for email",
 	"fan_action_flow_email_consent_marketing": "Marketing purpose",

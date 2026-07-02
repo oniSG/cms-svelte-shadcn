@@ -334,7 +334,7 @@
 	"fan_action_flow_email_subject_label": "Předmět e-mailu",
 	"fan_action_flow_email_subject_placeholder": "Předmět e-mailu",
 	"fan_action_flow_email_template_label": "Šablona e-mailu",
-	"fan_action_flow_email_template_placeholder": "-- Šablona e-mailu --",
+	"fan_action_flow_email_template_placeholder": "Šablona e-mailu",
 	"fan_action_flow_email_send_copy": "Odeslat kopii e-mailu připojeným návštěvníkům",
 	"fan_action_flow_email_consent_title": "Nastavení marketingového souhlasu pro e-mail",
 	"fan_action_flow_email_consent_marketing": "Marketingové účely",

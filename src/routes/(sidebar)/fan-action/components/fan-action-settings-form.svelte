@@ -42,7 +42,7 @@
 						<button
 							{...props}
 							type="button"
-							class="inline-flex shrink-0 rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
+							class="inline-flex shrink-0 cursor-pointer rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
 						>
 							<Info class="size-3.5" />
 							<span class="sr-only">{m.fan_action_settings_planned_run_out()}</span>
@@ -61,6 +61,4 @@
 		</div>
 		<Switch bind:checked={plannedRunOut} id="planned-run-out" />
 	</div>
-
-	
 </div>

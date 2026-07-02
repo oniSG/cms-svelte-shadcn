@@ -133,7 +133,7 @@
 													<button
 														{...props}
 														type="button"
-														class="inline-flex shrink-0 rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
+														class="inline-flex shrink-0 cursor-pointer rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
 														onclick={(event) => event.stopPropagation()}
 													>
 														<Info class="size-3.5" />
