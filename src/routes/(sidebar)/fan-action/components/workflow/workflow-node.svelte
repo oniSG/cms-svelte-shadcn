@@ -15,14 +15,18 @@
 	import { getWorkflowConfigureNode, getWorkflowEditingNode } from './workflow-context';
 	import {
 		workflowNodeChartColors as colors,
+		workflowNodeBoxClasses,
+		workflowNodeEditingBorderClass,
 		workflowNodeIconClass,
-		workflowNodeSurfaceClass
+		workflowTriggerShapeStyles
 	} from './workflow-node-colors';
 	import { workflowItemIcon, workflowItemIconModifier } from './workflow-icons';
 	import Copy from '@lucide/svelte/icons/copy';
 	import Layers from '@lucide/svelte/icons/layers';
 	import X from '@lucide/svelte/icons/x';
 	import * as m from '$lib/paraglide/messages.js';
+
+	const triggerPath = 'M2 2H55.72L76 29L55.72 56H2V2Z';
 
 	let { id, data }: NodeProps<Node<WorkflowNodeData>> = $props();
 
@@ -33,11 +37,12 @@
 	const onConfigureNode = getWorkflowConfigureNode();
 	const editingNode = getWorkflowEditingNode();
 	const isEditing = $derived(editingNode?.nodeId === id);
-	const nodeSurfaceClass = $derived(workflowNodeSurfaceClass(data.itemId, data.variant, isEditing));
+	const boxClasses = $derived(workflowNodeBoxClasses(data.itemId, data.variant, isEditing));
+	const triggerShapeStyles = $derived(workflowTriggerShapeStyles(isEditing));
+	const editingBorderClass = $derived(isEditing ? workflowNodeEditingBorderClass : undefined);
 	const iconClass = $derived(workflowNodeIconClass(data.itemId, data.variant));
 	const NodeIcon = $derived(workflowItemIcon(data.itemId, data.variant));
 	const iconModifier = $derived(workflowItemIconModifier(data.itemId, data.variant));
-	const triggerSvgFill = $derived(isEditing ? colors.triggerSvgFillEditing : colors.triggerSvgFill);
 
 	let toolbarVisible = $state(false);
 	let hideToolbarTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -126,13 +131,21 @@
 					<svg
 						class="absolute inset-0 size-full overflow-visible"
 						viewBox="0 0 78 58"
-						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
 						aria-hidden="true"
 					>
+						<path d={triggerPath} fill={triggerShapeStyles.backgroundFill} stroke="none" />
 						<path
-							d="M2 2H55.72L76 29L55.72 56H2V2Z"
-							class="{triggerSvgFill} {colors.triggerSvgStroke}"
+							d={triggerPath}
+							fill={triggerShapeStyles.tintFill}
+							fill-opacity={triggerShapeStyles.tintOpacity}
+							stroke="none"
+						/>
+						<path
+							d={triggerPath}
+							class={editingBorderClass}
+							fill="none"
+							stroke={triggerShapeStyles.stroke}
 							stroke-width="2"
 							stroke-linejoin="round"
 						/>
@@ -147,14 +160,34 @@
 	{:else if data.variant === 'condition'}
 		<div class="relative z-20 mx-auto w-14">
 			<button
-				class="relative block w-full cursor-pointer border-0 bg-transparent p-0"
+				class="relative block size-14 cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
 				onclick={openSettings}
 				type="button"
 			>
-				<div class="flex size-14 items-center justify-center rounded-lg shadow-sm transition-colors {nodeSurfaceClass}">
-					<NodeIcon class="size-6 {iconClass} {iconModifier ?? ''}" />
+				<div class="absolute inset-0 overflow-hidden rounded-lg bg-background">
+					<div class="absolute inset-0 {boxClasses.tintClass}" aria-hidden="true"></div>
 				</div>
+				<svg
+					class="pointer-events-none absolute inset-0 size-full"
+					viewBox="0 0 56 56"
+					aria-hidden="true"
+				>
+					<rect
+						x="1"
+						y="1"
+						width="54"
+						height="54"
+						rx="8"
+						class="{boxClasses.stroke} {editingBorderClass}"
+						fill="none"
+						stroke-width="2"
+					/>
+				</svg>
+				<NodeIcon
+					class="pointer-events-none absolute inset-0 m-auto size-6 {iconClass} {iconModifier ??
+						''}"
+				/>
 			</button>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
 			<Handle
@@ -175,14 +208,34 @@
 	{:else}
 		<div class="relative z-20 mx-auto w-16">
 			<button
-				class="relative block cursor-pointer border-0 bg-transparent p-0"
+				class="relative block size-16 cursor-pointer border-0 bg-transparent p-0"
 				aria-label={label}
 				onclick={openSettings}
 				type="button"
 			>
-				<div class="flex size-16 items-center justify-center rounded-lg shadow-sm transition-colors {nodeSurfaceClass}">
-					<NodeIcon class="size-7 {iconClass} {iconModifier ?? ''}" />
+				<div class="absolute inset-0 overflow-hidden rounded-[10px] bg-background">
+					<div class="absolute inset-0 {boxClasses.tintClass}" aria-hidden="true"></div>
 				</div>
+				<svg
+					class="pointer-events-none absolute inset-0 size-full"
+					viewBox="0 0 64 64"
+					aria-hidden="true"
+				>
+					<rect
+						x="1"
+						y="1"
+						width="62"
+						height="62"
+						rx="10"
+						class="{boxClasses.stroke} {editingBorderClass}"
+						fill="none"
+						stroke-width="2"
+					/>
+				</svg>
+				<NodeIcon
+					class="pointer-events-none absolute inset-0 m-auto size-7 {iconClass} {iconModifier ??
+						''}"
+				/>
 			</button>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
