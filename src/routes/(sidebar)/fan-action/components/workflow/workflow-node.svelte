@@ -12,7 +12,7 @@
 	import type { WorkflowNodeData } from './workflow-types';
 	import { createNodeId } from './workflow-data';
 	import { workflowItemLabel } from './workflow-labels';
-	import { getWorkflowConfigureNode } from './workflow-context';
+	import { getWorkflowConfigureNode, getWorkflowEditingNode } from './workflow-context';
 	import {
 		workflowNodeChartColors as colors,
 		workflowNodeIconClass,
@@ -30,15 +30,17 @@
 	const nodesStore = useNodes();
 
 	const label = $derived(workflowItemLabel(data.itemId));
-	const surfaceClass = $derived(workflowNodeSurfaceClass(data.itemId, data.variant));
+	const onConfigureNode = getWorkflowConfigureNode();
+	const editingNode = getWorkflowEditingNode();
+	const isEditing = $derived(editingNode?.nodeId === id);
+	const nodeSurfaceClass = $derived(workflowNodeSurfaceClass(data.itemId, data.variant, isEditing));
 	const iconClass = $derived(workflowNodeIconClass(data.itemId, data.variant));
 	const NodeIcon = $derived(workflowItemIcon(data.itemId, data.variant));
 	const iconModifier = $derived(workflowItemIconModifier(data.itemId, data.variant));
+	const triggerSvgFill = $derived(isEditing ? colors.triggerSvgFillEditing : colors.triggerSvgFill);
 
 	let toolbarVisible = $state(false);
 	let hideToolbarTimeout: ReturnType<typeof setTimeout> | undefined;
-
-	const onConfigureNode = getWorkflowConfigureNode();
 
 	function showToolbar() {
 		if (hideToolbarTimeout) clearTimeout(hideToolbarTimeout);
@@ -130,7 +132,7 @@
 					>
 						<path
 							d="M2 2H55.72L76 29L55.72 56H2V2Z"
-							class="{colors.triggerSvgFill} {colors.triggerSvgStroke}"
+							class="{triggerSvgFill} {colors.triggerSvgStroke}"
 							stroke-width="2"
 							stroke-linejoin="round"
 						/>
@@ -150,7 +152,7 @@
 				onclick={openSettings}
 				type="button"
 			>
-				<div class="flex size-14 items-center justify-center rounded-lg shadow-sm {surfaceClass}">
+				<div class="flex size-14 items-center justify-center rounded-lg shadow-sm transition-colors {nodeSurfaceClass}">
 					<NodeIcon class="size-6 {iconClass} {iconModifier ?? ''}" />
 				</div>
 			</button>
@@ -178,7 +180,7 @@
 				onclick={openSettings}
 				type="button"
 			>
-				<div class="flex size-16 items-center justify-center rounded-lg shadow-sm {surfaceClass}">
+				<div class="flex size-16 items-center justify-center rounded-lg shadow-sm transition-colors {nodeSurfaceClass}">
 					<NodeIcon class="size-7 {iconClass} {iconModifier ?? ''}" />
 				</div>
 			</button>

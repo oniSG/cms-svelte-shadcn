@@ -6,7 +6,7 @@
 	import WorkflowToolbar from './workflow-toolbar.svelte';
 	import WorkflowPaletteSheet from './workflow-palette-sheet.svelte';
 	import WorkflowNodeDrawerHost from './workflow-node-drawer-host.svelte';
-	import { setWorkflowConfigureNode } from './workflow-context';
+	import { setWorkflowConfigureNode, setWorkflowEditingNode } from './workflow-context';
 	import { createInitialFlow } from './workflow-data';
 	import type { WorkflowNodeData } from './workflow-types';
 
@@ -26,6 +26,7 @@
 
 	let drawerOpen = $state(false);
 	let activeNodeId = $state<string | null>(null);
+	const editingNode = $state<{ nodeId: string | null }>({ nodeId: null });
 	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
 
 	function handleSave() {
@@ -39,14 +40,19 @@
 	}
 
 	setWorkflowConfigureNode(openNodeDrawer);
+	setWorkflowEditingNode(editingNode);
+
+	$effect(() => {
+		editingNode.nodeId = drawerOpen ? activeNodeId : null;
+	});
 </script>
 
 {#if browser}
 	<SvelteFlowProvider>
-		<div class="flex h-full w-full overflow-hidden">
+		<div class="flex h-full min-w-0 w-full overflow-hidden">
 			<WorkflowPaletteSheet />
 
-			<div class="relative min-h-0 min-w-0 flex-1">
+			<div class="relative min-h-0 min-w-0 w-0 flex-1">
 				<WorkflowCanvas bind:nodes bind:edges />
 
 				<!-- 
@@ -59,9 +65,9 @@
 				</div>
 				-->
 			</div>
-		</div>
 
-		<WorkflowNodeDrawerHost bind:open={drawerOpen} node={activeNode} />
+			<WorkflowNodeDrawerHost bind:open={drawerOpen} node={activeNode} />
+		</div>
 	</SvelteFlowProvider>
 {:else}
 	<div class="relative h-full w-full bg-muted/20"></div>
