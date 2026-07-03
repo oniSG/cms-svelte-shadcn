@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
-	import WorkflowSidebar from './workflow-sidebar.svelte';
+	import PalettePanel from './palette-panel.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
 
 	let { action = null }: { action?: FanAction | null } = $props();
@@ -22,7 +22,7 @@
 				<Sheet.Title>Workflow palette</Sheet.Title>
 			</Sheet.Header>
 
-			<WorkflowSidebar {action} />
+			<PalettePanel {action} />
 		</Sheet.Content>
 	</Sheet.Root>
 </div>

@@ -13,3 +13,8 @@ export type WorkflowPaletteItem = {
 };
 
 export const WORKFLOW_DRAG_MIME = 'application/fan-action-workflow-node';
+
+export type WorkflowDrawerContentProps = {
+	nodeId: string;
+	data: WorkflowNodeData;
+};

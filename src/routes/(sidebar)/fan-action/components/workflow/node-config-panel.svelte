@@ -4,8 +4,8 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
 	import X from '@lucide/svelte/icons/x';
-	import type { WorkflowNodeData } from './workflow-types';
-	import { workflowItemLabel } from './workflow-labels';
+	import type { WorkflowNodeData } from './types';
+	import { workflowItemLabel } from './item-labels';
 	import { workflowDrawerContent } from './drawers/registry';
 
 	let {

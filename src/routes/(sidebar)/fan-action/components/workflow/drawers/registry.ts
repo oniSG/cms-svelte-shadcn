@@ -1,7 +1,7 @@
 import type { Component } from 'svelte';
-import type { WorkflowDrawerContentProps } from '../workflow-drawer-types';
-import EmailDrawerContent from './email-drawer-content.svelte';
-import FallbackDrawerContent from './fallback-drawer-content.svelte';
+import type { WorkflowDrawerContentProps } from '../types';
+import EmailDrawerContent from './email.svelte';
+import FallbackDrawerContent from './fallback.svelte';
 
 export const workflowDrawerRegistry: Record<string, Component<WorkflowDrawerContentProps>> = {
 	email: EmailDrawerContent

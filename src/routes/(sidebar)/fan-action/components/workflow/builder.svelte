@@ -2,12 +2,12 @@
 	import { browser } from '$app/environment';
 	import { SvelteFlowProvider, type Edge, type Node } from '@xyflow/svelte';
 	import '@xyflow/svelte/dist/style.css';
-	import WorkflowCanvas from './workflow-canvas.svelte';
-	import WorkflowPaletteSheet from './workflow-palette-sheet.svelte';
-	import WorkflowNodeDrawerHost from './workflow-node-drawer-host.svelte';
-	import { setWorkflowConfigureNode, setWorkflowEditingNodeId } from './workflow-context';
-	import { createInitialFlow } from './workflow-data';
-	import type { WorkflowNodeData } from './workflow-types';
+	import Canvas from './canvas.svelte';
+	import PaletteSheet from './palette-sheet.svelte';
+	import NodeConfigPanel from './node-config-panel.svelte';
+	import { setWorkflowConfigureNode, setWorkflowEditingNodeId } from './editing-context';
+	import { createInitialFlow } from './initial-flow';
+	import type { WorkflowNodeData } from './types';
 	import type { FanAction } from '$lib/types/fan-action.js';
 
 	const initialFlow = createInitialFlow();
@@ -39,13 +39,13 @@
 {#if browser}
 	<SvelteFlowProvider>
 		<div class="flex h-full w-full min-w-0 overflow-hidden">
-			<WorkflowPaletteSheet {action} />
+			<PaletteSheet {action} />
 
 			<div class="relative min-h-0 w-0 min-w-0 flex-1">
-				<WorkflowCanvas bind:nodes bind:edges />
+				<Canvas bind:nodes bind:edges />
 			</div>
 
-			<WorkflowNodeDrawerHost bind:open={drawerOpen} node={activeNode} />
+			<NodeConfigPanel bind:open={drawerOpen} node={activeNode} />
 		</div>
 	</SvelteFlowProvider>
 {:else}

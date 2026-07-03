@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../workflow-drawer-types';
+	import type { WorkflowDrawerContentProps } from '../types';
 
 	let { data }: WorkflowDrawerContentProps = $props();
 </script>

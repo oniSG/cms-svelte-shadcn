@@ -15,7 +15,7 @@ import Gauge from '@lucide/svelte/icons/gauge';
 import List from '@lucide/svelte/icons/list';
 import Gift from '@lucide/svelte/icons/gift';
 import X from '@lucide/svelte/icons/x';
-import type { WorkflowNodeVariant } from './workflow-types';
+import type { WorkflowNodeVariant } from './types';
 
 export function workflowItemIcon(itemId: string, variant: WorkflowNodeVariant): Component {
 	if (itemId === 'run-now') return FastForward;

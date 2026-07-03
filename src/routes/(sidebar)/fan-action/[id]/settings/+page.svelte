@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import WorkflowBuilder from '../../components/workflow/workflow-builder.svelte';
+	import WorkflowBuilder from '../../components/workflow/builder.svelte';
 	import { data } from '../../data.js';
 
 	const actionId = $derived(Number(page.params.id));

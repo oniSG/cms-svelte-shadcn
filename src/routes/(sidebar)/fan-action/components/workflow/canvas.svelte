@@ -9,17 +9,17 @@
 		type Edge,
 		type Node
 	} from '@xyflow/svelte';
-	import WorkflowNode from './workflow-node.svelte';
-	import WorkflowEdge from './workflow-edge.svelte';
-	import WorkflowZoomControls from './workflow-zoom-controls.svelte';
-	import WorkflowDrawerFitView from './workflow-drawer-fit-view.svelte';
-	import { createNodeId } from './workflow-data';
-	import type { WorkflowNodeData, WorkflowPaletteItem } from './workflow-types';
-	import { WORKFLOW_DRAG_MIME } from './workflow-types';
+	import FlowNode from './node.svelte';
+	import FlowEdge from './edge.svelte';
+	import ZoomControls from './zoom-controls.svelte';
+	import FitViewOnResize from './fit-view-on-resize.svelte';
+	import { createNodeId } from './flow-utils';
+	import type { WorkflowNodeData, WorkflowPaletteItem } from './types';
+	import { WORKFLOW_DRAG_MIME } from './types';
 	import { mode } from 'mode-watcher';
 
-	const nodeTypes = { workflow: WorkflowNode };
-	const edgeTypes = { workflow: WorkflowEdge };
+	const nodeTypes = { workflow: FlowNode };
+	const edgeTypes = { workflow: FlowEdge };
 
 	const flowColorMode = $derived(mode.current === 'dark' ? 'dark' : 'light');
 
@@ -85,17 +85,8 @@
 		onconnect={onConnect}
 	>
 		<Background gap={16} size={1} variant={BackgroundVariant.Dots} />
-		<WorkflowZoomControls />
-		<WorkflowDrawerFitView />
+		<ZoomControls />
+		<FitViewOnResize />
 	</SvelteFlow>
 </div>
 
-<style>
-	:global(.workflow-flow .workflow-node-label) {
-		z-index: 0;
-	}
-
-	:global(.workflow-flow .workflow-edge-label) {
-		z-index: 10;
-	}
-</style>

@@ -4,13 +4,13 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
 	import Info from '@lucide/svelte/icons/info';
-	import type { WorkflowPaletteItem } from './workflow-types';
-	import { WORKFLOW_DRAG_MIME } from './workflow-types';
-	import { workflowItemDescription, workflowItemLabel } from './workflow-labels';
-	import { workflowItemIcon, workflowItemIconModifier } from './workflow-icons';
-	import { workflowPaletteSectionBgClass } from './workflow-node-colors';
-	import FanActionBasicForm from '../fan-action-basic-form.svelte';
-	import FanActionSettingsForm from '../fan-action-settings-form.svelte';
+	import type { WorkflowPaletteItem } from './types';
+	import { WORKFLOW_DRAG_MIME } from './types';
+	import { workflowItemDescription, workflowItemLabel } from './item-labels';
+	import { workflowItemIcon, workflowItemIconModifier } from './item-icons';
+	import { workflowPaletteSectionBgClass } from './node-colors';
+	import BasicInfoForm from '../basic-info-form.svelte';
+	import SettingsForm from '../settings-form.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -180,7 +180,7 @@
 				{m.fan_action_flow_accordion_basic_info()}
 			</Accordion.Trigger>
 			<Accordion.Content class={accordionContentClass}>
-				<FanActionBasicForm {action} />
+				<BasicInfoForm {action} />
 			</Accordion.Content>
 		</Accordion.Item>
 
@@ -198,7 +198,7 @@
 				{m.fan_action_tab_settings()}
 			</Accordion.Trigger>
 			<Accordion.Content class={accordionContentClass}>
-				<FanActionSettingsForm />
+				<SettingsForm />
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion.Root>

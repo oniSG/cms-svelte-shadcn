@@ -1,33 +1,6 @@
 import type { Edge, Node } from '@xyflow/svelte';
-import type { WorkflowNodeData } from './workflow-types';
-
-function inferConditionSourceHandle(
-	sourceNode: Node<WorkflowNodeData>,
-	targetNode: Node<WorkflowNodeData>
-): 'yes' | 'no' {
-	if (targetNode.position.y < sourceNode.position.y) return 'yes';
-	if (targetNode.position.y > sourceNode.position.y) return 'no';
-	return 'yes';
-}
-
-export function normalizeWorkflowEdges(nodes: Node<WorkflowNodeData>[], edges: Edge[]): Edge[] {
-	const nodeById = new Map(nodes.map((node) => [node.id, node]));
-
-	return edges.map((edge) => {
-		if (edge.sourceHandle) return edge;
-
-		const sourceNode = nodeById.get(edge.source);
-		if (sourceNode?.data.variant !== 'condition') return edge;
-
-		const targetNode = nodeById.get(edge.target);
-		if (!targetNode) return edge;
-
-		return {
-			...edge,
-			sourceHandle: inferConditionSourceHandle(sourceNode, targetNode)
-		};
-	});
-}
+import type { WorkflowNodeData } from './types';
+import { normalizeWorkflowEdges } from './flow-utils';
 
 export function createInitialFlow(): { nodes: Node<WorkflowNodeData>[]; edges: Edge[] } {
 	const nodes: Node<WorkflowNodeData>[] = [
@@ -47,7 +20,7 @@ export function createInitialFlow(): { nodes: Node<WorkflowNodeData>[]; edges: E
 			id: 'condition-2',
 			type: 'workflow',
 			position: { x: 500, y: 30 },
-			data: { itemId: 'condition', variant: 'condition' }
+			data: { itemId: 'condition', variant: 'condition', incomplete: true }
 		},
 		{
 			id: 'condition-3',
@@ -95,8 +68,4 @@ export function createInitialFlow(): { nodes: Node<WorkflowNodeData>[]; edges: E
 	]);
 
 	return { nodes, edges };
-}
-
-export function createNodeId() {
-	return `node-${crypto.randomUUID().slice(0, 8)}`;
 }

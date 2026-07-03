@@ -1,4 +1,4 @@
-import type { WorkflowNodeVariant } from './workflow-types';
+import type { WorkflowNodeVariant } from './types';
 
 export type WorkflowPaletteSection = 'triggers' | 'operators' | 'actions';
 

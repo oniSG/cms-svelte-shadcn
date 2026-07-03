@@ -10,10 +10,10 @@
 		type NodeProps
 	} from '@xyflow/svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import type { WorkflowNodeData } from './workflow-types';
-	import { createNodeId } from './workflow-data';
-	import { workflowItemLabel } from './workflow-labels';
-	import { getWorkflowConfigureNode, getWorkflowEditingNodeId } from './workflow-context';
+	import type { WorkflowNodeData } from './types';
+	import { createNodeId } from './flow-utils';
+	import { workflowItemLabel } from './item-labels';
+	import { getWorkflowConfigureNode, getWorkflowEditingNodeId } from './editing-context';
 	import {
 		workflowNodeBoxShapeStyles,
 		workflowNodeEditingBorderClass,
@@ -24,9 +24,9 @@
 		workflowActionNodeBox,
 		workflowTriggerNodeBox,
 		workflowNodeBoxRect
-	} from './workflow-node-colors';
-	import { workflowConditionBranchStyles } from './workflow-condition-branch-styles';
-	import { workflowItemIcon, workflowItemIconModifier } from './workflow-icons';
+	} from './node-colors';
+	import { workflowConditionBranchStyles } from './condition-branch-styles';
+	import { workflowItemIcon, workflowItemIconModifier } from './item-icons';
 	import Copy from '@lucide/svelte/icons/copy';
 	import X from '@lucide/svelte/icons/x';
 	import * as m from '$lib/paraglide/messages.js';

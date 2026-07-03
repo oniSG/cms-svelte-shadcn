@@ -7,8 +7,8 @@
 		type EdgeProps,
 		type Node
 	} from '@xyflow/svelte';
-	import type { WorkflowNodeData } from './workflow-types';
-	import { workflowConditionBranchStyle } from './workflow-condition-branch-styles';
+	import type { WorkflowNodeData } from './types';
+	import { workflowConditionBranchStyle } from './condition-branch-styles';
 	import X from '@lucide/svelte/icons/x';
 	import UserIcon from '@lucide/svelte/icons/user';
 	import { Button } from '$lib/components/ui/button';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../workflow-drawer-types';
+	import type { WorkflowDrawerContentProps } from '../types';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
