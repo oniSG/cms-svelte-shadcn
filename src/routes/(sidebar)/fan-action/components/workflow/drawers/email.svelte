@@ -4,20 +4,18 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
+	import { Separator } from "$lib/components/ui/separator/index.js";
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {}: WorkflowDrawerContentProps = $props();
 
 	const labelClass = 'text-sm font-medium text-muted-foreground';
-	const sectionTitleClass = 'text-base font-semibold';
+	const selectTriggerClass = 'w-full border border-border bg-background';
 
-	const emailPrefixes = ['info', 'news', 'support'];
-	const emailDomains = ['relatoo.cz', 'example.com'];
 	const emailTemplates = ['welcome-email', 'event-reminder', 'newsletter'];
 
 	let note = $state('');
-	let emailPrefix = $state('info');
-	let emailDomain = $state('relatoo.cz');
+	let senderEmail = $state('');
 	let replyEmail = $state('');
 	let subject = $state('');
 	let emailTemplate = $state('');
@@ -41,46 +39,18 @@
 		/>
 	</div>
 
-	<div class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-end gap-3">
-		<div class="space-y-2">
-			<Label class={labelClass}>
-				{m.fan_action_flow_email_prefix_label()}
-				<span class="text-destructive">*</span>
-			</Label>
-			<Select.Root type="single" bind:value={emailPrefix}>
-				<Select.Trigger class="w-full rounded-md">
-					{emailPrefix}
-				</Select.Trigger>
-				<Select.Content>
-					<Select.Group>
-						{#each emailPrefixes as prefix (prefix)}
-							<Select.Item value={prefix} label={prefix}>{prefix}</Select.Item>
-						{/each}
-					</Select.Group>
-				</Select.Content>
-			</Select.Root>
-		</div>
-
-		<span class="pb-2 text-muted-foreground">@</span>
-
-		<div class="space-y-2">
-			<Label class={labelClass}>
-				{m.fan_action_flow_email_domain_label()}
-				<span class="text-destructive">*</span>
-			</Label>
-			<Select.Root type="single" bind:value={emailDomain}>
-				<Select.Trigger class="w-full rounded-md">
-					{emailDomain}
-				</Select.Trigger>
-				<Select.Content>
-					<Select.Group>
-						{#each emailDomains as domain (domain)}
-							<Select.Item value={domain} label={domain}>{domain}</Select.Item>
-						{/each}
-					</Select.Group>
-				</Select.Content>
-			</Select.Root>
-		</div>
+	<div class="space-y-2">
+		<Label class={labelClass} for="sender-email">
+			{m.fan_action_flow_email_sender_label()}
+			<span class="text-destructive">*</span>
+		</Label>
+		<Input
+			bind:value={senderEmail}
+			id="sender-email"
+			type="email"
+			placeholder={m.fan_action_flow_email_sender_placeholder()}
+			autocomplete="email"
+		/>
 	</div>
 
 	<div class="space-y-2">
@@ -113,7 +83,7 @@
 			<span class="text-destructive">*</span>
 		</Label>
 		<Select.Root type="single" bind:value={emailTemplate}>
-			<Select.Trigger class="w-full rounded-md">
+			<Select.Trigger class={selectTriggerClass}>
 				{#if emailTemplate}
 					{emailTemplate}
 				{:else}
@@ -137,7 +107,7 @@
 	</div>
 
 	<div class="space-y-4">
-		<h3 class={sectionTitleClass}>{m.fan_action_flow_email_consent_title()}</h3>
+		<Separator />
 		{#each consentPreferences as pref (pref.id)}
 			<div class="flex items-center justify-between gap-2">
 				<Label class={labelClass} for="email-consent-{pref.id}">
