@@ -1,5 +1,10 @@
 import * as m from '$lib/paraglide/messages.js';
 
+export function workflowDrawerTitle(itemId: string): string {
+	if (itemId === 'condition') return m.fan_action_flow_condition();
+	return workflowItemLabel(itemId);
+}
+
 export function workflowItemLabel(itemId: string): string {
 	switch (itemId) {
 		case 'run-now':

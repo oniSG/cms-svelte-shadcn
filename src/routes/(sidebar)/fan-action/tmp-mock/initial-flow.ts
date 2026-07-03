@@ -1,5 +1,5 @@
 import type { Edge, Node } from '@xyflow/svelte';
-import type { WorkflowNodeData } from './types';
+import type { WorkflowNodeData } from '../components/workflow/types';
 
 export function createInitialFlow(): { nodes: Node<WorkflowNodeData>[]; edges: Edge[] } {
 	const nodes: Node<WorkflowNodeData>[] = [

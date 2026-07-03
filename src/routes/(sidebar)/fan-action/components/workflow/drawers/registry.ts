@@ -3,12 +3,14 @@ import type { WorkflowDrawerContentProps } from '../types';
 import EmailDrawerContent from './email.svelte';
 import SmsDrawerContent from './sms.svelte';
 import PushDrawerContent from './push.svelte';
+import ConditionDrawerContent from './condition.svelte';
 import FallbackDrawerContent from './fallback.svelte';
 
 export const workflowDrawerRegistry: Record<string, Component<WorkflowDrawerContentProps>> = {
 	email: EmailDrawerContent,
 	sms: SmsDrawerContent,
-	push: PushDrawerContent
+	push: PushDrawerContent,
+	condition: ConditionDrawerContent
 };
 
 export function workflowDrawerContent(itemId: string): Component<WorkflowDrawerContentProps> {

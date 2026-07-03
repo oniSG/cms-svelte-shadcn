@@ -4,10 +4,7 @@
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
-	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
-	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up';
 	import Info from '@lucide/svelte/icons/info';
 	import { workflowMergeTags } from './merge-tags';
 	import * as m from '$lib/paraglide/messages.js';
@@ -34,7 +31,6 @@
 	let iosGroup = $state('');
 	let previewImageName = $state('');
 	let largeIconName = $state('');
-	let advancedOpen = $state(false);
 	let previewImageInput = $state<HTMLInputElement | null>(null);
 	let largeIconInput = $state<HTMLInputElement | null>(null);
 
@@ -199,115 +195,101 @@
 		</button>
 	</div>
 
-	<Collapsible.Root bind:open={advancedOpen}>
-		<Collapsible.Trigger
-			class="flex w-full items-center justify-between rounded-2xl bg-muted/40 px-4 py-3 text-sm font-semibold hover:bg-muted/60"
+	<div class="space-y-2">
+		{@render fieldLabelWithInfo(
+			m.fan_action_flow_push_small_icon_label(),
+			m.fan_action_flow_push_small_icon_description(),
+			'push-small-icon'
+		)}
+		<Input
+			bind:value={smallIcon}
+			id="push-small-icon"
+			class={fieldClass}
+			placeholder={m.fan_action_flow_push_small_icon_placeholder()}
+		/>
+	</div>
+
+	<div class="space-y-2">
+		{@render fieldLabelWithInfo(
+			m.fan_action_flow_push_large_icon_label(),
+			m.fan_action_flow_push_large_icon_description()
+		)}
+		<input
+			bind:this={largeIconInput}
+			id="push-large-icon"
+			type="file"
+			accept=".jpg,.jpeg,.png,.svg,image/jpeg,image/png,image/svg+xml"
+			class="sr-only"
+			tabindex={-1}
+			onchange={(e) => onFileSelected(e, (name) => (largeIconName = name))}
+			oncancel={onFilePickerCancel}
+		/>
+		<button
+			type="button"
+			class={uploadButtonClass}
+			onclick={() => openFilePicker(largeIconInput)}
 		>
-			{m.fan_action_flow_push_advanced_settings()}
-			{#if advancedOpen}
-				<ChevronUpIcon class="size-4 shrink-0 text-muted-foreground" />
+			{#if largeIconName}
+				<span class="font-medium text-foreground">{largeIconName}</span>
 			{:else}
-				<ChevronDownIcon class="size-4 shrink-0 text-muted-foreground" />
+				{m.fan_action_flow_push_large_icon_upload_hint()}
 			{/if}
-		</Collapsible.Trigger>
-		<Collapsible.Content class="space-y-6 pt-4">
-			<div class="space-y-2">
-				{@render fieldLabelWithInfo(
-					m.fan_action_flow_push_small_icon_label(),
-					m.fan_action_flow_push_small_icon_description(),
-					'push-small-icon'
-				)}
-				<Input
-					bind:value={smallIcon}
-					id="push-small-icon"
-					class={fieldClass}
-					placeholder={m.fan_action_flow_push_small_icon_placeholder()}
-				/>
-			</div>
+		</button>
+	</div>
 
-			<div class="space-y-2">
-				{@render fieldLabelWithInfo(
-					m.fan_action_flow_push_large_icon_label(),
-					m.fan_action_flow_push_large_icon_description()
-				)}
-				<input
-					bind:this={largeIconInput}
-					id="push-large-icon"
-					type="file"
-					accept=".jpg,.jpeg,.png,.svg,image/jpeg,image/png,image/svg+xml"
-					class="sr-only"
-					tabindex={-1}
-					onchange={(e) => onFileSelected(e, (name) => (largeIconName = name))}
-					oncancel={onFilePickerCancel}
-				/>
-				<button
-					type="button"
-					class={uploadButtonClass}
-					onclick={() => openFilePicker(largeIconInput)}
-				>
-					{#if largeIconName}
-						<span class="font-medium text-foreground">{largeIconName}</span>
-					{:else}
-						{m.fan_action_flow_push_large_icon_upload_hint()}
-					{/if}
-				</button>
-			</div>
+	<div class="space-y-2">
+		{@render fieldLabelWithInfo(
+			m.fan_action_flow_push_ios_sound_label(),
+			m.fan_action_flow_push_ios_sound_description(),
+			'push-ios-sound'
+		)}
+		<Input
+			bind:value={iosSound}
+			id="push-ios-sound"
+			class={fieldClass}
+			placeholder={m.fan_action_flow_push_ios_sound_placeholder()}
+		/>
+	</div>
 
-			<div class="space-y-2">
-				{@render fieldLabelWithInfo(
-					m.fan_action_flow_push_ios_sound_label(),
-					m.fan_action_flow_push_ios_sound_description(),
-					'push-ios-sound'
-				)}
-				<Input
-					bind:value={iosSound}
-					id="push-ios-sound"
-					class={fieldClass}
-					placeholder={m.fan_action_flow_push_ios_sound_placeholder()}
-				/>
-			</div>
+	<div class="space-y-2">
+		{@render fieldLabelWithInfo(
+			m.fan_action_flow_push_android_channel_label(),
+			m.fan_action_flow_push_android_channel_description(),
+			'push-android-channel'
+		)}
+		<Input
+			bind:value={androidChannel}
+			id="push-android-channel"
+			class={fieldClass}
+			placeholder={m.fan_action_flow_push_android_channel_placeholder()}
+		/>
+	</div>
 
-			<div class="space-y-2">
-				{@render fieldLabelWithInfo(
-					m.fan_action_flow_push_android_channel_label(),
-					m.fan_action_flow_push_android_channel_description(),
-					'push-android-channel'
-				)}
-				<Input
-					bind:value={androidChannel}
-					id="push-android-channel"
-					class={fieldClass}
-					placeholder={m.fan_action_flow_push_android_channel_placeholder()}
-				/>
-			</div>
+	<div class="space-y-2">
+		{@render fieldLabelWithInfo(
+			m.fan_action_flow_push_android_group_label(),
+			m.fan_action_flow_push_android_group_description(),
+			'push-android-group'
+		)}
+		<Input
+			bind:value={androidGroup}
+			id="push-android-group"
+			class={fieldClass}
+			placeholder={m.fan_action_flow_push_android_group_placeholder()}
+		/>
+	</div>
 
-			<div class="space-y-2">
-				{@render fieldLabelWithInfo(
-					m.fan_action_flow_push_android_group_label(),
-					m.fan_action_flow_push_android_group_description(),
-					'push-android-group'
-				)}
-				<Input
-					bind:value={androidGroup}
-					id="push-android-group"
-					class={fieldClass}
-					placeholder={m.fan_action_flow_push_android_group_placeholder()}
-				/>
-			</div>
-
-			<div class="space-y-2">
-				{@render fieldLabelWithInfo(
-					m.fan_action_flow_push_ios_group_label(),
-					m.fan_action_flow_push_ios_group_description(),
-					'push-ios-group'
-				)}
-				<Input
-					bind:value={iosGroup}
-					id="push-ios-group"
-					class={fieldClass}
-					placeholder={m.fan_action_flow_push_ios_group_placeholder()}
-				/>
-			</div>
-		</Collapsible.Content>
-	</Collapsible.Root>
+	<div class="space-y-2">
+		{@render fieldLabelWithInfo(
+			m.fan_action_flow_push_ios_group_label(),
+			m.fan_action_flow_push_ios_group_description(),
+			'push-ios-group'
+		)}
+		<Input
+			bind:value={iosGroup}
+			id="push-ios-group"
+			class={fieldClass}
+			placeholder={m.fan_action_flow_push_ios_group_placeholder()}
+		/>
+	</div>
 </div>
