@@ -5,7 +5,7 @@
 	import WorkflowCanvas from './workflow-canvas.svelte';
 	import WorkflowPaletteSheet from './workflow-palette-sheet.svelte';
 	import WorkflowNodeDrawerHost from './workflow-node-drawer-host.svelte';
-	import { setWorkflowConfigureNode, setWorkflowEditingNode } from './workflow-context';
+	import { setWorkflowConfigureNode, setWorkflowEditingNodeId } from './workflow-context';
 	import { createInitialFlow } from './workflow-data';
 	import type { WorkflowNodeData } from './workflow-types';
 	import type { FanAction } from '$lib/types/fan-action.js';
@@ -24,9 +24,8 @@
 
 	let drawerOpen = $state(false);
 	let activeNodeId = $state<string | null>(null);
-	let runFitView: (() => void) | null = null;
-	const editingNode = $state<{ nodeId: string | null }>({ nodeId: null });
 	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
+	const editingNodeId = $derived(drawerOpen ? activeNodeId : null);
 
 	function openNodeDrawer(nodeId: string) {
 		activeNodeId = nodeId;
@@ -34,34 +33,7 @@
 	}
 
 	setWorkflowConfigureNode(openNodeDrawer);
-	setWorkflowEditingNode(editingNode);
-
-	function handleFitViewReady(fitView: () => void) {
-		runFitView = fitView;
-	}
-
-	let skipInitialDrawerFit = true;
-
-	$effect(() => {
-		void drawerOpen;
-
-		if (skipInitialDrawerFit) {
-			skipInitialDrawerFit = false;
-			return;
-		}
-
-		if (!runFitView) return;
-
-		const timeout = setTimeout(() => {
-			runFitView?.();
-		}, 0);
-
-		return () => clearTimeout(timeout);
-	});
-
-	$effect(() => {
-		editingNode.nodeId = drawerOpen ? activeNodeId : null;
-	});
+	setWorkflowEditingNodeId(() => editingNodeId);
 </script>
 
 {#if browser}
@@ -70,7 +42,7 @@
 			<WorkflowPaletteSheet {action} />
 
 			<div class="relative min-h-0 w-0 min-w-0 flex-1">
-				<WorkflowCanvas bind:nodes bind:edges onFitViewReady={handleFitViewReady} />
+				<WorkflowCanvas bind:nodes bind:edges />
 			</div>
 
 			<WorkflowNodeDrawerHost bind:open={drawerOpen} node={activeNode} />

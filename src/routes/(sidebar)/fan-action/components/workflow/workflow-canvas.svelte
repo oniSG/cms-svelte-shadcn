@@ -25,12 +25,10 @@
 
 	let {
 		nodes = $bindable(),
-		edges = $bindable(),
-		onFitViewReady
+		edges = $bindable()
 	}: {
 		nodes: Node<WorkflowNodeData>[];
 		edges: Edge[];
-		onFitViewReady?: (fitView: () => void) => void;
 	} = $props();
 
 	const { screenToFlowPosition } = useSvelteFlow();
@@ -88,9 +86,10 @@
 	>
 		<Background gap={16} size={1} variant={BackgroundVariant.Dots} />
 		<WorkflowZoomControls />
-		<WorkflowDrawerFitView onReady={onFitViewReady} />
+		<WorkflowDrawerFitView />
 	</SvelteFlow>
 </div>
+
 <style>
 	:global(.workflow-flow .workflow-node-label) {
 		z-index: 0;
@@ -100,4 +99,3 @@
 		z-index: 10;
 	}
 </style>
-

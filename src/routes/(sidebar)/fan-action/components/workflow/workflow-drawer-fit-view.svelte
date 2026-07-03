@@ -4,8 +4,6 @@
 
 	const fitViewOptions = { padding: 0.2, duration: 0 };
 
-	let { onReady }: { onReady?: (fitView: () => void) => void } = $props();
-
 	const { getNodesBounds, setViewport } = useSvelteFlow();
 	const store = useStore();
 
@@ -39,11 +37,6 @@
 			void runFitView();
 		});
 	}
-
-	$effect(() => {
-		if (!onReady) return;
-		onReady(scheduleFitView);
-	});
 
 	$effect(() => {
 		const domNode = store.domNode;

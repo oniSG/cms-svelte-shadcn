@@ -13,9 +13,8 @@
 	import type { WorkflowNodeData } from './workflow-types';
 	import { createNodeId } from './workflow-data';
 	import { workflowItemLabel } from './workflow-labels';
-	import { getWorkflowConfigureNode, getWorkflowEditingNode } from './workflow-context';
+	import { getWorkflowConfigureNode, getWorkflowEditingNodeId } from './workflow-context';
 	import {
-		workflowNodeChartColors as colors,
 		workflowNodeBoxShapeStyles,
 		workflowNodeEditingBorderClass,
 		workflowNodeIconClass,
@@ -26,9 +25,9 @@
 		workflowTriggerNodeBox,
 		workflowNodeBoxRect
 	} from './workflow-node-colors';
+	import { workflowConditionBranchStyles } from './workflow-condition-branch-styles';
 	import { workflowItemIcon, workflowItemIconModifier } from './workflow-icons';
 	import Copy from '@lucide/svelte/icons/copy';
-	import Layers from '@lucide/svelte/icons/layers';
 	import X from '@lucide/svelte/icons/x';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -48,8 +47,8 @@
 
 	const label = $derived(workflowItemLabel(data.itemId));
 	const onConfigureNode = getWorkflowConfigureNode();
-	const editingNode = getWorkflowEditingNode();
-	const isEditing = $derived(editingNode?.nodeId === id);
+	const getEditingNodeId = getWorkflowEditingNodeId();
+	const isEditing = $derived(getEditingNodeId?.() === id);
 	const boxShapeStyles = $derived(workflowNodeBoxShapeStyles(data.itemId, data.variant, isEditing));
 	const conditionRect = workflowNodeBoxRect(
 		workflowConditionNodeBox.size,
@@ -103,10 +102,11 @@
 
 	const handleBase = '!size-[1.09375rem] !border-2';
 	const handleArrowClass = 'after:border-y-[3px] after:border-l-[4px]';
-	const handleInputClass = `${handleBase} relative !left-0 !border-foreground !bg-background after:pointer-events-none after:absolute after:top-1/2 after:left-[55%] after:h-0 after:w-0 after:-translate-x-1/2 after:-translate-y-1/2 after:border-y-transparent ${handleArrowClass} after:border-l-foreground after:content-['']`;
-	const handleNeutralClass = `${handleBase} relative !border-foreground !bg-background after:pointer-events-none after:absolute after:top-1/2 after:left-[55%] after:h-0 after:w-0 after:-translate-x-1/2 after:-translate-y-1/2 after:border-y-transparent ${handleArrowClass} after:border-l-foreground after:content-['']`;
-	const handleYesClass = `${handleBase} ${colors.conditionYesPort}`;
-	const handleNoClass = `${handleBase} ${colors.conditionNoPort}`;
+	const handleArrowStyles = `${handleBase} relative !border-foreground !bg-background after:pointer-events-none after:absolute after:top-1/2 after:left-[55%] after:h-0 after:w-0 after:-translate-x-1/2 after:-translate-y-1/2 after:border-y-transparent ${handleArrowClass} after:border-l-foreground after:content-['']`;
+	const handleInputClass = `${handleArrowStyles} !left-0`;
+	const handleNeutralClass = handleArrowStyles;
+	const handleYesClass = `${handleBase} ${workflowConditionBranchStyles.yes.port}`;
+	const handleNoClass = `${handleBase} ${workflowConditionBranchStyles.no.port}`;
 	const conditionHandleYesStyle = 'left: 75%; top: 25%; transform: translate(-50%, -50%);';
 	const conditionHandleNoStyle = 'left: 75%; top: 75%; transform: translate(-50%, -50%);';
 
@@ -141,9 +141,6 @@
 	>
 		<Button class="size-7" onclick={duplicateNode} size="icon" variant="ghost">
 			<Copy class="size-3.5" />
-		</Button>
-		<Button class="size-7" size="icon" variant="ghost">
-			<Layers class="size-3.5" />
 		</Button>
 		<Button
 			class="size-7 text-destructive hover:text-destructive"

@@ -46,26 +46,6 @@
 	<p class="text-muted-foreground">{m.fan_action_not_found()}</p>
 {:else}
 	<div class={cn('flex flex-col', isSettingsTab && 'min-h-0 flex-1 overflow-hidden')}>
-		<!--
-		<div class="flex shrink-0 justify-start px-4 pt-3">
-			<Tabs.Root value={activeTab}>
-				<Tabs.List class="w-fit shrink-0">
-					{#each FAN_ACTION_EDIT_TABS as tab (tab)}
-						<a
-							href={fanActionEditTabHref(actionId, tab)}
-							data-slot="tabs-trigger"
-							data-active={activeTab === tab ? true : undefined}
-							aria-current={activeTab === tab ? 'page' : undefined}
-							class={editTabTriggerClass}
-						>
-							{tabLabels[tab]()}
-						</a>
-					{/each}
-				</Tabs.List>
-			</Tabs.Root>
-		</div>
-		-->
-
 		<div class={cn(isSettingsTab ? 'min-h-0 flex-1' : 'px-4 pt-4 pb-8')}>
 			{@render children()}
 		</div>

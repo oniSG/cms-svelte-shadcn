@@ -97,8 +97,3 @@ export function workflowTriggerShapeStyles(editing = false): TriggerShapeStyles 
 export function workflowNodeIconClass(itemId: string, variant: WorkflowNodeVariant): string {
 	return workflowIconClassBySection[workflowPaletteSection(itemId, variant)];
 }
-
-export const workflowNodeChartColors = {
-	conditionYesPort: '!bg-chart-1 !border-chart-1',
-	conditionNoPort: '!bg-chart-8 !border-chart-8'
-} as const;
