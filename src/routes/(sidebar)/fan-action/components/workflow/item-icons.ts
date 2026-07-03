@@ -1,9 +1,4 @@
 import type { Component } from 'svelte';
-import FastForward from '@lucide/svelte/icons/fast-forward';
-import Calendar from '@lucide/svelte/icons/calendar';
-import Star from '@lucide/svelte/icons/star';
-import ShoppingCart from '@lucide/svelte/icons/shopping-cart';
-import LogIn from '@lucide/svelte/icons/log-in';
 import GitFork from '@lucide/svelte/icons/git-fork';
 import Mail from '@lucide/svelte/icons/mail';
 import MessageSquare from '@lucide/svelte/icons/message-square';
@@ -16,13 +11,11 @@ import List from '@lucide/svelte/icons/list';
 import Gift from '@lucide/svelte/icons/gift';
 import X from '@lucide/svelte/icons/x';
 import type { WorkflowNodeVariant } from './types';
+import { workflowTriggerDefinition } from './trigger-items';
 
 export function workflowItemIcon(itemId: string, variant: WorkflowNodeVariant): Component {
-	if (itemId === 'run-now') return FastForward;
-	if (itemId === 'schedule') return Calendar;
-	if (itemId === 'loyalty') return Star;
-	if (itemId === 'ticket' || itemId === 'season-ticket') return ShoppingCart;
-	if (itemId === 'attended') return LogIn;
+	const trigger = workflowTriggerDefinition(itemId);
+	if (trigger) return trigger.icon;
 	if (variant === 'condition' || itemId === 'condition') return GitFork;
 	if (itemId === 'sms') return MessageSquare;
 	if (itemId === 'push') return Smartphone;
@@ -38,8 +31,7 @@ export function workflowItemIcon(itemId: string, variant: WorkflowNodeVariant): 
 
 export function workflowItemIconModifier(
 	itemId: string,
-	variant: WorkflowNodeVariant
+	_variant: WorkflowNodeVariant
 ): string | undefined {
-	if (itemId === 'loyalty') return 'fill-current';
-	return undefined;
+	return workflowTriggerDefinition(itemId)?.iconModifier;
 }

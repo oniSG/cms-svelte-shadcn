@@ -8,7 +8,8 @@
 	import { WORKFLOW_DRAG_MIME } from './types';
 	import { workflowItemDescription, workflowItemLabel } from './item-labels';
 	import { workflowItemIcon, workflowItemIconModifier } from './item-icons';
-	import { workflowPaletteSectionBgClass } from './node-colors';
+	import { workflowPaletteSection, workflowPaletteSectionBgClass } from './node-colors';
+	import { workflowTriggerDefinitions } from './trigger-items';
 	import BasicInfoForm from '../basic-info-form.svelte';
 	import SettingsForm from '../settings-form.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
@@ -30,14 +31,10 @@
 		{
 			id: 'triggers',
 			label: m.fan_action_flow_tab_triggers(),
-			items: [
-				{ id: 'run-now', variant: 'trigger' },
-				{ id: 'schedule', variant: 'trigger' },
-				{ id: 'loyalty', variant: 'trigger' },
-				{ id: 'ticket', variant: 'trigger' },
-				{ id: 'season-ticket', variant: 'trigger' },
-				{ id: 'attended', variant: 'trigger' }
-			]
+			items: workflowTriggerDefinitions.map((trigger) => ({
+				id: trigger.id,
+				variant: 'trigger' as const
+			}))
 		},
 		{
 			id: 'operators',
@@ -92,6 +89,69 @@
 	}
 </script>
 
+{#snippet paletteItemRow(item: StyledPaletteItem)}
+	{@const Icon = workflowItemIcon(item.id, item.variant)}
+	{@const iconModifier = workflowItemIconModifier(item.id, item.variant)}
+	{@const itemPaletteSection = workflowPaletteSection(item.id, item.variant)}
+	<li>
+		<div class="flex w-full items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-accent/50">
+			<button
+				type="button"
+				class="flex min-w-0 flex-1 cursor-grab items-center gap-2 text-left active:cursor-grabbing"
+				draggable="true"
+				ondragstart={(event) => onDragStart(event, item)}
+			>
+				<GripVertical class="size-4 shrink-0 text-muted-foreground/70" aria-hidden="true" />
+				<span
+					class="flex size-7 shrink-0 items-center justify-center rounded-md {sectionIconBgClass[
+						itemPaletteSection
+					]}"
+				>
+					<Icon class="size-3.5 text-white {iconModifier ?? ''}" />
+				</span>
+				<span class="min-w-0 flex-1 truncate text-sm">
+					{workflowItemLabel(item.id)}
+				</span>
+			</button>
+
+			{#if showItemHoverCard(item)}
+				<HoverCard.Root openDelay={200} closeDelay={100}>
+					<HoverCard.Trigger>
+						{#snippet child({ props })}
+							<button
+								{...props}
+								type="button"
+								class="inline-flex shrink-0 cursor-pointer rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
+								onclick={(event) => event.stopPropagation()}
+							>
+								<Info class="size-3.5" />
+								<span class="sr-only">{workflowItemLabel(item.id)}</span>
+							</button>
+						{/snippet}
+					</HoverCard.Trigger>
+					<HoverCard.Content side="right" class="w-56">
+						<div class="space-y-1">
+							<h4 class="text-sm font-semibold">
+								{workflowItemLabel(item.id)}
+							</h4>
+							{#if itemHoverCardDescription(item)}
+								<p class="text-sm text-muted-foreground">
+									{itemHoverCardDescription(item)}
+								</p>
+							{/if}
+							{#if item.incomplete}
+								<p class="text-sm text-destructive">
+									{m.fan_action_flow_must_complete()}
+								</p>
+							{/if}
+						</div>
+					</HoverCard.Content>
+				</HoverCard.Root>
+			{/if}
+		</div>
+	</li>
+{/snippet}
+
 {#snippet paletteSectionsList(sections: PaletteSection[])}
 	<div class="space-y-3">
 		{#each sections as section (section.id)}
@@ -101,70 +161,7 @@
 
 					<ul class="space-y-0.5">
 						{#each section.items as item (item.id)}
-							{@const Icon = workflowItemIcon(item.id, item.variant)}
-							{@const iconModifier = workflowItemIconModifier(item.id, item.variant)}
-							<li>
-								<div
-									class="flex w-full items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-accent/50"
-								>
-									<button
-										type="button"
-										class="flex min-w-0 flex-1 cursor-grab items-center gap-2 text-left active:cursor-grabbing"
-										draggable="true"
-										ondragstart={(event) => onDragStart(event, item)}
-									>
-										<GripVertical
-											class="size-4 shrink-0 text-muted-foreground/70"
-											aria-hidden="true"
-										/>
-										<span
-											class="flex size-7 shrink-0 items-center justify-center rounded-md {sectionIconBgClass[
-												section.id
-											]}"
-										>
-											<Icon class="size-3.5 text-white {iconModifier ?? ''}" />
-										</span>
-										<span class="min-w-0 flex-1 truncate text-sm">
-											{workflowItemLabel(item.id)}
-										</span>
-									</button>
-
-									{#if showItemHoverCard(item)}
-										<HoverCard.Root openDelay={200} closeDelay={100}>
-											<HoverCard.Trigger>
-												{#snippet child({ props })}
-													<button
-														{...props}
-														type="button"
-														class="inline-flex shrink-0 cursor-pointer rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
-														onclick={(event) => event.stopPropagation()}
-													>
-														<Info class="size-3.5" />
-														<span class="sr-only">{workflowItemLabel(item.id)}</span>
-													</button>
-												{/snippet}
-											</HoverCard.Trigger>
-											<HoverCard.Content side="right" class="w-56">
-												<div class="space-y-1">
-													<h4 class="text-sm font-semibold">
-														{workflowItemLabel(item.id)}
-													</h4>
-													{#if itemHoverCardDescription(item)}
-														<p class="text-sm text-muted-foreground">
-															{itemHoverCardDescription(item)}
-														</p>
-													{/if}
-													{#if item.incomplete}
-														<p class="text-sm text-destructive">
-															{m.fan_action_flow_must_complete()}
-														</p>
-													{/if}
-												</div>
-											</HoverCard.Content>
-										</HoverCard.Root>
-									{/if}
-								</div>
-							</li>
+							{@render paletteItemRow(item)}
 						{/each}
 					</ul>
 				</section>

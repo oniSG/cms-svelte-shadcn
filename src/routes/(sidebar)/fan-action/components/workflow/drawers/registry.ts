@@ -8,6 +8,7 @@ import WaitDrawerContent from './wait.svelte';
 import RewardConversionDrawerContent from './reward-conversion.svelte';
 import TagDrawerContent from './tag.svelte';
 import RemoveTagDrawerContent from './remove-tag.svelte';
+import CustomAttributeDrawerContent from './custom-attribute.svelte';
 import FallbackDrawerContent from './fallback.svelte';
 
 export const workflowDrawerRegistry: Record<string, Component<WorkflowDrawerContentProps>> = {
@@ -18,6 +19,7 @@ export const workflowDrawerRegistry: Record<string, Component<WorkflowDrawerCont
 	wait: WaitDrawerContent,
 	tag: TagDrawerContent,
 	'remove-tag': RemoveTagDrawerContent,
+	'custom-attribute': CustomAttributeDrawerContent,
 	'reward-conversion': RewardConversionDrawerContent
 };
 

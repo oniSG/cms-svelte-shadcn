@@ -17,6 +17,13 @@
 	const title = $derived(node ? workflowDrawerTitle(node.data.itemId) : '');
 	const description = $derived(node ? workflowItemDescription(node.data.itemId) : '');
 	const DrawerContent = $derived(node ? workflowDrawerContent(node.data.itemId) : null);
+	const panelOpen = $derived(Boolean(open && node));
+
+	$effect(() => {
+		if (open && !node) {
+			open = false;
+		}
+	});
 </script>
 
 <div class="relative h-full min-w-0 shrink-0">
@@ -24,16 +31,16 @@
 		aria-hidden="true"
 		class={cn(
 			'h-full bg-transparent transition-[width] duration-200 ease-linear',
-			open ? 'w-96' : 'w-0'
+			panelOpen ? 'w-96' : 'w-0'
 		)}
 	></div>
 
 	<div
 		class={cn(
 			'absolute inset-y-0 right-0 z-10 flex h-full w-96 flex-col overflow-hidden transition-[transform] duration-200 ease-linear',
-			open ? 'translate-x-0' : 'pointer-events-none translate-x-full'
+			panelOpen ? 'translate-x-0' : 'pointer-events-none translate-x-full'
 		)}
-		aria-hidden={!open}
+		aria-hidden={!panelOpen}
 	>
 		{#if node && DrawerContent}
 			<div

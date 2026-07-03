@@ -1,27 +1,20 @@
 import * as m from '$lib/paraglide/messages.js';
+import { workflowTriggerDefinition } from './trigger-items';
 
 export function workflowDrawerTitle(itemId: string): string {
 	if (itemId === 'condition') return m.fan_action_flow_condition();
 	if (itemId === 'wait') return m.fan_action_flow_wait_title();
 	if (itemId === 'reward-conversion') return m.fan_action_flow_reward_conversion_title();
 	if (itemId === 'tag' || itemId === 'remove-tag') return m.fan_action_flow_tag_title();
+	if (itemId === 'custom-attribute') return m.fan_action_flow_custom_attribute_title();
 	return workflowItemLabel(itemId);
 }
 
 export function workflowItemLabel(itemId: string): string {
+	const trigger = workflowTriggerDefinition(itemId);
+	if (trigger) return trigger.label();
+
 	switch (itemId) {
-		case 'run-now':
-			return m.fan_action_flow_trigger_run_now();
-		case 'schedule':
-			return m.fan_action_flow_trigger_schedule();
-		case 'loyalty':
-			return m.fan_action_flow_trigger_loyalty();
-		case 'ticket':
-			return m.fan_action_flow_trigger_ticket();
-		case 'season-ticket':
-			return m.fan_action_flow_trigger_season_ticket();
-		case 'attended':
-			return m.fan_action_flow_trigger_attended();
 		case 'email':
 			return m.fan_action_flow_action_email();
 		case 'sms':
@@ -52,19 +45,10 @@ export function workflowItemLabel(itemId: string): string {
 }
 
 export function workflowItemDescription(itemId: string): string {
+	const trigger = workflowTriggerDefinition(itemId);
+	if (trigger) return trigger.description();
+
 	switch (itemId) {
-		case 'run-now':
-			return m.fan_action_flow_trigger_run_now_desc();
-		case 'schedule':
-			return m.fan_action_flow_trigger_schedule_desc();
-		case 'loyalty':
-			return m.fan_action_flow_trigger_loyalty_desc();
-		case 'ticket':
-			return m.fan_action_flow_trigger_ticket_desc();
-		case 'season-ticket':
-			return m.fan_action_flow_trigger_season_ticket_desc();
-		case 'attended':
-			return m.fan_action_flow_trigger_attended_desc();
 		case 'email':
 			return m.fan_action_flow_action_email_desc();
 		case 'sms':

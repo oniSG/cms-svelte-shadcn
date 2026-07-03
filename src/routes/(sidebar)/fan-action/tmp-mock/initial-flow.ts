@@ -7,7 +7,7 @@ export function createInitialFlow(): { nodes: Node<WorkflowNodeData>[]; edges: E
 			id: 'trigger-1',
 			type: 'workflow',
 			position: { x: 40, y: 30 },
-			data: { itemId: 'run-now', variant: 'trigger' }
+			data: { itemId: 'ticket-purchase', variant: 'trigger' }
 		},
 		{
 			id: 'condition-1',
