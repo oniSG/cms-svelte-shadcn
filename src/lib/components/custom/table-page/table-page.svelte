@@ -24,11 +24,17 @@
 	} from './url-state.svelte.js';
 	import { createTableInfiniteQuery, createTableQuery } from './query.js';
 	import { decodeStoredLimit, loadPreferences, patchPreferences } from './preferences.js';
-	import { emptyQuery, serializeQuery, type Group } from './query-builder/fields.js';
+	import {
+		emptyQuery,
+		getShortcutSearch,
+		serializeQuery,
+		type Group
+	} from './query-builder/fields.js';
 	import { deriveQueryFields, toTanstackColumns } from './columns.js';
 	import CellActions from './cells/cell-actions.svelte';
 	import SelectCell from './cells/select-cell.svelte';
 	import SelectHeader from './cells/select-header.svelte';
+	import { SEARCH_CTX_KEY, type SearchContext } from './cells/search-highlight';
 	import { ROW_ACTIONS_KEY, type RowActions, type RowActionsContext } from './context';
 	import type {
 		ClickConfig,
@@ -89,6 +95,12 @@
 	setContext<RowActionsContext>(ROW_ACTIONS_KEY, {
 		get: () => rowActions,
 		title: (row: Row) => rowActionsTitle?.(row)
+	});
+
+	setContext<SearchContext>(SEARCH_CTX_KEY, {
+		get value() {
+			return search ? getShortcutSearch(q, '__search') : '';
+		}
 	});
 
 	// svelte-ignore state_referenced_locally

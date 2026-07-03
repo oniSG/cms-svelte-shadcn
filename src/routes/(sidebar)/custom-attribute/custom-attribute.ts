@@ -1,0 +1,192 @@
+export type CustomAttrFieldType =
+	| 'SELECT'
+	| 'TEXT'
+	| 'DATE'
+	| 'CHECKBOX'
+	| 'LONG_TEXT'
+	| 'NUMBER'
+	| 'IMAGE_URL'
+	| 'INTEGRATION';
+
+export const allFieldTypes: CustomAttrFieldType[] = [
+	'SELECT',
+	'TEXT',
+	'DATE',
+	'CHECKBOX',
+	'LONG_TEXT',
+	'NUMBER',
+	'IMAGE_URL',
+	'INTEGRATION'
+];
+
+export const fieldTypeLabels: Record<CustomAttrFieldType, string> = {
+	SELECT: 'Select',
+	TEXT: 'Text',
+	DATE: 'Date',
+	CHECKBOX: 'Checkbox',
+	LONG_TEXT: 'Long text',
+	NUMBER: 'Number',
+	IMAGE_URL: 'Image URL',
+	INTEGRATION: 'Integration'
+};
+
+// Sections are dynamic user-managed labels. See ./sections.svelte.ts.
+export type CustomAttrSection = string;
+
+export type CustomAttribute = {
+	id: string;
+	name: string;
+	api_key: string;
+	section: CustomAttrSection;
+	field_type: CustomAttrFieldType;
+	options: string[] | null;
+	default_value: string | null;
+	active: boolean;
+	all_clubs: boolean;
+	created_at: Date;
+};
+
+export function formatDefaultValue(a: CustomAttribute): string {
+	if (a.default_value == null || a.default_value === '') return '—';
+	if (a.field_type === 'CHECKBOX') return a.default_value === 'true' ? 'Yes' : 'No';
+	return a.default_value;
+}
+
+// --- limits & validation ---
+
+import { z } from 'zod';
+
+export const CA_LIMITS = {
+	nameMin: 2,
+	nameMax: 40,
+	apiKeyMin: 2,
+	apiKeyMax: 40,
+	sectionMin: 2,
+	sectionMax: 40,
+	defaultValueMax: 200,
+	minOptions: 2,
+	maxOptions: 20,
+	optionMin: 1,
+	optionMax: 40,
+	maxAttributes: 200
+} as const;
+
+const NAME_ALLOWED = /^[\p{L}\p{N}\s\-_./&']+$/u;
+const API_KEY_ALLOWED = /^[a-zA-Z][a-zA-Z0-9_]*$/;
+
+export function makeCAFormSchema(opts: {
+	isNameTaken: (name: string) => boolean;
+	isApiKeyTaken: (apiKey: string) => boolean;
+	isValidSection: (section: string) => boolean;
+}) {
+	return z
+		.object({
+			name: z
+				.string()
+				.min(CA_LIMITS.nameMin, `Name must be at least ${CA_LIMITS.nameMin} characters`)
+				.max(CA_LIMITS.nameMax, `Name must be at most ${CA_LIMITS.nameMax} characters`)
+				.regex(NAME_ALLOWED, "Only letters, numbers, spaces and - _ . / & ' are allowed"),
+			api_key: z
+				.string()
+				.min(CA_LIMITS.apiKeyMin, `API key must be at least ${CA_LIMITS.apiKeyMin} characters`)
+				.max(CA_LIMITS.apiKeyMax, `API key must be at most ${CA_LIMITS.apiKeyMax} characters`)
+				.regex(
+					API_KEY_ALLOWED,
+					'Must start with a letter and contain only letters, numbers, and underscores'
+				),
+			section: z.string().min(1, 'Section is required'),
+			field_type: z.enum(
+				allFieldTypes as unknown as [CustomAttrFieldType, ...CustomAttrFieldType[]]
+			),
+			options: z
+				.array(
+					z
+						.string()
+						.min(CA_LIMITS.optionMin, 'Option cannot be empty')
+						.max(CA_LIMITS.optionMax, `Option must be at most ${CA_LIMITS.optionMax} characters`)
+				)
+				.max(CA_LIMITS.maxOptions, `At most ${CA_LIMITS.maxOptions} options`),
+			default_value: z
+				.string()
+				.max(
+					CA_LIMITS.defaultValueMax,
+					`Default must be at most ${CA_LIMITS.defaultValueMax} characters`
+				),
+			active: z.boolean(),
+			all_clubs: z.boolean()
+		})
+		.superRefine((data, ctx) => {
+			if (opts.isNameTaken(data.name.trim())) {
+				ctx.addIssue({
+					code: 'custom',
+					path: ['name'],
+					message: 'A custom field with this name already exists'
+				});
+			}
+			if (opts.isApiKeyTaken(data.api_key.trim())) {
+				ctx.addIssue({
+					code: 'custom',
+					path: ['api_key'],
+					message: 'A custom field with this API key already exists'
+				});
+			}
+			if (!opts.isValidSection(data.section)) {
+				ctx.addIssue({
+					code: 'custom',
+					path: ['section'],
+					message: 'Pick a section from the list or create a new one'
+				});
+			}
+			if (data.field_type === 'SELECT') {
+				if (data.options.length < CA_LIMITS.minOptions) {
+					ctx.addIssue({
+						code: 'custom',
+						path: ['options'],
+						message: `Select fields need at least ${CA_LIMITS.minOptions} options`
+					});
+				}
+				const seen = new Set<string>();
+				for (const opt of data.options) {
+					const key = opt.trim().toLowerCase();
+					if (seen.has(key)) {
+						ctx.addIssue({
+							code: 'custom',
+							path: ['options'],
+							message: 'Options must be unique'
+						});
+						break;
+					}
+					seen.add(key);
+				}
+			}
+			if (data.field_type === 'CHECKBOX' && data.default_value) {
+				if (data.default_value !== 'true' && data.default_value !== 'false') {
+					ctx.addIssue({
+						code: 'custom',
+						path: ['default_value'],
+						message: 'Checkbox default must be "true" or "false"'
+					});
+				}
+			}
+			if (data.field_type === 'NUMBER' && data.default_value) {
+				if (Number.isNaN(Number(data.default_value))) {
+					ctx.addIssue({
+						code: 'custom',
+						path: ['default_value'],
+						message: 'Number default must be a valid number'
+					});
+				}
+			}
+			if (data.field_type === 'SELECT' && data.default_value) {
+				if (!data.options.includes(data.default_value)) {
+					ctx.addIssue({
+						code: 'custom',
+						path: ['default_value'],
+						message: 'Default must be one of the options'
+					});
+				}
+			}
+		});
+}
+
+export type CAFormValues = z.infer<ReturnType<typeof makeCAFormSchema>>;
