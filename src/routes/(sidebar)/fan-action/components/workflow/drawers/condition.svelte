@@ -181,7 +181,7 @@
 		<div class="space-y-4">
 			{#each blocks as block, blockIndex (block.id)}
 				<div class={blockClass}>
-					<div class="flex items-center justify-between gap-2">
+					<div class="flex items-center justify-between gap-2 pl-3">
 						<p class="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
 							{m.fan_action_flow_condition_block({ number: blockIndex + 1 })}
 						</p>
@@ -213,10 +213,9 @@
 					<div class="space-y-0">
 						{#each block.rules as rule, ruleIndex (rule.id)}
 							{#if ruleIndex > 0}
-								<div class="flex items-stretch gap-3 py-2 pl-4">
-									<div class="flex w-5 flex-col items-center">
-										<div class="h-3 w-px bg-border"></div>
-										<div class="flex items-center gap-1 py-1">
+								<div class="flex items-center py-2 pl-3">
+									<div class="flex items-center gap-2">
+										<div class="flex items-center gap-1">
 											<span class="text-xs font-semibold text-workflow-operator">
 												{m.fan_action_flow_condition_connector_or()}
 											</span>

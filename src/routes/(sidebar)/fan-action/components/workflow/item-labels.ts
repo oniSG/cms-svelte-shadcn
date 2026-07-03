@@ -2,6 +2,9 @@ import * as m from '$lib/paraglide/messages.js';
 
 export function workflowDrawerTitle(itemId: string): string {
 	if (itemId === 'condition') return m.fan_action_flow_condition();
+	if (itemId === 'wait') return m.fan_action_flow_wait_title();
+	if (itemId === 'reward-conversion') return m.fan_action_flow_reward_conversion_title();
+	if (itemId === 'tag' || itemId === 'remove-tag') return m.fan_action_flow_tag_title();
 	return workflowItemLabel(itemId);
 }
 
