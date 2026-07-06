@@ -4,7 +4,7 @@
 	import InfoDrawer from '$lib/components/custom/info-drawer.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
-	import { data } from '../data.js';
+	import { data } from '../temp/data.js';
 	import { fanActionEditTabHref } from '../edit-tabs.js';
 	import ChartColumn from '@lucide/svelte/icons/chart-column';
 	import * as m from '$lib/paraglide/messages.js';

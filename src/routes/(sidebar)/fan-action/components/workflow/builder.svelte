@@ -5,7 +5,7 @@
 	import Canvas from './canvas.svelte';
 	import PaletteSheet from './palette-sheet.svelte';
 	import NodeConfigPanel from './node-config-panel.svelte';
-	import { createInitialFlow } from './../../tmp-mock/initial-flow';
+	import { createInitialFlow } from '../../temp/initial-flow';
 	import { setWorkflowConfigureNode, setWorkflowEditingNodeId } from './editing-context';
 	import type { WorkflowNodeData } from './types';
 	import type { FanAction } from '$lib/types/fan-action.js';

@@ -5,7 +5,7 @@
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import MultiSelectCombobox from '$lib/components/custom/multi-select-combobox.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
-	import { allTags as tagOptions } from '$lib/mocks/fan-action-options.js';
+	import { allTags as tagOptions } from '../temp/options.js';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { action = null }: { action?: FanAction | null } = $props();
