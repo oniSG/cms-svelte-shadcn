@@ -3,7 +3,7 @@
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { cn } from '$lib/utils.js';
 	import type { WorkflowNodeData } from './types';
-	import { workflowDrawerTitle, workflowItemDescription } from './item-labels';
+	import { workflowDrawerTitle, workflowItemDescription } from './workflow-items';
 	import { workflowDrawerContent } from './drawers/registry';
 
 	let {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../types';
+	import type { WorkflowDrawerContentProps } from '../../types';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
@@ -60,7 +60,9 @@
 				<HoverCard.Content side="left" class="w-56">
 					<div class="space-y-1">
 						<h4 class="text-sm font-semibold">{m.fan_action_flow_tag_select_label()}</h4>
-						<p class="text-sm text-muted-foreground">{m.fan_action_flow_remove_tag_description()}</p>
+						<p class="text-sm text-muted-foreground">
+							{m.fan_action_flow_remove_tag_description()}
+						</p>
 					</div>
 				</HoverCard.Content>
 			</HoverCard.Root>

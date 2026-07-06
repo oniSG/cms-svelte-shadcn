@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../types';
+	import type { WorkflowDrawerContentProps } from '../../types';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../types';
+	import type { WorkflowDrawerContentProps } from '../../types';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
 	import Info from '@lucide/svelte/icons/info';
-	import { workflowMergeTags } from './merge-tags';
+	import { workflowMergeTags } from '../merge-tags';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {}: WorkflowDrawerContentProps = $props();
@@ -224,11 +224,7 @@
 			onchange={(e) => onFileSelected(e, (name) => (largeIconName = name))}
 			oncancel={onFilePickerCancel}
 		/>
-		<button
-			type="button"
-			class={uploadButtonClass}
-			onclick={() => openFilePicker(largeIconInput)}
-		>
+		<button type="button" class={uploadButtonClass} onclick={() => openFilePicker(largeIconInput)}>
 			{#if largeIconName}
 				<span class="font-medium text-foreground">{largeIconName}</span>
 			{:else}

@@ -1,6 +1,5 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"newsletter_title": "Immer informiert bleiben",
 	"newsletter_description": "Abonnieren Sie unseren Newsletter und verpassen Sie keine Neuigkeit oder kein interessantes Angebot.",
 	"newsletter_first_name": "Vorname",
@@ -23,34 +22,27 @@
 	"newsletter_privacy": "Mit dem Abonnement stimmen Sie dem Erhalt von Werbe-E-Mails zu. Sie können sich jederzeit über den Link in der Fußzeile unserer E-Mails abmelden.",
 	"newsletter_toast_success": "Erfolgreich abonniert!",
 	"newsletter_toast_error": "Bitte korrigieren Sie die Fehler im Formular.",
-
 	"email_prefs_title": "E-Mail-Einstellungen",
 	"email_prefs_description": "Wählen Sie die E-Mail-Typen aus, die Sie von uns erhalten möchten. Sie können diese Einstellungen jederzeit ändern.",
 	"email_prefs_marketing": "Marketingzwecke (Werbebotschaften)",
 	"email_prefs_organizer": "Organisatornachrichten (z.B. Organisationsinfos, Transfers usw.)",
 	"email_prefs_events": "Veranstaltungsnachrichten (z.B. Einladungen zu Spielen oder Konzerten, Ticketangebote usw.)",
-
 	"sms_prefs_title": "SMS-Einstellungen",
 	"sms_prefs_description": "Wählen Sie die SMS-Typen aus, die Sie von uns erhalten möchten. Sie können diese Einstellungen jederzeit ändern.",
 	"sms_prefs_send": "Nachrichten senden",
-
 	"unsubscribed_title": "Es tut uns leid, Sie zu verlieren.",
 	"unsubscribed_body": "Die Abmeldung war erfolgreich. Ab sofort erhalten Sie kein E-Mail-Marketing mehr.",
-
 	"common_save": "Einstellungen speichern",
 	"common_close": "Schließen",
 	"common_select_date": "Datum auswählen",
-
 	"lang_label": "Sprachen",
 	"lang_czech": "Tschechisch",
 	"lang_english": "Englisch",
 	"lang_german": "Deutsch",
-
 	"theme_label": "Design",
 	"theme_light": "Hell",
 	"theme_dark": "Dunkel",
 	"theme_system": "System",
-
 	"login_email": "E-Mail",
 	"login_password": "Passwort",
 	"login_forgot_password": "Passwort vergessen?",
@@ -62,17 +54,14 @@
 	"login_terms_of_service": "Nutzungsbedingungen",
 	"login_privacy_policy": "Datenschutzrichtlinie",
 	"login_terms": "Mit dem Klick auf Weiter stimmen Sie unseren {termsOfService} und {privacyPolicy} zu.",
-
 	"sidebar_logout": "Abmelden",
 	"sidebar_switch_module": "Modul wechseln",
 	"sidebar_module_business": "Business",
 	"sidebar_module_fans": "Fans",
 	"sidebar_module_settings": "Einstellungen",
-
 	"nav_dashboard": "Dashboard",
 	"nav_analytics": "Analytik",
 	"nav_manager_report": "Managerbericht",
-
 	"nav_biz_calendar": "Kalender",
 	"nav_biz_address_book": "Adressbuch",
 	"nav_biz_partners": "Partner",
@@ -110,7 +99,6 @@
 	"nav_biz_analytics_profit_dev": "Gewinnentwicklung",
 	"nav_biz_analytics_invoicing": "Fakturierungsunterlagen",
 	"nav_biz_sales_plan": "Vertriebsplan",
-
 	"nav_fans_management": "Verwaltung",
 	"nav_fans_visitors": "Besucher",
 	"nav_fans_segments": "Segmente",
@@ -135,7 +123,6 @@
 	"nav_fans_analytics_history": "Besucherverlauf",
 	"nav_fans_analytics_gdpr": "DSGVO-Einwilligungsänderungen",
 	"nav_fans_analytics_event_report": "Veranstaltungsbericht",
-
 	"nav_set_general": "Allgemeine Einstellungen",
 	"nav_set_tags": "Etiketten",
 	"nav_set_currencies": "Währungen",
@@ -170,7 +157,6 @@
 	"nav_set_security_logs": "Sicherheit & Protokolle",
 	"nav_set_security": "Sicherheit",
 	"nav_set_logs": "Protokolltabelle",
-
 	"nav_frequency_info": "Die Einstellung der Sendehäufigkeit von SMS-Nachrichten gilt für alle Nutzer",
 	"nav_mobile_message": "Mobile Nachricht",
 	"nav_set_biz_group": "Business-Einstellungen",
@@ -181,23 +167,18 @@
 	"nav_days_count": "Anzahl der Tage",
 	"nav_verified": "Geprüft",
 	"nav_unverified": "Unbestätigt",
-
 	"nav_set_fans_sending_domains_title": "Versanddomänen",
 	"nav_set_fans_sending_domains_recheck": "Alles erneut prüfen",
 	"nav_set_fans_sending_domains_create": "Domain erstellen",
-
 	"domain_verified": "Domain verifiziert",
 	"domain_last_checked": "Zuletzt geprüft",
 	"domain_last_checked_value": "Vor 2 Minuten",
 	"domain_dns_delay": "DNS-Änderungen können bis zu 24 Stunden dauern. Der Status wird automatisch jede Stunde aktualisiert.",
-
 	"domain_dkim_description": "DKIM-Eintrag zur Domain-Verifizierung konfigurieren",
 	"domain_dmarc_description": "DMARC-Eintrag zum Schutz der Domain konfigurieren",
 	"domain_spf_description": "SPF wird automatisch hinzugefügt – kein manuelles Einrichten erforderlich",
-
 	"domain_host": "Host",
 	"domain_value": "Wert",
-
 	"domain_drawer_title": "Was ist eine Versanddomäne?",
 	"domain_drawer_sending_domain_body": "Eine Versanddomäne ist die Domain, die in der Von:-Adresse Ihrer E-Mails verwendet wird. Durch die Authentifizierung wird empfangenden Mailservern nachgewiesen, dass Sie berechtigt sind, im Namen dieser Domain zu senden, was die Zustellbarkeit erheblich verbessert und Ihre Marke vor Spoofing schützt.",
 	"domain_drawer_dns_title": "Erforderliche DNS-Einträge",
@@ -214,11 +195,9 @@
 	"domain_drawer_trouble_not_found": "Eintrag nicht gefunden – prüfen Sie, ob im Hostnamen keine zusätzlichen Leerzeichen vorhanden sind und der Eintragstyp TXT ist.",
 	"domain_drawer_trouble_unverified": "Nach 24 Stunden noch nicht verifiziert – einige Registrare cachen DNS bis zu 48 Stunden. Prüfen Sie den Eintrag mit einem öffentlichen Tool wie MXToolbox.",
 	"domain_drawer_trouble_spf": "Mehrere SPF-Einträge – eine Domain darf genau einen SPF-TXT-Eintrag haben. Führen Sie alle include:-Einträge in einem einzigen Eintrag zusammen.",
-
 	"security_title": "Sicherheit",
 	"security_description": "Sicherheitseinstellungen gelten für alle Benutzer",
 	"security_2fa": "Obligatorische Zwei-Faktor-Authentifizierung",
-
 	"reply_email_add": "E-Mail hinzufügen",
 	"reply_email_name": "Name",
 	"reply_email_active": "Aktiv",
@@ -226,20 +205,15 @@
 	"reply_email_delete": "Entfernen",
 	"reply_email_view": "Ansicht",
 	"reply_email_items_per_page": "{count} Einträge pro Seite",
-
 	"reply_email_dialog_add_title": "E-Mail hinzufügen",
 	"reply_email_dialog_add_submit": "Hinzufügen",
 	"common_cancel": "Abbrechen",
 	"reply_email_validation_invalid": "Ungültige E-Mail-Adresse",
-
 	"reply_email_dialog_delete_title": "E-Mail entfernen",
 	"reply_email_dialog_delete_description": "Möchtest du {email} wirklich entfernen? Diese Aktion ist unwiderruflich.",
-
 	"reply_email_dialog_edit_title": "E-Mail bearbeiten",
 	"save": "Speichern",
-
 	"table_items_per_page": "{count} Einträge pro Seite",
-
 	"col_event": "Name",
 	"col_label": "Etiketten",
 	"col_created_by": "Erstellt von",
@@ -247,9 +221,7 @@
 	"col_created_at": "Erstellungsdatum",
 	"col_description": "Beschreibung",
 	"col_active": "Aktiv",
-
 	"add_record": "Eintrag hinzufügen",
-
 	"event_dialog_create_title": "Neue Veranstaltung",
 	"event_name_label": "Name",
 	"event_name_placeholder": "Name der Veranstaltung",
@@ -262,10 +234,8 @@
 	"event_no_results": "Keine Ergebnisse.",
 	"event_update_ticketing": "Aus Ticketing aktualisieren",
 	"event_create_submit": "Erstellen",
-
 	"event_dialog_edit_title": "Veranstaltung bearbeiten",
 	"event_save_close": "Speichern und schließen",
-
 	"fan_action_edit_title": "Aktion bearbeiten",
 	"fan_action_info_description": "Auf dieser Seite bearbeiten Sie den Aktions-Workflow, Grunddaten und Laufeinstellungen.",
 	"fan_action_tab_settings": "Einstellungen",
@@ -288,36 +258,10 @@
 	"fan_action_stats_empty": "Noch keine Statistiken verfügbar.",
 	"fan_action_flow_accordion_basic_info": "Grundinformationen",
 	"fan_action_flow_accordion_blocks": "Blöcke",
-
-	"fan_action_flow_processed": "Verarbeitet: {percent}%",
-	"fan_action_flow_saved": "Gespeichert",
-	"fan_action_flow_script_stopped": "Das Skript ist gestoppt",
-	"fan_action_flow_testing_stopped": "Testen ist gestoppt",
 	"fan_action_flow_tab_triggers": "Auslöser",
 	"fan_action_flow_tab_actions": "Aktionen",
 	"fan_action_flow_section_operators": "Operatoren",
-	"fan_action_flow_category_common": "Am häufigsten",
-	"fan_action_flow_category_send": "Senden",
-	"fan_action_flow_category_automation": "Automatisierung",
-	"fan_action_flow_category_temporal": "Zeitlich",
-	"fan_action_flow_category_ticketing": "Ticketing",
-	"fan_action_flow_category_eshop": "E-Shop",
-	"fan_action_flow_category_call_center": "Callcenter",
-	"fan_action_flow_category_mobile_app": "Mobile App",
-	"fan_action_flow_category_other": "Sonstige",
 	"fan_action_flow_must_complete": "Muss ausgefüllt werden!",
-	"fan_action_flow_trigger_run_now": "Jetzt ausführen",
-	"fan_action_flow_trigger_schedule": "Versand planen",
-	"fan_action_flow_trigger_loyalty": "Treuepunkte nach Typ hinzufügen",
-	"fan_action_flow_trigger_ticket": "Ticket gekauft",
-	"fan_action_flow_trigger_season_ticket": "Dauerkarte gekauft",
-	"fan_action_flow_trigger_attended": "Veranstaltung besucht",
-	"fan_action_flow_trigger_run_now_desc": "Führt die Aktion sofort für das ausgewählte Fan-Segment aus.",
-	"fan_action_flow_trigger_schedule_desc": "Plant die Ausführung der Aktion zu einem bestimmten Datum und einer Uhrzeit.",
-	"fan_action_flow_trigger_loyalty_desc": "Führt die Aktion aus, nachdem Treuepunkte nach Typ hinzugefügt wurden.",
-	"fan_action_flow_trigger_ticket_desc": "Führt die Aktion aus, nachdem ein Ticket für eine Veranstaltung gekauft wurde.",
-	"fan_action_flow_trigger_season_ticket_desc": "Führt die Aktion aus, nachdem eine Dauerkarte gekauft wurde.",
-	"fan_action_flow_trigger_attended_desc": "Führt die Aktion aus, nachdem ein Fan eine Veranstaltung besucht hat.",
 	"fan_action_flow_trigger_ticket_purchase": "Ticketkauf",
 	"fan_action_flow_trigger_time_slot_purchase": "Zeitslot-Kauf",
 	"fan_action_flow_trigger_season_ticket_purchase": "Dauerkartenkauf",
@@ -396,26 +340,6 @@
 	"fan_action_flow_trigger_form_completed_desc": "Führt die Aktion aus, nachdem ein Formular abgeschlossen wurde.",
 	"fan_action_flow_condition": "Bedingung",
 	"fan_action_flow_condition_add": "Bedingung hinzufügen",
-	"fan_action_flow_condition_rules_title": "Regeln zur Auswertung der Bedingung",
-	"fan_action_flow_condition_block": "BLOCK {number}",
-	"fan_action_flow_condition_field_email": "E-Mail",
-	"fan_action_flow_condition_field_email_info": "Vergleicht die E-Mail-Adresse des Besuchers mit dem gewählten Operator.",
-	"fan_action_flow_condition_operator_contains": "Enthält",
-	"fan_action_flow_condition_operator_equals": "Ist gleich",
-	"fan_action_flow_condition_operator_not_contains": "Enthält nicht",
-	"fan_action_flow_condition_operator_starts_with": "Beginnt mit",
-	"fan_action_flow_condition_operator_ends_with": "Endet mit",
-	"fan_action_flow_condition_connector_or": "ODER",
-	"fan_action_flow_condition_connector_or_info": "Mindestens eine Regel in diesem Block muss erfüllt sein.",
-	"fan_action_flow_condition_add_rule_or": "Weitere „ODER“-Regel hinzufügen",
-	"fan_action_flow_condition_add_block_and": "Weiteren „UND“-Block hinzufügen",
-	"fan_action_flow_condition_copy_block": "Block kopieren",
-	"fan_action_flow_condition_delete_block": "Block löschen",
-	"fan_action_flow_condition_copy_rule": "Regel kopieren",
-	"fan_action_flow_condition_delete_rule": "Regel löschen",
-	"fan_action_flow_condition_value_placeholder": "Wert",
-	"fan_action_flow_edge_yes": "Ja",
-	"fan_action_flow_edge_no": "Nein",
 	"fan_action_flow_action_email": "E-Mail senden",
 	"fan_action_flow_email_note_label": "Notiz unter dem Titel im Diagramm",
 	"fan_action_flow_email_note_placeholder": "Notiz",
@@ -508,7 +432,6 @@
 	"fan_action_flow_remove_tag_description": "Diese Aktion entfernt den von Ihnen ausgewählten Tag vom Kunden",
 	"fan_action_flow_action_tag": "Tag hinzufügen",
 	"fan_action_flow_action_remove_tag": "Tag entfernen",
-	"fan_action_flow_action_credit": "Guthaben hinzufügen",
 	"fan_action_flow_action_ab_test": "A/B-Test",
 	"fan_action_flow_action_custom_attribute": "Benutzerdefiniertes Feld ausfüllen",
 	"fan_action_flow_custom_attribute_title": "Benutzerdefiniertes Feld",
@@ -524,7 +447,6 @@
 	"fan_action_flow_reward_conversion_type_credit": "Guthaben",
 	"fan_action_flow_reward_conversion_type_voucher": "Gutschein",
 	"fan_action_flow_reward_conversion_send_webhook": "Webhook senden",
-	"fan_action_flow_action_points": "Treuepunkte hinzufügen",
 	"fan_action_flow_action_email_desc": "Sendet eine Marketing- oder Transaktions-E-Mail an ausgewählte Fans.",
 	"fan_action_flow_action_sms_desc": "Sendet eine SMS-Nachricht an ausgewählte Fans.",
 	"fan_action_flow_action_push_desc": "Sendet eine Push-Benachrichtigung an die mobile App.",
@@ -532,48 +454,39 @@
 	"fan_action_flow_condition_add_desc": "Verzweigt das Szenario basierend auf einer Bedingung.",
 	"fan_action_flow_action_tag_desc": "Weist einem Fan einen oder mehrere Tags zu.",
 	"fan_action_flow_action_remove_tag_desc": "Entfernt ausgewählte Tags von einem Fan.",
-	"fan_action_flow_action_credit_desc": "Fügt einem Fan Guthaben auf dem Konto hinzu.",
 	"fan_action_flow_action_ab_test_desc": "Teilt Fans in A/B-Test-Zweige auf.",
 	"fan_action_flow_action_custom_attribute_desc": "Setzt oder aktualisiert ein benutzerdefiniertes Fan-Attribut.",
 	"fan_action_flow_action_end_branch": "Zweig beenden",
 	"fan_action_flow_action_end_branch_desc": "Beendet den aktuellen Szenario-Zweig.",
 	"fan_action_flow_action_reward_conversion_desc": "Verarbeitet die Prämienumwandlung im Treueprogramm.",
-
 	"event_created_at_label": "Erstellt",
-
 	"event_dialog_copy_title": "Veranstaltung duplizieren",
 	"event_dialog_copy_description": "Möchtest du {event} wirklich duplizieren?",
 	"event_dialog_copy_submit": "Duplizieren",
-
 	"event_dialog_delete_title": "Veranstaltung löschen",
 	"event_dialog_delete_description": "Möchtest du {event} wirklich löschen? Diese Aktion ist unwiderruflich.",
 	"event_dialog_delete_submit": "Löschen",
 	"event_detail": "Detail",
-
 	"log_breadcrumb_home": "Startseite",
 	"log_breadcrumb_settings": "Einstellungen",
 	"log_breadcrumb_logs": "Protokolle",
-
 	"log_col_id": "ID",
 	"log_col_type": "Typ",
 	"log_col_user_id": "Benutzer-ID",
 	"log_col_email": "E-Mail",
 	"log_col_time": "Zeit",
-
 	"log_filter_type": "Typ",
 	"log_filter_user": "Benutzer",
 	"log_filter_date": "Datum",
 	"log_filter_no_results": "Keine Ergebnisse gefunden.",
 	"log_filter_clear_filters": "Filter löschen",
 	"log_filter_clear_dates": "Datum löschen",
-
 	"log_action_sort_asc": "Aufsteigend",
 	"log_action_sort_desc": "Absteigend",
 	"log_action_filter": "Filtern",
 	"log_action_hide": "Ausblenden",
 	"log_action_view": "Ansicht",
 	"log_action_reset": "Zurücksetzen",
-
 	"log_pagination_items_per_page": "{count} Einträge pro Seite",
 	"log_pagination_rows_per_page": "Zeilen pro Seite",
 	"log_pagination_goto_aria": "Gehe zu Seite",
@@ -583,14 +496,11 @@
 	"log_pagination_snapshot": "Snapshot {time}",
 	"log_pagination_prev": "Vorherige Seite",
 	"log_pagination_next": "Nächste Seite",
-
 	"log_table_no_results": "Keine Ergebnisse.",
-
 	"log_drawer_title": "Protokoll: {id}",
 	"log_drawer_copy": "Kopieren",
 	"log_drawer_copied": "Kopiert",
 	"log_drawer_close": "Schließen",
-
 	"log_type_login": "Anmeldung",
 	"log_type_action_test": "Aktionstest",
 	"log_type_action_run": "Aktion ausführen",
@@ -605,16 +515,13 @@
 	"log_type_lock_acquired": "Sperre erworben",
 	"log_type_lock_released": "Sperre freigegeben",
 	"log_type_lock_force_released": "Sperre erzwungenermaßen freigegeben",
-
 	"common_yes": "Ja",
 	"common_no": "Nein",
 	"common_edit": "Bearbeiten",
 	"common_delete": "Löschen",
 	"common_import": "Importieren",
 	"common_apply": "Anwenden",
-
 	"crumb_home": "Startseite",
-
 	"tp_reset": "Zurücksetzen",
 	"tp_columns": "Spalten",
 	"tp_reorder_column": "Spalte neu anordnen",
@@ -655,7 +562,6 @@
 	"tp_row_actions": "Zeilenaktionen",
 	"tp_select_row": "Zeile auswählen",
 	"tp_select_all_rows": "Alle Zeilen auf dieser Seite auswählen",
-
 	"tp_date_today": "Heute",
 	"tp_date_yesterday": "Gestern",
 	"tp_date_last_7": "Letzte 7 Tage",
@@ -664,7 +570,6 @@
 	"tp_date_last_month": "Letzten Monat",
 	"tp_date_this_quarter": "Dieses Quartal",
 	"tp_date_ytd": "Seit Jahresbeginn",
-
 	"qb_condition": "Bedingung",
 	"qb_group": "Gruppe",
 	"qb_remove_group": "Gruppe entfernen",
@@ -676,7 +581,6 @@
 	"qb_options": "Optionen",
 	"qb_search_options": "{label} suchen...",
 	"qb_no_results": "Keine Ergebnisse.",
-
 	"qb_op_equals": "gleich",
 	"qb_op_contains": "enthält",
 	"qb_op_starts_with": "beginnt mit",
@@ -688,11 +592,8 @@
 	"qb_op_on": "am",
 	"qb_op_before": "vor",
 	"qb_op_after": "nach",
-
 	"qb_combinator_and": "UND",
 	"qb_combinator_or": "ODER",
-
-
 	"fans_col_surname": "Nachname",
 	"fans_col_first_name": "Vorname",
 	"fans_col_email": "E-Mail",

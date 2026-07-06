@@ -6,10 +6,15 @@
 	import Info from '@lucide/svelte/icons/info';
 	import type { WorkflowPaletteItem } from './types';
 	import { WORKFLOW_DRAG_MIME } from './types';
-	import { workflowItemDescription, workflowItemLabel } from './item-labels';
-	import { workflowItemIcon, workflowItemIconModifier } from './item-icons';
+	import {
+		workflowItemDescription,
+		workflowItemIcon,
+		workflowItemIconModifier,
+		workflowItemLabel,
+		workflowPaletteSections,
+		type WorkflowPaletteSectionConfig
+	} from './workflow-items';
 	import { workflowPaletteSection, workflowPaletteSectionBgClass } from './node-colors';
-	import { workflowTriggerDefinitions } from './trigger-items';
 	import BasicInfoForm from '../basic-info-form.svelte';
 	import SettingsForm from '../settings-form.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
@@ -17,49 +22,9 @@
 
 	let { action = null }: { action?: FanAction | null } = $props();
 
-	type PaletteSectionId = 'triggers' | 'operators' | 'actions';
-
 	type StyledPaletteItem = WorkflowPaletteItem;
 
-	type PaletteSection = {
-		id: PaletteSectionId;
-		label: string;
-		items: StyledPaletteItem[];
-	};
-
-	const paletteSections = $derived<PaletteSection[]>([
-		{
-			id: 'triggers',
-			label: m.fan_action_flow_tab_triggers(),
-			items: workflowTriggerDefinitions.map((trigger) => ({
-				id: trigger.id,
-				variant: 'trigger' as const
-			}))
-		},
-		{
-			id: 'operators',
-			label: m.fan_action_flow_section_operators(),
-			items: [
-				{ id: 'condition', variant: 'condition', incomplete: true },
-				{ id: 'wait', variant: 'action', incomplete: true },
-				{ id: 'ab-test', variant: 'action', incomplete: true },
-				{ id: 'end-branch', variant: 'action', incomplete: true }
-			]
-		},
-		{
-			id: 'actions',
-			label: m.fan_action_flow_tab_actions(),
-			items: [
-				{ id: 'email', variant: 'action', incomplete: true },
-				{ id: 'sms', variant: 'action', incomplete: true },
-				{ id: 'push', variant: 'action', incomplete: true },
-				{ id: 'tag', variant: 'action', incomplete: true },
-				{ id: 'remove-tag', variant: 'action', incomplete: true },
-				{ id: 'custom-attribute', variant: 'action', incomplete: true },
-				{ id: 'reward-conversion', variant: 'action', incomplete: true }
-			]
-		}
-	]);
+	const paletteSections = $derived<WorkflowPaletteSectionConfig[]>(workflowPaletteSections());
 
 	const sectionIconBgClass = workflowPaletteSectionBgClass;
 	const accordionTriggerClass =
@@ -90,8 +55,8 @@
 </script>
 
 {#snippet paletteItemRow(item: StyledPaletteItem)}
-	{@const Icon = workflowItemIcon(item.id, item.variant)}
-	{@const iconModifier = workflowItemIconModifier(item.id, item.variant)}
+	{@const Icon = workflowItemIcon(item.id)}
+	{@const iconModifier = workflowItemIconModifier(item.id)}
 	{@const itemPaletteSection = workflowPaletteSection(item.id, item.variant)}
 	<li>
 		<div class="flex w-full items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-accent/50">
@@ -152,7 +117,7 @@
 	</li>
 {/snippet}
 
-{#snippet paletteSectionsList(sections: PaletteSection[])}
+{#snippet paletteSectionsList(sections: WorkflowPaletteSectionConfig[])}
 	<div class="space-y-3">
 		{#each sections as section (section.id)}
 			{#if section.items.length > 0}

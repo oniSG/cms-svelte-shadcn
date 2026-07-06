@@ -1,15 +1,14 @@
 import type { WorkflowNodeVariant } from './types';
+import { workflowOperatorItemIds } from './block-items';
 
 export type WorkflowPaletteSection = 'triggers' | 'operators' | 'actions';
-
-const operatorItemIds = new Set(['condition', 'wait', 'ab-test', 'end-branch']);
 
 export function workflowPaletteSection(
 	itemId: string,
 	variant: WorkflowNodeVariant
 ): WorkflowPaletteSection {
 	if (variant === 'trigger') return 'triggers';
-	if (variant === 'condition' || operatorItemIds.has(itemId)) return 'operators';
+	if (variant === 'condition' || workflowOperatorItemIds.has(itemId)) return 'operators';
 	return 'actions';
 }
 

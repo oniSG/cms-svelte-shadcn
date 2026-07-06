@@ -12,7 +12,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { WorkflowNodeData } from './types';
 	import { createNodeId } from './flow-utils';
-	import { workflowItemLabel } from './item-labels';
+	import { workflowItemIcon, workflowItemIconModifier, workflowItemLabel } from './workflow-items';
 	import { getWorkflowConfigureNode, getWorkflowEditingNodeId } from './editing-context';
 	import {
 		workflowNodeBoxShapeStyles,
@@ -26,7 +26,6 @@
 		workflowNodeBoxRect
 	} from './node-colors';
 	import { workflowConditionBranchStyles } from './condition-branch-styles';
-	import { workflowItemIcon, workflowItemIconModifier } from './item-icons';
 	import Copy from '@lucide/svelte/icons/copy';
 	import X from '@lucide/svelte/icons/x';
 	import * as m from '$lib/paraglide/messages.js';
@@ -58,8 +57,8 @@
 	const triggerShapeStyles = $derived(workflowTriggerShapeStyles(isEditing));
 	const editingBorderClass = $derived(isEditing ? workflowNodeEditingBorderClass : undefined);
 	const iconClass = $derived(workflowNodeIconClass(data.itemId, data.variant));
-	const NodeIcon = $derived(workflowItemIcon(data.itemId, data.variant));
-	const iconModifier = $derived(workflowItemIconModifier(data.itemId, data.variant));
+	const NodeIcon = $derived(workflowItemIcon(data.itemId));
+	const iconModifier = $derived(workflowItemIconModifier(data.itemId));
 
 	let toolbarVisible = $state(false);
 	let hideToolbarTimeout: ReturnType<typeof setTimeout> | undefined;

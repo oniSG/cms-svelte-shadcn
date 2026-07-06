@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../types';
+	import type { WorkflowDrawerContentProps } from '../../types';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { workflowMergeTags } from './merge-tags';
+	import { workflowMergeTags } from '../merge-tags';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let {}: WorkflowDrawerContentProps = $props();

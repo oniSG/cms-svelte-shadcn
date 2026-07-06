@@ -1,6 +1,5 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"newsletter_title": "Novinky vždy ve vaší schránce",
 	"newsletter_description": "Přihlašte se k odběru newsletteru a nenechte si ujít žádnou novinku nebo zajímavou nabídku.",
 	"newsletter_first_name": "Jméno",
@@ -23,34 +22,27 @@
 	"newsletter_privacy": "Přihlášením k odběru newsletteru souhlasíte se zasíláním propagačních e-mailů. Odhlásit se můžete kdykoli kliknutím na odkaz v patičce našich e-mailů.",
 	"newsletter_toast_success": "Přihlášení proběhlo úspěšně!",
 	"newsletter_toast_error": "Opravte prosím chyby ve formuláři.",
-
 	"email_prefs_title": "Nastavení e-mailů",
 	"email_prefs_description": "Zvolte typy e-mailů, které chcete od nás dostávat. Nastavení můžete kdykoli změnit.",
 	"email_prefs_marketing": "Marketingové účely (reklamní zprávy)",
 	"email_prefs_organizer": "Zprávy organizátora (např. organizační info, přesuny apod.)",
 	"email_prefs_events": "Zprávy o akcích (např. pozvánky na zápasy či koncerty, nabídky vstupenek apod.)",
-
 	"sms_prefs_title": "Nastavení SMS",
 	"sms_prefs_description": "Zvolte typy SMS zpráv, které chcete od nás dostávat. Nastavení můžete kdykoli změnit.",
 	"sms_prefs_send": "Posílat zprávy",
-
 	"unsubscribed_title": "Je nám líto, že nás opouštíte.",
 	"unsubscribed_body": "Odhlášení proběhlo v pořádku. Od tohoto okamžiku nebudete přijímat e-mailový marketing.",
-
 	"common_save": "Uložit nastavení",
 	"common_close": "Zavřít",
 	"common_select_date": "Vyberte datum",
-
 	"lang_label": "Jazyky",
 	"lang_czech": "Čeština",
 	"lang_english": "Angličtina",
 	"lang_german": "Němčina",
-
 	"theme_label": "Motiv",
 	"theme_light": "Světlý",
 	"theme_dark": "Tmavý",
 	"theme_system": "Systém",
-
 	"login_email": "E-mail",
 	"login_password": "Heslo",
 	"login_forgot_password": "Zapomenuté heslo?",
@@ -62,17 +54,14 @@
 	"login_terms_of_service": "Podmínky služby",
 	"login_privacy_policy": "Zásady ochrany soukromí",
 	"login_terms": "Kliknutím pokračujete a souhlasíte s našimi {termsOfService} a {privacyPolicy}.",
-
 	"sidebar_logout": "Odhlásit se",
 	"sidebar_switch_module": "Přepnout modul",
 	"sidebar_module_business": "Business",
 	"sidebar_module_fans": "Fans",
 	"sidebar_module_settings": "Nastavení",
-
 	"nav_dashboard": "Nástěnka",
 	"nav_analytics": "Analytika",
 	"nav_manager_report": "Manažerský report",
-
 	"nav_biz_calendar": "Kalendář",
 	"nav_biz_address_book": "Adresář",
 	"nav_biz_partners": "Partneři",
@@ -110,7 +99,6 @@
 	"nav_biz_analytics_profit_dev": "Vývoj zisku",
 	"nav_biz_analytics_invoicing": "Podklady k fakturaci",
 	"nav_biz_sales_plan": "Obchodní plán",
-
 	"nav_fans_management": "Správa",
 	"nav_fans_visitors": "Návštěvníci",
 	"nav_fans_segments": "Segmenty",
@@ -135,7 +123,6 @@
 	"nav_fans_analytics_history": "Historie návštěvníka",
 	"nav_fans_analytics_gdpr": "Změny GDPR souhlasů",
 	"nav_fans_analytics_event_report": "Report události",
-
 	"nav_set_general": "Obecné nastavení",
 	"nav_set_tags": "Štítky",
 	"nav_set_currencies": "Měny",
@@ -170,7 +157,6 @@
 	"nav_set_security_logs": "Zabezpečení a logy",
 	"nav_set_security": "Zabezpečení",
 	"nav_set_logs": "Tabulka logů",
-
 	"nav_frequency_info": "Nastavení frekvence odesílání mobilních zpráv se projeví u všech uživatelů",
 	"nav_mobile_message": "Mobilní zpráva",
 	"nav_set_biz_group": "Business nastavení",
@@ -181,23 +167,18 @@
 	"nav_days_count": "Počet dní",
 	"nav_verified": "Ověřeno",
 	"nav_unverified": "Neověřeno",
-
 	"nav_set_fans_sending_domains_title": "Odesílací domény",
 	"nav_set_fans_sending_domains_recheck": "Znovu zkontrolovat vše",
 	"nav_set_fans_sending_domains_create": "Vytvořit doménu",
-
 	"domain_verified": "Doména ověřena",
 	"domain_last_checked": "Naposledy zkontrolováno",
 	"domain_last_checked_value": "Před 2 minutami",
 	"domain_dns_delay": "Změny v DNS se mohou projevit až za 24 hodin. Status obnovujeme automaticky každou hodinu.",
-
 	"domain_dkim_description": "Nastavení DKIM záznamu pro ověření domény",
 	"domain_dmarc_description": "Nastavení DMARC záznamu pro ochranu domény",
 	"domain_spf_description": "Nastavení SPF se přidá automaticky, není potřeba ho přidávat ručně",
-
 	"domain_host": "Host",
 	"domain_value": "Hodnota",
-
 	"domain_drawer_title": "Co je to odesílací doména?",
 	"domain_drawer_sending_domain_body": "Odesílací doména je doména použitá v adrese Odesílatel: vašich e-mailů. Její ověření dokazuje přijímajícím poštovním serverům, že jste oprávněni odesílat jménem této domény, což výrazně zlepšuje doručitelnost a chrání vaši značku před podvržením.",
 	"domain_drawer_dns_title": "Potřebné DNS záznamy",
@@ -209,18 +190,14 @@
 	"domain_drawer_trouble_not_found": "Záznam nenalezen – zkontrolujte, zda v názvu hostu nejsou přebytečné mezery a zda je typ záznamu TXT.",
 	"domain_drawer_trouble_unverified": "Stále neověřeno po 24 hodinách – někteří registrátoři cachují DNS až 48 hodin. Ověřte záznam pomocí veřejného nástroje, např. MXToolbox.",
 	"domain_drawer_trouble_spf": "Více SPF záznamů – doména musí mít přesně jeden SPF TXT záznam. Sloučte všechny hodnoty include: do jednoho záznamu.",
-
 	"domain_drawer_dkim_step1": "Zkopírujte Host a Hodnota zobrazené na této stránce.",
 	"domain_drawer_dkim_step2": "U svého DNS poskytovatele vytvořte nový TXT záznam s těmito hodnotami.",
 	"domain_drawer_dkim_step3": "Propagace může trvat až 24 hodin. Stav obnovíte tlačítkem Znovu zkontrolovat vše.",
-
 	"domain_drawer_dmarc_minimal": "Minimální politika pro začátek:",
 	"domain_drawer_dmarc_tighten": "Jakmile budete se svým nastavením spokojeni, zpřísněte politiku na p=quarantine nebo p=reject.",
-
 	"security_title": "Zabezpečení",
 	"security_description": "Nastavení zabezpečení se projeví u všech uživatelů",
 	"security_2fa": "Povinné dvoufaktorové ověření",
-
 	"reply_email_add": "Přidat e-mail",
 	"reply_email_name": "Název",
 	"reply_email_active": "Aktivní",
@@ -228,20 +205,15 @@
 	"reply_email_delete": "Odstranit",
 	"reply_email_view": "Zobrazení",
 	"reply_email_items_per_page": "{count} záznamů na stránku",
-
 	"reply_email_dialog_add_title": "Přidat e-mail",
 	"reply_email_dialog_add_submit": "Přidat",
 	"common_cancel": "Zrušit",
 	"reply_email_validation_invalid": "Neplatná e-mailová adresa",
-
 	"reply_email_dialog_delete_title": "Odstranit e-mail",
 	"reply_email_dialog_delete_description": "Opravdu chceš odstranit {email}? Tato akce je nevratná.",
-
 	"reply_email_dialog_edit_title": "Editovat e-mail",
 	"save": "Uložit",
-
 	"table_items_per_page": "{count} záznamů na stránku",
-
 	"col_event": "Název",
 	"col_label": "Štítky",
 	"col_created_by": "Vytvořil/a",
@@ -249,9 +221,7 @@
 	"col_created": "Datum",
 	"col_description": "Popis",
 	"col_active": "Aktivní",
-
 	"add_record": "Přidat záznam",
-
 	"event_dialog_create_title": "Nová událost",
 	"event_name_label": "Název",
 	"event_name_placeholder": "Název události",
@@ -264,10 +234,8 @@
 	"event_no_results": "Žádné výsledky.",
 	"event_update_ticketing": "Aktualizovat podle ticketingu",
 	"event_create_submit": "Vytvořit",
-
 	"event_dialog_edit_title": "Editace události",
 	"event_save_close": "Uložit a zavřít",
-
 	"fan_action_edit_title": "Úprava akce",
 	"fan_action_info_description": "Na této stránce upravíte workflow akce, základní údaje a nastavení běhu.",
 	"fan_action_tab_settings": "Nastavení",
@@ -290,36 +258,10 @@
 	"fan_action_stats_empty": "Statistiky zatím nejsou k dispozici.",
 	"fan_action_flow_accordion_basic_info": "Základní informace",
 	"fan_action_flow_accordion_blocks": "Bloky",
-
-	"fan_action_flow_processed": "Zpracováno: {percent}%",
-	"fan_action_flow_saved": "Uloženo",
-	"fan_action_flow_script_stopped": "Skript je zastaven",
-	"fan_action_flow_testing_stopped": "Testování je zastaveno",
 	"fan_action_flow_tab_triggers": "Spouštěče",
 	"fan_action_flow_tab_actions": "Akce",
 	"fan_action_flow_section_operators": "Operátory",
-	"fan_action_flow_category_common": "Nejčastější",
-	"fan_action_flow_category_send": "Odeslat",
-	"fan_action_flow_category_automation": "Automatizace",
-	"fan_action_flow_category_temporal": "Časové",
-	"fan_action_flow_category_ticketing": "Ticketing",
-	"fan_action_flow_category_eshop": "E-shop",
-	"fan_action_flow_category_call_center": "Call centrum",
-	"fan_action_flow_category_mobile_app": "Mobilní aplikace",
-	"fan_action_flow_category_other": "Ostatní",
 	"fan_action_flow_must_complete": "Je nutné dokončit!",
-	"fan_action_flow_trigger_run_now": "Spustit nyní",
-	"fan_action_flow_trigger_schedule": "Naplánovat odeslání",
-	"fan_action_flow_trigger_loyalty": "Přidat věrnostní body podle typu",
-	"fan_action_flow_trigger_ticket": "Zakoupena vstupenka",
-	"fan_action_flow_trigger_season_ticket": "Zakoupena permanentka",
-	"fan_action_flow_trigger_attended": "Navštívena akce",
-	"fan_action_flow_trigger_run_now_desc": "Okamžitě spustí akci pro vybraný segment fanoušků.",
-	"fan_action_flow_trigger_schedule_desc": "Naplánuje spuštění akce na konkrétní datum a čas.",
-	"fan_action_flow_trigger_loyalty_desc": "Spustí akci po přidání věrnostních bodů podle zvoleného typu.",
-	"fan_action_flow_trigger_ticket_desc": "Spustí akci po zakoupení vstupenky na událost.",
-	"fan_action_flow_trigger_season_ticket_desc": "Spustí akci po zakoupení permanentky.",
-	"fan_action_flow_trigger_attended_desc": "Spustí akci po návštěvě události fanouškem.",
 	"fan_action_flow_trigger_ticket_purchase": "Nákup vstupenky",
 	"fan_action_flow_trigger_time_slot_purchase": "Nákup časového slotu",
 	"fan_action_flow_trigger_season_ticket_purchase": "Nákup permanentky",
@@ -398,26 +340,6 @@
 	"fan_action_flow_trigger_form_completed_desc": "Spustí akci po dokončení formuláře.",
 	"fan_action_flow_condition": "Podmínka",
 	"fan_action_flow_condition_add": "Přidat podmínku",
-	"fan_action_flow_condition_rules_title": "Pravidla pro vykonání podmínky",
-	"fan_action_flow_condition_block": "BLOK {number}",
-	"fan_action_flow_condition_field_email": "E-mail",
-	"fan_action_flow_condition_field_email_info": "Porovná hodnotu e-mailové adresy návštěvníka podle zvoleného operátoru.",
-	"fan_action_flow_condition_operator_contains": "Obsahuje",
-	"fan_action_flow_condition_operator_equals": "Rovná se",
-	"fan_action_flow_condition_operator_not_contains": "Neobsahuje",
-	"fan_action_flow_condition_operator_starts_with": "Začíná na",
-	"fan_action_flow_condition_operator_ends_with": "Končí na",
-	"fan_action_flow_condition_connector_or": "NEBO",
-	"fan_action_flow_condition_connector_or_info": "Stačí, když je splněno alespoň jedno pravidlo v tomto bloku.",
-	"fan_action_flow_condition_add_rule_or": "Přidat další pravidlo „NEBO“",
-	"fan_action_flow_condition_add_block_and": "Přidat další blok „A ZÁROVEŇ“",
-	"fan_action_flow_condition_copy_block": "Kopírovat blok",
-	"fan_action_flow_condition_delete_block": "Smazat blok",
-	"fan_action_flow_condition_copy_rule": "Kopírovat pravidlo",
-	"fan_action_flow_condition_delete_rule": "Smazat pravidlo",
-	"fan_action_flow_condition_value_placeholder": "Hodnota",
-	"fan_action_flow_edge_yes": "Ano",
-	"fan_action_flow_edge_no": "Ne",
 	"fan_action_flow_action_email": "Poslat E-mail",
 	"fan_action_flow_email_note_label": "Poznámka pod názvem v diagramu",
 	"fan_action_flow_email_note_placeholder": "Poznámka",
@@ -510,7 +432,6 @@
 	"fan_action_flow_remove_tag_description": "Tato akce odebere Vámi vybraný štítek zákazníkovi",
 	"fan_action_flow_action_tag": "Přidat štítek",
 	"fan_action_flow_action_remove_tag": "Odebrat štítek",
-	"fan_action_flow_action_credit": "Přidat kredit",
 	"fan_action_flow_action_ab_test": "A/B test",
 	"fan_action_flow_action_custom_attribute": "Vyplnit vlastní pole",
 	"fan_action_flow_custom_attribute_title": "Vlastní pole",
@@ -526,7 +447,6 @@
 	"fan_action_flow_reward_conversion_type_credit": "Kredit",
 	"fan_action_flow_reward_conversion_type_voucher": "Voucher",
 	"fan_action_flow_reward_conversion_send_webhook": "Odeslat webhook",
-	"fan_action_flow_action_points": "Přidat věrnostní body",
 	"fan_action_flow_action_email_desc": "Odešle marketingový nebo transakční e-mail vybraným fanouškům.",
 	"fan_action_flow_action_sms_desc": "Odešle SMS zprávu vybraným fanouškům.",
 	"fan_action_flow_action_push_desc": "Odešle push notifikaci do mobilní aplikace.",
@@ -534,48 +454,39 @@
 	"fan_action_flow_condition_add_desc": "Rozvětví scénář podle splnění podmínky.",
 	"fan_action_flow_action_tag_desc": "Přiřadí fanouškovi jeden nebo více štítků.",
 	"fan_action_flow_action_remove_tag_desc": "Odebere fanouškovi vybrané štítky.",
-	"fan_action_flow_action_credit_desc": "Přidá fanouškovi kredit na účet.",
 	"fan_action_flow_action_ab_test_desc": "Rozdělí fanoušky do větví A/B testu.",
 	"fan_action_flow_action_custom_attribute_desc": "Nastaví nebo upraví vlastní atribut fanouška.",
 	"fan_action_flow_action_end_branch": "Konec větve",
 	"fan_action_flow_action_end_branch_desc": "Ukončí aktuální větev scénáře.",
 	"fan_action_flow_action_reward_conversion_desc": "Zpracuje konverzi odměn ve věrnostním programu.",
-
 	"event_created_at_label": "Vytvořeno",
-
 	"event_dialog_copy_title": "Duplikovat událost",
 	"event_dialog_copy_description": "Opravdu chceš duplikovat {event}?",
 	"event_dialog_copy_submit": "Duplikovat",
-
 	"event_dialog_delete_title": "Smazat událost",
 	"event_dialog_delete_description": "Opravdu chceš smazat {event}? Tato akce je nevratná.",
 	"event_dialog_delete_submit": "Smazat",
 	"event_detail": "Detail",
-
 	"log_breadcrumb_home": "Domů",
 	"log_breadcrumb_settings": "Nastavení",
 	"log_breadcrumb_logs": "Protokoly",
-
 	"log_col_id": "ID",
 	"log_col_type": "Typ",
 	"log_col_user_id": "ID uživatele",
 	"log_col_email": "E-mail",
 	"log_col_time": "Čas",
-
 	"log_filter_type": "Typ",
 	"log_filter_user": "Uživatel",
 	"log_filter_date": "Datum",
 	"log_filter_no_results": "Nic nenalezeno.",
 	"log_filter_clear_filters": "Vymazat filtry",
 	"log_filter_clear_dates": "Vymazat data",
-
 	"log_action_sort_asc": "Vzestupně",
 	"log_action_sort_desc": "Sestupně",
 	"log_action_filter": "Filtrovat",
 	"log_action_hide": "Skrýt",
 	"log_action_view": "Zobrazit",
 	"log_action_reset": "Resetovat",
-
 	"log_pagination_items_per_page": "{count} záznamů na stránku",
 	"log_pagination_rows_per_page": "Řádků na stránku",
 	"log_pagination_goto_aria": "Přejít na stránku",
@@ -585,14 +496,11 @@
 	"log_pagination_snapshot": "Snímek {time}",
 	"log_pagination_prev": "Předchozí stránka",
 	"log_pagination_next": "Další stránka",
-
 	"log_table_no_results": "Žádné výsledky.",
-
 	"log_drawer_title": "Záznam: {id}",
 	"log_drawer_copy": "Kopírovat",
 	"log_drawer_copied": "Zkopírováno",
 	"log_drawer_close": "Zavřít",
-
 	"log_type_login": "Přihlášení",
 	"log_type_action_test": "Test akce",
 	"log_type_action_run": "Spuštění akce",
@@ -607,16 +515,13 @@
 	"log_type_lock_acquired": "Získání zámku",
 	"log_type_lock_released": "Uvolnění zámku",
 	"log_type_lock_force_released": "Vynucené uvolnění zámku",
-
 	"common_yes": "Ano",
 	"common_no": "Ne",
 	"common_edit": "Upravit",
 	"common_delete": "Smazat",
 	"common_import": "Importovat",
 	"common_apply": "Použít",
-
 	"crumb_home": "Domů",
-
 	"tp_reset": "Resetovat",
 	"tp_columns": "Sloupce",
 	"tp_reorder_column": "Přeuspořádat sloupec",
@@ -657,7 +562,6 @@
 	"tp_row_actions": "Akce řádku",
 	"tp_select_row": "Vybrat řádek",
 	"tp_select_all_rows": "Vybrat všechny řádky na této stránce",
-
 	"tp_date_today": "Dnes",
 	"tp_date_yesterday": "Včera",
 	"tp_date_last_7": "Posledních 7 dní",
@@ -666,7 +570,6 @@
 	"tp_date_last_month": "Minulý měsíc",
 	"tp_date_this_quarter": "Toto čtvrtletí",
 	"tp_date_ytd": "Od začátku roku",
-
 	"qb_condition": "Podmínka",
 	"qb_group": "Skupina",
 	"qb_remove_group": "Odebrat skupinu",
@@ -678,7 +581,6 @@
 	"qb_options": "Možnosti",
 	"qb_search_options": "Hledat {label}...",
 	"qb_no_results": "Žádné výsledky.",
-
 	"qb_op_equals": "rovná se",
 	"qb_op_contains": "obsahuje",
 	"qb_op_starts_with": "začíná na",
@@ -690,11 +592,8 @@
 	"qb_op_on": "dne",
 	"qb_op_before": "před",
 	"qb_op_after": "po",
-
 	"qb_combinator_and": "A ZÁROVEŇ",
 	"qb_combinator_or": "NEBO",
-
-
 	"fans_col_surname": "Příjmení",
 	"fans_col_first_name": "Jméno",
 	"fans_col_email": "E-mail",
