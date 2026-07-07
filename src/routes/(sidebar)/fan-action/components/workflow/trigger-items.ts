@@ -24,7 +24,17 @@ import Table from '@lucide/svelte/icons/table';
 import ChevronsRight from '@lucide/svelte/icons/chevrons-right';
 import CalendarClock from '@lucide/svelte/icons/calendar-clock';
 import CalendarDays from '@lucide/svelte/icons/calendar-days';
+import type { WorkflowPaletteItem } from './types';
 import * as m from '$lib/paraglide/messages.js';
+
+export type WorkflowTriggerCategory =
+	| 'common'
+	| 'time'
+	| 'ticketing'
+	| 'eshop'
+	| 'call-center'
+	| 'mobile-app'
+	| 'other';
 
 export type WorkflowTriggerDefinition = {
 	id: string;
@@ -327,6 +337,104 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		incomplete: true
 	}
 ];
+
+export const workflowTriggerCategoryOrder = [
+	'common',
+	'time',
+	'ticketing',
+	'eshop',
+	'call-center',
+	'mobile-app',
+	'other'
+] as const satisfies readonly WorkflowTriggerCategory[];
+
+export const workflowTriggerCategories: ReadonlyArray<{
+	id: WorkflowTriggerCategory;
+	label: () => string;
+}> = [
+	{ id: 'common', label: m.fan_action_flow_trigger_category_common },
+	{ id: 'time', label: m.fan_action_flow_trigger_category_time },
+	{ id: 'ticketing', label: m.fan_action_flow_trigger_category_ticketing },
+	{ id: 'eshop', label: m.fan_action_flow_trigger_category_eshop },
+	{ id: 'call-center', label: m.fan_action_flow_trigger_category_call_center },
+	{ id: 'mobile-app', label: m.fan_action_flow_trigger_category_mobile_app },
+	{ id: 'other', label: m.fan_action_flow_trigger_category_other }
+];
+
+const triggerCategoryById = {
+	'start-now': 'common',
+	'ticket-purchase': 'common',
+	'event-entry': 'common',
+	'eshop-purchase': 'common',
+	'newsletter-subscription': 'common',
+	'id-registration': 'common',
+	'scheduled-sending': 'time',
+	'exact-date': 'time',
+	'event-date-occurs': 'time',
+	'time-slot-purchase': 'ticketing',
+	'season-ticket-purchase': 'ticketing',
+	'ticket-cancellation': 'ticketing',
+	'season-ticket-cancellation': 'ticketing',
+	'ticket-barcode-change': 'ticketing',
+	'season-ticket-barcode-change': 'ticketing',
+	'cart-auto-emptied': 'ticketing',
+	'membership-purchased': 'ticketing',
+	'specific-membership-purchase': 'ticketing',
+	'membership-cancelled': 'ticketing',
+	'membership-payment-failed': 'ticketing',
+	'season-ticket-transfer': 'ticketing',
+	'ticket-transfer': 'ticketing',
+	'membership-transfer': 'ticketing',
+	'season-ticket-release': 'ticketing',
+	'season-ticket-forward': 'ticketing',
+	'membership-recurring-payment': 'ticketing',
+	'membership-status-change': 'ticketing',
+	'season-ticket-bulk-forward': 'ticketing',
+	'package-purchase': 'eshop',
+	'order-cancellation': 'eshop',
+	'support-call': 'call-center',
+	'push-notifications-enabled': 'mobile-app',
+	'app-login-open': 'mobile-app',
+	'cube-message-sent': 'mobile-app',
+	'bulletin-opened': 'mobile-app',
+	'credit-top-up': 'other',
+	'loyalty-points-added': 'other',
+	'loyalty-points-by-type': 'other',
+	'loyalty-points-reached': 'other',
+	'questionnaire-completed': 'other',
+	'data-change': 'other',
+	'form-completed': 'other'
+} as const satisfies Record<string, WorkflowTriggerCategory>;
+
+export type WorkflowTriggerPaletteGroup = {
+	id: WorkflowTriggerCategory;
+	label: string;
+	items: WorkflowPaletteItem[];
+};
+
+export function workflowTriggerPaletteGroups(): WorkflowTriggerPaletteGroup[] {
+	const itemsByCategory = new Map<WorkflowTriggerCategory, WorkflowPaletteItem[]>(
+		workflowTriggerCategoryOrder.map((category) => [category, []])
+	);
+
+	for (const trigger of workflowTriggerDefinitions) {
+		const category = triggerCategoryById[trigger.id as keyof typeof triggerCategoryById];
+		if (!category) continue;
+		itemsByCategory.get(category)?.push({
+			id: trigger.id,
+			variant: 'trigger',
+			incomplete: trigger.incomplete
+		});
+	}
+
+	return workflowTriggerCategories
+		.map((category) => ({
+			id: category.id,
+			label: category.label(),
+			items: itemsByCategory.get(category.id) ?? []
+		}))
+		.filter((group) => group.items.length > 0);
+}
 
 const triggerById = new Map(workflowTriggerDefinitions.map((trigger) => [trigger.id, trigger]));
 

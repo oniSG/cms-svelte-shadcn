@@ -1,10 +1,10 @@
 import type { Component } from 'svelte';
 import type { WorkflowDrawerContentProps } from '../types';
+import { workflowBlockDefinition } from '../block-items';
 import { actionDrawerRegistry } from './actions/registry';
 import { operatorDrawerRegistry } from './operators/registry';
 import { triggerDrawerRegistry } from './triggers/registry';
-import TriggerInfoDrawerContent from './triggers/info.svelte';
-import FallbackDrawerContent from './fallback.svelte';
+import InfoDrawerContent from './triggers/info.svelte';
 import { workflowTriggerDefinition } from '../trigger-items';
 
 const workflowDrawerRegistry: Record<string, Component<WorkflowDrawerContentProps>> = {
@@ -13,9 +13,15 @@ const workflowDrawerRegistry: Record<string, Component<WorkflowDrawerContentProp
 	...actionDrawerRegistry
 };
 
-export function workflowDrawerContent(itemId: string): Component<WorkflowDrawerContentProps> {
+export function workflowDrawerContent(
+	itemId: string
+): Component<WorkflowDrawerContentProps> | null {
 	const customDrawer = workflowDrawerRegistry[itemId];
 	if (customDrawer) return customDrawer;
-	if (workflowTriggerDefinition(itemId)) return TriggerInfoDrawerContent;
-	return FallbackDrawerContent;
+
+	if (workflowTriggerDefinition(itemId) || workflowBlockDefinition(itemId)) {
+		return InfoDrawerContent;
+	}
+
+	return null;
 }

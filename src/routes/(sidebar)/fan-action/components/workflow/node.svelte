@@ -10,6 +10,7 @@
 		type NodeProps
 	} from '@xyflow/svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
 	import type { WorkflowNodeData } from './types';
 	import { createNodeId } from './flow-utils';
 	import { workflowItemIcon, workflowItemIconModifier, workflowItemLabel } from './workflow-items';
@@ -132,23 +133,29 @@
 </script>
 
 <NodeToolbar position={Position.Top} align="center" isVisible={toolbarVisible}>
-	<div
-		class="flex items-center gap-0.5 rounded-md border bg-background p-0.5 shadow-sm"
-		onmouseenter={showToolbar}
-		onmouseleave={scheduleHideToolbar}
-		role="presentation"
-	>
-		<Button class="size-7" onclick={duplicateNode} size="icon" variant="ghost">
-			<Copy class="size-3.5" />
-		</Button>
-		<Button
-			class="size-7 text-destructive hover:text-destructive"
-			onclick={deleteNode}
-			size="icon"
-			variant="ghost"
-		>
-			<X class="size-3.5" />
-		</Button>
+	<div onmouseenter={showToolbar} onmouseleave={scheduleHideToolbar} role="presentation">
+		<ButtonGroup.Root class="overflow-hidden rounded-4xl bg-workflow-canvas-base">
+			<Button
+				type="button"
+				size="icon-sm"
+				variant="outline"
+				class="px-2"
+				onclick={duplicateNode}
+				aria-label={m.log_type_action_duplicate()}
+			>
+				<Copy />
+			</Button>
+			<Button
+				type="button"
+				size="icon-sm"
+				variant="outline"
+				class="px-2 text-destructive hover:text-destructive"
+				onclick={deleteNode}
+				aria-label={m.common_delete()}
+			>
+				<X />
+			</Button>
+		</ButtonGroup.Root>
 	</div>
 </NodeToolbar>
 

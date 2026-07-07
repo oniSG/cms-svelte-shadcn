@@ -16,6 +16,8 @@
 
 	const isSettingsTab = $derived(page.url.pathname.endsWith('/settings'));
 
+	const processedPercent = 81;
+
 	function handleSave() {
 		console.log('save fan action', actionId);
 	}
@@ -38,6 +40,14 @@
 			<ChartColumn />
 			{m.nav_analytics()}
 		</Button>
+		<div class="flex w-36 flex-col gap-1">
+			<span class="text-xs font-medium text-primary">
+				{m.fan_action_processed_progress({ percent: processedPercent })}
+			</span>
+			<div class="h-1.5 w-full overflow-hidden rounded-full bg-primary/20">
+				<div class="h-full rounded-full bg-primary" style:width="{processedPercent}%"></div>
+			</div>
+		</div>
 		<Button size="sm" onclick={handleSave}>{m.save()}</Button>
 	{/if}
 </PageHeader>

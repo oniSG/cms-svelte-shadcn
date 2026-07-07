@@ -18,7 +18,7 @@ import QuestionnaireCompletedDrawerContent from './questionnaire-completed.svelt
 import DataChangeDrawerContent from './data-change.svelte';
 import FormCompletedDrawerContent from './form-completed.svelte';
 
-/** Triggers with custom drawer UI (forms, settings). Info-only triggers use auto-fallback in registry.ts. */
+/** Triggers with custom drawer UI (forms, settings). Info-only triggers use info.svelte via registry.ts. */
 export const triggerDrawerRegistry: Record<string, Component<WorkflowDrawerContentProps>> = {
 	'scheduled-sending': ScheduledSendingDrawerContent,
 	'loyalty-points-by-type': LoyaltyPointsByTypeDrawerContent,

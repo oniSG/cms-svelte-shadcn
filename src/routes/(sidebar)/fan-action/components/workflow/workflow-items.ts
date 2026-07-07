@@ -2,7 +2,7 @@ import type { Component } from 'svelte';
 import Mail from '@lucide/svelte/icons/mail';
 import type { WorkflowPaletteItem } from './types';
 import type { WorkflowPaletteSection } from './node-styles';
-import { workflowTriggerDefinition, workflowTriggerDefinitions } from './trigger-items';
+import { workflowTriggerDefinition, workflowTriggerPaletteGroups } from './trigger-items';
 import { workflowBlockDefinition, workflowBlockDefinitions } from './block-items';
 import * as m from '$lib/paraglide/messages.js';
 
@@ -69,38 +69,42 @@ export type WorkflowPaletteSectionConfig = {
 	items: WorkflowPaletteItem[];
 };
 
+export function workflowOperatorPaletteItems(): WorkflowPaletteItem[] {
+	return workflowBlockDefinitions
+		.filter((block) => block.paletteSection === 'operators')
+		.map((block) => ({
+			id: block.id,
+			variant: block.variant,
+			incomplete: block.incomplete
+		}));
+}
+
+export function workflowActionPaletteItems(): WorkflowPaletteItem[] {
+	return workflowBlockDefinitions
+		.filter((block) => block.paletteSection === 'actions')
+		.map((block) => ({
+			id: block.id,
+			variant: block.variant,
+			incomplete: block.incomplete
+		}));
+}
+
 export function workflowPaletteSections(): WorkflowPaletteSectionConfig[] {
 	return [
 		{
 			id: 'triggers',
 			label: m.fan_action_flow_tab_triggers(),
-			items: workflowTriggerDefinitions.map((trigger) => ({
-				id: trigger.id,
-				variant: 'trigger' as const,
-				incomplete: trigger.incomplete
-			}))
+			items: workflowTriggerPaletteGroups().flatMap((group) => group.items)
 		},
 		{
 			id: 'operators',
 			label: m.fan_action_flow_section_operators(),
-			items: workflowBlockDefinitions
-				.filter((block) => block.paletteSection === 'operators')
-				.map((block) => ({
-					id: block.id,
-					variant: block.variant,
-					incomplete: block.incomplete
-				}))
+			items: workflowOperatorPaletteItems()
 		},
 		{
 			id: 'actions',
 			label: m.fan_action_flow_tab_actions(),
-			items: workflowBlockDefinitions
-				.filter((block) => block.paletteSection === 'actions')
-				.map((block) => ({
-					id: block.id,
-					variant: block.variant,
-					incomplete: block.incomplete
-				}))
+			items: workflowActionPaletteItems()
 		}
 	];
 }
