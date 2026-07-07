@@ -165,6 +165,14 @@ body {
 	stroke-dasharray: 5 4;
 }
 
+@layer components {
+	.workflow-flow-inactive .svelte-flow__nodes,
+	.workflow-flow-inactive .svelte-flow__edges,
+	.workflow-flow-inactive .svelte-flow__edge-labels {
+		filter: grayscale(1);
+	}
+}
+
 /* Range calendar: half-cell accent band for start/end dates */
 [data-range-calendar-cell][data-range-start]:not([data-range-end])::after,
 [data-range-calendar-cell][data-range-end]:not([data-range-start])::before {

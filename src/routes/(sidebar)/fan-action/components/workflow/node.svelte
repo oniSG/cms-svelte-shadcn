@@ -14,7 +14,12 @@
 	import type { WorkflowNodeData } from './types';
 	import { createNodeId } from './flow-utils';
 	import { workflowItemIcon, workflowItemIconModifier, workflowItemLabel } from './workflow-items';
-	import { getWorkflowConfigureNode, getWorkflowEditingNodeId } from './editing-context';
+	import {
+		getWorkflowConfigureNode,
+		getWorkflowEditingNodeId,
+		getWorkflowScenarioActive
+	} from './editing-context';
+	import { cn } from '$lib/utils.js';
 	import {
 		workflowNodeBoxShapeStyles,
 		workflowNodeEditingBorderClass,
@@ -48,7 +53,9 @@
 	const label = $derived(workflowItemLabel(data.itemId));
 	const onConfigureNode = getWorkflowConfigureNode();
 	const getEditingNodeId = getWorkflowEditingNodeId();
+	const getScenarioActive = getWorkflowScenarioActive();
 	const isEditing = $derived(getEditingNodeId?.() === id);
+	const scenarioActive = $derived(getScenarioActive?.() ?? true);
 	const boxShapeStyles = $derived(workflowNodeBoxShapeStyles(data.itemId, data.variant, isEditing));
 	const conditionRect = workflowNodeBoxRect(
 		workflowConditionNodeBox.size,
@@ -134,7 +141,12 @@
 
 <NodeToolbar position={Position.Top} align="center" isVisible={toolbarVisible}>
 	<div onmouseenter={showToolbar} onmouseleave={scheduleHideToolbar} role="presentation">
-		<ButtonGroup.Root class="overflow-hidden rounded-4xl bg-workflow-canvas-base">
+		<ButtonGroup.Root
+			class={cn(
+				'overflow-hidden rounded-4xl bg-workflow-canvas-base',
+				!scenarioActive && 'grayscale'
+			)}
+		>
 			<Button
 				type="button"
 				size="icon-sm"

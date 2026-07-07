@@ -17,6 +17,9 @@
 	const isSettingsTab = $derived(page.url.pathname.endsWith('/settings'));
 
 	const processedPercent = 81;
+	const progressRadius = 8;
+	const progressCircumference = 2 * Math.PI * progressRadius;
+	const progressOffset = $derived(progressCircumference * (1 - processedPercent / 100));
 
 	function handleSave() {
 		console.log('save fan action', actionId);
@@ -40,14 +43,41 @@
 			<ChartColumn />
 			{m.nav_analytics()}
 		</Button>
-		<div class="flex w-36 flex-col gap-1">
-			<span class="text-xs font-medium text-primary">
-				{m.fan_action_processed_progress({ percent: processedPercent })}
+		<Button
+			variant="outline"
+			size="sm"
+			type="button"
+			class="gap-1.5"
+			aria-label={m.fan_action_processed_progress({ percent: processedPercent })}
+		>
+			<span class="relative flex size-5 shrink-0 items-center justify-center" aria-hidden="true">
+				<svg class="absolute inset-0 size-full -rotate-90" viewBox="0 0 20 20">
+					<circle
+						cx="10"
+						cy="10"
+						r={progressRadius}
+						fill="none"
+						class="stroke-primary/20"
+						stroke-width="2"
+					/>
+					<circle
+						cx="10"
+						cy="10"
+						r={progressRadius}
+						fill="none"
+						class="stroke-primary"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-dasharray={progressCircumference}
+						stroke-dashoffset={progressOffset}
+					/>
+				</svg>
+				<span class="text-[0.5625rem] leading-none font-semibold text-primary">
+					{processedPercent}
+				</span>
 			</span>
-			<div class="h-1.5 w-full overflow-hidden rounded-full bg-primary/20">
-				<div class="h-full rounded-full bg-primary" style:width="{processedPercent}%"></div>
-			</div>
-		</div>
+			{m.fan_action_processed()}
+		</Button>
 		<Button size="sm" onclick={handleSave}>{m.save()}</Button>
 	{/if}
 </PageHeader>

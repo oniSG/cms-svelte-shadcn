@@ -16,12 +16,16 @@
 	import { createNodeId } from './flow-utils';
 	import type { WorkflowNodeData, WorkflowPaletteItem } from './types';
 	import { WORKFLOW_DRAG_MIME } from './types';
+	import { getWorkflowScenarioActive } from './editing-context';
+	import { cn } from '$lib/utils.js';
 	import { mode } from 'mode-watcher';
 
 	const nodeTypes = { workflow: FlowNode };
 	const edgeTypes = { workflow: FlowEdge };
 
 	const flowColorMode = $derived(mode.current === 'dark' ? 'dark' : 'light');
+	const getScenarioActive = getWorkflowScenarioActive();
+	const scenarioActive = $derived(getScenarioActive?.() ?? true);
 
 	let {
 		nodes = $bindable(),
@@ -77,7 +81,10 @@
 		bind:nodes
 		bind:edges
 		colorMode={flowColorMode}
-		class="workflow-flow h-full w-full !bg-muted/20"
+		class={cn(
+			'workflow-flow h-full w-full !bg-muted/20',
+			!scenarioActive && 'workflow-flow-inactive'
+		)}
 		{nodeTypes}
 		{edgeTypes}
 		defaultEdgeOptions={{ type: 'workflow' }}
@@ -89,4 +96,3 @@
 		<FitViewOnResize />
 	</SvelteFlow>
 </div>
-

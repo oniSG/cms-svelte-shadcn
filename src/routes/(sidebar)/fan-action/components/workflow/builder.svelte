@@ -6,7 +6,11 @@
 	import PaletteSheet from './palette-sheet.svelte';
 	import NodeConfigPanel from './node-config-panel.svelte';
 	import { createInitialFlow } from '../../temp/initial-flow';
-	import { setWorkflowConfigureNode, setWorkflowEditingNodeId } from './editing-context';
+	import {
+		setWorkflowConfigureNode,
+		setWorkflowEditingNodeId,
+		setWorkflowScenarioActive
+	} from './editing-context';
 	import type { WorkflowNodeData } from './types';
 	import type { FanAction } from '$lib/types/fan-action.js';
 
@@ -26,6 +30,7 @@
 	let activeNodeId = $state<string | null>(null);
 	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
 	const editingNodeId = $derived(drawerOpen ? activeNodeId : null);
+	const scenarioActive = $derived(action?.active ?? true);
 
 	function openNodeDrawer(nodeId: string) {
 		activeNodeId = nodeId;
@@ -34,6 +39,7 @@
 
 	setWorkflowConfigureNode(openNodeDrawer);
 	setWorkflowEditingNodeId(() => editingNodeId);
+	setWorkflowScenarioActive(() => scenarioActive);
 </script>
 
 {#if browser}
