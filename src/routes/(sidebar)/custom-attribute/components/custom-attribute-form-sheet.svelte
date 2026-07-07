@@ -14,7 +14,6 @@
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import PlusIcon from '@lucide/svelte/icons/plus';
 	import XIcon from '@lucide/svelte/icons/x';
-	import Trash2Icon from '@lucide/svelte/icons/trash-2';
 	import RequiredMark from '$lib/components/custom/required-mark.svelte';
 	import {
 		allFieldTypes,
@@ -25,8 +24,7 @@
 		type CustomAttrFieldType,
 		type CustomAttribute
 	} from '../custom-attribute';
-	import { addSection, hasSection, removeSection, sectionsState } from '../sections.svelte.js';
-	import { countBySection } from '../temp/data';
+	import { addGroup, groupsState, hasGroup } from '../groups.svelte.js';
 
 	let {
 		open = $bindable(false),
@@ -66,7 +64,7 @@
 			if (attr && attr.api_key.trim().toLowerCase() === key.trim().toLowerCase()) return false;
 			return isApiKeyTaken(key);
 		},
-		isValidSection: (s) => hasSection(s)
+		isValidGroup: (s) => hasGroup(s)
 	});
 
 	const form = superForm(defaults(zod4(schema)), {
@@ -88,8 +86,8 @@
 	const { form: formData, enhance, errors, tainted, submitting, reset } = form;
 
 	let apiKeyDirty = $state(false);
-	let sectionOpen = $state(false);
-	let sectionSearch = $state('');
+	let groupOpen = $state(false);
+	let groupSearch = $state('');
 	let fieldTypeOpen = $state(false);
 	let newOption = $state('');
 
@@ -98,13 +96,13 @@
 		const t = untrack(() => attr);
 		apiKeyDirty = !!t;
 		newOption = '';
-		sectionSearch = '';
+		groupSearch = '';
 		reset({
 			data: t
 				? {
 						name: t.name,
 						api_key: t.api_key,
-						section: t.section,
+						group: t.group,
 						field_type: t.field_type,
 						options: t.options ?? [],
 						default_value: t.default_value ?? '',
@@ -114,7 +112,7 @@
 				: {
 						name: '',
 						api_key: '',
-						section: sectionsState.list[0] ?? '',
+						group: groupsState.list[0] ?? '',
 						field_type: 'TEXT',
 						options: [],
 						default_value: '',
@@ -137,17 +135,17 @@
 	const isSelect = $derived($formData.field_type === 'SELECT');
 	const optionsFull = $derived($formData.options.length >= CA_LIMITS.maxOptions);
 
-	const filteredSections = $derived.by(() => {
-		const q = sectionSearch.trim().toLowerCase();
-		if (!q) return sectionsState.list;
-		return sectionsState.list.filter((s) => s.toLowerCase().includes(q));
+	const filteredGroups = $derived.by(() => {
+		const q = groupSearch.trim().toLowerCase();
+		if (!q) return groupsState.list;
+		return groupsState.list.filter((s) => s.toLowerCase().includes(q));
 	});
 
-	const canCreateSection = $derived.by(() => {
-		const q = sectionSearch.trim();
+	const canCreateGroup = $derived.by(() => {
+		const q = groupSearch.trim();
 		if (!q) return false;
-		if (q.length < CA_LIMITS.sectionMin || q.length > CA_LIMITS.sectionMax) return false;
-		return !sectionsState.list.some((s) => s.toLowerCase() === q.toLowerCase());
+		if (q.length < CA_LIMITS.groupMin || q.length > CA_LIMITS.groupMax) return false;
+		return !groupsState.list.some((s) => s.toLowerCase() === q.toLowerCase());
 	});
 
 	const defaultPlaceholder = $derived.by(() => {
@@ -169,28 +167,17 @@
 		}
 	});
 
-	function pickSection(s: string) {
-		$formData.section = s;
-		sectionSearch = '';
-		sectionOpen = false;
+	function pickGroup(s: string) {
+		$formData.group = s;
+		groupSearch = '';
+		groupOpen = false;
 	}
 
-	function createAndPickSection() {
-		const created = addSection(sectionSearch);
+	function createAndPickGroup() {
+		const created = addGroup(groupSearch);
 		if (!created) return;
-		pickSection(created);
-		toast.success(`Section "${created}" created`);
-	}
-
-	function tryRemoveSection(s: string) {
-		const inUse = countBySection(s);
-		if (inUse > 0) {
-			toast.error(`Can't remove "${s}" — used by ${inUse} field${inUse === 1 ? '' : 's'}`);
-			return;
-		}
-		removeSection(s);
-		if ($formData.section === s) $formData.section = sectionsState.list[0] ?? '';
-		toast.success(`Section "${s}" removed`);
+		pickGroup(created);
+		toast.success(`Group "${created}" created`);
 	}
 
 	function pickFieldType(t: CustomAttrFieldType) {
@@ -287,11 +274,11 @@
 					<Form.FieldErrors />
 				</Form.Field>
 
-				<Form.Field {form} name="section">
+				<Form.Field {form} name="group">
 					<Form.Control>
 						{#snippet children({ props })}
-							<Form.Label>Section<RequiredMark /></Form.Label>
-							<Popover.Root bind:open={sectionOpen}>
+							<Form.Label>Group<RequiredMark /></Form.Label>
+							<Popover.Root bind:open={groupOpen}>
 								<Popover.Trigger>
 									{#snippet child({ props: triggerProps })}
 										<Button
@@ -300,8 +287,8 @@
 											variant="outline"
 											class="w-full justify-between font-normal"
 										>
-											<span class:text-muted-foreground={!$formData.section}>
-												{$formData.section || 'Select or create a section'}
+											<span class:text-muted-foreground={!$formData.group}>
+												{$formData.group || 'Select or create a group'}
 											</span>
 											<ChevronDownIcon class="size-4 opacity-50" />
 										</Button>
@@ -310,54 +297,42 @@
 								<Popover.Content class="w-(--bits-popover-anchor-width) p-0" align="start">
 									<Command.Root shouldFilter={false}>
 										<Command.Input
-											bind:value={sectionSearch}
-											placeholder="Search or type a new section…"
-											maxlength={CA_LIMITS.sectionMax}
+											bind:value={groupSearch}
+											placeholder="Search or type a new group…"
+											maxlength={CA_LIMITS.groupMax}
 										/>
 										<Command.List>
-											{#if filteredSections.length > 0}
-												<Command.Group heading="Sections">
-													{#each filteredSections as s (s)}
+											{#if filteredGroups.length > 0}
+												<Command.Group heading="Groups">
+													{#each filteredGroups as s (s)}
 														<Command.Item
 															value={s}
-															data-checked={$formData.section === s}
-															onSelect={() => pickSection(s)}
-															class="pr-2"
+															data-checked={$formData.group === s}
+															onSelect={() => pickGroup(s)}
 														>
 															<span class="flex-1 truncate">{s}</span>
-															<button
-																type="button"
-																aria-label={`Remove ${s}`}
-																onclick={(e) => {
-																	e.stopPropagation();
-																	tryRemoveSection(s);
-																}}
-																class="ml-2 flex size-6 items-center justify-center rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
-															>
-																<Trash2Icon class="size-3.5" />
-															</button>
 														</Command.Item>
 													{/each}
 												</Command.Group>
-											{:else if !canCreateSection}
+											{:else if !canCreateGroup}
 												<Command.Empty>
-													{sectionSearch.trim()
-														? 'That section name is too short or too long.'
-														: 'No sections yet — type a name to create one.'}
+													{groupSearch.trim()
+														? 'That group name is too short or too long.'
+														: 'No groups yet — type a name to create one.'}
 												</Command.Empty>
 											{/if}
-											{#if canCreateSection}
-												{#if filteredSections.length > 0}
+											{#if canCreateGroup}
+												{#if filteredGroups.length > 0}
 													<Command.Separator />
 												{/if}
 												<Command.Group>
 													<Command.Item
-														value={`__create__${sectionSearch}`}
-														onSelect={createAndPickSection}
+														value={`__create__${groupSearch}`}
+														onSelect={createAndPickGroup}
 														class="text-primary"
 													>
 														<PlusIcon class="size-4" />
-														<span>Create "{sectionSearch.trim()}"</span>
+														<span>Create "{groupSearch.trim()}"</span>
 													</Command.Item>
 												</Command.Group>
 											{/if}

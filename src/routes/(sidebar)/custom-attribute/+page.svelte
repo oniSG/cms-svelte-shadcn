@@ -6,6 +6,7 @@
 	import PlusIcon from '@lucide/svelte/icons/plus';
 	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import TrashIcon from '@lucide/svelte/icons/trash-2';
+	import FolderCogIcon from '@lucide/svelte/icons/folder-cog';
 	import { useQueryClient } from '@tanstack/svelte-query';
 	import { toast } from 'svelte-sonner';
 	import { Button } from '$lib/components/ui/button';
@@ -25,10 +26,11 @@
 		type CAFormValues,
 		type CustomAttribute
 	} from './custom-attribute';
-	import { sectionsState } from './sections.svelte.js';
+	import { groupsState } from './groups.svelte.js';
 	import { addCA, data as caData, deleteCA, deleteCAs, updateCA } from './temp/data';
 	import { fetchCustomAttributes } from './temp/api';
 	import CustomAttributeFormSheet from './components/custom-attribute-form-sheet.svelte';
+	import GroupsManageSheet from './components/groups-manage-sheet.svelte';
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -42,7 +44,7 @@
 	]);
 
 	const fieldTypeOptions = allFieldTypes.map((t) => ({ value: t, label: fieldTypeLabels[t] }));
-	const sectionOptions = $derived(sectionsState.list.map((s) => ({ value: s, label: s })));
+	const groupOptions = $derived(groupsState.list.map((s) => ({ value: s, label: s })));
 	const boolOptions = $derived([
 		{ value: 'true', label: m.common_yes() },
 		{ value: 'false', label: m.common_no() }
@@ -68,13 +70,13 @@
 			accessor: (a) => fieldTypeLabels[a.field_type]
 		},
 		{
-			id: 'section',
-			label: 'Section',
+			id: 'group',
+			label: 'Group',
 			type: 'select',
-			options: sectionOptions,
+			options: groupOptions,
 			searchable: true,
 			width: 200,
-			accessor: (a) => a.section
+			accessor: (a) => a.group
 		},
 		{
 			id: 'default_value',
@@ -99,11 +101,11 @@
 		},
 		{
 			kind: 'multi-select',
-			id: 'section',
-			label: 'Section',
+			id: 'group',
+			label: 'Group',
 			icon: FolderIcon,
-			field: 'section',
-			options: sectionOptions
+			field: 'group',
+			options: groupOptions
 		},
 		{
 			kind: 'multi-select',
@@ -135,6 +137,8 @@
 
 	let bulkDeleteOpen = $state(false);
 	let bulkDeleteIds = $state<string[]>([]);
+
+	let groupsOpen = $state(false);
 
 	function invalidate() {
 		queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
@@ -206,6 +210,10 @@
 </script>
 
 <PageHeader separator {breadcrumbs}>
+	<Button size="sm" variant="outline" onclick={() => (groupsOpen = true)}>
+		<FolderCogIcon />
+		Manage groups
+	</Button>
 	<Button size="sm" onclick={openCreate}>
 		<PlusIcon />
 		Create custom field
@@ -219,7 +227,7 @@
 	fetcher={fetchCustomAttributes}
 	search={{
 		placeholder: 'Search custom fields',
-		fields: ['name', 'api_key', 'section', 'field_type', 'default_value']
+		fields: ['name', 'api_key', 'group', 'field_type', 'default_value']
 	}}
 	defaultSort={{ id: 'name', desc: false }}
 	click={{ onClick: openEdit }}
@@ -236,6 +244,8 @@
 	{isApiKeyTaken}
 	onSave={handleSave}
 />
+
+<GroupsManageSheet bind:open={groupsOpen} onChange={invalidate} />
 
 <DeleteDialog
 	bind:open={deleteOpen}

@@ -78,143 +78,146 @@
 	</Button>
 </PageHeader>
 
-<Card.Root>
-	<Card.Header class="flex items-center justify-between">
-		<Card.Title class="flex items-center gap-4">
-			<Button
-				size="icon-lg"
-				variant="outline"
-				class="pointer-events-none size-12 border-primary text-primary"
-			>
-				<GlobeIcon class="size-5" />
-			</Button>
-			Relatoo.cz
-		</Card.Title>
+<main class="m-4">
+	<Card.Root>
+		<Card.Header class="flex items-center justify-between">
+			<Card.Title class="flex items-center gap-4">
+				<Button
+					size="icon-lg"
+					variant="outline"
+					class="pointer-events-none size-12 border-primary text-primary"
+				>
+					<GlobeIcon class="size-5" />
+				</Button>
+				Relatoo.cz
+			</Card.Title>
 
-		<div class="flex items-end gap-4">
-			<p class="text-sm text-muted-foreground">
-				{m.domain_last_checked()}: <span class="font-medium">{m.domain_last_checked_value()}</span>
-			</p>
-			<Separator orientation="vertical" class="min-h-4" />
-			<Badge>{m.domain_verified()}</Badge>
-		</div>
-	</Card.Header>
-	<Card.Content class="flex w-full items-center gap-12">
-		<Card.Root class="w-full border-none shadow-none ring-0 outline-0">
-			<Card.Header class="px-0">
-				<Card.Title class="flex items-center gap-2">
-					DKIM
-					<Badge variant="outline">{m.nav_unverified()}</Badge>
-				</Card.Title>
-				<Card.Description>{m.domain_dkim_description()}</Card.Description>
-			</Card.Header>
-			<Card.Content class="px-0">
-				<Field.Group>
-					<Field.Field>
-						<Field.Label>{m.domain_host()}</Field.Label>
-						<ButtonGroup.Root>
-							<InputGroup.Root>
-								<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
-							</InputGroup.Root>
-							<Button>
-								<CopyIcon />
-							</Button>
-						</ButtonGroup.Root>
-					</Field.Field>
-					<Field.Field>
-						<Field.Label>{m.domain_value()}</Field.Label>
-						<ButtonGroup.Root>
-							<InputGroup.Root>
-								<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
-							</InputGroup.Root>
-							<Button>
-								<CopyIcon />
-							</Button>
-						</ButtonGroup.Root>
-					</Field.Field>
-				</Field.Group>
-			</Card.Content>
-		</Card.Root>
+			<div class="flex items-end gap-4">
+				<p class="text-sm text-muted-foreground">
+					{m.domain_last_checked()}:
+					<span class="font-medium">{m.domain_last_checked_value()}</span>
+				</p>
+				<Separator orientation="vertical" class="min-h-4" />
+				<Badge>{m.domain_verified()}</Badge>
+			</div>
+		</Card.Header>
+		<Card.Content class="flex w-full items-center gap-12">
+			<Card.Root class="w-full border-none shadow-none ring-0 outline-0">
+				<Card.Header class="px-0">
+					<Card.Title class="flex items-center gap-2">
+						DKIM
+						<Badge variant="outline">{m.nav_unverified()}</Badge>
+					</Card.Title>
+					<Card.Description>{m.domain_dkim_description()}</Card.Description>
+				</Card.Header>
+				<Card.Content class="px-0">
+					<Field.Group>
+						<Field.Field>
+							<Field.Label>{m.domain_host()}</Field.Label>
+							<ButtonGroup.Root>
+								<InputGroup.Root>
+									<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
+								</InputGroup.Root>
+								<Button>
+									<CopyIcon />
+								</Button>
+							</ButtonGroup.Root>
+						</Field.Field>
+						<Field.Field>
+							<Field.Label>{m.domain_value()}</Field.Label>
+							<ButtonGroup.Root>
+								<InputGroup.Root>
+									<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
+								</InputGroup.Root>
+								<Button>
+									<CopyIcon />
+								</Button>
+							</ButtonGroup.Root>
+						</Field.Field>
+					</Field.Group>
+				</Card.Content>
+			</Card.Root>
 
-		<!-- <Separator orientation="vertical" class="min-h-40" /> -->
+			<!-- <Separator orientation="vertical" class="min-h-40" /> -->
 
-		<Card.Root class="w-full border-none shadow-none ring-0 outline-0">
-			<Card.Header class="px-0">
-				<Card.Title class="flex items-center gap-2">
-					DMARC
-					<Badge variant="default">{m.nav_verified()}</Badge>
-				</Card.Title>
-				<Card.Description>{m.domain_dmarc_description()}</Card.Description>
-			</Card.Header>
-			<Card.Content class="px-0">
-				<Field.Group>
-					<Field.Field>
-						<Field.Label>{m.domain_host()}</Field.Label>
-						<ButtonGroup.Root>
-							<InputGroup.Root>
-								<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
-							</InputGroup.Root>
-							<Button>
-								<CopyIcon />
-							</Button>
-						</ButtonGroup.Root>
-					</Field.Field>
-					<Field.Field>
-						<Field.Label>{m.domain_value()}</Field.Label>
-						<ButtonGroup.Root>
-							<InputGroup.Root>
-								<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
-							</InputGroup.Root>
-							<Button>
-								<CopyIcon />
-							</Button>
-						</ButtonGroup.Root>
-					</Field.Field>
-				</Field.Group>
-			</Card.Content>
-		</Card.Root>
+			<Card.Root class="w-full border-none shadow-none ring-0 outline-0">
+				<Card.Header class="px-0">
+					<Card.Title class="flex items-center gap-2">
+						DMARC
+						<Badge variant="default">{m.nav_verified()}</Badge>
+					</Card.Title>
+					<Card.Description>{m.domain_dmarc_description()}</Card.Description>
+				</Card.Header>
+				<Card.Content class="px-0">
+					<Field.Group>
+						<Field.Field>
+							<Field.Label>{m.domain_host()}</Field.Label>
+							<ButtonGroup.Root>
+								<InputGroup.Root>
+									<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
+								</InputGroup.Root>
+								<Button>
+									<CopyIcon />
+								</Button>
+							</ButtonGroup.Root>
+						</Field.Field>
+						<Field.Field>
+							<Field.Label>{m.domain_value()}</Field.Label>
+							<ButtonGroup.Root>
+								<InputGroup.Root>
+									<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
+								</InputGroup.Root>
+								<Button>
+									<CopyIcon />
+								</Button>
+							</ButtonGroup.Root>
+						</Field.Field>
+					</Field.Group>
+				</Card.Content>
+			</Card.Root>
 
-		<!-- <Separator orientation="vertical" class="min-h-40" /> -->
+			<!-- <Separator orientation="vertical" class="min-h-40" /> -->
 
-		<Card.Root class="w-full border-none shadow-none ring-0 outline-0">
-			<Card.Header class="px-0">
-				<Card.Title class="flex items-center gap-2">
-					SPF
-					<Badge variant="outline">{m.nav_unverified()}</Badge>
-				</Card.Title>
-				<Card.Description>{m.domain_spf_description()}</Card.Description>
-			</Card.Header>
-			<Card.Content class="px-0">
-				<Field.Group>
-					<Field.Field>
-						<Field.Label>{m.domain_host()}</Field.Label>
-						<ButtonGroup.Root>
-							<InputGroup.Root>
-								<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
-							</InputGroup.Root>
-							<Button>
-								<CopyIcon />
-							</Button>
-						</ButtonGroup.Root>
-					</Field.Field>
-					<Field.Field>
-						<Field.Label>{m.domain_value()}</Field.Label>
-						<ButtonGroup.Root>
-							<InputGroup.Root>
-								<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
-							</InputGroup.Root>
-							<Button>
-								<CopyIcon />
-							</Button>
-						</ButtonGroup.Root>
-					</Field.Field>
-				</Field.Group>
-			</Card.Content>
-		</Card.Root>
-	</Card.Content>
+			<Card.Root class="w-full border-none shadow-none ring-0 outline-0">
+				<Card.Header class="px-0">
+					<Card.Title class="flex items-center gap-2">
+						SPF
+						<Badge variant="outline">{m.nav_unverified()}</Badge>
+					</Card.Title>
+					<Card.Description>{m.domain_spf_description()}</Card.Description>
+				</Card.Header>
+				<Card.Content class="px-0">
+					<Field.Group>
+						<Field.Field>
+							<Field.Label>{m.domain_host()}</Field.Label>
+							<ButtonGroup.Root>
+								<InputGroup.Root>
+									<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
+								</InputGroup.Root>
+								<Button>
+									<CopyIcon />
+								</Button>
+							</ButtonGroup.Root>
+						</Field.Field>
+						<Field.Field>
+							<Field.Label>{m.domain_value()}</Field.Label>
+							<ButtonGroup.Root>
+								<InputGroup.Root>
+									<InputGroup.Input type="text" value="asgasdgasgafdgadfgadfgdfgadg" disabled />
+								</InputGroup.Root>
+								<Button>
+									<CopyIcon />
+								</Button>
+							</ButtonGroup.Root>
+						</Field.Field>
+					</Field.Group>
+				</Card.Content>
+			</Card.Root>
+		</Card.Content>
 
-	<Card.Footer class="flex items-center gap-2 text-sm text-muted-foreground">
-		<InfoIcon class="size-5" />
-		<p>{m.domain_dns_delay()}</p>
-	</Card.Footer>
-</Card.Root>
+		<Card.Footer class="flex items-center gap-2 text-sm text-muted-foreground">
+			<InfoIcon class="size-5" />
+			<p>{m.domain_dns_delay()}</p>
+		</Card.Footer>
+	</Card.Root>
+</main>

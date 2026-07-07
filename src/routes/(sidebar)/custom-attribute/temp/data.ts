@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import type { CustomAttrFieldType, CustomAttrSection, CustomAttribute } from '../custom-attribute';
-import { DEFAULT_SECTIONS } from '../sections.svelte.js';
+import type { CustomAttrFieldType, CustomAttrGroup, CustomAttribute } from '../custom-attribute';
+import { DEFAULT_GROUPS } from '../groups.svelte.js';
 
 faker.seed(20260702);
 
@@ -119,14 +119,14 @@ function defaultValueFor(type: CustomAttrFieldType, options: string[] | null): s
 	return null;
 }
 
-function pickSection(): CustomAttrSection {
+function pickGroup(): CustomAttrGroup {
 	return faker.helpers.weightedArrayElement([
-		{ value: DEFAULT_SECTIONS[0], weight: 6 },
-		{ value: DEFAULT_SECTIONS[1], weight: 4 },
-		{ value: DEFAULT_SECTIONS[2], weight: 2 },
-		{ value: DEFAULT_SECTIONS[3], weight: 3 },
-		{ value: DEFAULT_SECTIONS[4], weight: 2 },
-		{ value: DEFAULT_SECTIONS[5], weight: 2 }
+		{ value: DEFAULT_GROUPS[0], weight: 6 },
+		{ value: DEFAULT_GROUPS[1], weight: 4 },
+		{ value: DEFAULT_GROUPS[2], weight: 2 },
+		{ value: DEFAULT_GROUPS[3], weight: 3 },
+		{ value: DEFAULT_GROUPS[4], weight: 2 },
+		{ value: DEFAULT_GROUPS[5], weight: 2 }
 	]);
 }
 
@@ -137,7 +137,7 @@ export const data: CustomAttribute[] = NAMES.map((name, i) => {
 		id: String(1000 + i),
 		name,
 		api_key: name,
-		section: pickSection(),
+		group: pickGroup(),
 		field_type,
 		options,
 		default_value: defaultValueFor(field_type, options),
@@ -152,7 +152,7 @@ let nextId = 1000 + NAMES.length;
 type CAInput = {
 	name: string;
 	api_key: string;
-	section: CustomAttrSection;
+	group: CustomAttrGroup;
 	field_type: CustomAttrFieldType;
 	options: string[];
 	default_value: string;
@@ -164,7 +164,7 @@ function shape(input: CAInput): Omit<CustomAttribute, 'id' | 'created_at'> {
 	return {
 		name: input.name,
 		api_key: input.api_key,
-		section: input.section,
+		group: input.group,
 		field_type: input.field_type,
 		options: input.field_type === 'SELECT' ? input.options : null,
 		default_value: input.default_value ? input.default_value : null,
@@ -209,6 +209,17 @@ export function deleteCAs(ids: string[]): number {
 	return removed;
 }
 
-export function countBySection(section: string): number {
-	return data.reduce((n, a) => (a.section === section ? n + 1 : n), 0);
+export function countByGroup(group: string): number {
+	return data.reduce((n, a) => (a.group === group ? n + 1 : n), 0);
+}
+
+export function renameGroupInData(oldName: string, newName: string): number {
+	let moved = 0;
+	for (let i = 0; i < data.length; i++) {
+		if (data[i].group === oldName) {
+			data[i] = { ...data[i], group: newName };
+			moved++;
+		}
+	}
+	return moved;
 }

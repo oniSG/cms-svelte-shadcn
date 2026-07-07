@@ -21,7 +21,7 @@
 	]}
 />
 
-<div class="my-5">
+<div class="m-4">
 	<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
 		<Card.Root class="h-min">
 			<Card.Header>
