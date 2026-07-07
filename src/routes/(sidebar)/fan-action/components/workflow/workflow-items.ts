@@ -21,7 +21,8 @@ function triggerAsItem(id: string): WorkflowItemDefinition | undefined {
 		icon: trigger.icon,
 		iconModifier: trigger.iconModifier,
 		label: trigger.label,
-		description: trigger.description
+		description: trigger.description,
+		drawerTitle: trigger.drawerTitle
 	};
 }
 
@@ -75,7 +76,8 @@ export function workflowPaletteSections(): WorkflowPaletteSectionConfig[] {
 			label: m.fan_action_flow_tab_triggers(),
 			items: workflowTriggerDefinitions.map((trigger) => ({
 				id: trigger.id,
-				variant: 'trigger' as const
+				variant: 'trigger' as const,
+				incomplete: trigger.incomplete
 			}))
 		},
 		{

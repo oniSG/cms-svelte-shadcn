@@ -21,6 +21,9 @@ import UserPlus from '@lucide/svelte/icons/user-plus';
 import FileText from '@lucide/svelte/icons/file-text';
 import UserPen from '@lucide/svelte/icons/user-pen';
 import Table from '@lucide/svelte/icons/table';
+import ChevronsRight from '@lucide/svelte/icons/chevrons-right';
+import CalendarClock from '@lucide/svelte/icons/calendar-clock';
+import CalendarDays from '@lucide/svelte/icons/calendar-days';
 import * as m from '$lib/paraglide/messages.js';
 
 export type WorkflowTriggerDefinition = {
@@ -29,14 +32,49 @@ export type WorkflowTriggerDefinition = {
 	iconModifier?: string;
 	label: () => string;
 	description: () => string;
+	drawerTitle?: () => string;
+	incomplete?: boolean;
 };
 
 export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 	{
+		id: 'start-now',
+		icon: ChevronsRight,
+		label: m.fan_action_flow_trigger_start_now,
+		description: m.fan_action_flow_trigger_start_now_desc,
+		drawerTitle: m.fan_action_flow_trigger_start_now
+	},
+	{
+		id: 'scheduled-sending',
+		icon: CalendarClock,
+		label: m.fan_action_flow_trigger_scheduled_sending,
+		description: m.fan_action_flow_trigger_scheduled_sending_desc,
+		drawerTitle: m.fan_action_flow_trigger_scheduled_sending,
+		incomplete: true
+	},
+	{
+		id: 'exact-date',
+		icon: CalendarDays,
+		label: m.fan_action_flow_trigger_exact_date,
+		description: m.fan_action_flow_trigger_exact_date_desc,
+		drawerTitle: m.fan_action_flow_trigger_exact_date,
+		incomplete: true
+	},
+	{
+		id: 'event-date-occurs',
+		icon: CalendarDays,
+		label: m.fan_action_flow_trigger_event_date_occurs,
+		description: m.fan_action_flow_trigger_event_date_occurs_desc,
+		drawerTitle: m.fan_action_flow_trigger_event_date_occurs,
+		incomplete: true
+	},
+	{
 		id: 'ticket-purchase',
 		icon: ShoppingCart,
 		label: m.fan_action_flow_trigger_ticket_purchase,
-		description: m.fan_action_flow_trigger_ticket_purchase_desc
+		description: m.fan_action_flow_trigger_ticket_purchase_desc,
+		drawerTitle: m.fan_action_flow_trigger_ticket_purchase,
+		incomplete: true
 	},
 	{
 		id: 'time-slot-purchase',
@@ -54,7 +92,9 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		id: 'event-entry',
 		icon: LogIn,
 		label: m.fan_action_flow_trigger_event_entry,
-		description: m.fan_action_flow_trigger_event_entry_desc
+		description: m.fan_action_flow_trigger_event_entry_desc,
+		drawerTitle: m.fan_action_flow_trigger_event_entry,
+		incomplete: true
 	},
 	{
 		id: 'ticket-cancellation',
@@ -84,7 +124,9 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		id: 'cart-auto-emptied',
 		icon: Frown,
 		label: m.fan_action_flow_trigger_cart_auto_emptied,
-		description: m.fan_action_flow_trigger_cart_auto_emptied_desc
+		description: m.fan_action_flow_trigger_cart_auto_emptied_desc,
+		drawerTitle: m.fan_action_flow_trigger_cart_auto_emptied,
+		incomplete: true
 	},
 	{
 		id: 'membership-purchased',
@@ -96,7 +138,9 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		id: 'specific-membership-purchase',
 		icon: ShoppingCart,
 		label: m.fan_action_flow_trigger_specific_membership_purchase,
-		description: m.fan_action_flow_trigger_specific_membership_purchase_desc
+		description: m.fan_action_flow_trigger_specific_membership_purchase_desc,
+		drawerTitle: m.fan_action_flow_trigger_specific_membership_purchase,
+		incomplete: true
 	},
 	{
 		id: 'membership-cancelled',
@@ -120,7 +164,9 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		id: 'ticket-transfer',
 		icon: ArrowLeftRight,
 		label: m.fan_action_flow_trigger_ticket_transfer,
-		description: m.fan_action_flow_trigger_ticket_transfer_desc
+		description: m.fan_action_flow_trigger_ticket_transfer_desc,
+		drawerTitle: m.fan_action_flow_trigger_ticket_transfer,
+		incomplete: true
 	},
 	{
 		id: 'membership-transfer',
@@ -132,13 +178,17 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		id: 'season-ticket-release',
 		icon: Gift,
 		label: m.fan_action_flow_trigger_season_ticket_release,
-		description: m.fan_action_flow_trigger_season_ticket_release_desc
+		description: m.fan_action_flow_trigger_season_ticket_release_desc,
+		drawerTitle: m.fan_action_flow_trigger_season_ticket_release,
+		incomplete: true
 	},
 	{
 		id: 'season-ticket-forward',
 		icon: Gift,
 		label: m.fan_action_flow_trigger_season_ticket_forward,
-		description: m.fan_action_flow_trigger_season_ticket_forward_desc
+		description: m.fan_action_flow_trigger_season_ticket_forward_desc,
+		drawerTitle: m.fan_action_flow_trigger_season_ticket_forward,
+		incomplete: true
 	},
 	{
 		id: 'membership-recurring-payment',
@@ -150,13 +200,17 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		id: 'membership-status-change',
 		icon: UserCheck,
 		label: m.fan_action_flow_trigger_membership_status_change,
-		description: m.fan_action_flow_trigger_membership_status_change_desc
+		description: m.fan_action_flow_trigger_membership_status_change_desc,
+		drawerTitle: m.fan_action_flow_trigger_membership_status_change,
+		incomplete: true
 	},
 	{
 		id: 'season-ticket-bulk-forward',
 		icon: Gift,
 		label: m.fan_action_flow_trigger_season_ticket_bulk_forward,
-		description: m.fan_action_flow_trigger_season_ticket_bulk_forward_desc
+		description: m.fan_action_flow_trigger_season_ticket_bulk_forward_desc,
+		drawerTitle: m.fan_action_flow_trigger_season_ticket_bulk_forward,
+		incomplete: true
 	},
 	{
 		id: 'eshop-purchase',
@@ -224,13 +278,17 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		icon: Star,
 		iconModifier: 'fill-current',
 		label: m.fan_action_flow_trigger_loyalty_points_by_type,
-		description: m.fan_action_flow_trigger_loyalty_points_by_type_desc
+		description: m.fan_action_flow_trigger_loyalty_points_by_type_desc,
+		drawerTitle: m.fan_action_flow_trigger_loyalty_points_by_type,
+		incomplete: true
 	},
 	{
 		id: 'loyalty-points-reached',
 		icon: Award,
 		label: m.fan_action_flow_trigger_loyalty_points_reached,
-		description: m.fan_action_flow_trigger_loyalty_points_reached_desc
+		description: m.fan_action_flow_trigger_loyalty_points_reached_desc,
+		drawerTitle: m.fan_action_flow_trigger_loyalty_points_reached,
+		incomplete: true
 	},
 	{
 		id: 'id-registration',
@@ -248,19 +306,25 @@ export const workflowTriggerDefinitions: WorkflowTriggerDefinition[] = [
 		id: 'questionnaire-completed',
 		icon: FileText,
 		label: m.fan_action_flow_trigger_questionnaire_completed,
-		description: m.fan_action_flow_trigger_questionnaire_completed_desc
+		description: m.fan_action_flow_trigger_questionnaire_completed_desc,
+		drawerTitle: m.fan_action_flow_trigger_questionnaire_completed,
+		incomplete: true
 	},
 	{
 		id: 'data-change',
 		icon: UserPen,
 		label: m.fan_action_flow_trigger_data_change,
-		description: m.fan_action_flow_trigger_data_change_desc
+		description: m.fan_action_flow_trigger_data_change_desc,
+		drawerTitle: m.fan_action_flow_trigger_data_change,
+		incomplete: true
 	},
 	{
 		id: 'form-completed',
 		icon: Table,
 		label: m.fan_action_flow_trigger_form_completed,
-		description: m.fan_action_flow_trigger_form_completed_desc
+		description: m.fan_action_flow_trigger_form_completed_desc,
+		drawerTitle: m.fan_action_flow_trigger_form_completed,
+		incomplete: true
 	}
 ];
 
