@@ -1,3 +1,12 @@
+import Type from '@lucide/svelte/icons/type';
+import Hash from '@lucide/svelte/icons/hash';
+import ListChecks from '@lucide/svelte/icons/list-checks';
+import CheckSquare from '@lucide/svelte/icons/check-square';
+import CalendarDays from '@lucide/svelte/icons/calendar-days';
+import AlignLeft from '@lucide/svelte/icons/align-left';
+import Image from '@lucide/svelte/icons/image';
+import { Braces } from '@lucide/svelte';
+
 export type CustomAttrFieldType =
 	| 'SELECT'
 	| 'TEXT'
@@ -30,6 +39,46 @@ export const fieldTypeLabels: Record<CustomAttrFieldType, string> = {
 	INTEGRATION: 'Integration'
 };
 
+export const fieldTypeIcons: Record<CustomAttrFieldType, typeof Type> = {
+	SELECT: ListChecks,
+	TEXT: Type,
+	DATE: CalendarDays,
+	CHECKBOX: CheckSquare,
+	LONG_TEXT: AlignLeft,
+	NUMBER: Hash,
+	IMAGE_URL: Image,
+	INTEGRATION: Braces
+};
+
+export const BASE_FIELD_ELIGIBLE_TYPES: CustomAttrFieldType[] = [
+	'TEXT',
+	'DATE',
+	'LONG_TEXT',
+	'CHECKBOX'
+];
+
+export const VALIDATION_ELIGIBLE_TYPES: CustomAttrFieldType[] = [
+	'TEXT',
+	'LONG_TEXT',
+	'NUMBER',
+	'IMAGE_URL'
+];
+
+export type BaseFieldOption = { value: string; label: string };
+
+export const mockBaseFields: BaseFieldOption[] = [
+	{ value: 'first_name', label: 'First name' },
+	{ value: 'last_name', label: 'Last name' },
+	{ value: 'email', label: 'Email' },
+	{ value: 'phone', label: 'Phone' },
+	{ value: 'date_of_birth', label: 'Date of birth' },
+	{ value: 'gender', label: 'Gender' },
+	{ value: 'membership_status', label: 'Membership status' },
+	{ value: 'join_date', label: 'Join date' },
+	{ value: 'marketing_opt_in', label: 'Marketing opt-in' },
+	{ value: 'notes', label: 'Notes' }
+];
+
 // Sections are dynamic user-managed labels. See ./sections.svelte.ts.
 export type CustomAttrSection = string;
 
@@ -41,9 +90,18 @@ export type CustomAttribute = {
 	field_type: CustomAttrFieldType;
 	options: string[] | null;
 	default_value: string | null;
+	connected_base_field: string | null;
+	required: boolean;
+	error_message: string | null;
+	max_length: number | null;
+	max_number: number | null;
+	max_url_length: number | null;
+	allow_array: boolean;
+	allow_object: boolean;
 	active: boolean;
 	all_clubs: boolean;
 	created_at: Date;
+	expected_structure: string | null;
 };
 
 export function formatDefaultValue(a: CustomAttribute): string {
@@ -68,7 +126,12 @@ export const CA_LIMITS = {
 	maxOptions: 20,
 	optionMin: 1,
 	optionMax: 40,
-	maxAttributes: 200
+	maxAttributes: 200,
+	errorMessageMax: 140,
+	maxLengthCap: 10_000,
+	maxNumberCap: Number.MAX_SAFE_INTEGER,
+	maxUrlLengthCap: 4096,
+	expectedStructureMax: 4000
 } as const;
 
 const NAME_ALLOWED = /^[\p{L}\p{N}\s\-_./&']+$/u;
@@ -98,6 +161,7 @@ export function makeCAFormSchema(opts: {
 			field_type: z.enum(
 				allFieldTypes as unknown as [CustomAttrFieldType, ...CustomAttrFieldType[]]
 			),
+			connected_base_field: z.string().max(60).optional().default(''),
 			options: z
 				.array(
 					z
@@ -112,6 +176,38 @@ export function makeCAFormSchema(opts: {
 					CA_LIMITS.defaultValueMax,
 					`Default must be at most ${CA_LIMITS.defaultValueMax} characters`
 				),
+			required: z.boolean().default(false),
+			error_message: z
+				.string()
+				.max(CA_LIMITS.errorMessageMax, `Error message must be at most ${CA_LIMITS.errorMessageMax} characters`)
+				.optional()
+				.default(''),
+			max_length: z
+				.number()
+				.int()
+				.positive()
+				.max(CA_LIMITS.maxLengthCap, `Must be at most ${CA_LIMITS.maxLengthCap}`)
+				.optional(),
+			max_number: z
+				.number()
+				.max(CA_LIMITS.maxNumberCap, `Must be at most ${CA_LIMITS.maxNumberCap}`)
+				.optional(),
+			max_url_length: z
+				.number()
+				.int()
+				.positive()
+				.max(CA_LIMITS.maxUrlLengthCap, `Must be at most ${CA_LIMITS.maxUrlLengthCap}`)
+				.optional(),
+			allow_array: z.boolean().default(false),
+			allow_object: z.boolean().default(false),
+			expected_structure: z
+				.string()
+				.max(
+					CA_LIMITS.expectedStructureMax,
+					`Must be at most ${CA_LIMITS.expectedStructureMax} characters`
+				)
+				.optional()
+				.default(''),
 			active: z.boolean(),
 			all_clubs: z.boolean()
 		})
@@ -190,3 +286,31 @@ export function makeCAFormSchema(opts: {
 }
 
 export type CAFormValues = z.infer<ReturnType<typeof makeCAFormSchema>>;
+
+export type ApiIntegration = {
+	id: string;
+	endpoint: string;
+	method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+	headers: Record<string, string>;
+};
+
+export const mockApiIntegrations: ApiIntegration[] = [
+	{
+		id: 'int_1',
+		endpoint: '/api/v1/members/sync',
+		method: 'GET',
+		headers: { Authorization: 'Bearer ...' }
+	},
+	{
+		id: 'int_2',
+		endpoint: '/api/v1/invoices/create',
+		method: 'POST',
+		headers: { Authorization: 'Bearer ...', 'Content-Type': 'application/json' }
+	},
+	{
+		id: 'int_3',
+		endpoint: '/api/v1/members/{id}',
+		method: 'PUT',
+		headers: { Authorization: 'Bearer ...' }
+	}
+];
