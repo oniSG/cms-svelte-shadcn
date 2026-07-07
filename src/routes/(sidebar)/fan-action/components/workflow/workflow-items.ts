@@ -1,7 +1,7 @@
 import type { Component } from 'svelte';
 import Mail from '@lucide/svelte/icons/mail';
 import type { WorkflowPaletteItem } from './types';
-import type { WorkflowPaletteSection } from './node-colors';
+import type { WorkflowPaletteSection } from './node-styles';
 import { workflowTriggerDefinition, workflowTriggerDefinitions } from './trigger-items';
 import { workflowBlockDefinition, workflowBlockDefinitions } from './block-items';
 import * as m from '$lib/paraglide/messages.js';

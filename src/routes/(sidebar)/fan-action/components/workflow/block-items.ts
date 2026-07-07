@@ -11,7 +11,7 @@ import List from '@lucide/svelte/icons/list';
 import Gift from '@lucide/svelte/icons/gift';
 import X from '@lucide/svelte/icons/x';
 import type { WorkflowNodeVariant } from './types';
-import type { WorkflowPaletteSection } from './node-colors';
+import type { WorkflowPaletteSection } from './node-styles';
 import * as m from '$lib/paraglide/messages.js';
 
 export type WorkflowBlockDefinition = {

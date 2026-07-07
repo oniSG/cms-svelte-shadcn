@@ -14,7 +14,7 @@
 		workflowPaletteSections,
 		type WorkflowPaletteSectionConfig
 	} from './workflow-items';
-	import { workflowPaletteSection, workflowPaletteSectionBgClass } from './node-colors';
+	import { workflowPaletteSection, workflowPaletteSectionBgClass } from './node-styles';
 	import BasicInfoForm from '../basic-info-form.svelte';
 	import SettingsForm from '../settings-form.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';

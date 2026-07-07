@@ -24,7 +24,7 @@
 		workflowActionNodeBox,
 		workflowTriggerNodeBox,
 		workflowNodeBoxRect
-	} from './node-colors';
+	} from './node-styles';
 	import { workflowConditionBranchStyles } from './condition-branch-styles';
 	import Copy from '@lucide/svelte/icons/copy';
 	import X from '@lucide/svelte/icons/x';
