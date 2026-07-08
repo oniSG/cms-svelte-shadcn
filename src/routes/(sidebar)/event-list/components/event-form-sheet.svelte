@@ -1,106 +1,116 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { untrack } from 'svelte';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import * as Command from '$lib/components/ui/command/index.js';
-	import { tags } from '../columns';
-	import { ChevronsUpDownIcon, X } from '@lucide/svelte';
 	import { Switch } from '$lib/components/ui/switch/index.js';
-
+	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
+	import CheckIcon from '@lucide/svelte/icons/check';
+	import XIcon from '@lucide/svelte/icons/x';
+	import { eventListTags, linkedEventsCatalog, type Event } from '../event-list';
 	import * as m from '$lib/paraglide/messages.js';
 
-	let { open = $bindable() }: { open: boolean } = $props();
+	let {
+		open = $bindable(false),
+		event
+	}: {
+		open?: boolean;
+		event?: Event;
+	} = $props();
+
+	const isEdit = $derived(Boolean(event));
 
 	let eventName = $state('');
-
-	let eventsList = [
-		{ id: '2507', name: 'Udalost Lukas 2507', date: '03.01.2026' },
-		{ id: '987', name: 'Test Event Zuz Feb', date: '01.02.2026' },
-		{ id: '100', name: 'Udalost 100', date: '05.02.2026' },
-		{ id: '102', name: 'Udalost 102', date: '05.02.2026' },
-		{ id: '98765', name: 'Test Event Zuz Feb2', date: '06.02.2026' },
-		{ id: '98766', name: 'Test Event Zuz Feb3', date: '06.02.2026' }
-	];
-
 	let selectedTags = $state<string[]>([]);
-	let tagsOpen = $state(false);
-
 	let selectedEvents = $state<string[]>([]);
+	let isActive = $state(true);
+	let updateTicketing = $state(false);
+	let tagsOpen = $state(false);
 	let eventsOpen = $state(false);
 
-	function toggleTag(value: string) {
-		if (selectedTags.includes(value)) {
-			selectedTags = selectedTags.filter((t) => t !== value);
-		} else {
-			selectedTags = [...selectedTags, value];
+	function resetForm() {
+		eventName = '';
+		selectedTags = [];
+		selectedEvents = [];
+		isActive = true;
+		updateTicketing = false;
+	}
+
+	$effect(() => {
+		if (!open) return;
+		const current = untrack(() => event);
+		if (current) {
+			eventName = current.event;
+			selectedTags = [...current.label];
+			isActive = current.active;
+			selectedEvents = [];
+			updateTicketing = false;
+			return;
 		}
+		resetForm();
+	});
+
+	function toggleTag(value: string) {
+		selectedTags = selectedTags.includes(value)
+			? selectedTags.filter((tag) => tag !== value)
+			: [...selectedTags, value];
 	}
 
 	function removeTag(value: string) {
-		selectedTags = selectedTags.filter((t) => t !== value);
+		selectedTags = selectedTags.filter((tag) => tag !== value);
 	}
 
-	function toggleEvent(id: string) {
-		if (selectedEvents.includes(id)) {
-			selectedEvents = selectedEvents.filter((e) => e !== id);
-		} else {
-			selectedEvents = [...selectedEvents, id];
-		}
+	function toggleLinkedEvent(id: string) {
+		selectedEvents = selectedEvents.includes(id)
+			? selectedEvents.filter((linkedId) => linkedId !== id)
+			: [...selectedEvents, id];
 	}
 
-	function removeEvent(id: string) {
-		selectedEvents = selectedEvents.filter((e) => e !== id);
+	function removeLinkedEvent(id: string) {
+		selectedEvents = selectedEvents.filter((linkedId) => linkedId !== id);
 	}
 
 	function handleSave() {
 		if (!eventName.trim()) return;
 
-		console.log('Vytvořit', {
+		console.log(isEdit ? 'Uložit' : 'Vytvořit', {
 			event: eventName,
 			labels: selectedTags,
-			linkedEventIds: selectedEvents
+			linkedEventIds: selectedEvents,
+			active: isActive,
+			updateTicketing
 		});
-		handleClose();
-	}
-
-	function handleClose() {
 		open = false;
-		eventName = '';
-		selectedTags = [];
-		selectedEvents = [];
 	}
 </script>
 
-<Dialog.Root
-	onOpenChange={(o) => {
-		if (!o) handleClose();
-	}}
-	{open}
->
-	<Dialog.Content class="max-w-lg">
-		<Dialog.Header>
-			<Dialog.Title>{m.event_dialog_create_title()}</Dialog.Title>
-		</Dialog.Header>
+<Sheet.Root bind:open>
+	<Sheet.Content class="gap-0">
+		<Sheet.Header>
+			<Sheet.Title
+				>{isEdit ? m.event_dialog_edit_title() : m.event_dialog_create_title()}</Sheet.Title
+			>
+		</Sheet.Header>
 
-		<div class="flex flex-col gap-5 py-2">
-			<div class="flex flex-col gap-1.5">
+		<div class="min-h-0 flex-1 space-y-5 overflow-y-auto px-6 py-2">
+			<div class="space-y-1.5">
 				<Label for="event-name">
 					{m.event_name_label()} <span class="text-destructive">*</span>
 				</Label>
 				<Input bind:value={eventName} id="event-name" placeholder={m.event_name_placeholder()} />
 
-				<div class="mt-2 flex items-center justify-between">
-					<Label for="active">{m.col_active()}</Label>
-					<Switch id="active" />
+				<div class="flex items-center justify-between pt-1">
+					<Label for="event-active">{m.col_active()}</Label>
+					<Switch bind:checked={isActive} id="event-active" />
 				</div>
 			</div>
 
-			<div class="flex flex-col gap-1.5">
+			<div class="space-y-1.5">
 				<Label>{m.event_tags_label()}</Label>
-
 				<Popover.Root bind:open={tagsOpen}>
 					<Popover.Trigger>
 						{#snippet child({ props })}
@@ -112,13 +122,14 @@
 									<Badge variant="secondary" class="gap-1 pr-1">
 										{tag}
 										<button
+											type="button"
 											onclick={(e) => {
 												e.stopPropagation();
 												removeTag(tag);
 											}}
 											class="hover:text-destructive"
 										>
-											<X class="size-3" />
+											<XIcon class="size-3" />
 										</button>
 									</Badge>
 								{/each}
@@ -140,7 +151,7 @@
 							<Command.List>
 								<Command.Empty>{m.event_no_results()}</Command.Empty>
 								<Command.Group>
-									{#each tags as tag (tag)}
+									{#each eventListTags as tag (tag)}
 										<Command.Item
 											value={tag}
 											onSelect={() => {
@@ -148,7 +159,9 @@
 												tagsOpen = true;
 											}}
 										>
-											<span class="mr-2 w-4">{selectedTags.includes(tag) ? '✓' : ''}</span>
+											<span class="mr-2 flex size-4 shrink-0 items-center justify-center">
+												<CheckIcon class="size-4 {selectedTags.includes(tag) ? '' : 'hidden'}" />
+											</span>
 											{tag}
 										</Command.Item>
 									{/each}
@@ -158,13 +171,13 @@
 					</Popover.Content>
 				</Popover.Root>
 
-				<div class="mt-2 flex items-center justify-between">
-					<Label for="update">{m.event_update_ticketing()}</Label>
-					<Switch id="update" />
+				<div class="flex items-center justify-between pt-1">
+					<Label for="event-ticketing">{m.event_update_ticketing()}</Label>
+					<Switch bind:checked={updateTicketing} id="event-ticketing" />
 				</div>
 			</div>
 
-			<div class="flex flex-col gap-1.5">
+			<div class="space-y-1.5">
 				<Label>{m.event_events_label()}</Label>
 				<Popover.Root bind:open={eventsOpen}>
 					<Popover.Trigger>
@@ -174,18 +187,20 @@
 								class="flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs"
 							>
 								{#each selectedEvents as eventId (eventId)}
-									{@const ev = eventsList.find((e) => e.id === eventId)}
-									{#if ev}
+									{@const linkedEvent = linkedEventsCatalog.find((item) => item.id === eventId)}
+									{#if linkedEvent}
 										<Badge variant="secondary" class="gap-1 pr-1">
-											{ev.name} <span class="text-xs text-muted-foreground">({ev.id})</span>
+											{linkedEvent.name}
+											<span class="text-xs text-muted-foreground">({linkedEvent.id})</span>
 											<button
+												type="button"
 												onclick={(e) => {
 													e.stopPropagation();
-													removeEvent(eventId);
+													removeLinkedEvent(eventId);
 												}}
 												class="hover:text-destructive"
 											>
-												<X class="size-3" />
+												<XIcon class="size-3" />
 											</button>
 										</Badge>
 									{/if}
@@ -208,24 +223,27 @@
 							<Command.List>
 								<Command.Empty>{m.event_no_results()}</Command.Empty>
 								<Command.Group>
-									{#each eventsList as ev (ev.id)}
+									{#each linkedEventsCatalog as linkedEvent (linkedEvent.id)}
 										<Command.Item
-											value={`${ev.name} ${ev.id}`}
+											value={`${linkedEvent.name} ${linkedEvent.id}`}
 											onSelect={() => {
-												toggleEvent(ev.id);
+												toggleLinkedEvent(linkedEvent.id);
 												eventsOpen = true;
 											}}
 											class="flex items-start gap-2 py-2.5"
 										>
-											<span class="mt-0.5 w-4 shrink-0 text-sm">
-												{selectedEvents.includes(ev.id) ? '✓' : ''}
+											<span class="mt-0.5 mr-2 flex size-4 shrink-0 items-center justify-center">
+												<CheckIcon
+													class="size-4 {selectedEvents.includes(linkedEvent.id) ? '' : 'hidden'}"
+												/>
 											</span>
 											<div class="flex flex-1 flex-col gap-0.5 text-left">
 												<div class="flex w-full items-center justify-between">
-													<span class="text-sm font-normal text-foreground">{ev.name}</span>
-													<span class="text-xs text-muted-foreground">{ev.date}</span>
+													<span class="text-sm font-normal text-foreground">{linkedEvent.name}</span
+													>
+													<span class="text-xs text-muted-foreground">{linkedEvent.date}</span>
 												</div>
-												<span class="text-xs text-muted-foreground">ID: {ev.id}</span>
+												<span class="text-xs text-muted-foreground">ID: {linkedEvent.id}</span>
 											</div>
 										</Command.Item>
 									{/each}
@@ -237,9 +255,13 @@
 			</div>
 		</div>
 
-		<Dialog.Footer>
-			<Button onclick={handleClose} variant="outline">{m.common_cancel()}</Button>
-			<Button disabled={!eventName.trim()} onclick={handleSave}>{m.event_create_submit()}</Button>
-		</Dialog.Footer>
-	</Dialog.Content>
-</Dialog.Root>
+		<Sheet.Footer class="flex-row justify-end">
+			<Sheet.Close type="button" class={buttonVariants({ variant: 'outline' })}>
+				{m.common_cancel()}
+			</Sheet.Close>
+			<Button disabled={!eventName.trim()} onclick={handleSave}>
+				{isEdit ? m.event_save_close() : m.event_create_submit()}
+			</Button>
+		</Sheet.Footer>
+	</Sheet.Content>
+</Sheet.Root>

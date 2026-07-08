@@ -1,4 +1,4 @@
-import type { Event } from './columns';
+import type { Event } from '../event-list';
 
 export const data: Event[] = [
 	{
