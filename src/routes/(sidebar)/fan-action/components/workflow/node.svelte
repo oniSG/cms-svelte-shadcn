@@ -13,7 +13,8 @@
 	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
 	import type { WorkflowNodeData } from './types';
 	import { createNodeId } from './flow-utils';
-	import { workflowItemIcon, workflowItemIconModifier, workflowItemLabel } from './workflow-items';
+	import { workflowItemLabel } from './workflow-items';
+	import WorkflowNodeIcon from './workflow-node-icon.svelte';
 	import {
 		getWorkflowConfigureNode,
 		getWorkflowEditingNodeId,
@@ -23,7 +24,6 @@
 	import {
 		workflowNodeBoxShapeStyles,
 		workflowNodeEditingBorderClass,
-		workflowNodeIconClass,
 		workflowTriggerShapeStyles,
 		workflowConditionNodeBox,
 		workflowConditionNodeBounds,
@@ -62,9 +62,6 @@
 	const actionRect = workflowNodeBoxRect(workflowActionNodeBox.size, workflowActionNodeBox.stroke);
 	const triggerShapeStyles = $derived(workflowTriggerShapeStyles(isEditing));
 	const editingBorderClass = $derived(isEditing ? workflowNodeEditingBorderClass : undefined);
-	const iconClass = $derived(workflowNodeIconClass(data.itemId, data.variant));
-	const NodeIcon = $derived(workflowItemIcon(data.itemId));
-	const iconModifier = $derived(workflowItemIconModifier(data.itemId));
 
 	let toolbarVisible = $state(false);
 	let hideToolbarTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -192,7 +189,8 @@
 				>
 					<svg
 						class="absolute inset-0 size-full overflow-visible"
-						viewBox="0 0 {workflowTriggerNodeBox.viewBox.width} {workflowTriggerNodeBox.viewBox.height}"
+						viewBox="0 0 {workflowTriggerNodeBox.viewBox.width} {workflowTriggerNodeBox.viewBox
+							.height}"
 						aria-hidden="true"
 					>
 						<path d={workflowTriggerPath} fill={triggerShapeStyles.backgroundFill} stroke="none" />
@@ -213,7 +211,7 @@
 						/>
 					</svg>
 					<div class="pointer-events-none absolute inset-0 flex items-center justify-center pr-2.5">
-						<NodeIcon class="size-[1.875rem] {iconClass}" />
+						<WorkflowNodeIcon itemId={data.itemId} variant={data.variant} class="size-[1.875rem]" />
 					</div>
 				</div>
 			</Button>
@@ -270,10 +268,9 @@
 					/>
 				</svg>
 			</Button>
-			<NodeIcon
-				class="pointer-events-none absolute top-1/2 left-1/2 size-[1.875rem] -translate-x-1/2 -translate-y-1/2 {iconClass} {iconModifier ??
-					''}"
-			/>
+			<div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+				<WorkflowNodeIcon itemId={data.itemId} variant={data.variant} class="size-[1.875rem]" />
+			</div>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
 			<Handle
 				id="yes"
@@ -334,10 +331,14 @@
 						stroke-width={workflowActionNodeBox.stroke}
 					/>
 				</svg>
-				<NodeIcon
-					class="pointer-events-none absolute inset-0 m-auto size-[2.1875rem] {iconClass} {iconModifier ??
-						''}"
-				/>
+				<div class="pointer-events-none absolute inset-0 m-auto flex items-center justify-center">
+					<WorkflowNodeIcon
+						itemId={data.itemId}
+						variant={data.variant}
+						class="size-[2.1875rem]"
+						glowClass="size-12"
+					/>
+				</div>
 			</Button>
 			<Handle class={handleInputClass} position={Position.Left} type="target" />
 			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />

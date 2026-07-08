@@ -81,9 +81,9 @@ export const workflowTriggerNodeBox = {
 	viewBox: { width: 78, height: 58 }
 } as const;
 
-/** Chevron arrow — only the left corners are rounded; shoulders and tip stay sharp. */
+/** Chevron arrow — left corners use circular arcs; shoulders use quadratic curves (no outward bulge). */
 export const workflowTriggerPath =
-	'M 7 2 L 55.72 2 L 76 29 L 55.72 56 L 7 56 A 5 5 0 0 1 2 51 L 2 7 A 5 5 0 0 1 7 2 Z';
+	'M 7 2 L 49.72 2 Q 55.72 2 59.325 6.796 L 76 29 L 59.325 51.204 Q 55.72 56 49.72 56 L 7 56 A 5 5 0 0 1 2 51 L 2 7 A 5 5 0 0 1 7 2 Z';
 
 export function workflowNodeBoxRect(size: number, stroke: number) {
 	const inset = stroke / 2;
@@ -106,4 +106,8 @@ export function workflowTriggerShapeStyles(editing = false): TriggerShapeStyles 
 
 export function workflowNodeIconClass(itemId: string, variant: WorkflowNodeVariant): string {
 	return workflowIconClassBySection[workflowPaletteSection(itemId, variant)];
+}
+
+export function workflowNodeIconGlowColor(itemId: string, variant: WorkflowNodeVariant): string {
+	return workflowColorVarBySection[workflowPaletteSection(itemId, variant)];
 }
