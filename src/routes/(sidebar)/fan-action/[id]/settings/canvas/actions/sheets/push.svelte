@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../../types';
+	import type { WorkflowDrawerContentProps } from '../../../shared/types';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
@@ -9,7 +9,7 @@
 	import { workflowMergeTags } from '../merge-tags';
 	import * as m from '$lib/paraglide/messages.js';
 
-	let {}: WorkflowDrawerContentProps = $props();
+	let _props: WorkflowDrawerContentProps = $props();
 
 	const labelClass = 'text-sm font-medium text-muted-foreground';
 	const sectionTitleClass = 'text-sm font-semibold text-foreground';

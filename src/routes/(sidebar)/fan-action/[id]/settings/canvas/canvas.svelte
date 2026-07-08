@@ -14,9 +14,9 @@
 	import ZoomControls from './zoom-controls.svelte';
 	import FitViewOnResize from './fit-view-on-resize.svelte';
 	import { createNodeId } from './flow-utils';
-	import type { WorkflowNodeData, WorkflowPaletteItem } from './types';
-	import { WORKFLOW_DRAG_MIME } from './types';
-	import { getWorkflowRunning, WORKFLOW_EDITED_BY_OTHER } from './editing-context';
+	import type { WorkflowNodeData, WorkflowPaletteItem } from '../shared/types';
+	import { WORKFLOW_DRAG_MIME } from '../shared/types';
+	import { getWorkflowRunning, WORKFLOW_EDITED_BY_OTHER } from '../shared/editing-context';
 	import { cn } from '$lib/utils.js';
 	import { mode } from 'mode-watcher';
 

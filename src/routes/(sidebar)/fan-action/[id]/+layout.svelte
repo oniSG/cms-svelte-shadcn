@@ -9,7 +9,7 @@
 	import ChartColumn from '@lucide/svelte/icons/chart-column';
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
-	import { setWorkflowRunning } from '../components/workflow/editing-context.js';
+	import { setWorkflowRunning } from './settings/shared/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { children } = $props();

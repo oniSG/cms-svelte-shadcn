@@ -1,7 +1,9 @@
 <script lang="ts">
+	import type { WorkflowDrawerContentProps } from '../../../shared/types';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as m from '$lib/paraglide/messages.js';
+	let _props: WorkflowDrawerContentProps = $props();
 
 	const labelClass = 'text-sm font-medium text-muted-foreground';
 	const helpTextClass = 'text-sm text-muted-foreground';

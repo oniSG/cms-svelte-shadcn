@@ -6,20 +6,21 @@
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
 	import Info from '@lucide/svelte/icons/info';
 	import Search from '@lucide/svelte/icons/search';
-	import type { WorkflowPaletteItem } from './types';
-	import { WORKFLOW_DRAG_MIME } from './types';
+	import type { WorkflowPaletteItem } from '../shared/types';
+	import { WORKFLOW_DRAG_MIME } from '../shared/types';
 	import {
 		workflowActionPaletteItems,
 		workflowItemDescription,
 		workflowItemIcon,
 		workflowItemIconModifier,
 		workflowItemLabel,
-		workflowOperatorPaletteItems
-	} from './workflow-items';
-	import { workflowNodeIconClass } from './node-styles';
-	import { workflowTriggerPaletteGroups, type WorkflowTriggerPaletteGroup } from './trigger-items';
-	import BasicInfoForm from '../basic-info-form.svelte';
-	import SettingsForm from '../settings-form.svelte';
+		workflowOperatorPaletteItems,
+		workflowTriggerPaletteGroups,
+		type WorkflowTriggerPaletteGroup
+	} from '../shared/workflow-items';
+	import { workflowNodeIconClass } from '../shared/node-styles';
+	import BasicInfoForm from './basic-info-form.svelte';
+	import SettingsForm from './settings-form.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
 	import * as m from '$lib/paraglide/messages.js';
 

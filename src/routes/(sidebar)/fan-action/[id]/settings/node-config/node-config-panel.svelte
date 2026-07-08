@@ -2,9 +2,9 @@
 	import type { Node } from '@xyflow/svelte';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { cn } from '$lib/utils.js';
-	import type { WorkflowNodeData } from './types';
-	import { workflowDrawerTitle, workflowItemDescription } from './workflow-items';
-	import { workflowDrawerContent } from './drawers/registry';
+	import type { WorkflowNodeData } from '../shared/types';
+	import { workflowDrawerTitle, workflowItemDescription } from '../shared/workflow-items';
+	import { workflowDrawerContent } from './registry';
 
 	let {
 		open = $bindable(false),

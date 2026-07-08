@@ -1,11 +1,13 @@
 <script lang="ts">
+	import type { WorkflowDrawerContentProps } from '../../../shared/types';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import Info from '@lucide/svelte/icons/info';
-	import { allEventLists } from '../../../../temp/options';
+	import { allEventLists } from '../../../../../temp/options';
 	import * as m from '$lib/paraglide/messages.js';
+	let _props: WorkflowDrawerContentProps = $props();
 
 	const labelClass = 'text-sm font-medium text-muted-foreground';
 	const selectTriggerClass = 'w-full border border-border bg-background';

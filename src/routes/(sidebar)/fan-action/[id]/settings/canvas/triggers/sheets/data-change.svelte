@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { WorkflowDrawerContentProps } from '../../../shared/types';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
@@ -10,6 +11,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 
 	type DataField = 'last-name' | 'first-name' | 'email' | 'phone' | 'city';
+	let _props: WorkflowDrawerContentProps = $props();
 
 	const labelClass = 'text-sm font-medium text-muted-foreground';
 	const selectTriggerClass = 'w-full border border-border bg-background';
@@ -65,12 +67,11 @@
 		</Select.Root>
 	</div>
 
-	<div class="flex items-center gap-2 justify-between">
+	<div class="flex items-center justify-between gap-2">
 		<Label class={labelClass} for="data-change-track-specific">
 			{m.fan_action_flow_trigger_data_change_track_specific()}
 		</Label>
 		<Switch id="data-change-track-specific" bind:checked={trackSpecificChanges} class="shrink-0" />
-
 	</div>
 
 	{#if trackSpecificChanges}

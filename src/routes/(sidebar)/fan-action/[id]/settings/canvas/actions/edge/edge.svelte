@@ -4,10 +4,15 @@
 	import UserIcon from '@lucide/svelte/icons/user';
 	import { Button } from '$lib/components/ui/button';
 	import * as ButtonGroup from '$lib/components/ui/button-group';
-	import type { WorkflowConditionBranch } from '../../../../../components/workflow/condition-branch-styles';
-	import { workflowConditionBranchStyles } from '../../../../../components/workflow/condition-branch-styles';
+	import type { WorkflowConditionBranch } from '../../../shared/condition-branch-styles';
+	import { workflowConditionBranchStyles } from '../../../shared/condition-branch-styles';
 
-	let { labelX, labelY, branchStyle, onDelete }: {
+	let {
+		labelX,
+		labelY,
+		branchStyle,
+		onDelete
+	}: {
 		labelX: number;
 		labelY: number;
 		branchStyle: (typeof workflowConditionBranchStyles)[WorkflowConditionBranch] | null;

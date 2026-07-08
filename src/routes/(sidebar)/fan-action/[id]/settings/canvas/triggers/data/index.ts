@@ -23,7 +23,7 @@ import Table from '@lucide/svelte/icons/table';
 import ChevronsRight from '@lucide/svelte/icons/chevrons-right';
 import CalendarClock from '@lucide/svelte/icons/calendar-clock';
 import CalendarDays from '@lucide/svelte/icons/calendar-days';
-import type { WorkflowPaletteItem } from '../../../../../components/workflow/types';
+import type { WorkflowPaletteItem } from '../../../shared/types';
 import type {
 	WorkflowTriggerCategory,
 	WorkflowTriggerDefinition

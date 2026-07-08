@@ -2,9 +2,17 @@ import type { Component } from 'svelte';
 import Mail from '@lucide/svelte/icons/mail';
 import type { WorkflowPaletteItem } from './types';
 import type { WorkflowPaletteSection } from './node-styles';
-import { workflowTriggerDefinition, workflowTriggerPaletteGroups } from './trigger-items';
-import { workflowBlockDefinition, workflowBlockDefinitions } from './block-items';
+import {
+	workflowTriggerDefinition,
+	workflowTriggerPaletteGroups,
+	type WorkflowTriggerPaletteGroup
+} from '../canvas/triggers/data';
+import { actionBlockDefinition, actionBlockDefinitions } from '../canvas/actions/data';
+import { operatorBlockDefinition, operatorBlockDefinitions } from '../canvas/operators/data';
 import * as m from '$lib/paraglide/messages.js';
+
+export type { WorkflowTriggerPaletteGroup };
+export { workflowTriggerPaletteGroups };
 
 type WorkflowItemDefinition = {
 	icon: Component;
@@ -13,6 +21,12 @@ type WorkflowItemDefinition = {
 	description: () => string;
 	drawerTitle?: () => string;
 };
+
+const workflowBlockDefinitions = [...operatorBlockDefinitions, ...actionBlockDefinitions];
+
+function workflowBlockDefinition(itemId: string) {
+	return operatorBlockDefinition(itemId) ?? actionBlockDefinition(itemId);
+}
 
 function triggerAsItem(id: string): WorkflowItemDefinition | undefined {
 	const trigger = workflowTriggerDefinition(id);

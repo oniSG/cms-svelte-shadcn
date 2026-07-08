@@ -1,6 +1,6 @@
 import type { Component } from 'svelte';
-import type { WorkflowNodeVariant } from '../../../../components/workflow/types';
-import type { WorkflowPaletteSection } from '../../../../components/workflow/node-styles';
+import type { WorkflowNodeVariant } from '../../shared/types';
+import type { WorkflowPaletteSection } from '../../shared/node-styles';
 
 export type WorkflowBlockDefinition = {
 	id: string;

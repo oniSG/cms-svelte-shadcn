@@ -1,5 +1,5 @@
 import type { Node } from '@xyflow/svelte';
-import type { WorkflowNodeData } from '../../../../../components/workflow/types';
+import type { WorkflowNodeData } from '../../../shared/types';
 
 export function getWorkflowConditionBranch(
 	source: string,

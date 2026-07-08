@@ -2,33 +2,34 @@
 	import { browser } from '$app/environment';
 	import { SvelteFlowProvider, type Edge, type Node } from '@xyflow/svelte';
 	import '@xyflow/svelte/dist/style.css';
-	import Canvas from './canvas.svelte';
-	import PaletteSheet from './palette-sheet.svelte';
-	import NodeConfigPanel from './node-config-panel.svelte';
-	import { createInitialFlow } from '../../temp/initial-flow';
-	import {
-		setWorkflowConfigureNode,
-		setWorkflowEditingNodeId
-	} from './editing-context';
-	import type { WorkflowNodeData } from './types';
+	import Canvas from './canvas/canvas.svelte';
+	import PaletteSheet from './palette-panel/palette-sheet.svelte';
+	import NodeConfigPanel from './node-config/node-config-panel.svelte';
+	import { setWorkflowConfigureNode, setWorkflowEditingNodeId } from './shared/editing-context';
+	import type { WorkflowNodeData } from './shared/types';
 	import type { FanAction } from '$lib/types/fan-action.js';
 
-	const initialFlow = createInitialFlow();
+	let { action = null }: { action?: FanAction | null } = $props();
 
-	let {
-		action = null,
-		nodes = $bindable(initialFlow.nodes),
-		edges = $bindable(initialFlow.edges)
-	}: {
-		action?: FanAction | null;
-		nodes?: Node<WorkflowNodeData>[];
-		edges?: Edge[];
-	} = $props();
+	let nodes = $state<Node<WorkflowNodeData>[]>([]);
+	let edges = $state<Edge[]>([]);
 
 	let drawerOpen = $state(false);
 	let activeNodeId = $state<string | null>(null);
 	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
 	const editingNodeId = $derived(drawerOpen ? activeNodeId : null);
+
+	$effect(() => {
+		if (action) {
+			nodes = structuredClone(action.workflow.nodes) as Node<WorkflowNodeData>[];
+			edges = structuredClone(action.workflow.edges);
+		} else {
+			nodes = [];
+			edges = [];
+		}
+		drawerOpen = false;
+		activeNodeId = null;
+	});
 
 	function openNodeDrawer(nodeId: string) {
 		activeNodeId = nodeId;
@@ -45,7 +46,9 @@
 			<PaletteSheet {action} />
 
 			<div class="relative min-h-0 w-0 min-w-0 flex-1">
-				<Canvas bind:nodes bind:edges />
+				{#key action?.id}
+					<Canvas bind:nodes bind:edges />
+				{/key}
 			</div>
 
 			<NodeConfigPanel bind:open={drawerOpen} node={activeNode} />

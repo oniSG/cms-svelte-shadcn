@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { WorkflowDrawerContentProps } from '../../types';
+	import type { WorkflowDrawerContentProps } from '../../../shared/types';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import { Switch } from '$lib/components/ui/switch/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import * as m from '$lib/paraglide/messages.js';
 
-	let {}: WorkflowDrawerContentProps = $props();
+	let _props: WorkflowDrawerContentProps = $props();
 
 	type TransferType = 'points' | 'credit' | 'voucher';
 

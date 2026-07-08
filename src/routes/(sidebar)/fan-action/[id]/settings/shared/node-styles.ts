@@ -1,5 +1,5 @@
 import type { WorkflowNodeVariant } from './types';
-import { workflowOperatorItemIds } from './block-items';
+import { workflowOperatorItemIds } from '../canvas/operators/data';
 
 export type WorkflowPaletteSection = 'triggers' | 'operators' | 'actions';
 

@@ -16,9 +16,50 @@ export const data: FanAction[] = [
 					type: 'workflow',
 					position: { x: 40, y: 120 },
 					data: { itemId: 'start-now', variant: 'trigger' }
+				},
+				{
+					id: 'wait-1',
+					type: 'workflow',
+					position: { x: 280, y: 120 },
+					data: { itemId: 'wait', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'condition-1',
+					type: 'workflow',
+					position: { x: 520, y: 120 },
+					data: { itemId: 'condition', variant: 'condition', incomplete: true }
+				},
+				{
+					id: 'action-1',
+					type: 'workflow',
+					position: { x: 760, y: 40 },
+					data: { itemId: 'email', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-2',
+					type: 'workflow',
+					position: { x: 760, y: 200 },
+					data: { itemId: 'tag', variant: 'action', incomplete: true }
 				}
 			],
-			edges: []
+			edges: [
+				{ id: 'e-1-2', source: 'trigger-1', target: 'wait-1', type: 'workflow' },
+				{ id: 'e-2-3', source: 'wait-1', target: 'condition-1', type: 'workflow' },
+				{
+					id: 'e-3-4-yes',
+					source: 'condition-1',
+					sourceHandle: 'yes',
+					target: 'action-1',
+					type: 'workflow'
+				},
+				{
+					id: 'e-3-4-no',
+					source: 'condition-1',
+					sourceHandle: 'no',
+					target: 'action-2',
+					type: 'workflow'
+				}
+			]
 		}
 	},
 	{
@@ -74,11 +115,71 @@ export const data: FanAction[] = [
 				{
 					id: 'trigger-1',
 					type: 'workflow',
-					position: { x: 40, y: 120 },
-					data: { itemId: 'ticket-purchase', variant: 'trigger' }
+					position: { x: 40, y: 30 },
+					data: { itemId: 'ticket-purchase', variant: 'trigger', incomplete: true }
+				},
+				{
+					id: 'condition-1',
+					type: 'workflow',
+					position: { x: 300, y: 120 },
+					data: { itemId: 'condition', variant: 'condition', incomplete: true }
+				},
+				{
+					id: 'condition-2',
+					type: 'workflow',
+					position: { x: 540, y: 210 },
+					data: { itemId: 'condition', variant: 'condition', incomplete: true }
+				},
+				{
+					id: 'action-1',
+					type: 'workflow',
+					position: { x: 780, y: 30 },
+					data: { itemId: 'email', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-2',
+					type: 'workflow',
+					position: { x: 780, y: 210 },
+					data: { itemId: 'push', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-3',
+					type: 'workflow',
+					position: { x: 540, y: 360 },
+					data: { itemId: 'tag', variant: 'action', incomplete: true }
 				}
 			],
-			edges: []
+			edges: [
+				{ id: 'e-trigger-condition-1', source: 'trigger-1', target: 'condition-1', type: 'workflow' },
+				{
+					id: 'e-condition-1-yes-action-1',
+					source: 'condition-1',
+					sourceHandle: 'yes',
+					target: 'action-1',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-1-no-2',
+					source: 'condition-1',
+					sourceHandle: 'no',
+					target: 'condition-2',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-2-yes-action-2',
+					source: 'condition-2',
+					sourceHandle: 'yes',
+					target: 'action-2',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-2-no-action-3',
+					source: 'condition-2',
+					sourceHandle: 'no',
+					target: 'action-3',
+					type: 'workflow'
+				}
+			]
 		}
 	},
 	{
@@ -195,10 +296,52 @@ export const data: FanAction[] = [
 					id: 'trigger-1',
 					type: 'workflow',
 					position: { x: 40, y: 120 },
-					data: { itemId: 'start-now', variant: 'trigger' }
+					data: { itemId: 'ticket-purchase', variant: 'trigger', incomplete: true }
+				},
+				{
+					id: 'ab-test-1',
+					type: 'workflow',
+					position: { x: 280, y: 120 },
+					data: { itemId: 'ab-test', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-1',
+					type: 'workflow',
+					position: { x: 520, y: 40 },
+					data: { itemId: 'email', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-2',
+					type: 'workflow',
+					position: { x: 520, y: 200 },
+					data: { itemId: 'push', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-3',
+					type: 'workflow',
+					position: { x: 760, y: 120 },
+					data: { itemId: 'reward-conversion', variant: 'action', incomplete: true }
 				}
 			],
-			edges: []
+			edges: [
+				{ id: 'e-trigger-ab', source: 'trigger-1', target: 'ab-test-1', type: 'workflow' },
+				{
+					id: 'e-ab-email',
+					source: 'ab-test-1',
+					sourceHandle: 'a',
+					target: 'action-1',
+					type: 'workflow'
+				},
+				{
+					id: 'e-ab-push',
+					source: 'ab-test-1',
+					sourceHandle: 'b',
+					target: 'action-2',
+					type: 'workflow'
+				},
+				{ id: 'e-email-reward', source: 'action-1', target: 'action-3', type: 'workflow' },
+				{ id: 'e-push-reward', source: 'action-2', target: 'action-3', type: 'workflow' }
+			]
 		}
 	},
 	{
@@ -395,10 +538,39 @@ export const data: FanAction[] = [
 					id: 'trigger-1',
 					type: 'workflow',
 					position: { x: 40, y: 120 },
-					data: { itemId: 'start-now', variant: 'trigger' }
+					data: { itemId: 'event-date-occurs', variant: 'trigger', incomplete: true }
+				},
+				{
+					id: 'wait-1',
+					type: 'workflow',
+					position: { x: 280, y: 120 },
+					data: { itemId: 'wait', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-1',
+					type: 'workflow',
+					position: { x: 520, y: 120 },
+					data: { itemId: 'sms', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-2',
+					type: 'workflow',
+					position: { x: 760, y: 120 },
+					data: { itemId: 'email', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-3',
+					type: 'workflow',
+					position: { x: 1000, y: 120 },
+					data: { itemId: 'push', variant: 'action', incomplete: true }
 				}
 			],
-			edges: []
+			edges: [
+				{ id: 'e-trigger-wait', source: 'trigger-1', target: 'wait-1', type: 'workflow' },
+				{ id: 'e-wait-sms', source: 'wait-1', target: 'action-1', type: 'workflow' },
+				{ id: 'e-sms-email', source: 'action-1', target: 'action-2', type: 'workflow' },
+				{ id: 'e-email-push', source: 'action-2', target: 'action-3', type: 'workflow' }
+			]
 		}
 	},
 	{
@@ -595,10 +767,51 @@ export const data: FanAction[] = [
 					id: 'trigger-1',
 					type: 'workflow',
 					position: { x: 40, y: 120 },
-					data: { itemId: 'start-now', variant: 'trigger' }
+					data: { itemId: 'scheduled-sending', variant: 'trigger', incomplete: true }
+				},
+				{
+					id: 'wait-1',
+					type: 'workflow',
+					position: { x: 280, y: 120 },
+					data: { itemId: 'wait', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'condition-1',
+					type: 'workflow',
+					position: { x: 520, y: 120 },
+					data: { itemId: 'condition', variant: 'condition', incomplete: true }
+				},
+				{
+					id: 'action-1',
+					type: 'workflow',
+					position: { x: 760, y: 40 },
+					data: { itemId: 'sms', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-2',
+					type: 'workflow',
+					position: { x: 760, y: 200 },
+					data: { itemId: 'email', variant: 'action', incomplete: true }
 				}
 			],
-			edges: []
+			edges: [
+				{ id: 'e-trigger-wait', source: 'trigger-1', target: 'wait-1', type: 'workflow' },
+				{ id: 'e-wait-condition', source: 'wait-1', target: 'condition-1', type: 'workflow' },
+				{
+					id: 'e-condition-sms',
+					source: 'condition-1',
+					sourceHandle: 'yes',
+					target: 'action-1',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-email',
+					source: 'condition-1',
+					sourceHandle: 'no',
+					target: 'action-2',
+					type: 'workflow'
+				}
+			]
 		}
 	},
 	{
@@ -974,11 +1187,98 @@ export const data: FanAction[] = [
 				{
 					id: 'trigger-1',
 					type: 'workflow',
-					position: { x: 40, y: 120 },
+					position: { x: 40, y: 30 },
 					data: { itemId: 'start-now', variant: 'trigger' }
+				},
+				{
+					id: 'action-1',
+					type: 'workflow',
+					position: { x: 280, y: 30 },
+					data: { itemId: 'email', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'wait-1',
+					type: 'workflow',
+					position: { x: 520, y: 30 },
+					data: { itemId: 'wait', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'condition-1',
+					type: 'workflow',
+					position: { x: 300, y: 200 },
+					data: { itemId: 'condition', variant: 'condition', incomplete: true }
+				},
+				{
+					id: 'condition-2',
+					type: 'workflow',
+					position: { x: 540, y: 120 },
+					data: { itemId: 'condition', variant: 'condition', incomplete: true }
+				},
+				{
+					id: 'condition-3',
+					type: 'workflow',
+					position: { x: 540, y: 280 },
+					data: { itemId: 'condition', variant: 'condition', incomplete: true }
+				},
+				{
+					id: 'action-2',
+					type: 'workflow',
+					position: { x: 780, y: 80 },
+					data: { itemId: 'reward-conversion', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-3',
+					type: 'workflow',
+					position: { x: 780, y: 220 },
+					data: { itemId: 'tag', variant: 'action', incomplete: true }
+				},
+				{
+					id: 'action-4',
+					type: 'workflow',
+					position: { x: 780, y: 360 },
+					data: { itemId: 'email', variant: 'action', incomplete: true }
 				}
 			],
-			edges: []
+			edges: [
+				{ id: 'e-trigger-email', source: 'trigger-1', target: 'action-1', type: 'workflow' },
+				{ id: 'e-email-wait', source: 'action-1', target: 'wait-1', type: 'workflow' },
+				{ id: 'e-wait-condition-1', source: 'wait-1', target: 'condition-1', type: 'workflow' },
+				{
+					id: 'e-condition-1-yes-2',
+					source: 'condition-1',
+					sourceHandle: 'yes',
+					target: 'condition-2',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-1-no-3',
+					source: 'condition-1',
+					sourceHandle: 'no',
+					target: 'condition-3',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-2-yes-reward',
+					source: 'condition-2',
+					sourceHandle: 'yes',
+					target: 'action-2',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-2-no-tag',
+					source: 'condition-2',
+					sourceHandle: 'no',
+					target: 'action-3',
+					type: 'workflow'
+				},
+				{
+					id: 'e-condition-3-yes-email',
+					source: 'condition-3',
+					sourceHandle: 'yes',
+					target: 'action-4',
+					type: 'workflow'
+				}
+			]
 		}
 	},
 	{
