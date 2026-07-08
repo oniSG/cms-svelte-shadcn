@@ -33,7 +33,6 @@
 		workflowNodeBoxRect,
 		workflowNodeLabelOffset
 	} from '../shared/node-styles';
-	import { workflowConditionBranchStyles } from '../shared/condition-branch-styles';
 	import Copy from '@lucide/svelte/icons/copy';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import X from '@lucide/svelte/icons/x';
@@ -107,8 +106,8 @@
 	const handleMutedArrowClass = `${handlePortBase} !flex !items-center !justify-center !bg-border dark:!bg-secondary [&_svg]:size-2.5 [&_svg]:stroke-[2.5] [&_svg]:text-muted-foreground`;
 	const handleFlowInputClass = `${handleMutedArrowClass} !left-0`;
 	const handleFlowOutputClass = `${handleMutedArrowClass} !right-0`;
-	const handleYesClass = `${handlePortBase} ${workflowConditionBranchStyles.yes.port}`;
-	const handleNoClass = `${handlePortBase} ${workflowConditionBranchStyles.no.port}`;
+	const handleYesClass = `${handlePortBase} !bg-success`;
+	const handleNoClass = `${handlePortBase} !bg-destructive`;
 	const conditionHandleYesStyle = 'left: 75%; top: 25%; transform: translate(-50%, -50%);';
 	const conditionHandleNoStyle = 'left: 75%; top: 75%; transform: translate(-50%, -50%);';
 

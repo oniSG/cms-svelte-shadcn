@@ -10,8 +10,13 @@
 	import UserIcon from '@lucide/svelte/icons/user';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
-	import { workflowConditionBranchStyle } from '../shared/condition-branch-styles';
-	import { buildWorkflowEdgeStyle, getWorkflowConditionBranch } from './edge-utils';
+	import type { Node } from '@xyflow/svelte';
+	import type { WorkflowNodeData } from '../shared/types';
+
+	const conditionBranchButtonClass = {
+		yes: 'bg-success/10 text-success hover:bg-success/20 dark:bg-success/20 dark:hover:bg-success/30 border-success/25 dark:border-success/30',
+		no: 'bg-destructive/10 text-destructive hover:bg-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 border-destructive/25 dark:border-destructive/30'
+	} as const;
 
 	let {
 		id,
@@ -41,13 +46,24 @@
 		})
 	);
 
-	const conditionBranch = $derived.by(() =>
-		getWorkflowConditionBranch(source, sourceHandleId, getNode)
+	const branchStyle = $derived.by(() => {
+		const sourceNode = getNode(source) as Node<WorkflowNodeData> | undefined;
+		if (sourceNode?.data.variant !== 'condition') return null;
+
+		if (sourceHandleId === 'yes') {
+			return { stroke: 'var(--success)', button: conditionBranchButtonClass.yes };
+		}
+		if (sourceHandleId === 'no') {
+			return { stroke: 'var(--destructive)', button: conditionBranchButtonClass.no };
+		}
+		return null;
+	});
+
+	const edgeStyle = $derived(
+		[style, 'stroke-width: 1.5', branchStyle?.stroke ? `stroke: ${branchStyle.stroke}` : null]
+			.filter(Boolean)
+			.join('; ')
 	);
-
-	const branchStyle = $derived(workflowConditionBranchStyle(conditionBranch));
-
-	const edgeStyle = $derived(buildWorkflowEdgeStyle(style, branchStyle?.stroke));
 
 	function deleteEdge(event: MouseEvent) {
 		event.stopPropagation();
