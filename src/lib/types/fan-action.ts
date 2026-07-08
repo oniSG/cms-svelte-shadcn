@@ -1,3 +1,11 @@
+import type { FanActionWorkflow } from './fan-action-workflow.js';
+
+export type {
+	FanActionWorkflow,
+	FanActionWorkflowNode,
+	FanActionWorkflowEdge
+} from './fan-action-workflow.js';
+
 export type FanAction = {
 	id: number;
 	event: string;
@@ -6,4 +14,5 @@ export type FanAction = {
 	created_at: Date;
 	created_by: string;
 	active: boolean;
+	workflow: FanActionWorkflow;
 };
