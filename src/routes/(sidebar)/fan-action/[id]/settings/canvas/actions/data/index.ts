@@ -1,69 +1,14 @@
-import type { Component } from 'svelte';
-import GitFork from '@lucide/svelte/icons/git-fork';
 import Mail from '@lucide/svelte/icons/mail';
 import MessageSquare from '@lucide/svelte/icons/message-square';
 import Smartphone from '@lucide/svelte/icons/smartphone';
-import Clock from '@lucide/svelte/icons/clock';
 import Tag from '@lucide/svelte/icons/tag';
 import TagX from '@lucide/svelte/icons/tag-x';
-import Gauge from '@lucide/svelte/icons/gauge';
 import List from '@lucide/svelte/icons/list';
 import Gift from '@lucide/svelte/icons/gift';
-import X from '@lucide/svelte/icons/x';
-import type { WorkflowNodeVariant } from './types';
-import type { WorkflowPaletteSection } from './node-styles';
 import * as m from '$lib/paraglide/messages.js';
+import type { WorkflowBlockDefinition } from '../../shared/block-types';
 
-export type WorkflowBlockDefinition = {
-	id: string;
-	variant: WorkflowNodeVariant;
-	paletteSection: Exclude<WorkflowPaletteSection, 'triggers'>;
-	icon: Component;
-	label: () => string;
-	description: () => string;
-	drawerTitle?: () => string;
-	incomplete?: boolean;
-};
-
-export const workflowBlockDefinitions: WorkflowBlockDefinition[] = [
-	{
-		id: 'condition',
-		variant: 'condition',
-		paletteSection: 'operators',
-		icon: GitFork,
-		label: m.fan_action_flow_condition_add,
-		description: m.fan_action_flow_condition_add_desc,
-		drawerTitle: m.fan_action_flow_condition,
-		incomplete: true
-	},
-	{
-		id: 'wait',
-		variant: 'action',
-		paletteSection: 'operators',
-		icon: Clock,
-		label: m.fan_action_flow_action_wait,
-		description: m.fan_action_flow_action_wait_desc,
-		drawerTitle: m.fan_action_flow_wait_title,
-		incomplete: true
-	},
-	{
-		id: 'ab-test',
-		variant: 'action',
-		paletteSection: 'operators',
-		icon: Gauge,
-		label: m.fan_action_flow_action_ab_test,
-		description: m.fan_action_flow_action_ab_test_desc,
-		incomplete: true
-	},
-	{
-		id: 'end-branch',
-		variant: 'action',
-		paletteSection: 'operators',
-		icon: X,
-		label: m.fan_action_flow_action_end_branch,
-		description: m.fan_action_flow_action_end_branch_desc,
-		incomplete: true
-	},
+export const actionBlockDefinitions: WorkflowBlockDefinition[] = [
 	{
 		id: 'email',
 		variant: 'action',
@@ -133,14 +78,8 @@ export const workflowBlockDefinitions: WorkflowBlockDefinition[] = [
 	}
 ];
 
-const blockById = new Map(workflowBlockDefinitions.map((block) => [block.id, block]));
+const blockById = new Map(actionBlockDefinitions.map((block) => [block.id, block]));
 
-export function workflowBlockDefinition(itemId: string): WorkflowBlockDefinition | undefined {
+export function actionBlockDefinition(itemId: string): WorkflowBlockDefinition | undefined {
 	return blockById.get(itemId);
 }
-
-export const workflowOperatorItemIds = new Set(
-	workflowBlockDefinitions
-		.filter((block) => block.paletteSection === 'operators')
-		.map((block) => block.id)
-);
