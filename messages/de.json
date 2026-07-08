@@ -264,8 +264,6 @@
 	"fan_action_flow_accordion_blocks": "Blöcke",
 	"fan_action_flow_blocks_search_placeholder": "Blöcke suchen...",
 	"fan_action_flow_blocks_no_results": "Keine Blöcke gefunden.",
-	"fan_action_flow_triggers_show_more": "Mehr anzeigen",
-	"fan_action_flow_triggers_show_less": "Weniger anzeigen",
 	"fan_action_flow_trigger_category_common": "Am häufigsten",
 	"fan_action_flow_trigger_category_time": "Zeitbasiert",
 	"fan_action_flow_trigger_category_ticketing": "Ticketing",

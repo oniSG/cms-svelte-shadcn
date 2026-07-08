@@ -103,13 +103,12 @@
 		deleteElements({ nodes: [{ id }] });
 	}
 
-	const handleBase =
-		'!flex !size-[1.09375rem] !items-center !justify-center !rounded-full !border-2 !border-foreground !bg-background [&_svg]:size-2.5 [&_svg]:stroke-[2.5] [&_svg]:text-foreground';
-	const handleArrowClass = handleBase;
-	const handleInputClass = `${handleArrowClass} !left-0`;
-	const handleNeutralClass = handleArrowClass;
-	const handleYesClass = `!size-[1.09375rem] !rounded-full !border-0 ${workflowConditionBranchStyles.yes.port}`;
-	const handleNoClass = `!size-[1.09375rem] !rounded-full !border-0 ${workflowConditionBranchStyles.no.port}`;
+	const handlePortBase = '!size-[1.09375rem] !rounded-full !border-0';
+	const handleMutedArrowClass = `${handlePortBase} !flex !items-center !justify-center !bg-border dark:!bg-secondary [&_svg]:size-2.5 [&_svg]:stroke-[2.5] [&_svg]:text-muted-foreground`;
+	const handleFlowInputClass = `${handleMutedArrowClass} !left-0`;
+	const handleFlowOutputClass = `${handleMutedArrowClass} !right-0`;
+	const handleYesClass = `${handlePortBase} ${workflowConditionBranchStyles.yes.port}`;
+	const handleNoClass = `${handlePortBase} ${workflowConditionBranchStyles.no.port}`;
 	const conditionHandleYesStyle = 'left: 75%; top: 25%; transform: translate(-50%, -50%);';
 	const conditionHandleNoStyle = 'left: 75%; top: 75%; transform: translate(-50%, -50%);';
 
@@ -216,7 +215,7 @@
 					</div>
 				</div>
 			</Button>
-			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source">
+			<Handle class={handleFlowOutputClass} position={Position.Right} type="source">
 				<ChevronRight aria-hidden="true" />
 			</Handle>
 		</div>
@@ -274,7 +273,7 @@
 			<div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
 				<WorkflowNodeIcon itemId={data.itemId} variant={data.variant} class="size-[1.875rem]" />
 			</div>
-			<Handle class={handleInputClass} position={Position.Left} type="target">
+			<Handle class={handleFlowInputClass} position={Position.Left} type="target">
 				<ChevronRight aria-hidden="true" />
 			</Handle>
 			<Handle
@@ -345,10 +344,10 @@
 					/>
 				</div>
 			</Button>
-			<Handle class={handleInputClass} position={Position.Left} type="target">
+			<Handle class={handleFlowInputClass} position={Position.Left} type="target">
 				<ChevronRight aria-hidden="true" />
 			</Handle>
-			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source">
+			<Handle class={handleFlowOutputClass} position={Position.Right} type="source">
 				<ChevronRight aria-hidden="true" />
 			</Handle>
 		</div>

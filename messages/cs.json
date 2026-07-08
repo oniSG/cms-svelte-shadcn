@@ -264,8 +264,6 @@
 	"fan_action_flow_accordion_blocks": "Bloky",
 	"fan_action_flow_blocks_search_placeholder": "Hledat bloky...",
 	"fan_action_flow_blocks_no_results": "Žádné bloky nenalezeny.",
-	"fan_action_flow_triggers_show_more": "Zobrazit více",
-	"fan_action_flow_triggers_show_less": "Zobrazit méně",
 	"fan_action_flow_trigger_category_common": "Nejčastější",
 	"fan_action_flow_trigger_category_time": "Časový",
 	"fan_action_flow_trigger_category_ticketing": "Ticketing",
