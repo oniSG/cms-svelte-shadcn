@@ -1,9 +1,17 @@
 <script lang="ts">
-	import { getBezierPath, useSvelteFlow, type EdgeProps } from '@xyflow/svelte';
+	import {
+		BaseEdge,
+		EdgeLabel,
+		getBezierPath,
+		useSvelteFlow,
+		type EdgeProps
+	} from '@xyflow/svelte';
+	import X from '@lucide/svelte/icons/x';
+	import UserIcon from '@lucide/svelte/icons/user';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
 	import { workflowConditionBranchStyle } from '../shared/condition-branch-styles';
-	import OperatorEdge from './operators/edge/edge.svelte';
-	import ActionEdge from './actions/edge/edge.svelte';
-	import { buildWorkflowEdgeStyle, getWorkflowConditionBranch } from './operators/edge/edge-utils';
+	import { buildWorkflowEdgeStyle, getWorkflowConditionBranch } from './edge-utils';
 
 	let {
 		id,
@@ -48,6 +56,16 @@
 	}
 </script>
 
-<OperatorEdge {id} {path} {markerEnd} {markerStart} style={edgeStyle} />
+<BaseEdge {id} {path} {markerEnd} {markerStart} style={edgeStyle} />
 
-<ActionEdge {labelX} {labelY} {branchStyle} onDelete={deleteEdge} />
+<EdgeLabel x={labelX} y={labelY} transparent class="workflow-edge-label relative z-10 !p-0">
+	<ButtonGroup.Root class="overflow-hidden rounded-4xl bg-workflow-canvas-base">
+		<Button variant="outline" size="sm" class={branchStyle?.button}>
+			<UserIcon />
+			225
+		</Button>
+		<Button variant="outline" size="icon-sm" aria-label="Delete connection" onclick={deleteEdge}>
+			<X />
+		</Button>
+	</ButtonGroup.Root>
+</EdgeLabel>
