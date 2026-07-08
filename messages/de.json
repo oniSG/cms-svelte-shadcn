@@ -239,6 +239,8 @@
 	"fan_action_edit_title": "Aktion bearbeiten",
 	"fan_action_processed_progress": "Verarbeitet {percent}%",
 	"fan_action_processed": "Verarbeitet",
+	"fan_action_play": "Starten",
+	"fan_action_pause": "Pausieren",
 	"fan_action_info_description": "Auf dieser Seite bearbeiten Sie den Aktions-Workflow, Grunddaten und Laufeinstellungen.",
 	"fan_action_tab_settings": "Einstellungen",
 	"fan_action_tab_stats": "Statistiken",

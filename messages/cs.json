@@ -239,6 +239,8 @@
 	"fan_action_edit_title": "Úprava akce",
 	"fan_action_processed_progress": "Zpracováno {percent}%",
 	"fan_action_processed": "Zpracováno",
+	"fan_action_play": "Spustit",
+	"fan_action_pause": "Pozastavit",
 	"fan_action_info_description": "Na této stránce upravíte workflow akce, základní údaje a nastavení běhu.",
 	"fan_action_tab_settings": "Nastavení",
 	"fan_action_tab_stats": "Statistiky",

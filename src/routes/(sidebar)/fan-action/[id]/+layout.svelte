@@ -7,9 +7,16 @@
 	import { data } from '../temp/data.js';
 	import { fanActionEditTabHref } from '../edit-tabs.js';
 	import ChartColumn from '@lucide/svelte/icons/chart-column';
+	import Pause from '@lucide/svelte/icons/pause';
+	import Play from '@lucide/svelte/icons/play';
+	import { setWorkflowRunning } from '../components/workflow/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { children } = $props();
+
+	let isRunning = $state(false);
+
+	setWorkflowRunning(() => isRunning);
 
 	const actionId = $derived(Number(page.params.id));
 	const action = $derived(data.find((item) => item.id === actionId));
@@ -24,6 +31,10 @@
 	function handleSave() {
 		console.log('save fan action', actionId);
 	}
+
+	function toggleRunning() {
+		isRunning = !isRunning;
+	}
 </script>
 
 <PageHeader
@@ -36,6 +47,20 @@
 	]}
 >
 	{#if action}
+		<Button
+			variant="outline"
+			size="sm"
+			type="button"
+			onclick={toggleRunning}
+			aria-label={isRunning ? m.fan_action_pause() : m.fan_action_play()}
+		>
+			{#if isRunning}
+				<Pause />
+			{:else}
+				<Play />
+			{/if}
+			{isRunning ? m.fan_action_pause() : m.fan_action_play()}
+		</Button>
 		<InfoDrawer title={m.fan_action_edit_title()}>
 			<p class="text-sm text-muted-foreground">{m.fan_action_info_description()}</p>
 		</InfoDrawer>
@@ -76,7 +101,7 @@
 					{processedPercent}
 				</span>
 			</span>
-			{m.fan_action_processed()}
+			%
 		</Button>
 		<Button size="sm" onclick={handleSave}>{m.save()}</Button>
 	{/if}

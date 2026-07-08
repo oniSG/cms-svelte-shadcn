@@ -152,10 +152,18 @@ body {
 	--color-workflow-action: var(--workflow-color-action);
 	--color-workflow-operator: var(--workflow-color-operator);
 	--animate-workflow-border-flow: workflow-border-flow 0.8s linear infinite;
+	--animate-workflow-edge-flow-slow: workflow-edge-flow 4s linear infinite;
+	--animate-workflow-edge-flow-fast: workflow-edge-flow 0.5s linear infinite;
 
 	@keyframes workflow-border-flow {
 		to {
 			stroke-dashoffset: -18;
+		}
+	}
+
+	@keyframes workflow-edge-flow {
+		to {
+			stroke-dashoffset: -24;
 		}
 	}
 }
@@ -166,6 +174,15 @@ body {
 }
 
 @layer components {
+	.workflow-flow .svelte-flow__edge-path {
+		stroke-dasharray: 6 6;
+		animation: var(--animate-workflow-edge-flow-slow);
+	}
+
+	.workflow-flow-running .svelte-flow__edge-path {
+		animation: var(--animate-workflow-edge-flow-fast);
+	}
+
 	.workflow-flow-inactive .svelte-flow__nodes,
 	.workflow-flow-inactive .svelte-flow__edges,
 	.workflow-flow-inactive .svelte-flow__edge-labels {

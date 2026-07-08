@@ -16,7 +16,7 @@
 	import { createNodeId } from './flow-utils';
 	import type { WorkflowNodeData, WorkflowPaletteItem } from './types';
 	import { WORKFLOW_DRAG_MIME } from './types';
-	import { getWorkflowScenarioActive } from './editing-context';
+	import { getWorkflowRunning, getWorkflowScenarioActive } from './editing-context';
 	import { cn } from '$lib/utils.js';
 	import { mode } from 'mode-watcher';
 
@@ -25,7 +25,9 @@
 
 	const flowColorMode = $derived(mode.current === 'dark' ? 'dark' : 'light');
 	const getScenarioActive = getWorkflowScenarioActive();
+	const getRunning = getWorkflowRunning();
 	const scenarioActive = $derived(getScenarioActive?.() ?? true);
+	const isRunning = $derived(getRunning?.() ?? false);
 
 	let {
 		nodes = $bindable(),
@@ -83,6 +85,7 @@
 		colorMode={flowColorMode}
 		class={cn(
 			'workflow-flow h-full w-full !bg-muted/20',
+			isRunning && 'workflow-flow-running',
 			!scenarioActive && 'workflow-flow-inactive'
 		)}
 		{nodeTypes}

@@ -239,6 +239,8 @@
 	"fan_action_edit_title": "Action editing",
 	"fan_action_processed_progress": "Processed {percent}%",
 	"fan_action_processed": "Processed",
+	"fan_action_play": "Run",
+	"fan_action_pause": "Pause",
 	"fan_action_info_description": "Edit the action workflow, basic details, and run settings from this page.",
 	"fan_action_tab_settings": "Settings",
 	"fan_action_tab_stats": "Statistics",
