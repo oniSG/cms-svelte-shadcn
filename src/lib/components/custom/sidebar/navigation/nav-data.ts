@@ -1,5 +1,6 @@
 import * as m from '$lib/paraglide/messages.js';
 import type { Module, NavGroup } from '$lib/types/sidebar';
+import { ScrollTextIcon } from '@lucide/svelte';
 import BookUserIcon from '@lucide/svelte/icons/book-user';
 import BriefcaseIcon from '@lucide/svelte/icons/briefcase';
 import CalendarIcon from '@lucide/svelte/icons/calendar';
@@ -14,7 +15,6 @@ import LayersIcon from '@lucide/svelte/icons/layers';
 import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard';
 import MonitorIcon from '@lucide/svelte/icons/monitor';
 import Settings2Icon from '@lucide/svelte/icons/settings-2';
-import ShieldIcon from '@lucide/svelte/icons/shield';
 import StarIcon from '@lucide/svelte/icons/star';
 import TargetIcon from '@lucide/svelte/icons/target';
 import TvIcon from '@lucide/svelte/icons/tv';
@@ -212,19 +212,10 @@ export function settingsNav(): NavGroup[] {
 					icon: UsersIcon,
 					items: [
 						{ title: m.nav_set_user_masks(), url: '/privilege' },
-						{ title: m.nav_set_user_groups(), url: '/user-group' },
 						{ title: m.nav_set_users(), url: '/user' }
 					]
 				},
-				{
-					title: m.nav_set_security_logs(),
-					url: '#',
-					icon: ShieldIcon,
-					items: [
-						{ title: m.nav_set_security(), url: '/settings/security' },
-						{ title: m.nav_set_logs(), url: '/log' }
-					]
-				}
+				{ icon: ScrollTextIcon, title: m.nav_set_logs(), url: '/log' }
 			]
 		}
 	];

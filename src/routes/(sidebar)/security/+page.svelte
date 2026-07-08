@@ -15,7 +15,7 @@
 	]}
 />
 
-<Card.Root class="w-full max-w-xl">
+<Card.Root class="m-4 w-full max-w-xl">
 	<Card.Header>
 		<Card.Title>{m.security_title()}</Card.Title>
 		<Card.Description>{m.security_description()}</Card.Description>

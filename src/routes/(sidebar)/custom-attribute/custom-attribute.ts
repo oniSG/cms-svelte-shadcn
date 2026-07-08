@@ -79,14 +79,11 @@ export const mockBaseFields: BaseFieldOption[] = [
 	{ value: 'notes', label: 'Notes' }
 ];
 
-// Sections are dynamic user-managed labels. See ./sections.svelte.ts.
-export type CustomAttrSection = string;
-
 export type CustomAttribute = {
 	id: string;
 	name: string;
 	api_key: string;
-	section: CustomAttrSection;
+	group: CustomAttrGroup;
 	field_type: CustomAttrFieldType;
 	options: string[] | null;
 	default_value: string | null;
@@ -119,8 +116,8 @@ export const CA_LIMITS = {
 	nameMax: 40,
 	apiKeyMin: 2,
 	apiKeyMax: 40,
-	sectionMin: 2,
-	sectionMax: 40,
+	groupMin: 2,
+	groupMax: 40,
 	defaultValueMax: 200,
 	minOptions: 2,
 	maxOptions: 20,
@@ -140,7 +137,7 @@ const API_KEY_ALLOWED = /^[a-zA-Z][a-zA-Z0-9_]*$/;
 export function makeCAFormSchema(opts: {
 	isNameTaken: (name: string) => boolean;
 	isApiKeyTaken: (apiKey: string) => boolean;
-	isValidSection: (section: string) => boolean;
+	isValidGroup: (group: string) => boolean;
 }) {
 	return z
 		.object({
@@ -157,7 +154,7 @@ export function makeCAFormSchema(opts: {
 					API_KEY_ALLOWED,
 					'Must start with a letter and contain only letters, numbers, and underscores'
 				),
-			section: z.string().min(1, 'Section is required'),
+			group: z.string().min(1, 'Group is required'),
 			field_type: z.enum(
 				allFieldTypes as unknown as [CustomAttrFieldType, ...CustomAttrFieldType[]]
 			),
@@ -226,11 +223,11 @@ export function makeCAFormSchema(opts: {
 					message: 'A custom field with this API key already exists'
 				});
 			}
-			if (!opts.isValidSection(data.section)) {
+			if (!opts.isValidGroup(data.group)) {
 				ctx.addIssue({
 					code: 'custom',
-					path: ['section'],
-					message: 'Pick a section from the list or create a new one'
+					path: ['group'],
+					message: 'Pick a group from the list or create a new one'
 				});
 			}
 			if (data.field_type === 'SELECT') {
