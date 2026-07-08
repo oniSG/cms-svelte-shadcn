@@ -114,7 +114,7 @@
 		const t = untrack(() => attr);
 		apiKeyDirty = !!t;
 		newOption = '';
-		sectionSearch = '';
+		groupSearch = '';
 		baseFieldSearch = '';
 		reset({
 			data: t
@@ -236,10 +236,10 @@
 		mockBaseFields.find((f) => f.value === $formData.connected_base_field)
 	);
 
-	function pickSection(s: string) {
-		$formData.section = s;
-		sectionSearch = '';
-		sectionOpen = false;
+	function pickGroup(s: string) {
+		$formData.group = s;
+		groupSearch = '';
+		groupOpen = false;
 	}
 
 	function createAndPickGroup() {

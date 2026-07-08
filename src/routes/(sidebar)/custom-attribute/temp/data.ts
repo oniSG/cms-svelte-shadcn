@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import type { CustomAttrFieldType, CustomAttrGroup, CustomAttribute } from '../custom-attribute';
+import type { CustomAttrFieldType, CustomAttribute } from '../custom-attribute';
 import { DEFAULT_GROUPS } from '../groups.svelte.js';
 
 faker.seed(20260702);
@@ -119,7 +119,7 @@ function defaultValueFor(type: CustomAttrFieldType, options: string[] | null): s
 	return null;
 }
 
-function pickGroup(): CustomAttrGroup {
+function pickGroup(): string {
 	return faker.helpers.weightedArrayElement([
 		{ value: DEFAULT_GROUPS[0], weight: 6 },
 		{ value: DEFAULT_GROUPS[1], weight: 4 },
@@ -141,9 +141,18 @@ export const data: CustomAttribute[] = NAMES.map((name, i) => {
 		field_type,
 		options,
 		default_value: defaultValueFor(field_type, options),
+		connected_base_field: null,
+		required: false,
+		error_message: null,
+		max_length: null,
+		max_number: null,
+		max_url_length: null,
+		allow_array: false,
+		allow_object: false,
 		active: faker.datatype.boolean({ probability: 0.75 }),
 		all_clubs: faker.datatype.boolean({ probability: 0.35 }),
-		created_at: faker.date.between({ from: '2024-06-01', to: '2026-06-30' })
+		created_at: faker.date.between({ from: '2024-06-01', to: '2026-06-30' }),
+		expected_structure: null
 	};
 });
 
@@ -152,10 +161,19 @@ let nextId = 1000 + NAMES.length;
 type CAInput = {
 	name: string;
 	api_key: string;
-	group: CustomAttrGroup;
+	group: string;
 	field_type: CustomAttrFieldType;
 	options: string[];
 	default_value: string;
+	connected_base_field?: string;
+	required?: boolean;
+	error_message?: string;
+	max_length?: number;
+	max_number?: number;
+	max_url_length?: number;
+	allow_array?: boolean;
+	allow_object?: boolean;
+	expected_structure?: string;
 	active: boolean;
 	all_clubs: boolean;
 };
@@ -168,8 +186,17 @@ function shape(input: CAInput): Omit<CustomAttribute, 'id' | 'created_at'> {
 		field_type: input.field_type,
 		options: input.field_type === 'SELECT' ? input.options : null,
 		default_value: input.default_value ? input.default_value : null,
+		connected_base_field: input.connected_base_field ? input.connected_base_field : null,
+		required: input.required ?? false,
+		error_message: input.error_message ? input.error_message : null,
+		max_length: input.max_length ?? null,
+		max_number: input.max_number ?? null,
+		max_url_length: input.max_url_length ?? null,
+		allow_array: input.allow_array ?? false,
+		allow_object: input.allow_object ?? false,
 		active: input.active,
-		all_clubs: input.all_clubs
+		all_clubs: input.all_clubs,
+		expected_structure: input.expected_structure ? input.expected_structure : null
 	};
 }
 

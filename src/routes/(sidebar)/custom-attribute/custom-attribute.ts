@@ -83,7 +83,7 @@ export type CustomAttribute = {
 	id: string;
 	name: string;
 	api_key: string;
-	group: CustomAttrGroup;
+	group: string;
 	field_type: CustomAttrFieldType;
 	options: string[] | null;
 	default_value: string | null;
@@ -155,9 +155,7 @@ export function makeCAFormSchema(opts: {
 					'Must start with a letter and contain only letters, numbers, and underscores'
 				),
 			group: z.string().min(1, 'Group is required'),
-			field_type: z.enum(
-				allFieldTypes as unknown as [CustomAttrFieldType, ...CustomAttrFieldType[]]
-			),
+			field_type: z.enum(allFieldTypes),
 			connected_base_field: z.string().max(60).optional().default(''),
 			options: z
 				.array(
