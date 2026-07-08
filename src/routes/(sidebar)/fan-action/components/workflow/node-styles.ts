@@ -57,22 +57,33 @@ export function workflowNodeBoxShapeStyles(
 }
 
 export const workflowNodeStroke = 2.5;
+export const workflowNodeCornerRadius = 12;
+export const workflowNodeLabelOffset = 2;
 
 export const workflowConditionNodeBox = {
 	size: 70,
-	radius: 8,
+	radius: workflowNodeCornerRadius,
 	stroke: workflowNodeStroke
 } as const;
 
 export function workflowConditionNodeBounds(size: number = workflowConditionNodeBox.size): number {
 	return Math.ceil(size * Math.SQRT2);
 }
-export const workflowActionNodeBox = { size: 80, radius: 10, stroke: workflowNodeStroke } as const;
+export const workflowActionNodeBox = {
+	size: 80,
+	radius: workflowNodeCornerRadius,
+	stroke: workflowNodeStroke
+} as const;
 export const workflowTriggerNodeBox = {
 	height: 70,
 	width: 95,
-	stroke: workflowNodeStroke
+	stroke: workflowNodeStroke,
+	viewBox: { width: 78, height: 58 }
 } as const;
+
+/** Chevron arrow — only the left corners are rounded; shoulders and tip stay sharp. */
+export const workflowTriggerPath =
+	'M 7 2 L 55.72 2 L 76 29 L 55.72 56 L 7 56 A 5 5 0 0 1 2 51 L 2 7 A 5 5 0 0 1 7 2 Z';
 
 export function workflowNodeBoxRect(size: number, stroke: number) {
 	const inset = stroke / 2;

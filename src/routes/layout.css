@@ -183,9 +183,9 @@ body {
 		animation: var(--animate-workflow-edge-flow-fast);
 	}
 
-	.workflow-flow-inactive .svelte-flow__nodes,
-	.workflow-flow-inactive .svelte-flow__edges,
-	.workflow-flow-inactive .svelte-flow__edge-labels {
+	.workflow-flow-locked .svelte-flow__nodes,
+	.workflow-flow-locked .svelte-flow__edges,
+	.workflow-flow-locked .svelte-flow__edge-labels {
 		filter: grayscale(1);
 	}
 }

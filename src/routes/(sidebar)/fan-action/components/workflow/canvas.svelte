@@ -16,7 +16,7 @@
 	import { createNodeId } from './flow-utils';
 	import type { WorkflowNodeData, WorkflowPaletteItem } from './types';
 	import { WORKFLOW_DRAG_MIME } from './types';
-	import { getWorkflowRunning, getWorkflowScenarioActive } from './editing-context';
+	import { getWorkflowRunning, WORKFLOW_EDITED_BY_OTHER } from './editing-context';
 	import { cn } from '$lib/utils.js';
 	import { mode } from 'mode-watcher';
 
@@ -24,9 +24,7 @@
 	const edgeTypes = { workflow: FlowEdge };
 
 	const flowColorMode = $derived(mode.current === 'dark' ? 'dark' : 'light');
-	const getScenarioActive = getWorkflowScenarioActive();
 	const getRunning = getWorkflowRunning();
-	const scenarioActive = $derived(getScenarioActive?.() ?? true);
 	const isRunning = $derived(getRunning?.() ?? false);
 
 	let {
@@ -86,7 +84,7 @@
 		class={cn(
 			'workflow-flow h-full w-full !bg-muted/20',
 			isRunning && 'workflow-flow-running',
-			!scenarioActive && 'workflow-flow-inactive'
+			WORKFLOW_EDITED_BY_OTHER && 'workflow-flow-locked'
 		)}
 		{nodeTypes}
 		{edgeTypes}

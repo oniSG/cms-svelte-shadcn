@@ -17,7 +17,7 @@
 	import {
 		getWorkflowConfigureNode,
 		getWorkflowEditingNodeId,
-		getWorkflowScenarioActive
+		WORKFLOW_EDITED_BY_OTHER
 	} from './editing-context';
 	import { cn } from '$lib/utils.js';
 	import {
@@ -29,14 +29,14 @@
 		workflowConditionNodeBounds,
 		workflowActionNodeBox,
 		workflowTriggerNodeBox,
-		workflowNodeBoxRect
+		workflowTriggerPath,
+		workflowNodeBoxRect,
+		workflowNodeLabelOffset
 	} from './node-styles';
 	import { workflowConditionBranchStyles } from './condition-branch-styles';
 	import Copy from '@lucide/svelte/icons/copy';
 	import X from '@lucide/svelte/icons/x';
 	import * as m from '$lib/paraglide/messages.js';
-
-	const triggerPath = 'M2 2H55.72L76 29L55.72 56H2V2Z';
 
 	let {
 		id,
@@ -53,9 +53,7 @@
 	const label = $derived(workflowItemLabel(data.itemId));
 	const onConfigureNode = getWorkflowConfigureNode();
 	const getEditingNodeId = getWorkflowEditingNodeId();
-	const getScenarioActive = getWorkflowScenarioActive();
 	const isEditing = $derived(getEditingNodeId?.() === id);
-	const scenarioActive = $derived(getScenarioActive?.() ?? true);
 	const boxShapeStyles = $derived(workflowNodeBoxShapeStyles(data.itemId, data.variant, isEditing));
 	const conditionRect = workflowNodeBoxRect(
 		workflowConditionNodeBox.size,
@@ -122,7 +120,7 @@
 	const workflowNodeButtonClass = `${workflowNodeButtonResetClass} active:not-aria-[haspopup]:!translate-y-0`;
 	const workflowNodeConditionButtonClass = `${workflowNodeButtonResetClass} active:not-aria-[haspopup]:-translate-x-1/2 active:not-aria-[haspopup]:-translate-y-1/2 active:not-aria-[haspopup]:rotate-45`;
 	const workflowNodeLabelButtonClass =
-		'h-auto max-w-[11.25rem] gap-0 rounded-none border-0 bg-transparent p-0 text-center text-xs leading-tight font-normal text-foreground shadow-none transition-none hover:bg-transparent focus-visible:ring-0 active:not-aria-[haspopup]:!translate-y-0';
+		'h-auto max-w-[11.25rem] gap-0 rounded-none border-0 bg-transparent p-0 text-center text-sm leading-tight font-normal text-foreground shadow-none transition-none hover:bg-transparent focus-visible:ring-0 active:not-aria-[haspopup]:!translate-y-0';
 
 	const nodeShapeSize = $derived.by(() => {
 		if (data.variant === 'trigger') {
@@ -136,7 +134,9 @@
 	});
 
 	const labelX = $derived(positionAbsoluteX + (width ?? nodeShapeSize.width) / 2);
-	const labelY = $derived(positionAbsoluteY + (height ?? nodeShapeSize.height) + 10);
+	const labelY = $derived(
+		positionAbsoluteY + (height ?? nodeShapeSize.height) + workflowNodeLabelOffset
+	);
 </script>
 
 <NodeToolbar position={Position.Top} align="center" isVisible={toolbarVisible}>
@@ -144,7 +144,7 @@
 		<ButtonGroup.Root
 			class={cn(
 				'overflow-hidden rounded-4xl bg-workflow-canvas-base',
-				!scenarioActive && 'grayscale'
+				WORKFLOW_EDITED_BY_OTHER && 'grayscale'
 			)}
 		>
 			<Button
@@ -192,23 +192,24 @@
 				>
 					<svg
 						class="absolute inset-0 size-full overflow-visible"
-						viewBox="0 0 78 58"
+						viewBox="0 0 {workflowTriggerNodeBox.viewBox.width} {workflowTriggerNodeBox.viewBox.height}"
 						aria-hidden="true"
 					>
-						<path d={triggerPath} fill={triggerShapeStyles.backgroundFill} stroke="none" />
+						<path d={workflowTriggerPath} fill={triggerShapeStyles.backgroundFill} stroke="none" />
 						<path
-							d={triggerPath}
+							d={workflowTriggerPath}
 							fill={triggerShapeStyles.tintFill}
 							fill-opacity={triggerShapeStyles.tintOpacity}
 							stroke="none"
 						/>
 						<path
-							d={triggerPath}
+							d={workflowTriggerPath}
 							class={editingBorderClass}
 							fill="none"
 							stroke={triggerShapeStyles.stroke}
 							stroke-width={workflowTriggerNodeBox.stroke}
 							stroke-linejoin="round"
+							stroke-linecap="round"
 						/>
 					</svg>
 					<div class="pointer-events-none absolute inset-0 flex items-center justify-center pr-2.5">
@@ -357,7 +358,7 @@
 		{label}
 	</Button>
 	{#if data.incomplete}
-		<p class="text-[12.5px] leading-tight text-destructive">
+		<p class="text-sm leading-tight text-destructive">
 			{m.fan_action_flow_must_complete()}
 		</p>
 	{/if}
