@@ -10,7 +10,7 @@
 		type Node
 	} from '@xyflow/svelte';
 	import FlowNode from './node.svelte';
-	import FlowEdge from './edge.svelte';
+	import FlowEdge from './operators/edge/edge.svelte';
 	import ZoomControls from './zoom-controls.svelte';
 	import FitViewOnResize from './fit-view-on-resize.svelte';
 	import { createNodeId } from './flow-utils';

@@ -3,13 +3,12 @@
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
 	import InfoDrawer from '$lib/components/custom/info-drawer.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
-	import { data } from '../temp/data.js';
-	import { fanActionEditTabHref } from '../edit-tabs.js';
+	import { data } from '../../temp/data.js';
+	import { fanActionEditTabHref } from '../../edit-tabs.js';
 	import ChartColumn from '@lucide/svelte/icons/chart-column';
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
-	import { setWorkflowRunning } from './settings/shared/editing-context.js';
+	import { setWorkflowRunning } from './shared/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { children } = $props();
@@ -20,8 +19,6 @@
 
 	const actionId = $derived(Number(page.params.id));
 	const action = $derived(data.find((item) => item.id === actionId));
-
-	const isSettingsTab = $derived(page.url.pathname.endsWith('/settings'));
 
 	const processedPercent = 81;
 	const progressRadius = 8;
@@ -110,8 +107,8 @@
 {#if !action}
 	<p class="text-muted-foreground">{m.fan_action_not_found()}</p>
 {:else}
-	<div class={cn('flex flex-col', isSettingsTab && 'min-h-0 flex-1 overflow-hidden')}>
-		<div class={cn(isSettingsTab ? 'min-h-0 flex-1' : 'px-4 pt-4 pb-8')}>
+	<div class="flex min-h-0 flex-1 flex-col overflow-hidden">
+		<div class="min-h-0 flex-1">
 			{@render children()}
 		</div>
 	</div>
