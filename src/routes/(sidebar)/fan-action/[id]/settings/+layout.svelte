@@ -4,7 +4,6 @@
 	import InfoDrawer from '$lib/components/custom/info-drawer.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { data } from '../../temp/data.js';
-	import { fanActionEditTabHref } from '../../edit-tabs.js';
 	import ChartColumn from '@lucide/svelte/icons/chart-column';
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
@@ -61,7 +60,7 @@
 		<InfoDrawer title={m.fan_action_edit_title()}>
 			<p class="text-sm text-muted-foreground">{m.fan_action_info_description()}</p>
 		</InfoDrawer>
-		<Button variant="outline" size="sm" href={fanActionEditTabHref(actionId, 'stats')}>
+		<Button variant="outline" size="sm" href={`/fan-action/${actionId}/stats`}>
 			<ChartColumn />
 			{m.nav_analytics()}
 		</Button>

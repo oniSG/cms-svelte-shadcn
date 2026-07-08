@@ -17,9 +17,9 @@
 		type TableColumn
 	} from '$lib/components/custom/table-page';
 	import * as m from '$lib/paraglide/messages.js';
-	import { allCreators, allTags, type FanAction } from './fan-action';
+	import type { FanAction } from '$lib/types/fan-action.js';
+	import { allCreators, allTags } from './temp/options.js';
 	import { fetchFanActions } from './temp/api';
-	import { fanActionEditTabHref } from './edit-tabs';
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
 
 	const breadcrumbs = $derived([
@@ -86,7 +86,7 @@
 	}
 
 	function editAction(action: FanAction) {
-		goto(fanActionEditTabHref(action.id, 'settings'));
+		goto(`/fan-action/${action.id}/settings`);
 	}
 
 	function copyAction(action: FanAction) {
@@ -119,7 +119,7 @@
 		fields: ['event', 'description', 'created_by']
 	}}
 	defaultSort={{ id: 'created_at', desc: true }}
-	click={{ href: (action) => fanActionEditTabHref(action.id, 'settings') }}
+	click={{ href: (action) => `/fan-action/${action.id}/settings` }}
 	getRowId={(action) => String(action.id)}
 	{rowActions}
 	rowActionsTitle={(action) => action.event}
