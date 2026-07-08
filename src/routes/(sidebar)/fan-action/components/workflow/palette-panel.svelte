@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Accordion from '$lib/components/ui/accordion/index.js';
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
@@ -28,6 +29,9 @@
 	type StyledPaletteItem = WorkflowPaletteItem;
 
 	let searchQuery = $state('');
+	let showAllTriggers = $state(false);
+
+	const isSearching = $derived(searchQuery.trim().length > 0);
 
 	const accordionTriggerClass =
 		'cursor-pointer px-4 py-3.5 text-base font-semibold hover:no-underline';
@@ -78,11 +82,23 @@
 			.filter((group) => group.items.length > 0)
 	);
 
+	const commonTriggerGroup = $derived(triggerGroups.find((group) => group.id === 'common') ?? null);
+	const otherTriggerGroups = $derived(triggerGroups.filter((group) => group.id !== 'common'));
+	const visibleTriggerGroups = $derived(
+		isSearching || showAllTriggers ? triggerGroups : commonTriggerGroup ? [commonTriggerGroup] : []
+	);
+	const hasHiddenTriggers = $derived(
+		!isSearching && otherTriggerGroups.length > 0 && !showAllTriggers
+	);
+	const canCollapseTriggers = $derived(
+		!isSearching && otherTriggerGroups.length > 0 && showAllTriggers
+	);
+
 	const operatorItems = $derived(filterItems(workflowOperatorPaletteItems()));
 	const actionItems = $derived(filterItems(workflowActionPaletteItems()));
 
 	const hasBlockResults = $derived(
-		triggerGroups.length > 0 || operatorItems.length > 0 || actionItems.length > 0
+		visibleTriggerGroups.length > 0 || operatorItems.length > 0 || actionItems.length > 0
 	);
 </script>
 
@@ -169,7 +185,7 @@
 				{m.fan_action_flow_blocks_no_results()}
 			</p>
 		{:else}
-			{#each triggerGroups as group (group.id)}
+			{#each visibleTriggerGroups as group (group.id)}
 				<section class="space-y-2">
 					<Label class={subheadingClass}>
 						{m.fan_action_flow_trigger_category_heading({ category: group.label })}
@@ -177,6 +193,30 @@
 					{@render paletteItemList(group.items)}
 				</section>
 			{/each}
+
+			{#if hasHiddenTriggers}
+				<Button
+					variant="ghost"
+					size="sm"
+					class="h-8 w-full text-muted-foreground"
+					onclick={() => {
+						showAllTriggers = true;
+					}}
+				>
+					{m.fan_action_flow_triggers_show_more()}
+				</Button>
+			{:else if canCollapseTriggers}
+				<Button
+					variant="ghost"
+					size="sm"
+					class="h-8 w-full text-muted-foreground"
+					onclick={() => {
+						showAllTriggers = false;
+					}}
+				>
+					{m.fan_action_flow_triggers_show_less()}
+				</Button>
+			{/if}
 
 			{#if operatorItems.length > 0}
 				<section class="space-y-2">

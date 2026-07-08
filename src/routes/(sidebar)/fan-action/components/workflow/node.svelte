@@ -35,6 +35,7 @@
 	} from './node-styles';
 	import { workflowConditionBranchStyles } from './condition-branch-styles';
 	import Copy from '@lucide/svelte/icons/copy';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import X from '@lucide/svelte/icons/x';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -102,13 +103,13 @@
 		deleteElements({ nodes: [{ id }] });
 	}
 
-	const handleBase = '!size-[1.09375rem] !border-2';
-	const handleArrowClass = 'after:border-y-[3px] after:border-l-[4px]';
-	const handleArrowStyles = `${handleBase} relative !border-foreground !bg-background after:pointer-events-none after:absolute after:top-1/2 after:left-[55%] after:h-0 after:w-0 after:-translate-x-1/2 after:-translate-y-1/2 after:border-y-transparent ${handleArrowClass} after:border-l-foreground after:content-['']`;
-	const handleInputClass = `${handleArrowStyles} !left-0`;
-	const handleNeutralClass = handleArrowStyles;
-	const handleYesClass = `${handleBase} ${workflowConditionBranchStyles.yes.port}`;
-	const handleNoClass = `${handleBase} ${workflowConditionBranchStyles.no.port}`;
+	const handleBase =
+		'!flex !size-[1.09375rem] !items-center !justify-center !rounded-full !border-2 !border-foreground !bg-background [&_svg]:size-2.5 [&_svg]:stroke-[2.5] [&_svg]:text-foreground';
+	const handleArrowClass = handleBase;
+	const handleInputClass = `${handleArrowClass} !left-0`;
+	const handleNeutralClass = handleArrowClass;
+	const handleYesClass = `!size-[1.09375rem] !rounded-full !border-0 ${workflowConditionBranchStyles.yes.port}`;
+	const handleNoClass = `!size-[1.09375rem] !rounded-full !border-0 ${workflowConditionBranchStyles.no.port}`;
 	const conditionHandleYesStyle = 'left: 75%; top: 25%; transform: translate(-50%, -50%);';
 	const conditionHandleNoStyle = 'left: 75%; top: 75%; transform: translate(-50%, -50%);';
 
@@ -215,7 +216,9 @@
 					</div>
 				</div>
 			</Button>
-			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
+			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source">
+				<ChevronRight aria-hidden="true" />
+			</Handle>
 		</div>
 	{:else if data.variant === 'condition'}
 		{@const conditionBounds = workflowConditionNodeBounds()}
@@ -271,7 +274,9 @@
 			<div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
 				<WorkflowNodeIcon itemId={data.itemId} variant={data.variant} class="size-[1.875rem]" />
 			</div>
-			<Handle class={handleInputClass} position={Position.Left} type="target" />
+			<Handle class={handleInputClass} position={Position.Left} type="target">
+				<ChevronRight aria-hidden="true" />
+			</Handle>
 			<Handle
 				id="yes"
 				class={handleYesClass}
@@ -340,8 +345,12 @@
 					/>
 				</div>
 			</Button>
-			<Handle class={handleInputClass} position={Position.Left} type="target" />
-			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source" />
+			<Handle class={handleInputClass} position={Position.Left} type="target">
+				<ChevronRight aria-hidden="true" />
+			</Handle>
+			<Handle class="{handleNeutralClass} !right-0" position={Position.Right} type="source">
+				<ChevronRight aria-hidden="true" />
+			</Handle>
 		</div>
 	{/if}
 </div>
