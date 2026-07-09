@@ -16,7 +16,7 @@
 
 	const title = $derived(node ? workflowDrawerTitle(node.data.itemId) : '');
 	const description = $derived(node ? workflowItemDescription(node.data.itemId) : '');
-	const DrawerContent = $derived(node ? workflowDrawerContent(node.data.itemId) : null);
+	const SheetContent = $derived(node ? workflowDrawerContent(node.data.itemId) : null);
 	const panelOpen = $derived(Boolean(open && node));
 
 	$effect(() => {
@@ -42,7 +42,7 @@
 		)}
 		aria-hidden={!panelOpen}
 	>
-		{#if node && DrawerContent}
+		{#if node && SheetContent}
 			<div
 				class="flex h-full w-full shrink-0 flex-col [&_[data-slot=sheet-overlay]]:pointer-events-none [&_[data-slot=sheet-overlay]]:hidden"
 			>
@@ -66,7 +66,7 @@
 						</Sheet.Header>
 
 						<div class="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-2 pb-6">
-							<DrawerContent nodeId={node.id} data={node.data} />
+							<SheetContent nodeId={node.id} data={node.data} />
 						</div>
 					</Sheet.Content>
 				</Sheet.Root>
