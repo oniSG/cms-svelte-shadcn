@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { afterNavigate } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { SvelteFlowProvider, type Edge, type Node } from '@xyflow/svelte';
@@ -27,6 +28,10 @@
 	const saveHandlers = getFanActionSaveHandlers();
 
 	let loadedActionId = $state<number | null>(null);
+
+	afterNavigate(() => {
+		loadedActionId = null;
+	});
 
 	$effect(() => {
 		const id = actionId;
@@ -67,8 +72,8 @@
 
 		saveHandlers.workflow = async () => {
 			return saveFanActionWorkflow(id, {
-				nodes: structuredClone(nodes) as (typeof data)[0]['workflow']['nodes'],
-				edges: structuredClone(edges) as (typeof data)[0]['workflow']['edges']
+				nodes: structuredClone($state.snapshot(nodes)) as (typeof data)[0]['workflow']['nodes'],
+				edges: structuredClone($state.snapshot(edges)) as (typeof data)[0]['workflow']['edges']
 			});
 		};
 

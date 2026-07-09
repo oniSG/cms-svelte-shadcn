@@ -61,6 +61,23 @@
 		errors = {};
 	}
 
+	function getPayload() {
+		return {
+			note,
+			senderEmail,
+			replyEmail,
+			subject,
+			emailTemplate,
+			sendCopyToVisitors,
+			consentPreferences: {
+				marketing: consentMarketing,
+				organizer: consentOrganizer,
+				events: consentEvents,
+				special: consentSpecial
+			}
+		};
+	}
+
 	const consentIds = ['marketing', 'organizer', 'events', 'special'] as const;
 	const consentLabels: Record<(typeof consentIds)[number], () => string> = {
 		marketing: m.fan_action_flow_email_consent_marketing,
@@ -77,29 +94,28 @@
 		loadFromConfig(untrack(() => data.config));
 	});
 
+	// Sync draft into canvas nodes and mock DB when switching nodes or closing the drawer.
+	$effect(() => {
+		const id = nodeId;
+		const actId = untrack(() => actionId);
+		const sync = untrack(() => syncNodeConfig);
+
+		return () => {
+			const payload = getPayload();
+			sync?.(id, payload);
+			if (actId) saveFanActionDrawer(actId, id, payload);
+		};
+	});
+
 	$effect(() => {
 		const id = nodeId;
 		const handlers = untrack(() => getFanActionSaveHandlers());
-		const actId = untrack(() => actionId);
 		const sync = untrack(() => syncNodeConfig);
-		if (!handlers || !actId) return;
+		const actId = untrack(() => actionId);
+		if (!handlers) return;
 
 		handlers.nodeConfig = async () => {
-			const payload = {
-				note,
-				senderEmail,
-				replyEmail,
-				subject,
-				emailTemplate,
-				sendCopyToVisitors,
-				consentPreferences: {
-					marketing: consentMarketing,
-					organizer: consentOrganizer,
-					events: consentEvents,
-					special: consentSpecial
-				}
-			};
-
+			const payload = getPayload();
 			const result = emailFormSchema.safeParse(payload);
 			if (!result.success) {
 				errors = Object.fromEntries(
@@ -109,10 +125,8 @@
 			}
 
 			errors = {};
-			const saved = saveFanActionDrawer(actId, id, result.data);
-			if (!saved) return false;
-
 			sync?.(id, result.data);
+			if (!actId || !saveFanActionDrawer(actId, id, result.data)) return false;
 			return true;
 		};
 
@@ -192,7 +206,8 @@
 				{#if emailTemplate}
 					{emailTemplate}
 				{:else}
-					<span class="text-muted-foreground">{m.fan_action_flow_email_template_placeholder()}</span>
+					<span class="text-muted-foreground">{m.fan_action_flow_email_template_placeholder()}</span
+					>
 				{/if}
 			</Select.Trigger>
 			<Select.Content>

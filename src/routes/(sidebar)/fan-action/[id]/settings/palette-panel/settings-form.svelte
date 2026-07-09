@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { afterNavigate } from '$app/navigation';
 	import { untrack } from 'svelte';
 	import { z } from 'zod';
 	import { defaults, superForm } from 'sveltekit-superforms';
@@ -8,7 +9,7 @@
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
 	import Info from '@lucide/svelte/icons/info';
 	import type { FanAction } from '$lib/types/fan-action.js';
-	import { updateFanAction } from '../../../temp/data.js';
+	import { data as fanActions, updateFanAction } from '../../../temp/data.js';
 	import { getFanActionSaveHandlers } from '../shared/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -31,13 +32,17 @@
 	const saveHandlers = getFanActionSaveHandlers();
 	let loadedActionId = $state<number | null>(null);
 
-	$effect(() => {
-		const current = action;
-		if (!current) return;
+	afterNavigate(() => {
+		loadedActionId = null;
+	});
 
-		const id = current.id;
-		if (id === loadedActionId) return;
+	$effect(() => {
+		const id = action?.id;
+		if (!id || id === loadedActionId) return;
 		loadedActionId = id;
+
+		const current = fanActions.find((item) => item.id === id);
+		if (!current) return;
 
 		reset({
 			data: {
