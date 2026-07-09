@@ -8,6 +8,7 @@
 	import * as HoverCard from '$lib/components/ui/hover-card/index.js';
 	import Info from '@lucide/svelte/icons/info';
 	import type { FanAction } from '$lib/types/fan-action.js';
+	import { updateFanAction } from '../../../temp/data.js';
 	import { getFanActionSaveHandlers } from '../shared/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -28,10 +29,15 @@
 	const { form: formData, enhance, reset, validateForm } = form;
 
 	const saveHandlers = getFanActionSaveHandlers();
+	let loadedActionId = $state<number | null>(null);
 
 	$effect(() => {
-		const current = untrack(() => action);
+		const current = action;
 		if (!current) return;
+
+		const id = current.id;
+		if (id === loadedActionId) return;
+		loadedActionId = id;
 
 		reset({
 			data: {
@@ -42,20 +48,24 @@
 	});
 
 	$effect(() => {
-		const current = action;
-		if (!saveHandlers || !current) return;
+		const id = action?.id;
+		if (!id) return;
 
-		saveHandlers.settings = async () => {
+		const handlers = untrack(() => saveHandlers);
+		if (!handlers) return;
+
+		handlers.settings = async () => {
 			const result = await validateForm({ update: true });
 			if (!result.valid) return false;
 
-			current.automaticStop = result.data.automaticStop;
-			current.plannedRunOut = result.data.plannedRunOut;
-			return true;
+			return updateFanAction(id, {
+				automaticStop: result.data.automaticStop,
+				plannedRunOut: result.data.plannedRunOut
+			});
 		};
 
 		return () => {
-			delete saveHandlers.settings;
+			delete handlers.settings;
 		};
 	});
 </script>

@@ -1688,6 +1688,20 @@ export const data: FanAction[] = [
 	}
 ];
 
+export function updateFanAction(
+	actionId: number,
+	patch: Partial<Omit<FanAction, 'id' | 'workflow'>>
+): boolean {
+	const index = data.findIndex((action) => action.id === actionId);
+	if (index === -1) return false;
+
+	data[index] = {
+		...structuredClone(data[index]),
+		...patch
+	};
+	return true;
+}
+
 export function saveFanActionDrawer(
 	actionId: number,
 	nodeId: string,

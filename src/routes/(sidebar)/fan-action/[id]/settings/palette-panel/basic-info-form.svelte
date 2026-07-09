@@ -11,6 +11,7 @@
 	import MultiSelectCombobox from '$lib/components/custom/multi-select-combobox.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
 	import { allTags as tagOptions } from '../../../temp/options.js';
+	import { updateFanAction } from '../../../temp/data.js';
 	import { getFanActionSaveHandlers } from '../shared/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -41,10 +42,15 @@
 	const { form: formData, enhance, reset, validateForm } = form;
 
 	const saveHandlers = getFanActionSaveHandlers();
+	let loadedActionId = $state<number | null>(null);
 
 	$effect(() => {
-		const current = untrack(() => action);
+		const current = action;
 		if (!current) return;
+
+		const id = current.id;
+		if (id === loadedActionId) return;
+		loadedActionId = id;
 
 		reset({
 			data: {
@@ -57,22 +63,26 @@
 	});
 
 	$effect(() => {
-		const current = action;
-		if (!saveHandlers || !current) return;
+		const id = action?.id;
+		if (!id) return;
 
-		saveHandlers.basicInfo = async () => {
+		const handlers = untrack(() => saveHandlers);
+		if (!handlers) return;
+
+		handlers.basicInfo = async () => {
 			const result = await validateForm({ update: true });
 			if (!result.valid) return false;
 
-			current.event = result.data.name;
-			current.description = result.data.description;
-			current.transactionActions = result.data.transactionActions;
-			current.tags = [...result.data.tags];
-			return true;
+			return updateFanAction(id, {
+				event: result.data.name,
+				description: result.data.description,
+				transactionActions: result.data.transactionActions,
+				tags: [...result.data.tags]
+			});
 		};
 
 		return () => {
-			delete saveHandlers.basicInfo;
+			delete handlers.basicInfo;
 		};
 	});
 </script>
