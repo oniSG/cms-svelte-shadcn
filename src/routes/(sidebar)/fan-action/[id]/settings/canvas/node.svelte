@@ -12,7 +12,6 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as ButtonGroup from '$lib/components/ui/button-group/index.js';
 	import type { WorkflowNodeData } from '../shared/types';
-	import { createNodeId } from './flow-utils';
 	import { workflowItemLabel } from '../shared/workflow-items';
 	import WorkflowNodeIcon from '../shared/workflow-node-icon.svelte';
 	import {
@@ -89,7 +88,7 @@
 
 		const clone = {
 			...node,
-			id: createNodeId(),
+			id: `node-${crypto.randomUUID().slice(0, 8)}`,
 			position: { x: node.position.x + 40, y: node.position.y + 40 },
 			selected: false
 		};

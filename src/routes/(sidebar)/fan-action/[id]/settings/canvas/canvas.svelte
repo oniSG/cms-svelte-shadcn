@@ -13,7 +13,6 @@
 	import FlowEdge from './edge.svelte';
 	import ZoomControls from './zoom-controls.svelte';
 	import FitViewOnResize from './fit-view-on-resize.svelte';
-	import { createNodeId } from './flow-utils';
 	import type { WorkflowNodeData, WorkflowPaletteItem } from '../shared/types';
 	import { WORKFLOW_DRAG_MIME } from '../shared/types';
 	import { getWorkflowRunning, WORKFLOW_EDITED_BY_OTHER } from '../shared/editing-context';
@@ -57,7 +56,7 @@
 		const position = screenToFlowPosition({ x: event.clientX, y: event.clientY });
 
 		const newNode: Node<WorkflowNodeData> = {
-			id: createNodeId(),
+			id: `node-${crypto.randomUUID().slice(0, 8)}`,
 			type: 'workflow',
 			position,
 			data: {
