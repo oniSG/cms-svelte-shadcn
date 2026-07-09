@@ -6,9 +6,13 @@
 	import Canvas from './canvas/canvas.svelte';
 	import PaletteSheet from './palette-panel/palette-sheet.svelte';
 	import NodeConfigPanel from './node-config/node-config-panel.svelte';
-	import { setWorkflowConfigureNode, setWorkflowEditingNodeId } from './shared/editing-context';
+	import {
+		getFanActionSaveHandlers,
+		setWorkflowConfigureNode,
+		setWorkflowEditingNodeId
+	} from './shared/editing-context';
 	import type { WorkflowNodeData } from './shared/types';
-	import { data } from '../../temp/data.js';
+	import { data, saveFanActionWorkflow } from '../../temp/data.js';
 
 	const actionId = $derived(Number(page.params.id));
 	const action = $derived(data.find((item) => item.id === actionId) ?? null);
@@ -20,20 +24,66 @@
 	let activeNodeId = $state<string | null>(null);
 	const activeNode = $derived(nodes.find((node) => node.id === activeNodeId) ?? null);
 	const editingNodeId = $derived(drawerOpen ? activeNodeId : null);
+	const saveHandlers = getFanActionSaveHandlers();
+
+	let loadedActionId = $state<number | null>(null);
 
 	$effect(() => {
-		if (action) {
-			nodes = structuredClone(action.workflow.nodes) as Node<WorkflowNodeData>[];
-			edges = structuredClone(action.workflow.edges);
+		const id = actionId;
+		if (id === loadedActionId) return;
+
+		loadedActionId = id;
+		const source = data.find((item) => item.id === id);
+
+		if (source) {
+			nodes = structuredClone(source.workflow.nodes) as Node<WorkflowNodeData>[];
+			edges = structuredClone(source.workflow.edges);
 		} else {
 			nodes = [];
 			edges = [];
 		}
+
 		drawerOpen = false;
 		activeNodeId = null;
 	});
 
+	function syncNodeConfig(nodeId: string, config: Record<string, unknown>) {
+		const index = nodes.findIndex((node) => node.id === nodeId);
+		if (index === -1) return;
+
+		nodes[index] = {
+			...nodes[index],
+			data: {
+				...nodes[index].data,
+				config,
+				incomplete: false
+			}
+		};
+	}
+
+	$effect(() => {
+		const id = actionId;
+		if (!saveHandlers || !id) return;
+
+		saveHandlers.workflow = async () => {
+			return saveFanActionWorkflow(id, {
+				nodes: structuredClone(nodes) as (typeof data)[0]['workflow']['nodes'],
+				edges: structuredClone(edges) as (typeof data)[0]['workflow']['edges']
+			});
+		};
+
+		return () => {
+			delete saveHandlers.workflow;
+		};
+	});
+
 	function openNodeDrawer(nodeId: string) {
+		if (drawerOpen && activeNodeId === nodeId) {
+			drawerOpen = false;
+			activeNodeId = null;
+			return;
+		}
+
 		activeNodeId = nodeId;
 		drawerOpen = true;
 	}
@@ -53,7 +103,7 @@
 				{/key}
 			</div>
 
-			<NodeConfigPanel bind:open={drawerOpen} node={activeNode} />
+			<NodeConfigPanel bind:open={drawerOpen} node={activeNode} {actionId} {syncNodeConfig} />
 		</div>
 	</SvelteFlowProvider>
 {:else}

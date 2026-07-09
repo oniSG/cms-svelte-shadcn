@@ -27,9 +27,11 @@
 	const progressOffset = $derived(progressCircumference * (1 - processedPercent / 100));
 
 	async function handleSave() {
+		const nodeOk = (await saveHandlers.nodeConfig?.()) ?? true;
+		const workflowOk = (await saveHandlers.workflow?.()) ?? true;
 		const basicOk = (await saveHandlers.basicInfo?.()) ?? true;
 		const settingsOk = (await saveHandlers.settings?.()) ?? true;
-		if (!basicOk || !settingsOk) return;
+		if (!nodeOk || !workflowOk || !basicOk || !settingsOk) return;
 	}
 
 	function toggleRunning() {

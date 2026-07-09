@@ -2,6 +2,7 @@ export type FanActionWorkflowNodeData = {
 	itemId: string;
 	variant: 'trigger' | 'condition' | 'action';
 	incomplete?: boolean;
+	config?: Record<string, unknown>;
 };
 
 export type FanActionWorkflowNode = {

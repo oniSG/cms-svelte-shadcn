@@ -32,6 +32,7 @@
 	let { action = null }: { action?: FanAction | null } = $props();
 
 	const form = superForm(defaults(zod4(basicInfoFormSchema)), {
+		id: 'fan-action-basic-info',
 		SPA: true,
 		validators: zod4Client(basicInfoFormSchema),
 		resetForm: false

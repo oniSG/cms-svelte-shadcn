@@ -1688,6 +1688,45 @@ export const data: FanAction[] = [
 	}
 ];
 
+export function saveFanActionDrawer(
+	actionId: number,
+	nodeId: string,
+	config: Record<string, unknown>
+): boolean {
+	const index = data.findIndex((action) => action.id === actionId);
+	if (index === -1) return false;
+
+	const action = structuredClone(data[index]);
+	const nodeIndex = action.workflow.nodes.findIndex((node) => node.id === nodeId);
+	if (nodeIndex === -1) return false;
+
+	action.workflow.nodes[nodeIndex] = {
+		...action.workflow.nodes[nodeIndex],
+		data: {
+			...action.workflow.nodes[nodeIndex].data,
+			config,
+			incomplete: false
+		}
+	};
+
+	data[index] = action;
+	return true;
+}
+
+export function saveFanActionWorkflow(
+	actionId: number,
+	workflow: FanAction['workflow']
+): boolean {
+	const index = data.findIndex((action) => action.id === actionId);
+	if (index === -1) return false;
+
+	data[index] = {
+		...structuredClone(data[index]),
+		workflow: structuredClone(workflow)
+	};
+	return true;
+}
+
 export function deleteFanAction(id: number): boolean {
 	const index = data.findIndex((action) => action.id === id);
 	if (index === -1) return false;

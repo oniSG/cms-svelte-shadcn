@@ -40,6 +40,8 @@ export const FAN_ACTION_SAVE_HANDLERS_KEY = 'fan-action-save-handlers';
 export type FanActionSaveHandlers = {
 	basicInfo?: () => Promise<boolean>;
 	settings?: () => Promise<boolean>;
+	nodeConfig?: () => Promise<boolean>;
+	workflow?: () => Promise<boolean>;
 };
 
 export function setFanActionSaveHandlers(handlers: FanActionSaveHandlers) {
