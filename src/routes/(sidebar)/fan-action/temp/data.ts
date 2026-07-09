@@ -154,7 +154,12 @@ export const data: FanAction[] = [
 				}
 			],
 			edges: [
-				{ id: 'e-trigger-condition-1', source: 'trigger-1', target: 'condition-1', type: 'workflow' },
+				{
+					id: 'e-trigger-condition-1',
+					source: 'trigger-1',
+					target: 'condition-1',
+					type: 'workflow'
+				},
 				{
 					id: 'e-condition-1-yes-action-1',
 					source: 'condition-1',
@@ -1562,3 +1567,24 @@ export const data: FanAction[] = [
 		}
 	}
 ];
+
+export function deleteFanAction(id: number): boolean {
+	const index = data.findIndex((action) => action.id === id);
+	if (index === -1) return false;
+	data.splice(index, 1);
+	return true;
+}
+
+export function deleteFanActions(ids: string[]): number {
+	const idSet = new Set(ids.map(Number));
+	let removed = 0;
+
+	for (let index = data.length - 1; index >= 0; index--) {
+		if (idSet.has(data[index].id)) {
+			data.splice(index, 1);
+			removed++;
+		}
+	}
+
+	return removed;
+}

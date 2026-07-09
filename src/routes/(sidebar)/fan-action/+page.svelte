@@ -8,7 +8,10 @@
 	import EyeIcon from '@lucide/svelte/icons/eye';
 	import TrashIcon from '@lucide/svelte/icons/trash-2';
 	import { goto } from '$app/navigation';
+	import { useQueryClient } from '@tanstack/svelte-query';
+	import { toast } from 'svelte-sonner';
 	import { Button } from '$lib/components/ui/button';
+	import DeleteDialog from '$lib/components/custom/delete-dialog.svelte';
 	import {
 		CellTags,
 		TablePage,
@@ -19,8 +22,12 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import type { FanAction } from '$lib/types/fan-action.js';
 	import { allCreators, allTags } from './temp/options.js';
+	import { deleteFanAction, deleteFanActions } from './temp/data.js';
 	import { fetchFanActions } from './temp/api';
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
+
+	const QUERY_KEY = 'fan-actions';
+	const queryClient = useQueryClient();
 
 	const breadcrumbs = $derived([
 		{ title: m.crumb_home(), url: '/' as const },
@@ -81,6 +88,16 @@
 		{ kind: 'date-range', id: 'created_at', label: m.col_created_at(), field: 'created_at' }
 	]);
 
+	let deleteOpen = $state(false);
+	let deletingAction = $state<FanAction | undefined>(undefined);
+
+	let bulkDeleteOpen = $state(false);
+	let bulkDeleteIds = $state<string[]>([]);
+
+	function invalidate() {
+		queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
+	}
+
 	function handleCreate() {
 		console.log('create fan action');
 	}
@@ -98,7 +115,29 @@
 	}
 
 	function deleteAction(action: FanAction) {
-		console.log('delete', action.id);
+		deletingAction = action;
+		deleteOpen = true;
+	}
+
+	function openBulkDelete(ids: string[]) {
+		bulkDeleteIds = ids;
+		bulkDeleteOpen = true;
+	}
+
+	function handleConfirmDelete() {
+		if (!deletingAction) return;
+		const name = deletingAction.event;
+		deleteFanAction(deletingAction.id);
+		deletingAction = undefined;
+		invalidate();
+		toast.success(name);
+	}
+
+	function handleConfirmBulkDelete() {
+		const removed = deleteFanActions(bulkDeleteIds);
+		bulkDeleteIds = [];
+		invalidate();
+		toast.success(m.tp_selected({ count: removed }));
 	}
 </script>
 
@@ -110,7 +149,7 @@
 </PageHeader>
 
 <TablePage
-	queryKey="fan-actions"
+	queryKey={QUERY_KEY}
 	{columns}
 	{shortcuts}
 	fetcher={fetchFanActions}
@@ -123,6 +162,30 @@
 	getRowId={(action) => String(action.id)}
 	{rowActions}
 	rowActionsTitle={(action) => action.event}
+	selectable
+	onDeleteSelected={openBulkDelete}
+/>
+
+<DeleteDialog
+	bind:open={deleteOpen}
+	title={m.event_dialog_delete_title()}
+	description={deletingAction
+		? m.event_dialog_delete_description({ event: deletingAction.event })
+		: ''}
+	confirmLabel={m.event_dialog_delete_submit()}
+	cancelLabel={m.common_cancel()}
+	onConfirm={handleConfirmDelete}
+/>
+
+<DeleteDialog
+	bind:open={bulkDeleteOpen}
+	title={m.event_dialog_delete_title()}
+	description={m.event_dialog_delete_description({
+		event: `${bulkDeleteIds.length} ${m.nav_fans_campaigns().toLowerCase()}`
+	})}
+	confirmLabel={m.event_dialog_delete_submit()}
+	cancelLabel={m.common_cancel()}
+	onConfirm={handleConfirmBulkDelete}
 />
 
 {#snippet rowActions(action: FanAction, { Item, Separator }: ActionWrap)}
