@@ -24,7 +24,7 @@
 			.string()
 			.trim()
 			.min(2, m.fan_action_basic_info_description_min({ min: 2 }))
-			.max(50, m.fan_action_basic_info_description_max({ max: 50 })),
+			.max(250, m.fan_action_basic_info_description_max({ max: 250 })),
 		transactionActions: z.boolean(),
 		tags: z.array(z.string())
 	});
@@ -106,7 +106,7 @@
 					bind:value={$formData.description}
 					id="action-description"
 					rows={3}
-					maxlength={50}
+					maxlength={250}
 				/>
 			{/snippet}
 		</Form.Control>

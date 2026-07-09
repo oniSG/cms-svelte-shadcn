@@ -256,7 +256,7 @@
 				{m.fan_action_tab_settings()}
 			</Accordion.Trigger>
 			<Accordion.Content class={accordionContentClass}>
-				<SettingsForm />
+				<SettingsForm {action} />
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion.Root>

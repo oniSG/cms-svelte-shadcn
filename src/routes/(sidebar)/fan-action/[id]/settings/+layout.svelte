@@ -27,7 +27,9 @@
 	const progressOffset = $derived(progressCircumference * (1 - processedPercent / 100));
 
 	async function handleSave() {
-		await saveHandlers.basicInfo?.();
+		const basicOk = (await saveHandlers.basicInfo?.()) ?? true;
+		const settingsOk = (await saveHandlers.settings?.()) ?? true;
+		if (!basicOk || !settingsOk) return;
 	}
 
 	function toggleRunning() {

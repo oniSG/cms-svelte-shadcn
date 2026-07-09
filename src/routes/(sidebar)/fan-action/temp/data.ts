@@ -10,6 +10,8 @@ export const data: FanAction[] = [
 		created_by: 'Budina Tomáš',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -72,6 +74,8 @@ export const data: FanAction[] = [
 		created_by: 'Novák Petr',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -93,6 +97,8 @@ export const data: FanAction[] = [
 		created_by: 'Svoboda Jan',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -114,6 +120,8 @@ export const data: FanAction[] = [
 		created_by: 'Dvořák Martin',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -200,6 +208,8 @@ export const data: FanAction[] = [
 		created_by: 'Černý Jakub',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -221,6 +231,8 @@ export const data: FanAction[] = [
 		created_by: 'Procházka Ondřej',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -242,6 +254,8 @@ export const data: FanAction[] = [
 		created_by: 'Kučera Lukáš',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -263,6 +277,8 @@ export const data: FanAction[] = [
 		created_by: 'Veselý Michal',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -284,6 +300,8 @@ export const data: FanAction[] = [
 		created_by: 'Horáček Filip',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -305,6 +323,8 @@ export const data: FanAction[] = [
 		created_by: 'Pospíšil Radek',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -368,6 +388,8 @@ export const data: FanAction[] = [
 		created_by: 'Blažek Vojtěch',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -389,6 +411,8 @@ export const data: FanAction[] = [
 		created_by: 'Kratochvíl Marek',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -410,6 +434,8 @@ export const data: FanAction[] = [
 		created_by: 'Fiala Zdeněk',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -431,6 +457,8 @@ export const data: FanAction[] = [
 		created_by: 'Sedláček Pavel',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -452,6 +480,8 @@ export const data: FanAction[] = [
 		created_by: 'Musil Daniel',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -473,6 +503,8 @@ export const data: FanAction[] = [
 		created_by: 'Hájek Roman',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -494,6 +526,8 @@ export const data: FanAction[] = [
 		created_by: 'Kopecký Stanislav',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -515,6 +549,8 @@ export const data: FanAction[] = [
 		created_by: 'Kolář Miroslav',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -536,6 +572,8 @@ export const data: FanAction[] = [
 		created_by: 'Růžička Tomáš',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -557,6 +595,8 @@ export const data: FanAction[] = [
 		created_by: 'Novotný Karel',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -607,6 +647,8 @@ export const data: FanAction[] = [
 		created_by: 'Marková Eva',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -628,6 +670,8 @@ export const data: FanAction[] = [
 		created_by: 'Horáková Jana',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -649,6 +693,8 @@ export const data: FanAction[] = [
 		created_by: 'Nováková Lucie',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -670,6 +716,8 @@ export const data: FanAction[] = [
 		created_by: 'Dvořáková Petra',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -691,6 +739,8 @@ export const data: FanAction[] = [
 		created_by: 'Budina Tomáš',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -712,6 +762,8 @@ export const data: FanAction[] = [
 		created_by: 'Novák Petr',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -733,6 +785,8 @@ export const data: FanAction[] = [
 		created_by: 'Svoboda Jan',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -754,6 +808,8 @@ export const data: FanAction[] = [
 		created_by: 'Dvořák Martin',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -775,6 +831,8 @@ export const data: FanAction[] = [
 		created_by: 'Černý Jakub',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -796,6 +854,8 @@ export const data: FanAction[] = [
 		created_by: 'Procházka Ondřej',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -858,6 +918,8 @@ export const data: FanAction[] = [
 		created_by: 'Kučera Lukáš',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -879,6 +941,8 @@ export const data: FanAction[] = [
 		created_by: 'Veselý Michal',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -900,6 +964,8 @@ export const data: FanAction[] = [
 		created_by: 'Horáček Filip',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -921,6 +987,8 @@ export const data: FanAction[] = [
 		created_by: 'Pospíšil Radek',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -942,6 +1010,8 @@ export const data: FanAction[] = [
 		created_by: 'Blažek Vojtěch',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -963,6 +1033,8 @@ export const data: FanAction[] = [
 		created_by: 'Kratochvíl Marek',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -984,6 +1056,8 @@ export const data: FanAction[] = [
 		created_by: 'Fiala Zdeněk',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1005,6 +1079,8 @@ export const data: FanAction[] = [
 		created_by: 'Sedláček Pavel',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1026,6 +1102,8 @@ export const data: FanAction[] = [
 		created_by: 'Musil Daniel',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1047,6 +1125,8 @@ export const data: FanAction[] = [
 		created_by: 'Hájek Roman',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1068,6 +1148,8 @@ export const data: FanAction[] = [
 		created_by: 'Kopecký Stanislav',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1089,6 +1171,8 @@ export const data: FanAction[] = [
 		created_by: 'Kolář Miroslav',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1110,6 +1194,8 @@ export const data: FanAction[] = [
 		created_by: 'Růžička Tomáš',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1131,6 +1217,8 @@ export const data: FanAction[] = [
 		created_by: 'Novotný Karel',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1152,6 +1240,8 @@ export const data: FanAction[] = [
 		created_by: 'Marková Eva',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1173,6 +1263,8 @@ export const data: FanAction[] = [
 		created_by: 'Horáková Jana',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1194,6 +1286,8 @@ export const data: FanAction[] = [
 		created_by: 'Nováková Lucie',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1215,6 +1309,8 @@ export const data: FanAction[] = [
 		created_by: 'Dvořáková Petra',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1236,6 +1332,8 @@ export const data: FanAction[] = [
 		created_by: 'Budina Tomáš',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1344,6 +1442,8 @@ export const data: FanAction[] = [
 		created_by: 'Novák Petr',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1365,6 +1465,8 @@ export const data: FanAction[] = [
 		created_by: 'Svoboda Jan',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1386,6 +1488,8 @@ export const data: FanAction[] = [
 		created_by: 'Dvořák Martin',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1407,6 +1511,8 @@ export const data: FanAction[] = [
 		created_by: 'Černý Jakub',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1428,6 +1534,8 @@ export const data: FanAction[] = [
 		created_by: 'Procházka Ondřej',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1449,6 +1557,8 @@ export const data: FanAction[] = [
 		created_by: 'Kučera Lukáš',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1470,6 +1580,8 @@ export const data: FanAction[] = [
 		created_by: 'Veselý Michal',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1491,6 +1603,8 @@ export const data: FanAction[] = [
 		created_by: 'Horáček Filip',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1512,6 +1626,8 @@ export const data: FanAction[] = [
 		created_by: 'Pospíšil Radek',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1533,6 +1649,8 @@ export const data: FanAction[] = [
 		created_by: 'Blažek Vojtěch',
 		active: false,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
@@ -1554,6 +1672,8 @@ export const data: FanAction[] = [
 		created_by: 'Kratochvíl Marek',
 		active: true,
 		transactionActions: false,
+		automaticStop: false,
+		plannedRunOut: false,
 		workflow: {
 			nodes: [
 				{
