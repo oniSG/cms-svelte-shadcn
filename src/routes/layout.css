@@ -29,6 +29,7 @@ body {
 	--accent: oklch(0.966 0.005 106.5);
 	--accent-foreground: oklch(0.228 0.013 107.4);
 	--destructive: oklch(0.577 0.245 27.325);
+	--success: oklch(0.723 0.219 149.579);
 	--border: oklch(0.93 0.007 106.5);
 	--input: oklch(0.93 0.007 106.5);
 	--ring: oklch(0.737 0.021 106.9);
@@ -51,6 +52,9 @@ body {
 	--sidebar-accent-foreground: oklch(0.228 0.013 107.4);
 	--sidebar-border: oklch(0.93 0.007 106.5);
 	--sidebar-ring: oklch(0.737 0.021 106.9);
+	--workflow-color-trigger: oklch(0.623 0.214 250);
+	--workflow-color-action: oklch(0.723 0.219 149.579);
+	--workflow-color-operator: oklch(0.705 0.191 55);
 	--chart-6: oklch(0.919 0.192 101.783);
 	--chart-7: oklch(0.539 0.294 296.537);
 }
@@ -71,6 +75,7 @@ body {
 	--accent: oklch(0.286 0.016 107.4);
 	--accent-foreground: oklch(0.988 0.003 106.5);
 	--destructive: oklch(0.704 0.191 22.216);
+	--success: oklch(0.723 0.219 149.579);
 	--border: oklch(1 0 0 / 10%);
 	--input: oklch(1 0 0 / 15%);
 	--ring: oklch(0.58 0.031 107.3);
@@ -87,6 +92,9 @@ body {
 	--sidebar-accent-foreground: oklch(0.988 0.003 106.5);
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.58 0.031 107.3);
+	--workflow-color-trigger: oklch(0.623 0.214 250);
+	--workflow-color-action: oklch(0.723 0.219 149.579);
+	--workflow-color-operator: oklch(0.705 0.191 55);
 }
 
 @theme inline {
@@ -104,10 +112,16 @@ body {
 	--color-chart-3: var(--chart-3);
 	--color-chart-2: var(--chart-2);
 	--color-chart-1: var(--chart-1);
+	--color-chart-6: var(--chart-6);
+	--color-chart-7: var(--chart-7);
+	--color-chart-8: var(--chart-8);
+	--color-chart-9: var(--chart-9);
+	--color-chart-10: var(--chart-10);
 	--color-ring: var(--ring);
 	--color-input: var(--input);
 	--color-border: var(--border);
 	--color-destructive: var(--destructive);
+	--color-success: var(--success);
 	--color-accent-foreground: var(--accent-foreground);
 	--color-accent: var(--accent);
 	--color-muted-foreground: var(--muted-foreground);
@@ -129,6 +143,51 @@ body {
 	--radius-2xl: calc(var(--radius) * 1.8);
 	--radius-3xl: calc(var(--radius) * 2.2);
 	--radius-4xl: calc(var(--radius) * 2.6);
+	--color-workflow-canvas-base: color-mix(
+		in oklch,
+		var(--color-muted) 20%,
+		var(--color-background)
+	);
+	--color-workflow-trigger: var(--workflow-color-trigger);
+	--color-workflow-action: var(--workflow-color-action);
+	--color-workflow-operator: var(--workflow-color-operator);
+	--animate-workflow-border-flow: workflow-border-flow 0.8s linear infinite;
+	--animate-workflow-edge-flow-slow: workflow-edge-flow 4s linear infinite;
+	--animate-workflow-edge-flow-fast: workflow-edge-flow 0.5s linear infinite;
+
+	@keyframes workflow-border-flow {
+		to {
+			stroke-dashoffset: -18;
+		}
+	}
+
+	@keyframes workflow-edge-flow {
+		to {
+			stroke-dashoffset: -24;
+		}
+	}
+}
+
+@utility workflow-node-editing-border {
+	animation: var(--animate-workflow-border-flow);
+	stroke-dasharray: 5 4;
+}
+
+@layer components {
+	.workflow-flow .svelte-flow__edge-path {
+		stroke-dasharray: 6 6;
+		animation: var(--animate-workflow-edge-flow-slow);
+	}
+
+	.workflow-flow-running .svelte-flow__edge-path {
+		animation: var(--animate-workflow-edge-flow-fast);
+	}
+
+	.workflow-flow-locked .svelte-flow__nodes,
+	.workflow-flow-locked .svelte-flow__edges,
+	.workflow-flow-locked .svelte-flow__edge-labels {
+		filter: grayscale(1);
+	}
 }
 
 /* Range calendar: half-cell accent band for start/end dates */
@@ -151,6 +210,10 @@ body {
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
+	}
+	[data-slot='hover-card-trigger'],
+	[data-slot='tooltip-trigger'] {
+		cursor: pointer;
 	}
 	body {
 		@apply bg-background text-foreground;

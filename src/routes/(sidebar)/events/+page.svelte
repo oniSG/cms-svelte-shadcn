@@ -3,7 +3,7 @@
 	import PageHeader from '$lib/components/custom/sidebar/page-header.svelte';
 	import DateRangePicker from './compoents/date-range-picker.svelte';
 	import DeliveryChart from './compoents/delivery-chart.svelte';
-	import InfoDrawer from './compoents/info-drawer.svelte';
+	import InfoDrawer from '$lib/components/custom/info-drawer.svelte';
 	import KpiCards from './compoents/kpi-cards.svelte';
 	import LinksTable from './compoents/links-table.svelte';
 	import MetricsTable from './compoents/metrics-table.svelte';
