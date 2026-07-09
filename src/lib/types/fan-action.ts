@@ -14,5 +14,6 @@ export type FanAction = {
 	created_at: Date;
 	created_by: string;
 	active: boolean;
+	transactionActions: boolean;
 	workflow: FanActionWorkflow;
 };

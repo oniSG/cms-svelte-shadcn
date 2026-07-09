@@ -9,6 +9,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-01-01'),
 		created_by: 'Budina Tomáš',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -70,6 +71,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-02-02'),
 		created_by: 'Novák Petr',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -90,6 +92,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-03-03'),
 		created_by: 'Svoboda Jan',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -110,6 +113,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-04-04'),
 		created_by: 'Dvořák Martin',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -190,6 +194,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-05-05'),
 		created_by: 'Černý Jakub',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -210,6 +215,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-06-06'),
 		created_by: 'Procházka Ondřej',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -230,6 +236,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-07-07'),
 		created_by: 'Kučera Lukáš',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -250,6 +257,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-08-08'),
 		created_by: 'Veselý Michal',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -270,6 +278,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-09-09'),
 		created_by: 'Horáček Filip',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -290,6 +299,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-10-10'),
 		created_by: 'Pospíšil Radek',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -352,6 +362,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-11-11'),
 		created_by: 'Blažek Vojtěch',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -372,6 +383,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-12-12'),
 		created_by: 'Kratochvíl Marek',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -392,6 +404,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-01-13'),
 		created_by: 'Fiala Zdeněk',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -412,6 +425,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-02-14'),
 		created_by: 'Sedláček Pavel',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -432,6 +446,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-03-15'),
 		created_by: 'Musil Daniel',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -452,6 +467,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-04-16'),
 		created_by: 'Hájek Roman',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -472,6 +488,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-05-17'),
 		created_by: 'Kopecký Stanislav',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -492,6 +509,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-06-18'),
 		created_by: 'Kolář Miroslav',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -512,6 +530,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-07-19'),
 		created_by: 'Růžička Tomáš',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -532,6 +551,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-08-20'),
 		created_by: 'Novotný Karel',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -581,6 +601,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-09-21'),
 		created_by: 'Marková Eva',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -601,6 +622,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-10-22'),
 		created_by: 'Horáková Jana',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -621,6 +643,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-11-23'),
 		created_by: 'Nováková Lucie',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -641,6 +664,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2024-12-24'),
 		created_by: 'Dvořáková Petra',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -661,6 +685,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-01-25'),
 		created_by: 'Budina Tomáš',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -681,6 +706,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-02-26'),
 		created_by: 'Novák Petr',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -701,6 +727,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-03-27'),
 		created_by: 'Svoboda Jan',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -721,6 +748,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-04-28'),
 		created_by: 'Dvořák Martin',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -741,6 +769,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-05-01'),
 		created_by: 'Černý Jakub',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -761,6 +790,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-06-02'),
 		created_by: 'Procházka Ondřej',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -822,6 +852,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-07-03'),
 		created_by: 'Kučera Lukáš',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -842,6 +873,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-08-04'),
 		created_by: 'Veselý Michal',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -862,6 +894,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-09-05'),
 		created_by: 'Horáček Filip',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -882,6 +915,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-10-06'),
 		created_by: 'Pospíšil Radek',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -902,6 +936,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-11-07'),
 		created_by: 'Blažek Vojtěch',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -922,6 +957,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-12-08'),
 		created_by: 'Kratochvíl Marek',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -942,6 +978,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-01-09'),
 		created_by: 'Fiala Zdeněk',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -962,6 +999,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-02-10'),
 		created_by: 'Sedláček Pavel',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -982,6 +1020,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-03-11'),
 		created_by: 'Musil Daniel',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1002,6 +1041,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-04-12'),
 		created_by: 'Hájek Roman',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1022,6 +1062,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-05-13'),
 		created_by: 'Kopecký Stanislav',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1042,6 +1083,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-06-14'),
 		created_by: 'Kolář Miroslav',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1062,6 +1104,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-07-15'),
 		created_by: 'Růžička Tomáš',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1082,6 +1125,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-08-16'),
 		created_by: 'Novotný Karel',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1102,6 +1146,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-09-17'),
 		created_by: 'Marková Eva',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1122,6 +1167,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-10-18'),
 		created_by: 'Horáková Jana',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1142,6 +1188,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-11-19'),
 		created_by: 'Nováková Lucie',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1162,6 +1209,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2025-12-20'),
 		created_by: 'Dvořáková Petra',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1182,6 +1230,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-01-21'),
 		created_by: 'Budina Tomáš',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1289,6 +1338,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-02-22'),
 		created_by: 'Novák Petr',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1309,6 +1359,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-03-23'),
 		created_by: 'Svoboda Jan',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1329,6 +1380,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-04-24'),
 		created_by: 'Dvořák Martin',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1349,6 +1401,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-05-25'),
 		created_by: 'Černý Jakub',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1369,6 +1422,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-06-26'),
 		created_by: 'Procházka Ondřej',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1389,6 +1443,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-07-27'),
 		created_by: 'Kučera Lukáš',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1409,6 +1464,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-08-28'),
 		created_by: 'Veselý Michal',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1429,6 +1485,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-09-01'),
 		created_by: 'Horáček Filip',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1449,6 +1506,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-10-02'),
 		created_by: 'Pospíšil Radek',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1469,6 +1527,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-11-03'),
 		created_by: 'Blažek Vojtěch',
 		active: false,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{
@@ -1489,6 +1548,7 @@ export const data: FanAction[] = [
 		created_at: new Date('2026-12-04'),
 		created_by: 'Kratochvíl Marek',
 		active: true,
+		transactionActions: false,
 		workflow: {
 			nodes: [
 				{

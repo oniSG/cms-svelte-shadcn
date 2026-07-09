@@ -7,14 +7,16 @@
 	import ChartColumn from '@lucide/svelte/icons/chart-column';
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
-	import { setWorkflowRunning } from './shared/editing-context.js';
+	import { setWorkflowRunning, setFanActionSaveHandlers, type FanActionSaveHandlers } from './shared/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { children } = $props();
 
 	let isRunning = $state(false);
+	const saveHandlers: FanActionSaveHandlers = {};
 
 	setWorkflowRunning(() => isRunning);
+	setFanActionSaveHandlers(saveHandlers);
 
 	const actionId = $derived(Number(page.params.id));
 	const action = $derived(data.find((item) => item.id === actionId));
@@ -24,8 +26,8 @@
 	const progressCircumference = 2 * Math.PI * progressRadius;
 	const progressOffset = $derived(progressCircumference * (1 - processedPercent / 100));
 
-	function handleSave() {
-		console.log('save fan action', actionId);
+	async function handleSave() {
+		await saveHandlers.basicInfo?.();
 	}
 
 	function toggleRunning() {

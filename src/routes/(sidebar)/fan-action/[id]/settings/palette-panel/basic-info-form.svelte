@@ -11,6 +11,7 @@
 	import MultiSelectCombobox from '$lib/components/custom/multi-select-combobox.svelte';
 	import type { FanAction } from '$lib/types/fan-action.js';
 	import { allTags as tagOptions } from '../../../temp/options.js';
+	import { getFanActionSaveHandlers } from '../shared/editing-context.js';
 	import * as m from '$lib/paraglide/messages.js';
 
 	const basicInfoFormSchema = z.object({
@@ -36,7 +37,9 @@
 		resetForm: false
 	});
 
-	const { form: formData, enhance, reset } = form;
+	const { form: formData, enhance, reset, validateForm } = form;
+
+	const saveHandlers = getFanActionSaveHandlers();
 
 	$effect(() => {
 		const current = untrack(() => action);
@@ -46,10 +49,30 @@
 			data: {
 				name: current.event,
 				description: current.description,
-				transactionActions: false,
+				transactionActions: current.transactionActions,
 				tags: [...current.tags]
 			}
 		});
+	});
+
+	$effect(() => {
+		const current = action;
+		if (!saveHandlers || !current) return;
+
+		saveHandlers.basicInfo = async () => {
+			const result = await validateForm({ update: true });
+			if (!result.valid) return false;
+
+			current.event = result.data.name;
+			current.description = result.data.description;
+			current.transactionActions = result.data.transactionActions;
+			current.tags = [...result.data.tags];
+			return true;
+		};
+
+		return () => {
+			delete saveHandlers.basicInfo;
+		};
 	});
 </script>
 

@@ -34,3 +34,17 @@ export function setWorkflowRunning(getter: WorkflowRunning) {
 export function getWorkflowRunning(): WorkflowRunning | undefined {
 	return getContext<WorkflowRunning | undefined>(WORKFLOW_RUNNING_KEY);
 }
+
+export const FAN_ACTION_SAVE_HANDLERS_KEY = 'fan-action-save-handlers';
+
+export type FanActionSaveHandlers = {
+	basicInfo?: () => Promise<boolean>;
+};
+
+export function setFanActionSaveHandlers(handlers: FanActionSaveHandlers) {
+	setContext(FAN_ACTION_SAVE_HANDLERS_KEY, handlers);
+}
+
+export function getFanActionSaveHandlers(): FanActionSaveHandlers | undefined {
+	return getContext<FanActionSaveHandlers | undefined>(FAN_ACTION_SAVE_HANDLERS_KEY);
+}
